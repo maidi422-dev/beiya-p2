@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北雅 P2 · 全景地图 · 53 题思维导图</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --beiya:#C0392B;--beiya-dark:#9B2C20;--beiya-soft:#FDECEA;
+    --gold:#B8894A;--gold-soft:#FBF4EA;--gold-dark:#9A6F35;
+    --ink:#1E1E22;--ink-2:#4A4A52;--ink-3:#8A8A92;
+    --line:#E8E8EC;--bg:#FAFAFA;--white:#FFFFFF;
+    --ok:#2E7D32;
+    --c-person:#3A5BB8;--c-person-bg:#EDF2FE;
+    --c-place:#2F8F5C;--c-place-bg:#E8F5EE;
+    --c-thing:#7E4DAA;--c-thing-bg:#F3EBFB;
+    --c-event:#B86A2A;--c-event-bg:#FFF2E5;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter','PingFang SC','Microsoft YaHei',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
+  a{color:inherit;text-decoration:none;cursor:pointer}
+
+  .topbar{position:sticky;top:0;z-index:40;background:var(--white);border-bottom:1px solid var(--line);padding:14px 24px;display:flex;align-items:center;gap:18px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:var(--beiya);white-space:nowrap}
+  .brand-mark{width:28px;height:28px;background:var(--beiya);color:#fff;display:flex;align-items:center;justify-content:center;border-radius:4px;font-family:'Noto Serif SC',serif;font-size:14px}
+  .nav{display:flex;gap:2px;margin-left:8px;flex:1}
+  .nav a{padding:7px 14px;border-radius:6px;font-size:13px;color:var(--ink-2);font-weight:500;white-space:nowrap}
+  .nav a:hover{background:var(--beiya-soft);color:var(--beiya)}
+  .nav a.active{background:var(--beiya);color:#fff}
+
+  .wrap{max-width:1280px;margin:0 auto;padding:28px 24px 80px}
+  .crumb{font-size:12.5px;color:var(--ink-3);margin-bottom:18px;letter-spacing:.3px}
+
+  /* HERO · 全局概览 */
+  .hero{background:linear-gradient(135deg,var(--ink) 0%,#3A3A40 100%);color:#fff;border-radius:18px;padding:32px 36px;margin-bottom:22px;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-80px;right:-80px;width:340px;height:340px;background:radial-gradient(circle,rgba(184,137,74,.28) 0%,transparent 70%);pointer-events:none}
+  .hero-title{font-family:'Noto Serif SC',serif;font-size:24px;font-weight:700;margin-bottom:8px;position:relative;z-index:2}
+  .hero-sub{font-size:13.5px;opacity:.85;position:relative;z-index:2;margin-bottom:20px;line-height:1.7;max-width:700px}
+  .hero-row{display:flex;gap:32px;flex-wrap:wrap;position:relative;z-index:2}
+  .hero-stat{flex:1;min-width:100px}
+  .hero-num{font-family:'Noto Serif SC',serif;font-size:38px;font-weight:700;line-height:1}
+  .hero-num.gold{color:var(--gold)}
+  .hero-lbl{font-size:12.5px;opacity:.75;margin-top:4px}
+
+  /* 搜索框 */
+  .search-box{position:relative;max-width:500px;margin:0 auto 30px}
+  .search-box input{width:100%;padding:14px 18px 14px 48px;border:1.5px solid var(--line);border-radius:12px;font-size:14.5px;font-family:inherit;outline:none;transition:all .15s;background:var(--white);box-shadow:0 2px 8px rgba(0,0,0,.04)}
+  .search-box input:focus{border-color:var(--beiya);box-shadow:0 0 0 3px var(--beiya-soft)}
+  .search-box::before{content:'🔍';position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:18px}
+  .search-results{position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid var(--line);border-radius:8px;margin-top:4px;max-height:320px;overflow-y:auto;z-index:20;box-shadow:0 8px 24px rgba(0,0,0,.1);display:none}
+  .search-results.show{display:block}
+  .search-hit{padding:10px 16px;cursor:pointer;font-size:13px;border-bottom:1px dashed var(--line);display:flex;align-items:center;gap:8px}
+  .search-hit:hover{background:var(--beiya-soft)}
+  .search-hit:last-child{border-bottom:none}
+  .sh-type{font-size:11px;padding:1px 7px;border-radius:8px;font-weight:600;flex-shrink:0}
+  .sh-type.q{background:var(--beiya-soft);color:var(--beiya)}
+  .sh-type.story{background:var(--gold-soft);color:var(--gold-dark)}
+  .sh-type.asset{background:#EDF2FE;color:#3A5BB8}
+
+  /* 章节 */
+  .section{margin-bottom:34px}
+  .section-h{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+  .section-h .emoji{font-size:22px}
+  .section-sub{font-size:13px;color:var(--ink-3);margin-bottom:16px;line-height:1.7}
+
+  /* 七大故事 导图 */
+  .stories-map{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+  .story-node{background:#fff;border:1px solid var(--line);border-left:4px solid var(--beiya);border-radius:12px;padding:18px 20px;transition:all .15s;cursor:pointer}
+  .story-node:hover{box-shadow:0 8px 24px rgba(192,57,43,.1);transform:translateY(-2px);border-left-color:var(--gold)}
+  .story-node.flagship{background:linear-gradient(135deg,#fff 0%,var(--gold-soft) 100%);border-left-color:var(--gold)}
+  .sn-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .sn-emoji{font-size:36px;line-height:1}
+  .sn-main{flex:1}
+  .sn-name{font-family:'Noto Serif SC',serif;font-weight:700;font-size:16px}
+  .sn-name-cn{font-size:12px;color:var(--ink-3);margin-left:6px}
+  .sn-count{background:var(--beiya);color:#fff;font-family:'Noto Serif SC',serif;font-weight:700;padding:3px 10px;border-radius:10px;font-size:12px}
+  .story-node.flagship .sn-count{background:var(--gold)}
+  .sn-pct{font-size:11px;color:var(--ink-3);margin-top:3px}
+
+  /* 核心素材预览 */
+  .sn-core{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
+  .sn-core-lbl{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.4px;margin-right:4px;font-weight:600;display:inline-flex;align-items:center}
+  .sn-pill{display:inline-flex;align-items:center;gap:3px;font-size:11.5px;padding:2px 8px;border-radius:10px;font-weight:500}
+  .sn-pill.person{background:var(--c-person-bg);color:var(--c-person)}
+  .sn-pill.place{background:var(--c-place-bg);color:var(--c-place)}
+  .sn-pill.thing{background:var(--c-thing-bg);color:var(--c-thing)}
+  .sn-pill.event{background:var(--c-event-bg);color:var(--c-event)}
+
+  /* Q 列表 · 紧凑 chip */
+  .sn-qs{display:flex;flex-wrap:wrap;gap:3px;margin-top:10px}
+  .q-chip{background:#F4F4F6;color:var(--ink-2);border-radius:5px;padding:2px 6px;font-size:10.5px;font-weight:600;font-family:'Noto Serif SC',serif;cursor:pointer;transition:all .12s}
+  .q-chip:hover{background:var(--beiya);color:#fff}
+
+  /* 5 技巧地图 */
+  .skills-map{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+  .skill-node{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 16px;cursor:pointer;transition:all .15s}
+  .skill-node:hover{border-color:var(--beiya);box-shadow:0 4px 12px rgba(192,57,43,.08)}
+  .skill-node .sk-em{font-size:24px;margin-bottom:5px}
+  .skill-node .sk-name{font-family:'Noto Serif SC',serif;font-weight:700;font-size:14px;color:var(--ink);margin-bottom:3px}
+  .skill-node .sk-desc{font-size:11.5px;color:var(--ink-3);line-height:1.6}
+
+  /* 跨故事复现素材 */
+  .cross-map{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px 24px}
+  .cross-row{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px dashed var(--line);flex-wrap:wrap}
+  .cross-row:last-child{border-bottom:none}
+  .cr-asset{display:flex;align-items:center;gap:6px;min-width:180px}
+  .cr-emoji{font-size:20px}
+  .cr-name{font-weight:700;font-size:14px;color:var(--ink)}
+  .cr-count{background:var(--beiya);color:#fff;border-radius:10px;padding:2px 8px;font-size:10.5px;font-weight:700;margin-left:4px}
+  .cr-stories{display:flex;flex-wrap:wrap;gap:6px;flex:1}
+  .cr-story-tag{display:inline-flex;align-items:center;gap:4px;background:#F4F4F6;padding:4px 10px;border-radius:12px;font-size:12px;color:var(--ink-2);cursor:pointer;transition:all .12s}
+  .cr-story-tag:hover{background:var(--beiya-soft);color:var(--beiya)}
+  .cr-q-count{background:var(--ink-3);color:#fff;font-size:10px;padding:1px 6px;border-radius:8px;font-weight:600}
+
+  /* 四大分类视角 */
+  .cat-map{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+  .cat-node{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px 18px;text-align:center;cursor:pointer;transition:all .15s}
+  .cat-node:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.06)}
+  .cat-node.person{border-color:var(--c-person)}
+  .cat-node.place{border-color:var(--c-place)}
+  .cat-node.thing{border-color:var(--c-thing)}
+  .cat-node.event{border-color:var(--c-event)}
+  .cat-node .cn-em{font-size:28px;margin-bottom:4px}
+  .cat-node .cn-name{font-family:'Noto Serif SC',serif;font-weight:700;font-size:15px;margin-bottom:3px}
+  .cat-node .cn-num{font-size:11.5px;color:var(--ink-3);font-weight:500}
+
+  /* 手机 */
+  @media(max-width:640px){
+    .wrap{padding:14px 12px 70px}
+    .hero{padding:22px}
+    .hero-title{font-size:18px}
+    .hero-num{font-size:28px}
+    .stories-map{grid-template-columns:1fr}
+    .search-box{margin-bottom:20px}
+  }
+
+  /* ═══ 手机端响应式适配 ═══ */
+  @media (max-width: 640px) {
+    html{font-size:14px}
+    body{line-height:1.6}
+
+    /* 顶栏压缩 */
+    .topbar{padding:10px 12px !important;gap:8px !important;flex-wrap:wrap;position:sticky;top:0}
+    .topbar .brand{font-size:13px !important}
+    .topbar .brand-mark{width:24px;height:24px;font-size:12px}
+    .topbar .nav{flex:1 1 100% !important;order:3;overflow-x:auto;scrollbar-width:none;gap:0 !important;padding:4px 0;border-top:1px solid var(--line,#E8E8EC);margin:8px 0 0 !important}
+    .topbar .nav::-webkit-scrollbar{display:none}
+    .topbar .nav a{padding:6px 10px !important;font-size:12px !important;flex-shrink:0;white-space:nowrap}
+    .search-wrap{display:none !important}
+    .role-sw{margin:0 !important;order:2}
+    .role-opt{padding:3px 8px !important;font-size:11px !important}
+
+    /* 主体 padding 减小 */
+    .wrap{padding:14px 12px 70px !important;max-width:100% !important}
+    .crumb{font-size:11.5px !important;margin-bottom:12px !important}
+
+    /* 所有 grid 一列化 */
+    .q-grid, .grid, .story-grid, .jump-mini-grid{grid-template-columns:1fr !important}
+    .row2, .row3{grid-template-columns:1fr !important}
+
+    /* 故事首页 - 故事卡 */
+    .story, .story.flagship, .story.runner-up{padding:18px !important}
+    .story .story-name{font-size:20px !important}
+    .entries{grid-template-columns:1fr !important}
+
+    /* 故事页 story-head */
+    .story-head{padding:20px !important;gap:16px !important}
+    .sh-emoji{font-size:58px !important;width:70px !important;height:70px !important}
+    .sh-name{font-size:22px !important}
+    .sh-desc{font-size:13px !important}
+    .sh-stats{gap:10px !important}
+    .sh-stat{padding-right:10px !important}
+    .sh-stat-num{font-size:16px !important}
+
+    /* 故事页 core-strip 分组 */
+    .core-group{flex-direction:column !important;align-items:stretch !important;padding:12px 0 0 !important}
+    .core-group-label{min-width:0 !important;padding-top:0 !important;margin-bottom:8px !important;font-size:11px !important}
+    .core-group-list{gap:10px !important}
+    .core-strip-title .hint{display:none}
+
+    /* gold-strip */
+    .gold-strip{padding:14px 16px !important}
+    .gs-grid{gap:6px !important}
+    .gs-chip{padding:6px 10px !important;font-size:12px !important}
+
+    /* filter-row */
+    .filter-row{gap:5px !important}
+    .filter-chip{padding:5px 10px !important;font-size:11.5px !important}
+
+    /* Q 卡片 */
+    .q-card{padding:14px 16px !important}
+    .qc-title{font-size:13px !important}
+    .qc-hook{font-size:12px !important}
+
+    /* 详情页 q-header */
+    .q-header{padding:14px 16px !important;margin-bottom:16px !important}
+    .q-title-en{font-size:15px !important;line-height:1.5 !important}
+    .q-tags{flex-wrap:wrap !important;gap:5px !important}
+    .tag{font-size:11px !important;padding:2px 8px !important}
+    .q-actions{flex-wrap:wrap !important;gap:5px !important}
+    .act{padding:5px 9px !important;font-size:11.5px !important}
+
+    /* prep-strip */
+    .prep-strip{flex-wrap:wrap !important;padding:10px 12px !important;gap:5px !important}
+    .prep-chip{font-size:12px !important;padding:3px 8px !important}
+    .prep-label{font-size:11px !important}
+
+    /* tier-tabs (详情页) */
+    .tier-tabs{overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap !important;padding-bottom:4px;margin-bottom:14px !important}
+    .tier-tabs::-webkit-scrollbar{display:none}
+    .tier-tab{padding:7px 11px !important;font-size:12px !important;white-space:nowrap;flex-shrink:0 !important}
+
+    /* outline sections */
+    .outline{padding:16px !important}
+    .sec{padding:14px !important}
+    .sec-body{font-size:13.5px !important}
+    .bullet{padding:5px 0 5px 20px !important;font-size:13.5px !important}
+
+    /* 参考范文 */
+    .ref-body{padding:16px 18px !important;font-size:13.5px !important;line-height:1.8 !important}
+
+    /* xrefs */
+    .xrefs{grid-template-columns:1fr !important}
+    .xref{padding:14px !important}
+
+    /* Hero (仪表盘) */
+    .hero{padding:22px !important;border-radius:14px !important}
+    .hero-num{font-size:30px !important}
+    .hero-row{gap:14px !important}
+    .hero-stat{min-width:100px !important}
+
+    /* FAB 方法论按钮 */
+    .fab{bottom:18px !important;right:18px !important;padding:10px 14px !important;font-size:12px !important}
+
+    /* jump-mini */
+    .jump-mini{padding:16px !important}
+
+    /* 登录页 */
+    .login-wrap, .login-card{padding:24px !important;max-width:100% !important;margin:0 12px !important}
+
+    /* 传统分类页 / 复现元素页 */
+    .tab-bar{flex-wrap:wrap !important}
+    .asset-grid{grid-template-columns:1fr 1fr !important}
+
+    /* 方法论页 · 各种 sec 排版 */
+    .mtd-hero{padding:24px 18px !important}
+    .mtd-hero h1{font-size:22px !important}
+
+    /* 仪表盘 card padding 减小 */
+    .card{padding:16px !important}
+    .card-title{font-size:12px !important}
+
+    /* 通用 padding 缩减 */
+    .panel, .panel-section, .cta-bar{padding:14px 16px !important}
+  }
+
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand"><div class="brand-mark">雅</div>北雅 · IELTS Speaking</div>
+  <nav class="nav">
+    <a href="学生端_素材宇宙首页_v1.html">🌌 素材宇宙</a>
+    <a href="学生端_传统分类页_v1.html">📋 传统分类</a>
+    <a href="学生端_复现元素页_v1.html">🏷️ 复现元素</a>
+    <a href="学生端_方法论页_v1.html">🎯 方法论</a>
+    <a class="active" href="学生端_全景地图_v1.html">🗺 全景地图</a>
+    <a href="学生端_进度仪表盘_v1.html">⭐ 我的</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="crumb"><a href="学生端_素材宇宙首页_v1.html">🌌 素材宇宙</a> › <span>🗺 全景地图</span></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-title">🗺 P2 口语素材宇宙 · 全景地图</div>
+    <div class="hero-sub">
+      一页看完整张"知识地图"——53 题 · 7 个故事 · 5 大技巧 · 所有反复出现的核心素材。
+      想快速找到某一题 / 某个人物 / 某个地点？用上面搜索框一键定位。
+    </div>
+    <div class="hero-row">
+      <div class="hero-stat"><div class="hero-num gold">53</div><div class="hero-lbl">P2 真题</div></div>
+      <div class="hero-stat"><div class="hero-num">7</div><div class="hero-lbl">故事宇宙</div></div>
+      <div class="hero-stat"><div class="hero-num">5</div><div class="hero-lbl">拓展技巧</div></div>
+      <div class="hero-stat"><div class="hero-num" id="heroAssetNum">—</div><div class="hero-lbl">核心复现素材</div></div>
+      <div class="hero-stat"><div class="hero-num">4</div><div class="hero-lbl">题目分类</div></div>
+    </div>
+  </section>
+
+  <!-- 搜索 -->
+  <div class="search-box">
+    <input id="searchInput" type="text" placeholder="搜 Q1 / 题目关键词 / Lucy / potluck / Scenery ...">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+
+  <!-- 7 故事 地图 -->
+  <section class="section">
+    <div class="section-h"><span class="emoji">🎭</span> 7 个故事 · 每个故事的核心素材</div>
+    <div class="section-sub">点一张卡进入对应故事 · 每张卡显示本故事的人/地/物/事核心素材 + 所有题号</div>
+    <div class="stories-map" id="storiesMap"></div>
+  </section>
+
+  <!-- 跨故事复现 -->
+  <section class="section">
+    <div class="section-h"><span class="emoji">🔗</span> 跨故事反复出现的核心素材</div>
+    <div class="section-sub">同一个素材能串多个故事 · 点故事标签看对应题</div>
+    <div class="cross-map" id="crossMap"></div>
+  </section>
+
+  <!-- 4 大分类 -->
+  <section class="section">
+    <div class="section-h"><span class="emoji">📋</span> 按传统分类</div>
+    <div class="section-sub">点分类看对应的所有题</div>
+    <div class="cat-map" id="catMap"></div>
+  </section>
+
+  <!-- 5 技巧 -->
+  <section class="section">
+    <div class="section-h"><span class="emoji">🛠</span> 5 大 S3 技巧</div>
+    <div class="section-sub">S3 主战场上用 · 点进方法论查看用法</div>
+    <div class="skills-map">
+      <a class="skill-node" href="学生端_方法论页_v1.html#skill1"><div class="sk-em">🎭</div><div class="sk-name">① 主体+客体</div><div class="sk-desc">描述事物→延伸到"我/我的感受"</div></a>
+      <a class="skill-node" href="学生端_方法论页_v1.html#skill2"><div class="sk-em">⚖️</div><div class="sk-name">② 对比手法</div><div class="sk-desc">"去年 / 今年"、"别人 / 我"</div></a>
+      <a class="skill-node" href="学生端_方法论页_v1.html#skill3"><div class="sk-em">🎯</div><div class="sk-name">③ 举例细化</div><div class="sk-desc">具体场景 · 人说了什么 · 看到什么</div></a>
+      <a class="skill-node" href="学生端_方法论页_v1.html#skill4"><div class="sk-em">💭</div><div class="sk-name">④ 睹物思人</div><div class="sk-desc">S4 收尾 · "每次看到 X 就想起 Y"</div></a>
+      <a class="skill-node" href="学生端_方法论页_v1.html#skill5"><div class="sk-em">🔥</div><div class="sk-name">⑤ 3D 成功公式</div><div class="sk-desc">自律 + 好方法 + 天赋</div></a>
+    </div>
+  </section>
+
+</main>
+
+<script src="data.js"></script>
+<script>
+
+// ═══ 每故事核心素材硬编码（基于 P2_DATA 的 group_keywords 精选）═══
+const CORE_PER_STORY = {
+  'Creative Cooking': [
+    {t:'person',e:'👩',n:'Lucy'},
+    {t:'person',e:'👴',n:'Grandpa'},
+    {t:'person',e:'👩‍🏫',n:'老师'},
+    {t:'person',e:'👵',n:'邻居'},
+    {t:'place',e:'🏠',n:'老师家'},
+    {t:'thing',e:'🍗',n:'Fruit Roast Chicken'},
+    {t:'thing',e:'📖',n:'Family recipe book'},
+    {t:'event',e:'🥘',n:'Potluck dinner'},
+    {t:'event',e:'🥮',n:'中秋节'}
+  ],
+  'Scenery': [
+    {t:'place',e:'⛩',n:'White Cloud Temple'},
+    {t:'place',e:'🏞',n:'White Cloud Park'},
+    {t:'place',e:'🕌',n:'Thailand temple'},
+    {t:'person',e:'👩',n:'Lucy'},
+    {t:'person',e:'👩‍🦰',n:'环保陌生女士'},
+    {t:'person',e:'📸',n:'Photographer'},
+    {t:'thing',e:'🧱',n:'LEGO'},
+    {t:'thing',e:'🎸',n:'Guitar'}
+  ],
+  'Technology': [
+    {t:'thing',e:'💻',n:'MacBook'},
+    {t:'thing',e:'🖥',n:'Windows laptop'},
+    {t:'place',e:'🏬',n:'二手电子城'},
+    {t:'person',e:'👩',n:'Lucy'},
+    {t:'person',e:'👨‍💼',n:'Friendly owner'}
+  ],
+  'Arts': [
+    {t:'person',e:'👩',n:'Lucy'},
+    {t:'thing',e:'🎸',n:'Guitar'},
+    {t:'thing',e:'🎨',n:'Drawings'},
+    {t:'event',e:'🎤',n:'学校音乐节'},
+    {t:'event',e:'🎵',n:'Picnic 唱歌比赛'}
+  ],
+  'Sports': [
+    {t:'person',e:'👩',n:'Lucy'},
+    {t:'person',e:'🧑‍🏫',n:'教练'},
+    {t:'event',e:'🌅',n:'6am 训练'}
+  ],
+  'Movies': [
+    {t:'thing',e:'🎬',n:'Rush Hour'},
+    {t:'thing',e:'📖',n:'明代故事'},
+    {t:'person',e:'🥋',n:'Jackie Chan'},
+    {t:'person',e:'👧',n:'女主角/侦探'}
+  ],
+  'Weight Loss': [
+    {t:'thing',e:'📘',n:'营养学的书'},
+    {t:'person',e:'👩',n:'Lucy'}
+  ]
+};
+
+// ═══ 跨故事复现素材（from ASSETS index in data.js）═══
+// 从 data.js 的 ASSETS 里动态提取哪些 asset 跨多个故事
+function buildCrossStoryMap(){
+  const P2 = window.P2_DATA || [];
+  const assets = {};
+  // 基于 group_keywords 聚合
+  P2.forEach(q=>{
+    (q.group_keywords||[]).forEach(kw=>{
+      const clean = kw.replace(/[（）()]/g,'').trim();
+      if (clean.length > 30 || clean.length < 2) return;
+      if (!assets[clean]) assets[clean] = { stories: new Set(), qs: [] };
+      assets[clean].stories.add(q.group);
+      assets[clean].qs.push(q.global_id);
+    });
+  });
+  // 只保留跨 ≥2 故事的
+  const cross = Object.entries(assets)
+    .filter(([k,v])=>v.stories.size >= 2)
+    .map(([k,v])=>({
+      name: k,
+      emoji: guessEmoji(k),
+      stories: [...v.stories],
+      qs: v.qs
+    }))
+    .sort((a,b)=>b.stories.length - a.stories.length)
+    .slice(0, 10);
+  return cross;
+}
+function guessEmoji(kw){
+  const low = kw.toLowerCase();
+  if (low.includes('lucy')) return '👩';
+  if (low.includes('grandpa')) return '👴';
+  if (low.includes('potluck')) return '🥘';
+  if (low.includes('mid-autumn')) return '🥮';
+  if (low.includes('chicken')) return '🍗';
+  if (low.includes('recipe')) return '📖';
+  if (low.includes('macbook')) return '💻';
+  if (low.includes('lake')) return '🏞';
+  if (low.includes('guitar')) return '🎸';
+  if (low.includes('park')) return '🌳';
+  if (low.includes('temple')) return '⛩';
+  return '🏷';
+}
+
+// ═══ 渲染 ═══
+(function init(){
+  if (!window.P2_DATA || !window.STORIES) return setTimeout(init, 50);
+
+  // Hero 数字
+  let assetCount = 0;
+  Object.values(CORE_PER_STORY).forEach(arr=>assetCount += arr.length);
+  document.getElementById('heroAssetNum').textContent = assetCount;
+
+  // Stories map
+  const smDom = document.getElementById('storiesMap');
+  window.STORIES.forEach(s=>{
+    const qs = window.P2_DATA.filter(q=>q.group===s.name);
+    const core = CORE_PER_STORY[s.name] || [];
+    const coreHtml = core.map(c=>`<span class="sn-pill ${c.t}">${c.e} ${c.n}</span>`).join('');
+    const qChips = qs.map(q=>`<span class="q-chip" onclick="event.stopPropagation();location.href='题目详情_v1.html?q=${q.global_id}'" title="${q.title.replace(/"/g,'&quot;')}">Q${q.global_id}</span>`).join('');
+    const isFlag = s.name === 'Creative Cooking';
+    const node = document.createElement('div');
+    node.className = 'story-node' + (isFlag ? ' flagship' : '');
+    node.innerHTML = `
+      <div class="sn-head">
+        <div class="sn-emoji">${s.emoji}</div>
+        <div class="sn-main">
+          <div class="sn-name">${s.name}<span class="sn-name-cn">· ${s.cn}</span></div>
+          <div class="sn-pct">${s.pct}% · ${isFlag?'★ FLAGSHIP':'#'+(window.STORIES.indexOf(s)+1)}</div>
+        </div>
+        <span class="sn-count">${qs.length} 题</span>
+      </div>
+      <div class="sn-core">
+        <span class="sn-core-lbl">核心素材</span>
+        ${coreHtml}
+      </div>
+      <div class="sn-qs">${qChips}</div>
+    `;
+    node.addEventListener('click', ()=>{ location.href = s.file; });
+    smDom.appendChild(node);
+  });
+
+  // 跨故事复现素材
+  const cross = buildCrossStoryMap();
+  const cmDom = document.getElementById('crossMap');
+  cross.forEach(c=>{
+    const storyMetas = c.stories.map(name=>window.STORIES.find(s=>s.name===name)).filter(Boolean);
+    const storyTags = storyMetas.map(s=>{
+      const count = c.qs.filter(gid=>{
+        const q = window.P2_DATA.find(x=>x.global_id===gid);
+        return q && q.group === s.name;
+      }).length;
+      return `<a class="cr-story-tag" href="${s.file}">${s.emoji} ${s.name}<span class="cr-q-count">${count}</span></a>`;
+    }).join('');
+    const row = document.createElement('div');
+    row.className = 'cross-row';
+    row.innerHTML = `
+      <div class="cr-asset">
+        <span class="cr-emoji">${c.emoji}</span>
+        <span class="cr-name">${c.name}</span>
+        <span class="cr-count">${c.stories.length} 故事</span>
+      </div>
+      <div class="cr-stories">${storyTags}</div>
+    `;
+    cmDom.appendChild(row);
+  });
+
+  // 4 大分类
+  const catCounts = { '人物': 0, '地点': 0, '物品': 0, '事件': 0 };
+  window.P2_DATA.forEach(q=>{ if(catCounts[q.category] !== undefined) catCounts[q.category]++; });
+  const catDom = document.getElementById('catMap');
+  const catMeta = [
+    { c: '人物', cls: 'person', em: '👤' },
+    { c: '地点', cls: 'place',  em: '📍' },
+    { c: '物品', cls: 'thing',  em: '📦' },
+    { c: '事件', cls: 'event',  em: '🎬' }
+  ];
+  catMeta.forEach(m=>{
+    const node = document.createElement('a');
+    node.className = 'cat-node ' + m.cls;
+    node.href = '学生端_传统分类页_v1.html';
+    node.innerHTML = `
+      <div class="cn-em">${m.em}</div>
+      <div class="cn-name">${m.c}</div>
+      <div class="cn-num">${catCounts[m.c]} 题</div>
+    `;
+    catDom.appendChild(node);
+  });
+
+  // 搜索功能
+  const searchInput = document.getElementById('searchInput');
+  const searchResults = document.getElementById('searchResults');
+  function doSearch(){
+    const q = searchInput.value.trim().toLowerCase();
+    if (!q){ searchResults.classList.remove('show'); return; }
+    const hits = [];
+    // Match Q 编号
+    const qMatch = q.match(/^q?(\d+)$/i);
+    if (qMatch) {
+      const gid = Number(qMatch[1]);
+      const hit = window.P2_DATA.find(x=>x.global_id===gid);
+      if (hit) hits.push({ type:'q', label:'Q'+gid+' · '+hit.title, href:'题目详情_v1.html?q='+gid });
+    }
+    // Match 题目标题 / group
+    window.P2_DATA.forEach(x=>{
+      if (x.title.toLowerCase().includes(q) && !hits.find(h=>h.href.includes('q='+x.global_id))) {
+        hits.push({ type:'q', label:'Q'+x.global_id+' · '+x.title, href:'题目详情_v1.html?q='+x.global_id });
+      }
+    });
+    // Match 故事
+    window.STORIES.forEach(s=>{
+      if (s.name.toLowerCase().includes(q) || s.cn.includes(q)) {
+        hits.push({ type:'story', label:s.emoji+' '+s.name+' · '+s.cn+' ('+s.count+'题)', href:s.file });
+      }
+    });
+    // Match 核心素材
+    Object.entries(CORE_PER_STORY).forEach(([storyName, arr])=>{
+      arr.forEach(c=>{
+        if (c.n.toLowerCase().includes(q)) {
+          const story = window.STORIES.find(s=>s.name===storyName);
+          hits.push({ type:'asset', label:c.e+' '+c.n+' · 在 '+storyName+' 故事', href:story?story.file:'#' });
+        }
+      });
+    });
+    // 渲染
+    if (!hits.length){
+      searchResults.innerHTML = '<div class="search-hit" style="color:var(--ink-3);font-style:italic">没有匹配 · 试试 Lucy / potluck / Scenery / Q5</div>';
+    } else {
+      searchResults.innerHTML = hits.slice(0, 10).map(h=>
+        `<div class="search-hit" onclick="location.href='${h.href}'"><span class="sh-type ${h.type}">${h.type}</span>${h.label}</div>`
+      ).join('');
+    }
+    searchResults.classList.add('show');
+  }
+  searchInput.addEventListener('input', doSearch);
+  searchInput.addEventListener('focus', doSearch);
+  document.addEventListener('click', e=>{
+    if (!e.target.closest('.search-box')) searchResults.classList.remove('show');
+  });
+})();
+</script>
+</body>
+</html>

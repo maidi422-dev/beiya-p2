@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北雅 P2 · 自创素材 · 用你自己的故事</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --beiya:#C0392B;--beiya-dark:#9B2C20;--beiya-soft:#FDECEA;
+    --gold:#B8894A;--gold-soft:#FBF4EA;--gold-dark:#9A6F35;
+    --ink:#1E1E22;--ink-2:#4A4A52;--ink-3:#8A8A92;
+    --line:#E8E8EC;--bg:#FAFAFA;--white:#FFFFFF;
+    --ok:#2E7D32;--pending:#E8834A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter','PingFang SC','Microsoft YaHei',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
+  a{color:inherit;text-decoration:none;cursor:pointer}
+
+  .topbar{position:sticky;top:0;z-index:40;background:var(--white);border-bottom:1px solid var(--line);padding:14px 24px;display:flex;align-items:center;gap:18px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:var(--beiya);white-space:nowrap}
+  .brand-mark{width:28px;height:28px;background:var(--beiya);color:#fff;display:flex;align-items:center;justify-content:center;border-radius:4px;font-family:'Noto Serif SC',serif;font-size:14px}
+  .nav{display:flex;gap:2px;margin-left:8px;flex:1}
+  .nav a{padding:7px 14px;border-radius:6px;font-size:13px;color:var(--ink-2);font-weight:500;white-space:nowrap}
+  .nav a:hover{background:var(--beiya-soft);color:var(--beiya)}
+  .nav a.active{background:var(--beiya);color:#fff}
+
+  .wrap{max-width:1100px;margin:0 auto;padding:28px 24px 80px;display:grid;grid-template-columns:1fr 280px;gap:24px}
+  @media(max-width:900px){.wrap{grid-template-columns:1fr}}
+  .crumb{font-size:12.5px;color:var(--ink-3);margin-bottom:18px;letter-spacing:.3px}
+  .crumb a:hover{color:var(--beiya)}
+
+  /* HERO */
+  .hero{grid-column:1/-1;background:linear-gradient(135deg,var(--beiya) 0%,var(--beiya-dark) 100%);color:#fff;border-radius:16px;padding:28px 32px;margin-bottom:8px;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(255,255,255,.1) 0%,transparent 70%);pointer-events:none}
+  .hero-title{font-family:'Noto Serif SC',serif;font-size:22px;font-weight:700;margin-bottom:6px;position:relative;z-index:2}
+  .hero-sub{font-size:13px;opacity:.9;margin-bottom:14px;position:relative;z-index:2;line-height:1.7}
+  .hero-note{font-size:12px;background:rgba(255,255,255,.12);border-radius:8px;padding:10px 14px;position:relative;z-index:2;line-height:1.7}
+  .hero-note strong{color:#FFE6A8}
+
+  /* MAIN */
+  .main-col{display:flex;flex-direction:column;gap:14px}
+
+  /* STEP 0 · 题目 + 素材 */
+  .card{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:22px 24px}
+  .card-h{font-family:'Noto Serif SC',serif;font-weight:700;font-size:14px;color:var(--ink);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  .card-h .num{background:var(--beiya);color:#fff;width:24px;height:24px;border-radius:50%;font-size:11.5px;display:flex;align-items:center;justify-content:center;font-weight:700}
+  .card-h .helper{font-weight:400;color:var(--ink-3);font-size:11.5px;margin-left:auto}
+  .inp{width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:8px;font-size:14px;font-family:inherit;outline:none;transition:all .15s}
+  .inp:focus{border-color:var(--beiya);box-shadow:0 0 0 3px var(--beiya-soft)}
+  textarea.inp{resize:vertical;min-height:80px;line-height:1.7}
+
+  /* STAGE (S1-S4) */
+  .stage{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+  .stage.s1{border-left:4px solid #3A5BB8}
+  .stage.s2{border-left:4px solid #2F8F5C}
+  .stage.s3{border-left:4px solid var(--gold);background:linear-gradient(135deg,#fff 0%,var(--gold-soft) 100%)}
+  .stage.s4{border-left:4px solid #7E4DAA}
+  .stage-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .stage-num{font-family:'Noto Serif SC',serif;font-weight:700;padding:3px 10px;border-radius:7px;font-size:12px;color:#fff}
+  .s1 .stage-num{background:#3A5BB8}
+  .s2 .stage-num{background:#2F8F5C}
+  .s3 .stage-num{background:var(--gold-dark)}
+  .s4 .stage-num{background:#7E4DAA}
+  .stage-name{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:700}
+  .stage-time{font-size:11px;color:var(--ink-3);margin-left:auto}
+  .stage-hint{background:#F4F4F6;border-radius:8px;padding:10px 14px;font-size:12.5px;color:var(--ink-2);line-height:1.7;margin-bottom:10px}
+  .stage-hint strong{color:var(--beiya)}
+  .marker{background:var(--ink);color:#fff;padding:6px 10px;border-radius:6px;font-size:12px;font-style:italic;margin-bottom:10px;display:inline-block;font-family:monospace}
+  .s3 .marker{background:var(--gold-dark)}
+
+  /* TP */
+  .tp{background:#FAFAFA;border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-top:10px}
+  .tp-h{font-size:12.5px;color:var(--beiya);font-weight:700;margin-bottom:6px}
+
+  /* TECH SIDEBAR */
+  .side{display:flex;flex-direction:column;gap:14px;position:sticky;top:80px;align-self:start}
+  .side-card{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+  .side-title{font-size:12px;font-weight:700;color:var(--beiya);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
+  .tech-item{padding:10px 12px;background:#FAFAFA;border:1px solid var(--line);border-radius:8px;margin-bottom:8px;font-size:12.5px;cursor:pointer;transition:all .15s}
+  .tech-item:hover{border-color:var(--beiya);background:var(--beiya-soft)}
+  .tech-item.on{background:var(--beiya);color:#fff;border-color:var(--beiya)}
+  .tech-item .t-name{font-weight:700;font-size:13px;margin-bottom:4px}
+  .tech-item .t-desc{font-size:11.5px;opacity:.85;line-height:1.6}
+  .tech-item.on .t-desc{opacity:.95}
+
+  /* TOOLBAR */
+  .toolbar{grid-column:1/-1;display:flex;gap:10px;margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);flex-wrap:wrap;align-items:center}
+  .btn{padding:9px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--line);background:var(--white);color:var(--ink-2);font-family:inherit;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
+  .btn:hover{border-color:var(--beiya);color:var(--beiya)}
+  .btn.primary{background:var(--beiya);color:#fff;border-color:var(--beiya)}
+  .btn.primary:hover{background:var(--beiya-dark)}
+  .save-status{font-size:12px;color:var(--ok);margin-left:auto;font-weight:500}
+
+  /* EXPORT MODAL */
+  .modal-bg{position:fixed;inset:0;background:rgba(30,30,34,.55);z-index:80;display:none;align-items:center;justify-content:center;padding:20px}
+  .modal-bg.show{display:flex}
+  .modal{background:#fff;border-radius:14px;width:100%;max-width:700px;max-height:85vh;overflow:hidden;display:flex;flex-direction:column}
+  .modal-head{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+  .modal-title{font-family:'Noto Serif SC',serif;font-weight:700;font-size:16px}
+  .modal-close{cursor:pointer;color:var(--ink-3);font-size:18px}
+  .modal-body{padding:20px 22px;overflow-y:auto}
+  .export-text{width:100%;min-height:420px;padding:16px;border:1.5px solid var(--line);border-radius:8px;font-family:'Inter','PingFang SC',sans-serif;font-size:14px;line-height:1.8;resize:vertical}
+
+  /* MY STORIES LIST */
+  .my-stories{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:14px}
+  .my-stories-title{font-size:11.5px;font-weight:700;color:var(--ink-3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px}
+  .my-story{font-size:12.5px;padding:6px 10px;background:#F4F4F6;border-radius:6px;cursor:pointer;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+  .my-story:hover{background:var(--beiya-soft);color:var(--beiya)}
+  .my-story .del{margin-left:auto;color:var(--ink-3);font-size:14px;opacity:0}
+  .my-story:hover .del{opacity:1}
+  .my-story .del:hover{color:var(--beiya)}
+
+  /* 手机适配 */
+  @media(max-width:640px){
+    .wrap{padding:14px 12px 70px}
+    .topbar{padding:10px 12px}
+    .stage{padding:16px}
+    .hero{padding:22px}
+    .toolbar{flex-direction:column;align-items:stretch}
+    .toolbar .btn{width:100%;justify-content:center}
+    .side{position:static}
+  }
+
+  /* ═══ 手机端响应式适配 ═══ */
+  @media (max-width: 640px) {
+    html{font-size:14px}
+    body{line-height:1.6}
+
+    /* 顶栏压缩 */
+    .topbar{padding:10px 12px !important;gap:8px !important;flex-wrap:wrap;position:sticky;top:0}
+    .topbar .brand{font-size:13px !important}
+    .topbar .brand-mark{width:24px;height:24px;font-size:12px}
+    .topbar .nav{flex:1 1 100% !important;order:3;overflow-x:auto;scrollbar-width:none;gap:0 !important;padding:4px 0;border-top:1px solid var(--line,#E8E8EC);margin:8px 0 0 !important}
+    .topbar .nav::-webkit-scrollbar{display:none}
+    .topbar .nav a{padding:6px 10px !important;font-size:12px !important;flex-shrink:0;white-space:nowrap}
+    .search-wrap{display:none !important}
+    .role-sw{margin:0 !important;order:2}
+    .role-opt{padding:3px 8px !important;font-size:11px !important}
+
+    /* 主体 padding 减小 */
+    .wrap{padding:14px 12px 70px !important;max-width:100% !important}
+    .crumb{font-size:11.5px !important;margin-bottom:12px !important}
+
+    /* 所有 grid 一列化 */
+    .q-grid, .grid, .story-grid, .jump-mini-grid{grid-template-columns:1fr !important}
+    .row2, .row3{grid-template-columns:1fr !important}
+
+    /* 故事首页 - 故事卡 */
+    .story, .story.flagship, .story.runner-up{padding:18px !important}
+    .story .story-name{font-size:20px !important}
+    .entries{grid-template-columns:1fr !important}
+
+    /* 故事页 story-head */
+    .story-head{padding:20px !important;gap:16px !important}
+    .sh-emoji{font-size:58px !important;width:70px !important;height:70px !important}
+    .sh-name{font-size:22px !important}
+    .sh-desc{font-size:13px !important}
+    .sh-stats{gap:10px !important}
+    .sh-stat{padding-right:10px !important}
+    .sh-stat-num{font-size:16px !important}
+
+    /* 故事页 core-strip 分组 */
+    .core-group{flex-direction:column !important;align-items:stretch !important;padding:12px 0 0 !important}
+    .core-group-label{min-width:0 !important;padding-top:0 !important;margin-bottom:8px !important;font-size:11px !important}
+    .core-group-list{gap:10px !important}
+    .core-strip-title .hint{display:none}
+
+    /* gold-strip */
+    .gold-strip{padding:14px 16px !important}
+    .gs-grid{gap:6px !important}
+    .gs-chip{padding:6px 10px !important;font-size:12px !important}
+
+    /* filter-row */
+    .filter-row{gap:5px !important}
+    .filter-chip{padding:5px 10px !important;font-size:11.5px !important}
+
+    /* Q 卡片 */
+    .q-card{padding:14px 16px !important}
+    .qc-title{font-size:13px !important}
+    .qc-hook{font-size:12px !important}
+
+    /* 详情页 q-header */
+    .q-header{padding:14px 16px !important;margin-bottom:16px !important}
+    .q-title-en{font-size:15px !important;line-height:1.5 !important}
+    .q-tags{flex-wrap:wrap !important;gap:5px !important}
+    .tag{font-size:11px !important;padding:2px 8px !important}
+    .q-actions{flex-wrap:wrap !important;gap:5px !important}
+    .act{padding:5px 9px !important;font-size:11.5px !important}
+
+    /* prep-strip */
+    .prep-strip{flex-wrap:wrap !important;padding:10px 12px !important;gap:5px !important}
+    .prep-chip{font-size:12px !important;padding:3px 8px !important}
+    .prep-label{font-size:11px !important}
+
+    /* tier-tabs (详情页) */
+    .tier-tabs{overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap !important;padding-bottom:4px;margin-bottom:14px !important}
+    .tier-tabs::-webkit-scrollbar{display:none}
+    .tier-tab{padding:7px 11px !important;font-size:12px !important;white-space:nowrap;flex-shrink:0 !important}
+
+    /* outline sections */
+    .outline{padding:16px !important}
+    .sec{padding:14px !important}
+    .sec-body{font-size:13.5px !important}
+    .bullet{padding:5px 0 5px 20px !important;font-size:13.5px !important}
+
+    /* 参考范文 */
+    .ref-body{padding:16px 18px !important;font-size:13.5px !important;line-height:1.8 !important}
+
+    /* xrefs */
+    .xrefs{grid-template-columns:1fr !important}
+    .xref{padding:14px !important}
+
+    /* Hero (仪表盘) */
+    .hero{padding:22px !important;border-radius:14px !important}
+    .hero-num{font-size:30px !important}
+    .hero-row{gap:14px !important}
+    .hero-stat{min-width:100px !important}
+
+    /* FAB 方法论按钮 */
+    .fab{bottom:18px !important;right:18px !important;padding:10px 14px !important;font-size:12px !important}
+
+    /* jump-mini */
+    .jump-mini{padding:16px !important}
+
+    /* 登录页 */
+    .login-wrap, .login-card{padding:24px !important;max-width:100% !important;margin:0 12px !important}
+
+    /* 传统分类页 / 复现元素页 */
+    .tab-bar{flex-wrap:wrap !important}
+    .asset-grid{grid-template-columns:1fr 1fr !important}
+
+    /* 方法论页 · 各种 sec 排版 */
+    .mtd-hero{padding:24px 18px !important}
+    .mtd-hero h1{font-size:22px !important}
+
+    /* 仪表盘 card padding 减小 */
+    .card{padding:16px !important}
+    .card-title{font-size:12px !important}
+
+    /* 通用 padding 缩减 */
+    .panel, .panel-section, .cta-bar{padding:14px 16px !important}
+  }
+
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand"><div class="brand-mark">雅</div>北雅 · IELTS Speaking</div>
+  <nav class="nav">
+    <a href="学生端_素材宇宙首页_v1.html">🌌 素材宇宙</a>
+    <a href="学生端_传统分类页_v1.html">📋 传统分类</a>
+    <a href="学生端_复现元素页_v1.html">🏷️ 复现元素</a>
+    <a href="学生端_方法论页_v1.html">🎯 方法论</a>
+    <a class="active" href="学生端_自创素材_v1.html">✍️ 自创素材</a>
+    <a href="学生端_进度仪表盘_v1.html">⭐ 我的</a>
+  </nav>
+</header>
+
+<main class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-title">✍️ 用你自己的故事 · 填 S1-S4 四段框架</div>
+    <div class="hero-sub">
+      不想用 Lucy / Fruit Roast Chicken？没问题。选一道题 · 填你自己的素材 · 按同样的四段框架搭脚手架 · 右侧实时提示你可以叠加哪些技巧。
+    </div>
+    <div class="hero-note">
+      💡 <strong>怎么用</strong>：先选一道题（或自己输入题目），然后在 S1-S4 每一段填你自己的内容。右侧的 5 大技巧随时可以叠加——实在没思路看下面的「提示」按钮。
+    </div>
+  </section>
+
+  <!-- 左主列 -->
+  <div class="main-col">
+
+    <!-- STEP 0 · 题目 + 核心素材 -->
+    <div class="card">
+      <div class="card-h"><span class="num">0</span> 你要讲哪道题？</div>
+      <select class="inp" id="qPicker" style="margin-bottom:10px">
+        <option value="">-- 选一道 P2 真题（或下面自己输入）--</option>
+      </select>
+      <input class="inp" id="customTitle" placeholder="或者自己输入题目，例如：Describe a time you felt very proud">
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="num">1</span> 你想用什么素材？<span class="helper">3-5 个关键词即可</span></div>
+      <textarea class="inp" id="myAssets" rows="3" placeholder="例如：我爷爷·他是木匠·我小时候在他工坊玩·他教我刨木头·一次我差点受伤他接住我"></textarea>
+    </div>
+
+    <!-- S1 -->
+    <div class="stage s1">
+      <div class="stage-head">
+        <span class="stage-num">S1</span>
+        <span class="stage-name">Answer Directly</span>
+        <span class="stage-time">≈ 10 秒</span>
+      </div>
+      <div class="marker">"I'm going to talk about ..."</div>
+      <div class="stage-hint">
+        <strong>这段目的</strong>：一句话把题目转成你的故事——<em>主角+核心事件</em>。别铺垫，直接说。
+      </div>
+      <textarea class="inp" id="s1" rows="2" placeholder="例：I'm going to talk about my grandpa — a time when he saved me from getting hurt in his workshop."></textarea>
+    </div>
+
+    <!-- S2 -->
+    <div class="stage s2">
+      <div class="stage-head">
+        <span class="stage-num">S2</span>
+        <span class="stage-name">Background</span>
+        <span class="stage-time">≈ 20 秒</span>
+      </div>
+      <div class="marker">"I remember, that was roughly ..."</div>
+      <div class="stage-hint">
+        <strong>这段目的</strong>：交代 <em>时间 · 地点 · 谁在场 · 为什么在那</em>。3-4 条短句即可，不要细节。
+      </div>
+      <textarea class="inp" id="s2" rows="3" placeholder="例：\nI remember, that was roughly ten years ago — I was maybe 7 or 8.\nMy grandpa had a small woodworking workshop behind our house.\nI used to go there every weekend to watch him work."></textarea>
+    </div>
+
+    <!-- S3 主战场 -->
+    <div class="stage s3">
+      <div class="stage-head">
+        <span class="stage-num">S3</span>
+        <span class="stage-name">Details ⭐ 主战场</span>
+        <span class="stage-time">≈ 70 秒 · 5 大技巧叠加区</span>
+      </div>
+      <div class="marker">"Now let me tell you ..."</div>
+      <div class="stage-hint">
+        <strong>这段目的</strong>：本题 80% 的分数在这一段。<em>分两个 TP（要点），每个 TP 至少叠一个技巧</em>（看右边工具箱）。
+      </div>
+      <div class="tp">
+        <div class="tp-h">TP1 · 第一个要点</div>
+        <textarea class="inp" id="s3a" rows="4" placeholder="例：First, let me tell you what happened.\nI was playing in his workshop...\n(可叠「主体+客体」「对比」「举例」等技巧)"></textarea>
+      </div>
+      <div class="tp">
+        <div class="tp-h">TP2 · 第二个要点</div>
+        <textarea class="inp" id="s3b" rows="4" placeholder="例：What really impressed me was how fast he reacted...\n(可叠「3D 成功公式」: 自律 + 方法 + 天赋)"></textarea>
+      </div>
+    </div>
+
+    <!-- S4 -->
+    <div class="stage s4">
+      <div class="stage-head">
+        <span class="stage-num">S4</span>
+        <span class="stage-name">Prospect</span>
+        <span class="stage-time">≈ 20 秒</span>
+      </div>
+      <div class="marker">"Anyway, ... / Since then, ..."</div>
+      <div class="stage-hint">
+        <strong>这段目的</strong>：一句总结 + 一句从此以后的影响（"睹物思人"效果最好）。2 条即可。
+      </div>
+      <textarea class="inp" id="s4" rows="3" placeholder="例：Anyway, that moment really made me see how skilled and caring he was.\nSince then, every time I see a woodworking tool, I think of him."></textarea>
+    </div>
+
+    <!-- TOOLBAR -->
+    <div class="toolbar">
+      <button class="btn primary" id="saveBtn">💾 保存到浏览器</button>
+      <button class="btn" id="exportBtn">📤 导出为文本</button>
+      <button class="btn" id="newBtn">🆕 新建一份</button>
+      <button class="btn" id="clearBtn">🗑 清空本题</button>
+      <span class="save-status" id="saveStatus">—</span>
+    </div>
+
+  </div>
+
+  <!-- 右侧技巧工具箱 -->
+  <aside class="side">
+    <div class="my-stories" id="myStoriesBox" style="display:none">
+      <div class="my-stories-title">📁 我保存过的</div>
+      <div id="myStoriesList"></div>
+    </div>
+
+    <div class="side-card">
+      <div class="side-title">🛠 5 大拓展技巧（S3 用）</div>
+      <div class="tech-item" data-t="1">
+        <div class="t-name">① 主体 + 客体</div>
+        <div class="t-desc">描述事物后立刻延伸到"我/我的感受"。一个维度翻两倍。</div>
+      </div>
+      <div class="tech-item" data-t="2">
+        <div class="t-name">② 对比手法</div>
+        <div class="t-desc">"去年 / 今年"、"原本 / 后来"、"别人 / 我"。反差立刻有。</div>
+      </div>
+      <div class="tech-item" data-t="3">
+        <div class="t-name">③ 举例细化</div>
+        <div class="t-desc">别说 "it was fun" — 说具体发生的瞬间、说的话、看到的表情。</div>
+      </div>
+      <div class="tech-item" data-t="4">
+        <div class="t-name">④ 睹物思人</div>
+        <div class="t-desc">S4 用。"每次看到 X 就想起 Y"——升华靠它。</div>
+      </div>
+      <div class="tech-item" data-t="5">
+        <div class="t-name">⑤ 3D 成功公式</div>
+        <div class="t-desc"><strong>自律 + 好方法 + 天赋</strong>。讲优秀的人必杀技。</div>
+      </div>
+      <div style="font-size:11.5px;color:var(--ink-3);margin-top:10px;line-height:1.7;padding-top:10px;border-top:1px dashed var(--line)">
+        💡 点任一技巧 → 下方看详细用法 + 示范句
+      </div>
+    </div>
+
+    <div class="side-card" id="techDetail">
+      <div class="side-title">🎯 技巧用法</div>
+      <div id="techDetailBody" style="font-size:12.5px;color:var(--ink-2);line-height:1.8">
+        <em style="color:var(--ink-3)">点左边任一技巧查看详情</em>
+      </div>
+    </div>
+
+    <div class="side-card" style="background:var(--gold-soft);border-color:#EAD9B8">
+      <div class="side-title" style="color:var(--gold-dark)">💡 想偷懒？</div>
+      <div style="font-size:12.5px;color:var(--ink-2);line-height:1.7">
+        可以先看一下<a href="学生端_素材宇宙首页_v1.html" style="color:var(--beiya);font-weight:600">素材宇宙</a>里跟你这题同类的参考范文，照着结构替换成你自己的素材。
+      </div>
+    </div>
+  </aside>
+
+</main>
+
+<!-- EXPORT MODAL -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <div class="modal-title">📤 导出你的答案</div>
+      <span class="modal-close" id="modalClose">✕</span>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:12.5px;color:var(--ink-3);margin-bottom:10px">
+        复制下面的文字，可以粘到任何地方（Word / 备忘录 / 微信发给自己）
+      </p>
+      <textarea class="export-text" id="exportText" readonly></textarea>
+      <div style="display:flex;gap:10px;margin-top:10px;justify-content:flex-end">
+        <button class="btn primary" id="copyBtn">📋 复制到剪贴板</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script>
+
+// ═══ 填充题目选择器 ═══
+(function initPicker(){
+  if(!window.P2_DATA) return setTimeout(initPicker, 50);
+  const sel = document.getElementById('qPicker');
+  const groups = {};
+  window.P2_DATA.forEach(q=>{ if(!groups[q.group]) groups[q.group] = []; groups[q.group].push(q); });
+  const order = window.STORIES ? window.STORIES.map(s=>s.name) : Object.keys(groups);
+  order.forEach(name=>{
+    if(!groups[name]) return;
+    const og = document.createElement('optgroup');
+    const m = window.STORIES && window.STORIES.find(s=>s.name===name);
+    og.label = (m?m.emoji+' ':'') + name;
+    groups[name].forEach(q=>{
+      const o = document.createElement('option');
+      o.value = q.global_id;
+      o.textContent = 'Q'+q.global_id+' · '+q.title.slice(0,50)+(q.title.length>50?'…':'');
+      og.appendChild(o);
+    });
+    sel.appendChild(og);
+  });
+  sel.addEventListener('change', ()=>{
+    if(!sel.value) return;
+    const q = window.P2_DATA.find(x=>x.global_id===Number(sel.value));
+    document.getElementById('customTitle').value = q.title;
+  });
+})();
+
+// ═══ 技巧详情 ═══
+const TECH_DETAIL = {
+  1: { title: '① 主体 + 客体', body: `
+    <strong style="color:var(--beiya)">公式</strong>：先说客体（事物本身），立刻延伸到主体（我 / 我的感受 / 我的关联）。<br><br>
+    <strong>例</strong>：<br>
+    ❌ "The temple gate had beautiful drawings."<br>
+    ✅ "The temple gate had beautiful drawings — <em>and for me, it felt like stepping into a different world.</em> I love history, so this part was the most exciting."
+  `},
+  2: { title: '② 对比手法', body: `
+    <strong style="color:var(--beiya)">公式</strong>："去年 / 今年"、"以前 / 现在"、"别人 / 我"——反差一出来，细节立刻丰满。<br><br>
+    <strong>例</strong>：<br>
+    "<em>Last year</em>, we just brought fast food — burgers, pizza, nothing special. <em>This year</em>, everyone cooked something homemade."
+  `},
+  3: { title: '③ 举例细化', body: `
+    <strong style="color:var(--beiya)">公式</strong>：不说"it was great"，而是说具体发生了什么——看到的、听到的、感受到的。<br><br>
+    <strong>例</strong>：<br>
+    ❌ "Everyone loved it."<br>
+    ✅ "Everyone went silent for a second — then reached out to try a piece. Lucy said it was <em>weird but amazing</em>."
+  `},
+  4: { title: '④ 睹物思人', body: `
+    <strong style="color:var(--beiya)">公式</strong>：S4 收尾用。"每次看到 X 就想起 Y"——升华靠它。<br><br>
+    <strong>例</strong>：<br>
+    "Anyway, <em>every time I see a photo from that day</em>, I want to go back immediately."<br>
+    "<em>Whenever I walk past that park</em>, I still think about that night."
+  `},
+  5: { title: '⑤ 3D 成功公式', body: `
+    <strong style="color:var(--beiya)">公式</strong>：讲一个人为什么优秀 → <em>自律 + 好方法 + 天赋</em>，三维度叠起来。<br><br>
+    <strong>例</strong>：<br>
+    "She gets up at <em>6am every single morning</em> to train <strong>[自律]</strong>. And it's not random practice — she follows a <em>strict training plan</em> with her coach <strong>[方法]</strong>. On top of all that, she <em>has a natural feel for the game</em> <strong>[天赋]</strong>."
+  `}
+};
+document.querySelectorAll('.tech-item').forEach(el=>{
+  el.addEventListener('click', ()=>{
+    document.querySelectorAll('.tech-item').forEach(x=>x.classList.remove('on'));
+    el.classList.add('on');
+    const d = TECH_DETAIL[el.dataset.t];
+    document.getElementById('techDetailBody').innerHTML = d.body;
+  });
+});
+
+// ═══ 保存/加载 ═══
+const LS_KEY = 'beiya_mystories';
+let _dirty = false;
+
+function getAll(){ try{ return JSON.parse(localStorage.getItem(LS_KEY)||'{}'); }catch(e){ return {}; } }
+function saveAll(d){ try{ localStorage.setItem(LS_KEY, JSON.stringify(d)); }catch(e){} }
+
+function currentState(){
+  return {
+    title: document.getElementById('customTitle').value,
+    qPick: document.getElementById('qPicker').value,
+    assets: document.getElementById('myAssets').value,
+    s1: document.getElementById('s1').value,
+    s2: document.getElementById('s2').value,
+    s3a: document.getElementById('s3a').value,
+    s3b: document.getElementById('s3b').value,
+    s4: document.getElementById('s4').value,
+    savedAt: Date.now()
+  };
+}
+function setState(st){
+  document.getElementById('customTitle').value = st.title||'';
+  document.getElementById('qPicker').value = st.qPick||'';
+  document.getElementById('myAssets').value = st.assets||'';
+  document.getElementById('s1').value = st.s1||'';
+  document.getElementById('s2').value = st.s2||'';
+  document.getElementById('s3a').value = st.s3a||'';
+  document.getElementById('s3b').value = st.s3b||'';
+  document.getElementById('s4').value = st.s4||'';
+}
+
+function renderMyList(){
+  const all = getAll();
+  const keys = Object.keys(all);
+  const box = document.getElementById('myStoriesBox');
+  const list = document.getElementById('myStoriesList');
+  if(!keys.length){ box.style.display='none'; return; }
+  box.style.display = 'block';
+  list.innerHTML = keys.sort((a,b)=>(all[b].savedAt||0)-(all[a].savedAt||0)).map(k=>{
+    const s = all[k];
+    const label = (s.title||'(未命名)').slice(0, 30) + ((s.title||'').length>30?'…':'');
+    return `<div class="my-story" data-k="${k}">📝 ${label}<span class="del" data-k="${k}">✕</span></div>`;
+  }).join('');
+  list.querySelectorAll('.my-story').forEach(el=>{
+    el.addEventListener('click', e=>{
+      if(e.target.classList.contains('del')) return;
+      if(_dirty && !confirm('当前有未保存的修改，确定加载？')) return;
+      setState(all[el.dataset.k]);
+      _dirty = false;
+      document.getElementById('saveStatus').textContent = '✓ 已加载：' + (all[el.dataset.k].title||'').slice(0,30);
+    });
+  });
+  list.querySelectorAll('.del').forEach(el=>{
+    el.addEventListener('click', e=>{
+      e.stopPropagation();
+      if(!confirm('删除这份？')) return;
+      const all2 = getAll();
+      delete all2[el.dataset.k];
+      saveAll(all2);
+      renderMyList();
+    });
+  });
+}
+renderMyList();
+
+// ═══ 按钮 ═══
+document.getElementById('saveBtn').addEventListener('click', ()=>{
+  const st = currentState();
+  if(!st.title){ alert('请先填题目（选或输入）'); return; }
+  const all = getAll();
+  const key = st.title.slice(0, 40);
+  all[key] = st;
+  saveAll(all);
+  _dirty = false;
+  document.getElementById('saveStatus').textContent = '✓ 已保存 · ' + new Date().toTimeString().slice(0,5);
+  renderMyList();
+});
+
+document.getElementById('newBtn').addEventListener('click', ()=>{
+  if(_dirty && !confirm('当前有未保存修改，确定新建？')) return;
+  setState({});
+  _dirty = false;
+  document.getElementById('saveStatus').textContent = '新建中';
+});
+
+document.getElementById('clearBtn').addEventListener('click', ()=>{
+  if(!confirm('清空本题所有内容？')) return;
+  setState({});
+  _dirty = true;
+});
+
+document.getElementById('exportBtn').addEventListener('click', ()=>{
+  const st = currentState();
+  const lines = [
+    '═══ ' + (st.title||'(未命名)') + ' ═══',
+    '',
+    '💡 我的核心素材：',
+    st.assets || '(无)',
+    '',
+    '─── S1 · Answer Directly (≈10s) ───',
+    'Marker: "I\\'m going to talk about..."',
+    st.s1 || '(未填)',
+    '',
+    '─── S2 · Background (≈20s) ───',
+    'Marker: "I remember, that was roughly..."',
+    st.s2 || '(未填)',
+    '',
+    '─── S3 · Details ⭐ 主战场 (≈70s) ───',
+    'Marker: "Now let me tell you..."',
+    '',
+    '【TP1】',
+    st.s3a || '(未填)',
+    '',
+    '【TP2】',
+    st.s3b || '(未填)',
+    '',
+    '─── S4 · Prospect (≈20s) ───',
+    'Marker: "Anyway, ... / Since then, ..."',
+    st.s4 || '(未填)',
+    '',
+    '═══ 导出于 ' + new Date().toLocaleString('zh-CN') + ' ═══'
+  ];
+  document.getElementById('exportText').value = lines.join('\n');
+  document.getElementById('modalBg').classList.add('show');
+});
+
+document.getElementById('modalClose').addEventListener('click', ()=>document.getElementById('modalBg').classList.remove('show'));
+document.getElementById('modalBg').addEventListener('click', ()=>document.getElementById('modalBg').classList.remove('show'));
+
+document.getElementById('copyBtn').addEventListener('click', ()=>{
+  const t = document.getElementById('exportText');
+  t.select();
+  document.execCommand('copy');
+  document.getElementById('copyBtn').textContent = '✓ 已复制';
+  setTimeout(()=>document.getElementById('copyBtn').textContent = '📋 复制到剪贴板', 1800);
+});
+
+// 脏标记
+['customTitle','myAssets','s1','s2','s3a','s3b','s4'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', ()=>{
+    _dirty = true;
+    document.getElementById('saveStatus').textContent = '● 未保存';
+  });
+});
+</script>
+
+</body>
+</html>
