@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>北雅国际教育 · 雅思口语 P2 · 素材宇宙</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --beiya:#C0392B;--beiya-dark:#9B2C20;--beiya-soft:#FDECEA;
+    --gold:#B8894A;--gold-soft:#FBF4EA;
+    --ink:#1E1E22;--ink-2:#4A4A52;--ink-3:#8A8A92;
+    --line:#E8E8EC;--bg:#FAFAFA;--white:#FFFFFF;
+    --ok:#2E7D32;--pending:#E8834A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;cursor:pointer}
+
+  /* ─── TOP BAR ─── */
+  .topbar{
+    position:sticky;top:0;z-index:40;background:var(--white);
+    border-bottom:1px solid var(--line);
+    padding:14px 24px;display:flex;align-items:center;gap:18px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:var(--beiya);white-space:nowrap}
+  .brand-mark{width:28px;height:28px;background:var(--beiya);color:#fff;
+    display:flex;align-items:center;justify-content:center;border-radius:4px;
+    font-family:'Noto Serif SC',serif;font-size:14px}
+  .nav{display:flex;gap:2px;margin-left:8px;flex:1}
+  .nav a{padding:7px 14px;border-radius:6px;font-size:13px;color:var(--ink-2);font-weight:500;white-space:nowrap}
+  .nav a:hover{background:var(--beiya-soft);color:var(--beiya)}
+  .nav a.active{background:var(--beiya);color:#fff}
+  .search-wrap{position:relative}
+  .search{
+    background:#F4F4F6;border:1px solid transparent;border-radius:20px;
+    padding:7px 14px 7px 36px;font-size:12.5px;width:200px;
+    color:var(--ink);font-family:inherit;outline:none;transition:all .2s
+  }
+  .search:focus{background:#fff;border-color:var(--beiya);width:240px}
+  .search-ico{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--ink-3);font-size:13px;pointer-events:none}
+
+  /* ─── ROLE SWITCHER ─── */
+  .role-sw{
+    display:flex;align-items:center;gap:6px;background:#F4F4F6;
+    border-radius:20px;padding:3px;font-size:12px;
+  }
+  .role-opt{
+    padding:4px 12px;border-radius:16px;cursor:pointer;color:var(--ink-3);
+    font-weight:500;transition:all .15s;display:flex;align-items:center;gap:5px;
+    white-space:nowrap
+  }
+  .role-opt.on{background:var(--beiya);color:#fff}
+
+  /* ─── LAYOUT ─── */
+  .wrap{max-width:1120px;margin:0 auto;padding:36px 24px 80px}
+
+  /* ─── HERO ─── */
+  .hero{
+    background:linear-gradient(135deg,#fff 0%,#FFF5F3 100%);
+    border:1px solid var(--line);border-radius:16px;
+    padding:36px 40px;margin-bottom:18px;position:relative;overflow:hidden;
+  }
+  .hero::before{
+    content:'';position:absolute;top:-40px;right:-40px;width:220px;height:220px;
+    background:radial-gradient(circle,var(--beiya-soft) 0%,transparent 70%);
+    opacity:.6;pointer-events:none
+  }
+  .hero-eyebrow{
+    font-size:12px;letter-spacing:2px;color:var(--beiya);font-weight:600;
+    text-transform:uppercase;margin-bottom:10px
+  }
+  .hero-title{
+    font-family:'Noto Serif SC',serif;font-size:30px;font-weight:700;
+    line-height:1.3;color:var(--ink);margin-bottom:12px;position:relative;z-index:2
+  }
+  .hero-title em{color:var(--beiya);font-style:normal}
+  .hero-sub{font-size:14.5px;color:var(--ink-2);max-width:720px;line-height:1.8;position:relative;z-index:2}
+  .hero-sub .npc-name{color:var(--beiya);font-weight:600}
+  .hero-stats{
+    display:flex;gap:28px;margin-top:24px;padding-top:24px;border-top:1px dashed var(--line);
+    position:relative;z-index:2;flex-wrap:wrap
+  }
+  .stat-item{display:flex;flex-direction:column;gap:2px}
+  .stat-num{font-family:'Noto Serif SC',serif;font-size:24px;font-weight:700;color:var(--beiya);line-height:1}
+  .stat-lbl{font-size:11.5px;color:var(--ink-3);margin-top:4px;letter-spacing:.5px}
+
+  /* ─── METHOD CALLOUT ─── */
+  .method-callout{
+    background:var(--white);border:1px solid var(--line);border-radius:14px;
+    padding:22px 26px;margin-bottom:28px;display:flex;gap:20px;align-items:center;flex-wrap:wrap;
+    border-left:4px solid var(--gold)
+  }
+  .method-callout .mc-icon{
+    width:48px;height:48px;border-radius:12px;background:var(--gold-soft);
+    display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0
+  }
+  .method-callout .mc-body{flex:1;min-width:220px}
+  .method-callout .mc-title{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:4px}
+  .method-callout .mc-desc{font-size:13px;color:var(--ink-2);line-height:1.7}
+  .method-callout .mc-cta{
+    padding:10px 20px;background:var(--beiya);color:#fff;border-radius:22px;
+    font-size:13px;font-weight:600;transition:all .15s;white-space:nowrap
+  }
+  .method-callout .mc-cta:hover{background:var(--beiya-dark)}
+
+  /* ─── SECTION HEADER ─── */
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;margin:8px 0 14px;gap:12px;flex-wrap:wrap}
+  .sec-title{font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--ink)}
+  .sec-hint{font-size:12.5px;color:var(--ink-3)}
+
+  /* ─── UNIVERSE RULER ─── */
+  .ruler-wrap{
+    background:var(--white);border:1px solid var(--line);border-radius:12px;
+    padding:18px 22px;margin-bottom:22px
+  }
+  .ruler-head{
+    display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;
+    font-size:12px;color:var(--ink-3)
+  }
+  .ruler-head strong{font-family:'Noto Serif SC',serif;font-size:13px;color:var(--ink-2);font-weight:600}
+  .ruler{
+    display:flex;height:38px;border-radius:8px;overflow:hidden;
+    border:1px solid var(--line);background:#F4F4F6
+  }
+  .ruler-seg{
+    flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    color:#fff;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;
+    border-right:1px solid rgba(255,255,255,.3);position:relative;overflow:hidden;
+    text-shadow:0 1px 2px rgba(0,0,0,.15)
+  }
+  .ruler-seg:last-child{border-right:none}
+  .ruler-seg:hover{filter:brightness(1.1)}
+  .ruler-seg .rs-emoji{font-size:14px;line-height:1;margin-bottom:1px}
+  .ruler-seg .rs-num{font-size:10px;opacity:.95}
+  .ruler-foot{
+    display:flex;justify-content:space-between;font-size:11px;color:var(--ink-3);margin-top:8px
+  }
+  .ruler-foot .gold{color:var(--gold);font-weight:600}
+
+  /* ─── MEET NPC MINI ─── */
+  .meet-npc{
+    background:linear-gradient(135deg,var(--beiya-soft) 0%,var(--gold-soft) 100%);
+    border:1px solid #F5D3CE;border-radius:14px;
+    padding:22px 26px;margin-bottom:28px;
+    display:flex;gap:20px;align-items:center;flex-wrap:wrap;position:relative;overflow:hidden
+  }
+  .meet-npc::before{
+    content:'';position:absolute;top:-30px;right:-30px;width:140px;height:140px;
+    background:radial-gradient(circle,rgba(255,255,255,.5) 0%,transparent 70%);
+    pointer-events:none
+  }
+  .npc-avatar{
+    width:64px;height:64px;border-radius:50%;
+    background:var(--white);border:3px solid var(--beiya);
+    display:flex;align-items:center;justify-content:center;font-size:36px;
+    flex-shrink:0;box-shadow:0 4px 12px rgba(192,57,43,.15);position:relative;z-index:2
+  }
+  .npc-info{flex:1;min-width:240px;position:relative;z-index:2}
+  .npc-headline{
+    font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:var(--ink);
+    margin-bottom:4px
+  }
+  .npc-headline .npc-name{color:var(--beiya)}
+  .npc-tagline{font-size:13px;color:var(--ink-2);margin-bottom:10px}
+  .npc-roles{display:flex;gap:6px;flex-wrap:wrap}
+  .npc-role{
+    background:var(--white);padding:3px 10px;border-radius:12px;font-size:11.5px;
+    color:var(--ink-2);border:1px solid #F5D3CE;font-weight:500
+  }
+
+  /* ─── STORY GRID ─── */
+  .stories{
+    display:grid;gap:16px;
+    grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+    margin-bottom:36px
+  }
+  .story{
+    background:var(--white);border:1px solid var(--line);border-radius:14px;
+    padding:22px 22px 18px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;
+    display:flex;flex-direction:column;gap:10px
+  }
+  .story::before{
+    content:'';position:absolute;top:0;left:0;width:4px;height:100%;
+    background:var(--beiya);transform:scaleY(0);transform-origin:top;transition:transform .25s
+  }
+  .story:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(192,57,43,.1);border-color:var(--beiya-soft)}
+  .story:hover::before{transform:scaleY(1)}
+  .story.flagship{background:linear-gradient(135deg,#fff 0%,var(--gold-soft) 100%);border-color:#EAD9B8}
+  .story.flagship::before{background:var(--gold)}
+  .story.runner-up{border-color:#F5D3CE}
+  .story.runner-up::before{background:linear-gradient(180deg,var(--beiya) 0%,#E8A89E 100%);transform:scaleY(1)}
+
+  .story-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .story-emoji{font-size:34px;line-height:1}
+  .story-badge{
+    font-size:10.5px;font-weight:700;letter-spacing:.5px;
+    padding:3px 8px;border-radius:10px;background:#F4F4F6;color:var(--ink-3);
+    border:1px solid var(--line);text-transform:uppercase
+  }
+  .story.flagship .story-badge{background:var(--beiya);color:#fff;border-color:var(--beiya)}
+  .story.runner-up .story-badge{background:var(--beiya-soft);color:var(--beiya);border-color:#F5D3CE}
+  .story-name{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:var(--ink)}
+  .story-name-en{font-size:12px;color:var(--ink-3);font-style:italic;margin-left:6px;font-weight:400}
+  .story-tag{font-size:13px;color:var(--ink-2);line-height:1.6;min-height:42px}
+
+  .story-stats{display:flex;gap:6px;align-items:center;font-size:11.5px;color:var(--ink-3);margin-top:2px}
+  .story-stats .qcount{
+    background:var(--beiya-soft);color:var(--beiya);font-weight:600;
+    padding:2px 9px;border-radius:10px;font-size:12px;
+    font-family:'Noto Serif SC',serif
+  }
+  .story.flagship .story-stats .qcount{background:var(--gold);color:#fff}
+  .story-stats .pct{color:var(--ink-3)}
+
+  .story-chars{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+  .char-chip{
+    font-size:11px;padding:2px 8px;border-radius:10px;
+    background:#F4F4F6;color:var(--ink-2);border:1px solid transparent
+  }
+  .char-chip.primary{background:var(--beiya-soft);color:var(--beiya);font-weight:500}
+
+  .story-cta{
+    margin-top:6px;padding-top:10px;border-top:1px dashed var(--line);
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:12px;color:var(--ink-3);transition:all .15s
+  }
+  .story-cta .enter{
+    color:var(--ink-3);font-weight:500;transition:all .15s
+  }
+  .story:hover .story-cta .enter{color:var(--beiya);font-weight:600}
+  .story:hover .story-cta .enter::after{content:' →';margin-left:2px}
+
+  /* ─── ENTRY TILES ─── */
+  .entries{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+  .entry{
+    background:var(--white);border:1px solid var(--line);border-radius:12px;
+    padding:20px 22px;transition:all .15s;cursor:pointer
+  }
+  .entry:hover{border-color:var(--beiya);box-shadow:0 4px 16px rgba(192,57,43,.08)}
+  .entry-ico{font-size:22px;margin-bottom:10px}
+  .entry-name{font-family:'Noto Serif SC',serif;font-size:15.5px;font-weight:700;margin-bottom:4px}
+  .entry-desc{font-size:12.5px;color:var(--ink-3);line-height:1.6}
+
+  /* ─── FOOTER ─── */
+  .footer{
+    text-align:center;padding:24px 0 0;font-size:11.5px;color:var(--ink-3);
+    border-top:1px solid var(--line);margin-top:40px
+  }
+  .footer strong{color:var(--beiya)}
+
+  @media(max-width:640px){
+    .hero{padding:28px 24px}
+    .hero-title{font-size:24px}
+    .nav{overflow-x:auto;scrollbar-width:none}
+    .nav::-webkit-scrollbar{display:none}
+    .search{width:120px}
+    .search:focus{width:160px}
+    .role-sw{font-size:11px}
+    .role-opt{padding:3px 8px}
+    .ruler{height:32px}
+    .ruler-seg .rs-emoji{font-size:12px}
+    .ruler-seg .rs-num{font-size:9px}
+  }
+
+  /* ═══ 手机端响应式适配 ═══ */
+  @media (max-width: 640px) {
+    html{font-size:14px}
+    body{line-height:1.6}
+
+    /* 顶栏压缩 */
+    .topbar{padding:10px 12px !important;gap:8px !important;flex-wrap:wrap;position:sticky;top:0}
+    .topbar .brand{font-size:13px !important}
+    .topbar .brand-mark{width:24px;height:24px;font-size:12px}
+    .topbar .nav{flex:1 1 100% !important;order:3;overflow-x:auto;scrollbar-width:none;gap:0 !important;padding:4px 0;border-top:1px solid var(--line,#E8E8EC);margin:8px 0 0 !important}
+    .topbar .nav::-webkit-scrollbar{display:none}
+    .topbar .nav a{padding:6px 10px !important;font-size:12px !important;flex-shrink:0;white-space:nowrap}
+    .search-wrap{display:none !important}
+    .role-sw{margin:0 !important;order:2}
+    .role-opt{padding:3px 8px !important;font-size:11px !important}
+
+    /* 主体 padding 减小 */
+    .wrap{padding:14px 12px 70px !important;max-width:100% !important}
+    .crumb{font-size:11.5px !important;margin-bottom:12px !important}
+
+    /* 所有 grid 一列化 */
+    .q-grid, .grid, .story-grid, .jump-mini-grid{grid-template-columns:1fr !important}
+    .row2, .row3{grid-template-columns:1fr !important}
+
+    /* 故事首页 - 故事卡 */
+    .story, .story.flagship, .story.runner-up{padding:18px !important}
+    .story .story-name{font-size:20px !important}
+    .entries{grid-template-columns:1fr !important}
+
+    /* 故事页 story-head */
+    .story-head{padding:20px !important;gap:16px !important}
+    .sh-emoji{font-size:58px !important;width:70px !important;height:70px !important}
+    .sh-name{font-size:22px !important}
+    .sh-desc{font-size:13px !important}
+    .sh-stats{gap:10px !important}
+    .sh-stat{padding-right:10px !important}
+    .sh-stat-num{font-size:16px !important}
+
+    /* 故事页 core-strip 分组 */
+    .core-group{flex-direction:column !important;align-items:stretch !important;padding:12px 0 0 !important}
+    .core-group-label{min-width:0 !important;padding-top:0 !important;margin-bottom:8px !important;font-size:11px !important}
+    .core-group-list{gap:10px !important}
+    .core-strip-title .hint{display:none}
+
+    /* gold-strip */
+    .gold-strip{padding:14px 16px !important}
+    .gs-grid{gap:6px !important}
+    .gs-chip{padding:6px 10px !important;font-size:12px !important}
+
+    /* filter-row */
+    .filter-row{gap:5px !important}
+    .filter-chip{padding:5px 10px !important;font-size:11.5px !important}
+
+    /* Q 卡片 */
+    .q-card{padding:14px 16px !important}
+    .qc-title{font-size:13px !important}
+    .qc-hook{font-size:12px !important}
+
+    /* 详情页 q-header */
+    .q-header{padding:14px 16px !important;margin-bottom:16px !important}
+    .q-title-en{font-size:15px !important;line-height:1.5 !important}
+    .q-tags{flex-wrap:wrap !important;gap:5px !important}
+    .tag{font-size:11px !important;padding:2px 8px !important}
+    .q-actions{flex-wrap:wrap !important;gap:5px !important}
+    .act{padding:5px 9px !important;font-size:11.5px !important}
+
+    /* prep-strip */
+    .prep-strip{flex-wrap:wrap !important;padding:10px 12px !important;gap:5px !important}
+    .prep-chip{font-size:12px !important;padding:3px 8px !important}
+    .prep-label{font-size:11px !important}
+
+    /* tier-tabs (详情页) */
+    .tier-tabs{overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap !important;padding-bottom:4px;margin-bottom:14px !important}
+    .tier-tabs::-webkit-scrollbar{display:none}
+    .tier-tab{padding:7px 11px !important;font-size:12px !important;white-space:nowrap;flex-shrink:0 !important}
+
+    /* outline sections */
+    .outline{padding:16px !important}
+    .sec{padding:14px !important}
+    .sec-body{font-size:13.5px !important}
+    .bullet{padding:5px 0 5px 20px !important;font-size:13.5px !important}
+
+    /* 参考范文 */
+    .ref-body{padding:16px 18px !important;font-size:13.5px !important;line-height:1.8 !important}
+
+    /* xrefs */
+    .xrefs{grid-template-columns:1fr !important}
+    .xref{padding:14px !important}
+
+    /* Hero (仪表盘) */
+    .hero{padding:22px !important;border-radius:14px !important}
+    .hero-num{font-size:30px !important}
+    .hero-row{gap:14px !important}
+    .hero-stat{min-width:100px !important}
+
+    /* FAB 方法论按钮 */
+    .fab{bottom:18px !important;right:18px !important;padding:10px 14px !important;font-size:12px !important}
+
+    /* jump-mini */
+    .jump-mini{padding:16px !important}
+
+    /* 登录页 */
+    .login-wrap, .login-card{padding:24px !important;max-width:100% !important;margin:0 12px !important}
+
+    /* 传统分类页 / 复现元素页 */
+    .tab-bar{flex-wrap:wrap !important}
+    .asset-grid{grid-template-columns:1fr 1fr !important}
+
+    /* 方法论页 · 各种 sec 排版 */
+    .mtd-hero{padding:24px 18px !important}
+    .mtd-hero h1{font-size:22px !important}
+
+    /* 仪表盘 card padding 减小 */
+    .card{padding:16px !important}
+    .card-title{font-size:12px !important}
+
+    /* 通用 padding 缩减 */
+    .panel, .panel-section, .cta-bar{padding:14px 16px !important}
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ═══ TOP BAR ═══ -->
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">北</div>
+    <span>北雅国际教育</span>
+  </div>
+  <nav class="nav">
+    <a class="active" href="学生端_素材宇宙首页_v1.html">🌌 素材宇宙</a>
+    <a href="学生端_传统分类页_v1.html">📋 传统分类</a>
+    <a href="学生端_复现元素页_v1.html">🏷️ 复现元素</a>
+    <a href="学生端_方法论页_v1.html">🎯 方法论</a>
+    <a href="学生端_进度仪表盘_v1.html">⭐ 我的</a>
+  </nav>
+  <div class="role-sw" title="切换练习角色">
+    <div class="role-opt" data-g="female">👩 Lucy</div>
+    <div class="role-opt" data-g="male">👨 Mark</div>
+  </div>
+  <div class="search-wrap">
+    <span class="search-ico">🔍</span>
+    <input class="search" placeholder="搜题目 / 人物 / 元素...">
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero">
+    <div class="hero-eyebrow">IELTS SPEAKING · PART 2 · 2026 Q2</div>
+    <h1 class="hero-title">一个<em>素材宇宙</em>，吃透 <em>53 题</em> Part 2</h1>
+    <p class="hero-sub">
+      不是题库堆砌，而是 <strong>7 个互通故事</strong>——你的好朋友 <span class="npc-name" data-npc>Lucy</span> 在不同故事里切换身份，场景反复复现。
+      你只需要记 7 个故事，就能回答 53 道题。按收益曲线学：<strong>4 个故事覆盖 91%</strong>。
+    </p>
+    <div class="hero-stats">
+      <div class="stat-item"><div class="stat-num">53</div><div class="stat-lbl">P2 题目</div></div>
+      <div class="stat-item"><div class="stat-num">7</div><div class="stat-lbl">互通故事</div></div>
+      <div class="stat-item"><div class="stat-num">4</div><div class="stat-lbl">段框架（S1–S4）</div></div>
+      <div class="stat-item"><div class="stat-num">5</div><div class="stat-lbl">档提纲变体</div></div>
+      <div class="stat-item"><div class="stat-num" style="color:var(--gold)">91%</div><div class="stat-lbl">前 4 故事覆盖率</div></div>
+    </div>
+  </section>
+
+  <!-- ═══ METHOD CALLOUT (moved up) ═══ -->
+  <section class="method-callout">
+    <div class="mc-icon">🎯</div>
+    <div class="mc-body">
+      <div class="mc-title">先 1 分钟看懂"为什么是 7 个故事"</div>
+      <div class="mc-desc">
+        4 段框架 (S1–S4)、5 个拓展技巧、复现人物设计——平台的灵魂方法论。读完再学故事，效率翻倍。
+      </div>
+    </div>
+    <a class="mc-cta" href="学生端_方法论页_v1.html">📖 查看方法论 →</a>
+  </section>
+
+  <!-- ═══ MEET NPC ═══ -->
+  <section class="meet-npc">
+    <div class="npc-avatar" data-npc-emoji>👩</div>
+    <div class="npc-info">
+      <div class="npc-headline">认识 <span class="npc-name" data-npc>Lucy</span> · 你的万能朋友</div>
+      <div class="npc-tagline">同一个朋友，6 个故事里 6 种身份——记一个人，省 5 倍记忆量。</div>
+      <div class="npc-roles">
+        <span class="npc-role">🍳 同班好友</span>
+        <span class="npc-role">🏞 同行旅伴</span>
+        <span class="npc-role">💻 数码顾问</span>
+        <span class="npc-role">🎨 邻家姐姐 · 唱歌好手</span>
+        <span class="npc-role">🏐 国家排球队员</span>
+        <span class="npc-role">🥗 健康达人</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ UNIVERSE RULER ═══ -->
+  <section class="ruler-wrap">
+    <div class="ruler-head">
+      <strong>🌌 53 题宇宙位置标尺</strong>
+      <span>每段宽度 = 题量占比 · 颜色越深 = 收益越高</span>
+    </div>
+    <div class="ruler" id="ruler">
+      <div class="ruler-seg" style="flex:22;background:#C0392B" title="Creative Cooking · 22题">
+        <div class="rs-emoji">🍳</div><div class="rs-num">22</div>
+      </div>
+      <div class="ruler-seg" style="flex:15;background:#D14E3F" title="Scenery · 15题">
+        <div class="rs-emoji">🏞</div><div class="rs-num">15</div>
+      </div>
+      <div class="ruler-seg" style="flex:6;background:#C99554" title="Technology · 6题">
+        <div class="rs-emoji">💻</div><div class="rs-num">6</div>
+      </div>
+      <div class="ruler-seg" style="flex:5;background:#B8894A" title="Arts · 5题">
+        <div class="rs-emoji">🎨</div><div class="rs-num">5</div>
+      </div>
+      <div class="ruler-seg" style="flex:2;background:#A6A099" title="Sports · 2题">
+        <div class="rs-emoji">🏐</div><div class="rs-num">2</div>
+      </div>
+      <div class="ruler-seg" style="flex:2;background:#9B968F" title="Movies · 2题">
+        <div class="rs-emoji">🎬</div><div class="rs-num">2</div>
+      </div>
+      <div class="ruler-seg" style="flex:1;background:#8E8983" title="Weight Loss · 1题">
+        <div class="rs-emoji">🥗</div><div class="rs-num">1</div>
+      </div>
+    </div>
+    <div class="ruler-foot">
+      <span>← 高收益起手</span>
+      <span>📌 <span class="gold">前 2 故事 = 70%</span> · <span class="gold">前 4 故事 = 91%</span></span>
+      <span>低收益尾部 →</span>
+    </div>
+  </section>
+
+  <!-- ═══ STORY UNIVERSE ═══ -->
+  <div class="sec-head">
+    <h2 class="sec-title">🌌 7 个互通故事</h2>
+    <div class="sec-hint">按收益曲线排序 · 点击进入</div>
+  </div>
+
+  <section class="stories">
+
+    <!-- Creative Cooking - Flagship -->
+    <article class="story flagship" onclick="location.href='学生端_故事页_CreativeCooking_v2.html'">
+      <div class="story-head">
+        <div class="story-emoji">🍳</div>
+        <span class="story-badge">★ 起手首选</span>
+      </div>
+      <div class="story-name">Creative Cooking <span class="story-name-en">· 创意料理</span></div>
+      <div class="story-tag">中秋 potluck 派对 · Fruit Roast Chicken · 家传菜谱。<span data-npc>Lucy</span>、爷爷大厨在这里反复出现。</div>
+      <div class="story-stats">
+        <span class="qcount">22 题</span>
+        <span class="pct">占 53 题的 42%</span>
+      </div>
+      <div class="story-chars">
+        <span class="char-chip primary">👤 <span data-npc>Lucy</span> · 同班好友</span>
+        <span class="char-chip primary">👤 Grandpa · 大厨</span>
+        <span class="char-chip">📍 老师家</span>
+        <span class="char-chip">🎬 Potluck dinner</span>
+      </div>
+      <div class="story-cta"><span>22 道题 · 5 档提纲</span><span class="enter">进入故事</span></div>
+    </article>
+
+    <!-- Scenery -->
+    <article class="story runner-up" onclick="location.href='学生端_故事页_Scenery_v1.html'">
+      <div class="story-head">
+        <div class="story-emoji">🏞</div>
+        <span class="story-badge">第二顺位</span>
+      </div>
+      <div class="story-name">Scenery <span class="story-name-en">· 风景</span></div>
+      <div class="story-tag">白云观 · 白云公园（湖、小鸭、老鹰）· 泰国寺庙。picnic + 唱歌比赛，冷清 vs 温暖对比。</div>
+      <div class="story-stats">
+        <span class="qcount">15 题</span>
+        <span class="pct">占 53 题的 28%</span>
+      </div>
+      <div class="story-chars">
+        <span class="char-chip primary">👤 <span data-npc>Lucy</span> · 同行旅伴</span>
+        <span class="char-chip">📍 White Cloud Temple</span>
+        <span class="char-chip">📍 White Cloud Park</span>
+        <span class="char-chip">🎬 Picnic & 唱歌比赛</span>
+      </div>
+      <div class="story-cta"><span>15 道题 · 5 档提纲</span><span class="enter">进入故事</span></div>
+    </article>
+
+    <!-- Technology -->
+    <article class="story" onclick="location.href='学生端_故事页_Technology_v1.html'">
+      <div class="story-head">
+        <div class="story-emoji">💻</div>
+        <span class="story-badge">第三顺位</span>
+      </div>
+      <div class="story-name">Technology <span class="story-name-en">· 科技数码</span></div>
+      <div class="story-tag">摔坏了朋友送的旧笔记本，<span data-npc>Lucy</span> 带我去电子城买 MacBook。友善的老板、二手交易、续航问题。</div>
+      <div class="story-stats">
+        <span class="qcount">6 题</span>
+        <span class="pct">占 53 题的 11%</span>
+      </div>
+      <div class="story-chars">
+        <span class="char-chip primary">👤 <span data-npc>Lucy</span> · 数码顾问</span>
+        <span class="char-chip">👤 友善的老板</span>
+        <span class="char-chip">📦 MacBook</span>
+        <span class="char-chip">📍 电子城</span>
+      </div>
+      <div class="story-cta"><span>6 道题 · 5 档提纲</span><span class="enter">进入故事</span></div>
+    </article>
+
+    <!-- Arts -->
+    <article class="story" onclick="location.href='学生端_故事页_Arts_v1.html'">
+      <div class="story-head">
+        <div class="story-emoji">🎨</div>
+        <span class="story-badge">91% 里程碑</span>
+      </div>
+      <div class="story-name">Arts <span class="story-name-en">· 艺术音乐</span></div>
+      <div class="story-tag"><span data-npc>Lucy</span> 擅长唱歌 · 清晨 6 点练吉他 · 学校音乐节。rap 不是我的菜，但喜欢 folk。</div>
+      <div class="story-stats">
+        <span class="qcount">5 题</span>
+        <span class="pct">占 53 题的 9%</span>
+      </div>
+      <div class="story-chars">
+        <span class="char-chip primary">👤 <span data-npc>Lucy</span> · 邻家姐姐 · 唱歌好手</span>
+        <span class="char-chip">🎬 学校音乐节</span>
+        <span class="char-chip">🎬 唱歌比赛</span>
+        <span class="char-chip">📦 吉他</span>
+      </div>
+      <div class="story-cta"><span>5 道题 · 5 档提纲</span><span class="enter">进入故事</span></div>
+    </article>
+
+    <!-- Sports -->
+    <article class="story" onclick="location.href='学生端_故事页_Sports_v1.html'">
+      <div class="story-head">
+        <div class="story-emoji">🏐</div>
+        <span class="story-badge">尾部 9%</span>
+      </div>
+      <div class="story-name">Sports <span class="story-name-en">· 运动</span></div>
+      <div class="story-tag"><span data-npc>Lucy</span> 是我家乡国家排球队队员。低卡饮食 · 6 点训练 · 和教练的团队合作。</div>
+      <div class="story-stats">
+        <span class="qcount">2 题</span>
+        <span class="pct">占 53 题的 4%</span>
+      </div>
+      <div class="story-chars">
+        <span class="char-chip primary">👤 <span data-npc>Lucy</span> · 国家排球队员</span>
+        <span class="char-chip">👤 教练</span>
+        <span class="char-chip">🎬 6 点训练</span>
+      </div>
+      <div class="story-cta"><span>2 道题 · 5 档提纲</span><span class="enter">进入故事</span></div>
+    </article>
+
+    <!-- Movies -->
+    <article class="story" onclick="location.href='学生端_故事页_Movies_v1.html'">
+      <div class="story-head">
+        <div class="story-emoji">🎬</div>
+        <span class="story-badge">尾部 9%</span>
+      </div>
+      <div class="story-name">Movies <span class="story-name-en">· 电影</span></div>
+      <div class="story-tag">Rush Hour · 成龙 · 香港警察 + FBI。坏人劫持 → 团队合作 → 营救。"家具当武器"的灵光片段。</div>
+      <div class="story-stats">
+        <span class="qcount">2 题</span>
+        <span class="pct">占 53 题的 4%</span>
+      </div>
+      <div class="story-chars">
+        <span class="char-chip">🎬 Rush Hour</span>
+        <span class="char-chip">👤 Jackie Chan</span>
+        <span class="char-chip">📍 Hong Kong</span>
+      </div>
+      <div class="story-cta"><span>2 道题 · 5 档提纲</span><span class="enter">进入故事</span></div>
+    </article>
+
+    <!-- Weight Loss -->
+    <article class="story" onclick="location.href='学生端_故事页_WeightLoss_v1.html'">
+      <div class="story-head">
+        <div class="story-emoji">🥗</div>
+        <span class="story-badge">尾部 9%</span>
+      </div>
+      <div class="story-name">Weight Loss <span class="story-name-en">· 减脂营养</span></div>
+      <div class="story-tag"><span data-npc>Lucy</span> 推荐了一本营养学的书 · 低卡低脂 · 多吃果蔬。不饿肚子就瘦了下来。</div>
+      <div class="story-stats">
+        <span class="qcount">1 题</span>
+        <span class="pct">占 53 题的 2%</span>
+      </div>
+      <div class="story-chars">
+        <span class="char-chip primary">👤 <span data-npc>Lucy</span> · 健康达人</span>
+        <span class="char-chip">📦 营养学的书</span>
+      </div>
+      <div class="story-cta"><span>1 道题 · 5 档提纲</span><span class="enter">进入故事</span></div>
+    </article>
+
+  </section>
+
+  <!-- ═══ OTHER VIEWS ═══ -->
+  <div class="sec-head">
+    <h2 class="sec-title">🔀 换个视角浏览</h2>
+    <div class="sec-hint">素材宇宙以外的 3 种查题方式</div>
+  </div>
+
+  <section class="entries">
+    <a class="entry" href="学生端_传统分类页_v1.html">
+      <div class="entry-ico">📋</div>
+      <div class="entry-name">传统分类</div>
+      <div class="entry-desc">按 人物 / 地点 / 物品 / 事件 四大类浏览 · 13 / 7 / 15 / 18 题</div>
+    </a>
+    <a class="entry" href="学生端_复现元素页_v1.html">
+      <div class="entry-ico">🏷️</div>
+      <div class="entry-name">复现元素索引</div>
+      <div class="entry-desc"><span data-npc>Lucy</span> / Potluck / Fruit Roast Chicken... 点一下看它出现在哪些题里</div>
+    </a>
+    <a class="entry" href="#">
+      <div class="entry-ico">⭐</div>
+      <div class="entry-name">我的学习进度</div>
+      <div class="entry-desc">收藏题 · 三态打卡 · 本赛季已掌握 X / 53</div>
+    </a>
+  </section>
+
+  <div class="footer">
+    <strong>北雅国际教育</strong> · 济宁校区 · IELTS Speaking Part 2 · 2026 Q2 题库<br>
+    首页 v2 · 视觉延续学生端样片 v2
+  </div>
+
+</main>
+
+<script>
+  // ─── Auth gate ───
+  try{
+    if(localStorage.getItem('beiya_authed') !== '1'){
+      window.location.href = '学生端_登录_v1.html';
+    }
+  }catch(e){}
+
+  // ─── Role / NPC swap ───
+  const NPC = { female:{name:'Lucy', emoji:'👩'}, male:{name:'Mark', emoji:'👨'} };
+
+  function applyGender(g){
+    const n = NPC[g] || NPC.female;
+    document.querySelectorAll('[data-npc]').forEach(el => el.textContent = n.name);
+    document.querySelectorAll('[data-npc-emoji]').forEach(el => el.textContent = n.emoji);
+    document.querySelectorAll('.role-opt').forEach(el => el.classList.toggle('on', el.dataset.g===g));
+    try{ localStorage.setItem('beiya_gender', g); }catch(e){}
+  }
+
+  let curG = 'female';
+  try{ curG = localStorage.getItem('beiya_gender') || 'female'; }catch(e){}
+  applyGender(curG);
+
+  document.querySelectorAll('.role-opt').forEach(el=>{
+    el.addEventListener('click', ()=> applyGender(el.dataset.g));
+  });
+</script>
+
+</body>
+</html>

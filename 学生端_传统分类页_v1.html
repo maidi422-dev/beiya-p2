@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>北雅 · P2 · 📋 传统分类</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --beiya:#C0392B;--beiya-dark:#9B2C20;--beiya-soft:#FDECEA;
+    --gold:#B8894A;--gold-soft:#FBF4EA;--gold-dark:#9A6F35;
+    --ink:#1E1E22;--ink-2:#4A4A52;--ink-3:#8A8A92;
+    --line:#E8E8EC;--bg:#FAFAFA;--white:#FFFFFF;
+    --ok:#2E7D32;--pending:#E8834A;
+    --c-person:#3A5BB8;--c-person-bg:#EDF2FE;--c-person-soft:#F5F8FE;
+    --c-place:#2F8F5C;--c-place-bg:#E8F5EE;--c-place-soft:#F4FAF7;
+    --c-thing:#7E4DAA;--c-thing-bg:#F3EBFB;--c-thing-soft:#F9F4FD;
+    --c-event:#B86A2A;--c-event-bg:#FFF2E5;--c-event-soft:#FFFAF3;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter','PingFang SC','Microsoft YaHei',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none;cursor:pointer}
+
+  /* TOP BAR */
+  .topbar{position:sticky;top:0;z-index:40;background:var(--white);border-bottom:1px solid var(--line);padding:14px 24px;display:flex;align-items:center;gap:18px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:var(--beiya);white-space:nowrap}
+  .brand-mark{width:28px;height:28px;background:var(--beiya);color:#fff;display:flex;align-items:center;justify-content:center;border-radius:4px;font-family:'Noto Serif SC',serif;font-size:14px}
+  .nav{display:flex;gap:2px;margin-left:8px;flex:1}
+  .nav a{padding:7px 14px;border-radius:6px;font-size:13px;color:var(--ink-2);font-weight:500;white-space:nowrap}
+  .nav a:hover{background:var(--beiya-soft);color:var(--beiya)}
+  .nav a.active{background:var(--beiya);color:#fff}
+  .role-sw{display:flex;align-items:center;gap:6px;background:#F4F4F6;border-radius:20px;padding:3px;font-size:12px}
+  .role-opt{padding:4px 12px;border-radius:16px;cursor:pointer;color:var(--ink-3);font-weight:500;transition:all .15s;white-space:nowrap}
+  .role-opt.on{background:var(--beiya);color:#fff}
+  .search-wrap{position:relative}
+  .search{background:#F4F4F6;border:1px solid transparent;border-radius:20px;padding:7px 14px 7px 36px;font-size:12.5px;width:200px;color:var(--ink);font-family:inherit;outline:none;transition:all .2s}
+  .search:focus{background:#fff;border-color:var(--beiya);width:240px}
+  .search-ico{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--ink-3);font-size:13px;pointer-events:none}
+
+  /* LAYOUT */
+  .wrap{max-width:1120px;margin:0 auto;padding:24px 24px 80px}
+  .crumb{font-size:12.5px;color:var(--ink-3);margin-bottom:18px}
+  .crumb a:hover{color:var(--beiya)}
+  .crumb .sep{margin:0 6px}
+
+  /* HERO */
+  .hero{background:linear-gradient(135deg,#fff 0%,#FFF9F7 100%);border:1px solid var(--line);border-radius:16px;padding:26px 30px;margin-bottom:18px}
+  .hero-eyebrow{font-size:12px;letter-spacing:2px;color:var(--beiya);font-weight:600;text-transform:uppercase;margin-bottom:8px}
+  .hero-title{font-family:'Noto Serif SC',serif;font-size:24px;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:8px}
+  .hero-title em{color:var(--beiya);font-style:normal}
+  .hero-sub{font-size:13.5px;color:var(--ink-2);max-width:740px;line-height:1.7}
+
+  /* 4 CATEGORY BIG CARDS */
+  .cats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+  .cat-bigcard{
+    background:var(--white);border:1.5px solid var(--line);border-radius:14px;
+    padding:20px 20px 18px;cursor:pointer;transition:all .18s;position:relative;overflow:hidden;
+    display:flex;flex-direction:column;gap:8px
+  }
+  .cat-bigcard::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:var(--beiya);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+  .cat-bigcard:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.08)}
+  .cat-bigcard.on{border-width:1.5px}
+  .cat-bigcard.on::before{transform:scaleX(1)}
+  .cat-bigcard[data-cat="人物"].on{border-color:var(--c-person);background:var(--c-person-soft)}
+  .cat-bigcard[data-cat="人物"].on::before{background:var(--c-person)}
+  .cat-bigcard[data-cat="地点"].on{border-color:var(--c-place);background:var(--c-place-soft)}
+  .cat-bigcard[data-cat="地点"].on::before{background:var(--c-place)}
+  .cat-bigcard[data-cat="物品"].on{border-color:var(--c-thing);background:var(--c-thing-soft)}
+  .cat-bigcard[data-cat="物品"].on::before{background:var(--c-thing)}
+  .cat-bigcard[data-cat="事件"].on{border-color:var(--c-event);background:var(--c-event-soft)}
+  .cat-bigcard[data-cat="事件"].on::before{background:var(--c-event)}
+
+  .cb-head{display:flex;justify-content:space-between;align-items:flex-start}
+  .cb-emoji{font-size:32px;line-height:1}
+  .cb-num{font-family:'Noto Serif SC',serif;font-size:34px;font-weight:700;color:var(--beiya);line-height:1}
+  .cat-bigcard[data-cat="人物"].on .cb-num{color:var(--c-person)}
+  .cat-bigcard[data-cat="地点"].on .cb-num{color:var(--c-place)}
+  .cat-bigcard[data-cat="物品"].on .cb-num{color:var(--c-thing)}
+  .cat-bigcard[data-cat="事件"].on .cb-num{color:var(--c-event)}
+  .cb-name{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:700;color:var(--ink)}
+  .cb-meta{font-size:11.5px;color:var(--ink-3);line-height:1.5}
+  .cb-meta strong{color:var(--ink-2);font-weight:600}
+
+  /* INSIGHT STRIP */
+  .insight{
+    background:var(--gold-soft);border:1px solid #EAD9B8;border-radius:12px;
+    padding:14px 20px;margin-bottom:24px;
+    display:flex;align-items:center;gap:12px;font-size:13px;color:var(--ink-2)
+  }
+  .insight-icon{font-size:20px;line-height:1;flex-shrink:0}
+  .insight strong{color:var(--gold-dark);font-weight:700}
+  .insight .pct{color:var(--beiya);font-weight:700;font-family:'Noto Serif SC',serif;font-size:14px}
+
+  /* SECTION HEADER */
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;margin:8px 0 12px;gap:12px;flex-wrap:wrap}
+  .sec-title{font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:10px}
+  .sec-title .cnt-badge{
+    background:var(--beiya);color:#fff;font-size:13px;padding:2px 12px;border-radius:14px;
+    font-family:'Noto Serif SC',serif;font-weight:700
+  }
+  .sec-hint{font-size:12.5px;color:var(--ink-3)}
+
+  /* GROUP STRIP */
+  .group-strip{margin-bottom:20px}
+  .gs-head{
+    display:flex;align-items:center;gap:10px;margin-bottom:10px;
+    padding:10px 14px;background:var(--white);border:1px solid var(--line);
+    border-radius:10px;cursor:pointer;transition:all .15s
+  }
+  .gs-head:hover{border-color:var(--beiya);background:var(--beiya-soft)}
+  .gs-emoji{font-size:22px;line-height:1}
+  .gs-name{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:700;color:var(--ink)}
+  .gs-name-en{font-size:11.5px;color:var(--ink-3);font-style:italic;margin-left:4px;font-weight:400}
+  .gs-cnt{
+    background:var(--beiya-soft);color:var(--beiya);font-size:11.5px;
+    padding:1px 10px;border-radius:10px;font-weight:600;margin-left:6px
+  }
+  .gs-go{margin-left:auto;font-size:12px;color:var(--ink-3);font-weight:500;transition:all .15s}
+  .gs-head:hover .gs-go{color:var(--beiya)}
+  .gs-head:hover .gs-go::after{content:' →';margin-left:2px}
+
+  /* QUESTION GRID */
+  .q-grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));margin-bottom:6px}
+  .q-card{
+    background:var(--white);border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px;cursor:pointer;transition:all .15s;
+    display:flex;flex-direction:column;gap:6px
+  }
+  .q-card:hover{border-color:var(--beiya);box-shadow:0 4px 14px rgba(192,57,43,.08);transform:translateY(-1px)}
+  .qc-head{display:flex;align-items:center;gap:8px}
+  .qc-num{
+    background:var(--beiya);color:#fff;font-family:'Noto Serif SC',serif;font-weight:700;
+    width:30px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;
+    font-size:11px;flex-shrink:0
+  }
+  .qc-story-em{font-size:14px}
+  .qc-status{margin-left:auto;font-size:12px;color:var(--ink-3);display:flex;gap:5px}
+  .qc-title{font-size:13px;color:var(--beiya-dark);font-style:italic;font-weight:500;line-height:1.5}
+
+  /* FOOTER */
+  .footer{text-align:center;padding:24px 0 0;font-size:11.5px;color:var(--ink-3);border-top:1px solid var(--line);margin-top:40px}
+  .footer strong{color:var(--beiya)}
+
+  @media(max-width:840px){
+    .cats-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media(max-width:640px){
+    .nav{overflow-x:auto;scrollbar-width:none}
+    .nav::-webkit-scrollbar{display:none}
+    .search{width:120px}
+    .cb-num{font-size:28px}
+  }
+
+  /* ═══ 手机端响应式适配 ═══ */
+  @media (max-width: 640px) {
+    html{font-size:14px}
+    body{line-height:1.6}
+
+    /* 顶栏压缩 */
+    .topbar{padding:10px 12px !important;gap:8px !important;flex-wrap:wrap;position:sticky;top:0}
+    .topbar .brand{font-size:13px !important}
+    .topbar .brand-mark{width:24px;height:24px;font-size:12px}
+    .topbar .nav{flex:1 1 100% !important;order:3;overflow-x:auto;scrollbar-width:none;gap:0 !important;padding:4px 0;border-top:1px solid var(--line,#E8E8EC);margin:8px 0 0 !important}
+    .topbar .nav::-webkit-scrollbar{display:none}
+    .topbar .nav a{padding:6px 10px !important;font-size:12px !important;flex-shrink:0;white-space:nowrap}
+    .search-wrap{display:none !important}
+    .role-sw{margin:0 !important;order:2}
+    .role-opt{padding:3px 8px !important;font-size:11px !important}
+
+    /* 主体 padding 减小 */
+    .wrap{padding:14px 12px 70px !important;max-width:100% !important}
+    .crumb{font-size:11.5px !important;margin-bottom:12px !important}
+
+    /* 所有 grid 一列化 */
+    .q-grid, .grid, .story-grid, .jump-mini-grid{grid-template-columns:1fr !important}
+    .row2, .row3{grid-template-columns:1fr !important}
+
+    /* 故事首页 - 故事卡 */
+    .story, .story.flagship, .story.runner-up{padding:18px !important}
+    .story .story-name{font-size:20px !important}
+    .entries{grid-template-columns:1fr !important}
+
+    /* 故事页 story-head */
+    .story-head{padding:20px !important;gap:16px !important}
+    .sh-emoji{font-size:58px !important;width:70px !important;height:70px !important}
+    .sh-name{font-size:22px !important}
+    .sh-desc{font-size:13px !important}
+    .sh-stats{gap:10px !important}
+    .sh-stat{padding-right:10px !important}
+    .sh-stat-num{font-size:16px !important}
+
+    /* 故事页 core-strip 分组 */
+    .core-group{flex-direction:column !important;align-items:stretch !important;padding:12px 0 0 !important}
+    .core-group-label{min-width:0 !important;padding-top:0 !important;margin-bottom:8px !important;font-size:11px !important}
+    .core-group-list{gap:10px !important}
+    .core-strip-title .hint{display:none}
+
+    /* gold-strip */
+    .gold-strip{padding:14px 16px !important}
+    .gs-grid{gap:6px !important}
+    .gs-chip{padding:6px 10px !important;font-size:12px !important}
+
+    /* filter-row */
+    .filter-row{gap:5px !important}
+    .filter-chip{padding:5px 10px !important;font-size:11.5px !important}
+
+    /* Q 卡片 */
+    .q-card{padding:14px 16px !important}
+    .qc-title{font-size:13px !important}
+    .qc-hook{font-size:12px !important}
+
+    /* 详情页 q-header */
+    .q-header{padding:14px 16px !important;margin-bottom:16px !important}
+    .q-title-en{font-size:15px !important;line-height:1.5 !important}
+    .q-tags{flex-wrap:wrap !important;gap:5px !important}
+    .tag{font-size:11px !important;padding:2px 8px !important}
+    .q-actions{flex-wrap:wrap !important;gap:5px !important}
+    .act{padding:5px 9px !important;font-size:11.5px !important}
+
+    /* prep-strip */
+    .prep-strip{flex-wrap:wrap !important;padding:10px 12px !important;gap:5px !important}
+    .prep-chip{font-size:12px !important;padding:3px 8px !important}
+    .prep-label{font-size:11px !important}
+
+    /* tier-tabs (详情页) */
+    .tier-tabs{overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap !important;padding-bottom:4px;margin-bottom:14px !important}
+    .tier-tabs::-webkit-scrollbar{display:none}
+    .tier-tab{padding:7px 11px !important;font-size:12px !important;white-space:nowrap;flex-shrink:0 !important}
+
+    /* outline sections */
+    .outline{padding:16px !important}
+    .sec{padding:14px !important}
+    .sec-body{font-size:13.5px !important}
+    .bullet{padding:5px 0 5px 20px !important;font-size:13.5px !important}
+
+    /* 参考范文 */
+    .ref-body{padding:16px 18px !important;font-size:13.5px !important;line-height:1.8 !important}
+
+    /* xrefs */
+    .xrefs{grid-template-columns:1fr !important}
+    .xref{padding:14px !important}
+
+    /* Hero (仪表盘) */
+    .hero{padding:22px !important;border-radius:14px !important}
+    .hero-num{font-size:30px !important}
+    .hero-row{gap:14px !important}
+    .hero-stat{min-width:100px !important}
+
+    /* FAB 方法论按钮 */
+    .fab{bottom:18px !important;right:18px !important;padding:10px 14px !important;font-size:12px !important}
+
+    /* jump-mini */
+    .jump-mini{padding:16px !important}
+
+    /* 登录页 */
+    .login-wrap, .login-card{padding:24px !important;max-width:100% !important;margin:0 12px !important}
+
+    /* 传统分类页 / 复现元素页 */
+    .tab-bar{flex-wrap:wrap !important}
+    .asset-grid{grid-template-columns:1fr 1fr !important}
+
+    /* 方法论页 · 各种 sec 排版 */
+    .mtd-hero{padding:24px 18px !important}
+    .mtd-hero h1{font-size:22px !important}
+
+    /* 仪表盘 card padding 减小 */
+    .card{padding:16px !important}
+    .card-title{font-size:12px !important}
+
+    /* 通用 padding 缩减 */
+    .panel, .panel-section, .cta-bar{padding:14px 16px !important}
+  }
+
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="brand"><div class="brand-mark">北</div><span>北雅国际教育</span></div>
+  <nav class="nav">
+    <a href="学生端_素材宇宙首页_v1.html">🌌 素材宇宙</a>
+    <a class="active" href="学生端_传统分类页_v1.html">📋 传统分类</a>
+    <a href="学生端_复现元素页_v1.html">🏷️ 复现元素</a>
+    <a href="学生端_方法论页_v1.html">🎯 方法论</a>
+    <a href="学生端_进度仪表盘_v1.html">⭐ 我的</a>
+  </nav>
+  <div class="role-sw">
+    <div class="role-opt" data-g="female">👩 Lucy</div>
+    <div class="role-opt" data-g="male">👨 Mark</div>
+  </div>
+  <div class="search-wrap">
+    <span class="search-ico">🔍</span>
+    <input class="search" placeholder="搜题目...">
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="crumb">
+    <a>🌌 素材宇宙</a>
+    <span class="sep">›</span>
+    <a>📋 传统分类</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">BY IELTS OFFICIAL · 4 大分类</div>
+    <h1 class="hero-title">53 道 P2 题，按 <em>人物 / 地点 / 物品 / 事件</em> 浏览</h1>
+    <p class="hero-sub">
+      雅思官方 P2 把所有题目归入 4 大类。这里提供按分类的浏览方式，
+      并显示<strong>每个分类在 7 故事里的分布</strong>——帮你一眼看出"想巩固这一类，应该学哪个故事"。
+    </p>
+  </section>
+
+  <!-- 4 CATEGORY BIG CARDS -->
+  <section class="cats-grid">
+    <article class="cat-bigcard on" data-cat="人物">
+      <div class="cb-head"><div class="cb-emoji">👤</div><div class="cb-num">13</div></div>
+      <div class="cb-name">人物</div>
+      <div class="cb-meta">主导：<strong>🍳 Cooking 5 题</strong> · 跨 5 故事</div>
+    </article>
+    <article class="cat-bigcard" data-cat="地点">
+      <div class="cb-head"><div class="cb-emoji">📍</div><div class="cb-num">7</div></div>
+      <div class="cb-name">地点</div>
+      <div class="cb-meta">主导：<strong>🏞 Scenery 6 题</strong> · 跨 2 故事</div>
+    </article>
+    <article class="cat-bigcard" data-cat="物品">
+      <div class="cb-head"><div class="cb-emoji">📦</div><div class="cb-num">15</div></div>
+      <div class="cb-name">物品</div>
+      <div class="cb-meta">主导：<strong>🍳 Cooking 7 题</strong> · 跨 6 故事</div>
+    </article>
+    <article class="cat-bigcard" data-cat="事件">
+      <div class="cb-head"><div class="cb-emoji">🎬</div><div class="cb-num">18</div></div>
+      <div class="cb-name">事件</div>
+      <div class="cb-meta">主导：<strong>🍳 Cooking 10 题</strong> · 跨 4 故事</div>
+    </article>
+  </section>
+
+  <!-- INSIGHT (dynamic) -->
+  <section class="insight" id="insight">
+    <span class="insight-icon">💡</span>
+    <span><strong>策略提示：</strong>当前 <strong>人物</strong> 类共 13 题，<strong>🍳 Creative Cooking</strong> 一个故事就覆盖 <span class="pct">5 / 13 = 38%</span>。学 Cooking 故事 = 拿下大半人物题。</span>
+  </section>
+
+  <!-- SECTION TITLE -->
+  <div class="sec-head">
+    <h2 class="sec-title" id="catTitle">👤 人物题 <span class="cnt-badge" id="catCnt">13</span></h2>
+    <div class="sec-hint">按 7 故事分组 · 点故事头部跳故事页</div>
+  </div>
+
+  <!-- DYNAMIC CONTENT -->
+  <section id="catContent"></section>
+
+  <div class="footer">
+    <strong>北雅国际教育</strong> · 传统分类页 v1
+  </div>
+
+</main>
+
+<script src="data.js"></script>
+<script>
+  // gidOf: 按故事名 + 故事内 Q 号 → 全局 global_id
+  window.gidOf = function(storyName, qg){
+    qg = parseInt(qg);
+    var q = (window.P2_DATA||[]).find(function(x){return x.group===storyName && x.q_num_in_group===qg;});
+    return q ? q.global_id : 1;
+  };
+  // Auth gate
+  try{ if(localStorage.getItem('beiya_authed') !== '1') window.location.href = '学生端_登录_v1.html'; }catch(e){}
+
+  // NPC swap
+  const NPC = { female:{name:'Lucy', emoji:'👩'}, male:{name:'Mark', emoji:'👨'} };
+  function applyGender(g){
+    const n = NPC[g] || NPC.female;
+    document.querySelectorAll('[data-npc]').forEach(el => el.textContent = n.name);
+    document.querySelectorAll('.role-opt').forEach(el => el.classList.toggle('on', el.dataset.g===g));
+    try{ localStorage.setItem('beiya_gender', g); }catch(e){}
+  }
+  let curG='female';
+  try{ curG = localStorage.getItem('beiya_gender') || 'female'; }catch(e){}
+  applyGender(curG);
+  document.querySelectorAll('.role-opt').forEach(el=> el.addEventListener('click', ()=> applyGender(el.dataset.g)));
+
+  // Embedded category data (cat → group → questions[])
+  const CAT_DATA = {"事件":{"Creative Cooking":[{"qg":1,"qglobal":1,"title":"Describe a time you needed to use your imagination","s1_first":"potluck dinner / had to use my imagination to decide what to cook"},{"qg":2,"qglobal":2,"title":"Describe a time when you gave advice to others","s1_first":"gave advice to my friend Lucy"},{"qg":6,"qglobal":6,"title":"Describe a time when you encouraged someone to do something he/she didn't want to do","s1_first":"encouraged my friend Lucy to make a homemade dish for a potluck dinner"},{"qg":8,"qglobal":8,"title":"Describe an exciting activity you have tried for the first time","s1_first":"my first potluck dinner — Mid-Autumn Festival with classmates"},{"qg":11,"qglobal":11,"title":"Describe a time when you waited for something special that would happen","s1_first":"waited nervously for a potluck dinner during Mid-Autumn Festival"},{"qg":13,"qglobal":13,"title":"Describe a time you saw something interesting on social media","s1_first":"a chef shared a very unusual recipe online"},{"qg":14,"qglobal":14,"title":"Describe a time when someone apologized to you","s1_first":"my friend Lucy apologized to me at a potluck dinner"},{"qg":18,"qglobal":18,"title":"Describe an important choice made with the help of other people","s1_first":"decided to cook Fruit Roast Chicken for a potluck dinner"},{"qg":21,"qglobal":21,"title":"Describe an occasion when many people were smiling","s1_first":"a potluck dinner during Mid-Autumn Festival"},{"qg":22,"qglobal":22,"title":"Describe a time when you felt proud of a family member","s1_first":"felt really proud of my mom"}],"Scenery":[{"qg":3,"qglobal":25,"title":"Describe the time when you first talked in a foreign language","s1_first":"the first time I spoke in a foreign language"},{"qg":4,"qglobal":26,"title":"Describe a short-term job you want to have in a foreign country","s1_first":"being a photographer in Thailand"},{"qg":8,"qglobal":30,"title":"Describe a long journey you had and would like to take again","s1_first":"a road trip to White Cloud Park — 300 km from where I live"},{"qg":10,"qglobal":32,"title":"Describe an occasion when you lost your way","s1_first":"got completely lost once"},{"qg":11,"qglobal":33,"title":"Describe a time when the electricity suddenly went off","s1_first":"the electricity suddenly went off"}],"Technology":[{"qg":4,"qglobal":41,"title":"Describe a time when you broke something","s1_first":"broke my laptop — a MacBook that was a gift from my best friend Lucy"}],"Arts":[{"qg":4,"qglobal":47,"title":"Describe an event you attended in which you didn't enjoy the music played","s1_first":"our school's music festival — honestly a really bad experience for me"},{"qg":5,"qglobal":48,"title":"Describe an occasion when you were not allowed to use your mobile phone","s1_first":"a class picnic at a local park / our teacher took away everyone's phones"}]},"物品":{"Creative Cooking":[{"qg":3,"qglobal":3,"title":"Describe something important that has been kept in your family for a long time","s1_first":"a handwritten recipe book written by my grandpa"},{"qg":5,"qglobal":5,"title":"Describe a perfect job you would like to have in the future","s1_first":"my dream job: being a creative chef"},{"qg":7,"qglobal":7,"title":"Describe a great dinner you and your friends or family members enjoyed","s1_first":"a potluck dinner with my classmates during Mid-Autumn Festival"},{"qg":12,"qglobal":12,"title":"Describe a book you read that you found useful","s1_first":"a handwritten recipe book left by my neighbor's grandpa"},{"qg":15,"qglobal":15,"title":"Describe a good habit your friend has and you want to develop","s1_first":"Lucy always cooks homemade food instead of just buying fast food"},{"qg":19,"qglobal":19,"title":"Describe a TV or online program you like to watch","s1_first":"an online cooking channel on social media"},{"qg":20,"qglobal":20,"title":"Describe a program or app on your computer or phone","s1_first":"ChatGPT — an artificial intelligence app on my phone"}],"Scenery":[{"qg":14,"qglobal":36,"title":"Describe a wild animal that you want to learn more about","s1_first":"the duckling — though my friend Lucy would strongly disagree"},{"qg":15,"qglobal":37,"title":"Describe a toy you liked in your childhood","s1_first":"a LEGO set — a gift from my best friend Lucy"}],"Technology":[{"qg":1,"qglobal":38,"title":"Describe an item on which you spent more than expected","s1_first":"a MacBook — spent way more than I originally planned"},{"qg":2,"qglobal":39,"title":"Describe a piece of technology (not a phone) that you would like to own","s1_first":"a MacBook — designed by Apple, one of the most popular laptops in the world"}],"Arts":[{"qg":3,"qglobal":46,"title":"Describe a natural talent (sports, music, etc.) you want to improve","s1_first":"my singing — I have some natural feel for it, but I've never really worked on it"}],"Movies":[{"qg":1,"qglobal":51,"title":"Describe a movie you watched and enjoyed recently","s1_first":"Rush Hour — a Hollywood movie starring Jackie Chan"},{"qg":2,"qglobal":52,"title":"Describe a story (like a fairy tale, etc.) you have read recently","s1_first":"a story set in the Ming Dynasty — a young girl saves her husband"}],"Weight Loss":[{"qg":1,"qglobal":53,"title":"Describe an area/subject of science that you are interested in and would like to learn more about","s1_first":"nutrition science — the study of how food affects our bodies"}]},"人物":{"Creative Cooking":[{"qg":4,"qglobal":4,"title":"Describe a person who solved a problem in a smart way","s1_first":"my friend Lucy — she solved a problem in a really clever way"},{"qg":9,"qglobal":9,"title":"Describe a person you know who enjoys working for a family business","s1_first":"my neighbor — she runs a small restaurant her grandpa built"},{"qg":10,"qglobal":10,"title":"Describe a creative person you admire","s1_first":"my neighbor's grandpa — a well-known local chef"},{"qg":16,"qglobal":16,"title":"Describe one of your friends who learned something new without a teacher","s1_first":"my friend Lucy — she taught herself to cook a creative dish with no teacher"},{"qg":17,"qglobal":17,"title":"Describe an intelligent person you know","s1_first":"my friend Lucy — intelligent, always finds clever ways to solve problems"}],"Scenery":[{"qg":7,"qglobal":29,"title":"Describe a person who likes to look after the natural world","s1_first":"a woman named Lucy I met at White Cloud Park"},{"qg":13,"qglobal":35,"title":"Describe a person who makes plans a lot and is good at planning","s1_first":"my best friend Lucy — really good at making plans"}],"Technology":[{"qg":5,"qglobal":42,"title":"Describe a person who often helps others","s1_first":"my friend Lucy — she always helps others without asking for anything back"},{"qg":6,"qglobal":43,"title":"Describe a good friend who is important to you","s1_first":"my best friend Lucy — one of the most important people in my life"}],"Arts":[{"qg":1,"qglobal":44,"title":"Describe a child who loves drawing/painting","s1_first":"my neighbor — a little girl called Lucy / about 10 years old"},{"qg":2,"qglobal":45,"title":"Describe a friend of yours who is good at music/singing","s1_first":"my friend Lucy — she has the most beautiful singing voice I've ever heard"}],"Sports":[{"qg":1,"qglobal":49,"title":"Describe a famous person you would like to meet","s1_first":"Lucy — a well-known volleyball player on the national team"},{"qg":2,"qglobal":50,"title":"Describe a successful sportsperson you admire","s1_first":"Lucy — a well-known volleyball player on the national team"}]},"地点":{"Scenery":[{"qg":1,"qglobal":23,"title":"Describe an interesting building","s1_first":"White Cloud Temple — an interesting building not far from where I live"},{"qg":2,"qglobal":24,"title":"Describe an unusual but interesting building you would like to visit","s1_first":"a famous temple in Thailand — strange but really interesting"},{"qg":5,"qglobal":27,"title":"Describe a natural place","s1_first":"White Cloud Park — a natural place about 300 km from where I live"},{"qg":6,"qglobal":28,"title":"Describe a quiet place you like to go","s1_first":"White Cloud Park — the quietest and most peaceful place I know"},{"qg":9,"qglobal":31,"title":"Describe a city that you have been to and would like to visit again","s1_first":"a city about 300 km from where I live"},{"qg":12,"qglobal":34,"title":"Describe a place you went to and an outdoor activity you did there","s1_first":"White Cloud Park — had a picnic with a singing contest there"}],"Technology":[{"qg":3,"qglobal":40,"title":"Describe a shop/store you enjoy visiting  /  Describe a time when you received good service in a shop/store","s1_first":"a second-hand electronics shop / about 2 km from my school"}]}};
+  const GROUP_ORDER = ['Creative Cooking','Scenery','Technology','Arts','Sports','Movies','Weight Loss'];
+  const GE = {'Creative Cooking':'🍳','Scenery':'🏞','Technology':'💻','Arts':'🎨','Sports':'🏐','Movies':'🎬','Weight Loss':'🥗'};
+  const GE_NAME_EN = {
+    'Creative Cooking':'· 创意料理','Scenery':'· 风景','Technology':'· 科技','Arts':'· 艺术',
+    'Sports':'· 运动','Movies':'· 电影','Weight Loss':'· 减脂'
+  };
+  const CAT_EMOJI = {'人物':'👤','地点':'📍','物品':'📦','事件':'🎬'};
+  const CAT_TOTAL = {'人物':13,'地点':7,'物品':15,'事件':18};
+
+  function renderCat(cat){
+    const groups = CAT_DATA[cat] || {};
+    document.getElementById('catTitle').innerHTML = `${CAT_EMOJI[cat]} ${cat}题 <span class="cnt-badge">${CAT_TOTAL[cat]}</span>`;
+
+    // Insight: find dominant story
+    let topGroup = null, topCount = 0;
+    for(const g of GROUP_ORDER){
+      const n = (groups[g]||[]).length;
+      if(n > topCount){ topCount = n; topGroup = g; }
+    }
+    if(topGroup){
+      const pct = Math.round(topCount / CAT_TOTAL[cat] * 100);
+      document.getElementById('insight').innerHTML = `
+        <span class="insight-icon">💡</span>
+        <span><strong>策略提示：</strong>当前 <strong>${cat}</strong> 类共 ${CAT_TOTAL[cat]} 题，<strong>${GE[topGroup]} ${topGroup}</strong> 一个故事就覆盖 <span class="pct">${topCount} / ${CAT_TOTAL[cat]} = ${pct}%</span>。${pct >= 60 ? '强烈建议优先学这个故事。' : pct >= 40 ? '学这个故事 = 拿下大半此类题。' : '此类题分布相对均匀，按故事顺序学即可。'}</span>
+      `;
+    }
+
+    // Render groups
+    const html = GROUP_ORDER.filter(g => groups[g] && groups[g].length).map(g=>{
+      const qs = groups[g];
+      const cards = qs.map(q=>`
+        <article class="q-card" data-q="${gidOf(g, q.qg)}" onclick="location.href='题目详情_v1.html?q='+this.dataset.q">
+          <div class="qc-head">
+            <div class="qc-num">Q${q.qg}</div>
+            <span class="qc-story-em">${GE[g]}</span>
+            <div class="qc-status">⭐ ✓ ⏱</div>
+          </div>
+          <div class="qc-title">${q.title}</div>
+        </article>
+      `).join('');
+      return `
+        <div class="group-strip">
+          <a class="gs-head">
+            <span class="gs-emoji">${GE[g]}</span>
+            <span class="gs-name">${g}<span class="gs-name-en">${GE_NAME_EN[g]}</span></span>
+            <span class="gs-cnt">${qs.length} 题</span>
+            <span class="gs-go">查看故事页</span>
+          </a>
+          <div class="q-grid">${cards}</div>
+        </div>
+      `;
+    }).join('');
+    document.getElementById('catContent').innerHTML = html;
+  }
+  renderCat('人物');
+
+  // Tab switching
+  document.querySelectorAll('.cat-bigcard').forEach(card=>{
+    card.addEventListener('click', ()=>{
+      document.querySelectorAll('.cat-bigcard').forEach(c=>c.classList.remove('on'));
+      card.classList.add('on');
+      renderCat(card.dataset.cat);
+      window.scrollTo({top: card.offsetTop + 200, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>北雅 · 老师后台 · 登录</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --beiya:#C0392B;--beiya-dark:#9B2C20;--beiya-soft:#FDECEA;
+    --gold:#B8894A;--gold-soft:#FBF4EA;
+    --ink:#1E1E22;--ink-2:#4A4A52;--ink-3:#8A8A92;
+    --line:#E8E8EC;--bg:#FAFAFA;--white:#FFFFFF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Inter','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+    background:linear-gradient(135deg,#1E1E22 0%,#3a2520 100%);
+    color:var(--ink);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px
+  }
+  .card{
+    width:100%;max-width:440px;background:var(--white);border-radius:18px;
+    padding:40px 36px 32px;box-shadow:0 24px 60px rgba(0,0,0,.4);position:relative;overflow:hidden
+  }
+  .card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--beiya) 0%,var(--gold) 100%)}
+  .brand{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .brand-mark{width:36px;height:36px;background:var(--beiya);color:#fff;display:flex;align-items:center;justify-content:center;border-radius:6px;font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700}
+  .brand-name{font-weight:700;font-size:15px;color:var(--beiya)}
+  .admin-badge{font-size:10px;background:var(--ink);color:#fff;padding:2px 8px;border-radius:8px;font-weight:600;letter-spacing:.5px;margin-left:auto}
+  .title{font-family:'Noto Serif SC',serif;font-size:24px;font-weight:700;margin:14px 0 6px;line-height:1.4}
+  .sub{font-size:13px;color:var(--ink-3);margin-bottom:24px;line-height:1.7}
+  .step-label{font-size:12px;font-weight:600;color:var(--beiya);margin-bottom:8px;letter-spacing:.3px}
+  .input{
+    width:100%;padding:13px 16px;border:1.5px solid var(--line);border-radius:10px;
+    font-size:14px;font-family:inherit;outline:none;transition:all .15s
+  }
+  .input:focus{border-color:var(--beiya);box-shadow:0 0 0 3px var(--beiya-soft)}
+  .input.error{border-color:var(--beiya);background:#FFF8F7}
+  .err-msg{font-size:12px;color:var(--beiya);margin-top:6px;display:none}
+  .err-msg.show{display:block}
+  .submit{
+    width:100%;padding:14px;background:var(--ink);color:#fff;border:none;border-radius:10px;
+    font-size:14.5px;font-weight:600;cursor:pointer;transition:all .15s;margin-top:18px;font-family:inherit
+  }
+  .submit:hover{background:var(--beiya);transform:translateY(-1px)}
+  .footer{text-align:center;font-size:11px;color:var(--ink-3);margin-top:20px;padding-top:18px;border-top:1px dashed var(--line)}
+  .footer strong{color:var(--beiya)}
+  .footer a{color:var(--ink-3);border-bottom:1px dashed var(--ink-3)}
+
+  /* ═══ 手机端响应式适配 ═══ */
+  @media (max-width: 640px) {
+    html{font-size:14px}
+    body{line-height:1.6}
+
+    /* 顶栏压缩 */
+    .topbar{padding:10px 12px !important;gap:8px !important;flex-wrap:wrap;position:sticky;top:0}
+    .topbar .brand{font-size:13px !important}
+    .topbar .brand-mark{width:24px;height:24px;font-size:12px}
+    .topbar .nav{flex:1 1 100% !important;order:3;overflow-x:auto;scrollbar-width:none;gap:0 !important;padding:4px 0;border-top:1px solid var(--line,#E8E8EC);margin:8px 0 0 !important}
+    .topbar .nav::-webkit-scrollbar{display:none}
+    .topbar .nav a{padding:6px 10px !important;font-size:12px !important;flex-shrink:0;white-space:nowrap}
+    .search-wrap{display:none !important}
+    .role-sw{margin:0 !important;order:2}
+    .role-opt{padding:3px 8px !important;font-size:11px !important}
+
+    /* 主体 padding 减小 */
+    .wrap{padding:14px 12px 70px !important;max-width:100% !important}
+    .crumb{font-size:11.5px !important;margin-bottom:12px !important}
+
+    /* 所有 grid 一列化 */
+    .q-grid, .grid, .story-grid, .jump-mini-grid{grid-template-columns:1fr !important}
+    .row2, .row3{grid-template-columns:1fr !important}
+
+    /* 故事首页 - 故事卡 */
+    .story, .story.flagship, .story.runner-up{padding:18px !important}
+    .story .story-name{font-size:20px !important}
+    .entries{grid-template-columns:1fr !important}
+
+    /* 故事页 story-head */
+    .story-head{padding:20px !important;gap:16px !important}
+    .sh-emoji{font-size:58px !important;width:70px !important;height:70px !important}
+    .sh-name{font-size:22px !important}
+    .sh-desc{font-size:13px !important}
+    .sh-stats{gap:10px !important}
+    .sh-stat{padding-right:10px !important}
+    .sh-stat-num{font-size:16px !important}
+
+    /* 故事页 core-strip 分组 */
+    .core-group{flex-direction:column !important;align-items:stretch !important;padding:12px 0 0 !important}
+    .core-group-label{min-width:0 !important;padding-top:0 !important;margin-bottom:8px !important;font-size:11px !important}
+    .core-group-list{gap:10px !important}
+    .core-strip-title .hint{display:none}
+
+    /* gold-strip */
+    .gold-strip{padding:14px 16px !important}
+    .gs-grid{gap:6px !important}
+    .gs-chip{padding:6px 10px !important;font-size:12px !important}
+
+    /* filter-row */
+    .filter-row{gap:5px !important}
+    .filter-chip{padding:5px 10px !important;font-size:11.5px !important}
+
+    /* Q 卡片 */
+    .q-card{padding:14px 16px !important}
+    .qc-title{font-size:13px !important}
+    .qc-hook{font-size:12px !important}
+
+    /* 详情页 q-header */
+    .q-header{padding:14px 16px !important;margin-bottom:16px !important}
+    .q-title-en{font-size:15px !important;line-height:1.5 !important}
+    .q-tags{flex-wrap:wrap !important;gap:5px !important}
+    .tag{font-size:11px !important;padding:2px 8px !important}
+    .q-actions{flex-wrap:wrap !important;gap:5px !important}
+    .act{padding:5px 9px !important;font-size:11.5px !important}
+
+    /* prep-strip */
+    .prep-strip{flex-wrap:wrap !important;padding:10px 12px !important;gap:5px !important}
+    .prep-chip{font-size:12px !important;padding:3px 8px !important}
+    .prep-label{font-size:11px !important}
+
+    /* tier-tabs (详情页) */
+    .tier-tabs{overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap !important;padding-bottom:4px;margin-bottom:14px !important}
+    .tier-tabs::-webkit-scrollbar{display:none}
+    .tier-tab{padding:7px 11px !important;font-size:12px !important;white-space:nowrap;flex-shrink:0 !important}
+
+    /* outline sections */
+    .outline{padding:16px !important}
+    .sec{padding:14px !important}
+    .sec-body{font-size:13.5px !important}
+    .bullet{padding:5px 0 5px 20px !important;font-size:13.5px !important}
+
+    /* 参考范文 */
+    .ref-body{padding:16px 18px !important;font-size:13.5px !important;line-height:1.8 !important}
+
+    /* xrefs */
+    .xrefs{grid-template-columns:1fr !important}
+    .xref{padding:14px !important}
+
+    /* Hero (仪表盘) */
+    .hero{padding:22px !important;border-radius:14px !important}
+    .hero-num{font-size:30px !important}
+    .hero-row{gap:14px !important}
+    .hero-stat{min-width:100px !important}
+
+    /* FAB 方法论按钮 */
+    .fab{bottom:18px !important;right:18px !important;padding:10px 14px !important;font-size:12px !important}
+
+    /* jump-mini */
+    .jump-mini{padding:16px !important}
+
+    /* 登录页 */
+    .login-wrap, .login-card{padding:24px !important;max-width:100% !important;margin:0 12px !important}
+
+    /* 传统分类页 / 复现元素页 */
+    .tab-bar{flex-wrap:wrap !important}
+    .asset-grid{grid-template-columns:1fr 1fr !important}
+
+    /* 方法论页 · 各种 sec 排版 */
+    .mtd-hero{padding:24px 18px !important}
+    .mtd-hero h1{font-size:22px !important}
+
+    /* 仪表盘 card padding 减小 */
+    .card{padding:16px !important}
+    .card-title{font-size:12px !important}
+
+    /* 通用 padding 缩减 */
+    .panel, .panel-section, .cta-bar{padding:14px 16px !important}
+  }
+
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="brand">
+    <div class="brand-mark">北</div>
+    <div class="brand-name">北雅国际教育</div>
+    <span class="admin-badge">ADMIN</span>
+  </div>
+
+  <h1 class="title">老师后台</h1>
+  <p class="sub">P2 题库管理 · 5 档提纲编辑 · 专属链接生成。仅限教学团队使用。</p>
+
+  <div class="step-label">管理员密码</div>
+  <input type="password" class="input" id="pwd" placeholder="请输入管理员密码" autocomplete="off"/>
+  <div class="err-msg" id="err">密码不正确</div>
+
+  <button class="submit" id="go">进入后台 →</button>
+
+  <div class="footer">
+    <strong>北雅国际教育</strong> · 教学管理系统 · <a href="学生端_登录_v1.html">切换到学生端</a>
+  </div>
+</div>
+
+<script>
+  const pwdEl = document.getElementById('pwd');
+  const errEl = document.getElementById('err');
+  document.getElementById('go').addEventListener('click', ()=>{
+    if(pwdEl.value.trim() !== 'Maidi422'){
+      pwdEl.classList.add('error');
+      errEl.classList.add('show');
+      return;
+    }
+    try{ localStorage.setItem('beiya_admin_authed','1'); }catch(e){}
+    window.location.href = '老师后台_Dashboard_v1.html';
+  });
+  pwdEl.addEventListener('input', ()=>{
+    pwdEl.classList.remove('error');
+    errEl.classList.remove('show');
+  });
+  pwdEl.addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('go').click(); });
+</script>
+</body>
+</html>

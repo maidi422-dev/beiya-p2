@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>北雅 · 老师后台 · 编辑 Q1</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --beiya:#C0392B;--beiya-dark:#9B2C20;--beiya-soft:#FDECEA;
+    --gold:#B8894A;--gold-soft:#FBF4EA;--gold-dark:#9A6F35;
+    --ink:#1E1E22;--ink-2:#4A4A52;--ink-3:#8A8A92;
+    --line:#E8E8EC;--bg:#F4F4F6;--white:#FFFFFF;
+    --ok:#2E7D32;--warn:#E8834A;
+    --c-event:#B86A2A;--c-event-bg:#FFF2E5;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter','PingFang SC','Microsoft YaHei',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none;cursor:pointer}
+
+  .topbar{background:var(--ink);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:18px;position:sticky;top:0;z-index:40}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;white-space:nowrap}
+  .brand-mark{width:28px;height:28px;background:var(--beiya);color:#fff;display:flex;align-items:center;justify-content:center;border-radius:4px;font-family:'Noto Serif SC',serif;font-size:14px}
+  .admin-tag{font-size:10px;background:var(--beiya);padding:2px 8px;border-radius:8px;font-weight:600;letter-spacing:.5px}
+  .nav{display:flex;gap:2px;margin-left:8px;flex:1}
+  .nav a{padding:7px 14px;border-radius:6px;font-size:13px;color:rgba(255,255,255,.7);font-weight:500;white-space:nowrap;transition:all .15s}
+  .nav a:hover{background:rgba(255,255,255,.08);color:#fff}
+  .nav a.active{background:var(--beiya);color:#fff}
+  .topbar-right{display:flex;align-items:center;gap:12px;font-size:12.5px}
+  .user-chip{display:flex;align-items:center;gap:6px;padding:5px 12px;background:rgba(255,255,255,.08);border-radius:16px}
+
+  /* SUB-TOOLBAR (sticky) */
+  .subbar{
+    background:var(--white);border-bottom:1px solid var(--line);
+    padding:12px 24px;position:sticky;top:60px;z-index:30;
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap
+  }
+  .subbar-left{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+  .back-btn{
+    width:34px;height:34px;border-radius:8px;background:#F4F4F6;border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink-2);
+    font-size:16px;transition:all .15s
+  }
+  .back-btn:hover{background:var(--beiya-soft);color:var(--beiya);border-color:var(--beiya)}
+  .qid-pill{
+    background:var(--beiya);color:#fff;font-family:'Noto Serif SC',serif;font-weight:700;
+    padding:6px 14px;border-radius:8px;font-size:13px
+  }
+  .group-pill{font-size:12px;color:var(--ink-2);font-weight:500;display:flex;align-items:center;gap:5px}
+  .cat-pill{font-size:11px;padding:2px 9px;border-radius:8px;font-weight:600;background:var(--c-event-bg);color:var(--c-event)}
+  .qnav{display:flex;gap:4px;margin-left:8px}
+  .qnav-btn{
+    width:30px;height:28px;border-radius:7px;background:#F4F4F6;border:1px solid var(--line);
+    cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink-3);
+    transition:all .15s;font-size:13px
+  }
+  .qnav-btn:hover{border-color:var(--beiya);color:var(--beiya);background:var(--beiya-soft)}
+
+  .subbar-right{display:flex;gap:8px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;font-size:12.5px;font-weight:600;cursor:pointer;transition:all .15s;border:1px solid var(--line);background:var(--white);color:var(--ink-2);font-family:inherit}
+  .btn:hover{border-color:var(--beiya);color:var(--beiya)}
+  .btn.primary{background:var(--beiya);color:#fff;border-color:var(--beiya)}
+  .btn.primary:hover{background:var(--beiya-dark);color:#fff}
+  .btn.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .btn.dark:hover{background:#000;color:var(--gold)}
+  .save-status{font-size:11.5px;color:var(--ok);font-weight:500;display:flex;align-items:center;gap:4px}
+  .save-status.dirty{color:var(--warn)}
+
+  .wrap{max-width:1100px;margin:0 auto;padding:24px 24px 80px}
+
+  /* HEALTH BAR */
+  .health-strip{
+    background:var(--white);border:1px solid var(--line);border-radius:12px;
+    padding:14px 18px;margin-bottom:18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap
+  }
+  .hs-label{font-size:11.5px;color:var(--ink-3);font-weight:700;letter-spacing:.4px;text-transform:uppercase}
+  .hs-progress{flex:1;display:flex;gap:5px;min-width:200px}
+  .hs-cell{
+    flex:1;height:7px;border-radius:3px;background:#F0F0F2;cursor:pointer;
+    transition:all .15s;position:relative
+  }
+  .hs-cell.done{background:linear-gradient(90deg,var(--ok),#90C495)}
+  .hs-cell.partial{background:linear-gradient(90deg,var(--warn),#F0B080)}
+  .hs-cell:hover::after{
+    content:attr(data-name);position:absolute;bottom:14px;left:50%;transform:translateX(-50%);
+    background:var(--ink);color:#fff;font-size:10.5px;padding:3px 8px;border-radius:5px;white-space:nowrap;
+    font-weight:600
+  }
+  .hs-num{font-family:'Noto Serif SC',serif;font-weight:700;color:var(--ink-2);font-size:13px}
+
+  /* TAB BAR */
+  .tabbar{
+    background:var(--white);border:1px solid var(--line);border-radius:12px 12px 0 0;
+    padding:0 4px;display:flex;gap:0;border-bottom:none;overflow-x:auto;scrollbar-width:none
+  }
+  .tabbar::-webkit-scrollbar{display:none}
+  .tab{
+    padding:14px 18px;font-size:13px;font-weight:600;color:var(--ink-3);cursor:pointer;
+    border-bottom:3px solid transparent;transition:all .15s;white-space:nowrap;display:flex;align-items:center;gap:6px
+  }
+  .tab:hover{color:var(--beiya)}
+  .tab.on{color:var(--beiya);border-bottom-color:var(--beiya)}
+  .tab .badge{
+    background:var(--beiya-soft);color:var(--beiya);font-size:10.5px;padding:1px 7px;border-radius:8px;
+    font-weight:700;font-family:'Noto Serif SC',serif
+  }
+  .tab.warn .badge{background:var(--warn);color:#fff}
+  .tab.ok .badge{background:var(--ok);color:#fff}
+
+  /* PANEL */
+  .panel{
+    background:var(--white);border:1px solid var(--line);border-top:none;
+    border-radius:0 0 12px 12px;padding:28px 32px;min-height:400px
+  }
+  .panel-section{margin-bottom:24px}
+  .panel-section:last-child{margin-bottom:0}
+  .ps-h{
+    font-family:'Noto Serif SC',serif;font-size:13px;font-weight:700;color:var(--ink);
+    margin-bottom:10px;display:flex;align-items:center;gap:8px;letter-spacing:.3px
+  }
+  .ps-h .h-num{
+    background:var(--beiya);color:#fff;width:22px;height:22px;border-radius:50%;
+    font-size:11px;display:flex;align-items:center;justify-content:center;font-weight:700
+  }
+  .ps-h .h-helper{font-size:11.5px;color:var(--ink-3);font-weight:400;margin-left:6px}
+
+  /* INPUTS */
+  .inp{width:100%;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;font-size:13.5px;font-family:inherit;outline:none;transition:all .15s;background:var(--white)}
+  .inp:focus{border-color:var(--beiya);box-shadow:0 0 0 3px var(--beiya-soft)}
+  .inp.lg{padding:14px 16px;font-size:15px}
+  textarea.inp{resize:vertical;min-height:80px;line-height:1.7;font-family:'Inter','PingFang SC',sans-serif}
+  .row2{display:grid;grid-template-columns:1fr 200px;gap:12px;margin-bottom:14px}
+  .row3{display:grid;grid-template-columns:120px 1fr 200px;gap:12px;margin-bottom:14px}
+  .lbl{font-size:11px;color:var(--ink-3);font-weight:600;display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+
+  /* OUTLINE EDITOR (5 stages) */
+  .outline-grid{display:grid;gap:14px}
+  .ol-stage{
+    background:#FAFAFA;border:1px solid var(--line);border-radius:10px;padding:16px 18px;position:relative
+  }
+  .ol-stage.s3{background:var(--gold-soft);border-color:#EAD9B8}
+  .ol-stage-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .ol-num{background:var(--beiya);color:#fff;font-family:'Noto Serif SC',serif;font-weight:700;padding:2px 9px;border-radius:6px;font-size:11px}
+  .ol-stage.s3 .ol-num{background:var(--gold-dark)}
+  .ol-name{font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:var(--ink)}
+  .ol-time{font-size:11px;color:var(--ink-3);margin-left:auto}
+  .ol-marker-input{
+    background:var(--ink);color:#fff;border:none;padding:6px 10px;border-radius:6px;
+    font-family:'Inter',monospace;font-size:11.5px;width:100%;margin-bottom:8px;font-style:italic;outline:none
+  }
+  .ol-bullets{display:flex;flex-direction:column;gap:6px}
+  .ol-bullet{display:flex;gap:8px;align-items:flex-start}
+  .ol-bullet .dot{color:var(--beiya);font-size:14px;font-weight:700;line-height:1.7;flex-shrink:0;width:14px;text-align:center}
+  .ol-bullet input{flex:1;padding:6px 10px;border:1px solid transparent;border-radius:5px;font-size:13px;font-family:inherit;background:#fff;outline:none;transition:all .15s}
+  .ol-bullet input:focus{border-color:var(--beiya);box-shadow:0 0 0 2px var(--beiya-soft)}
+  .ol-bullet .del{color:var(--ink-3);cursor:pointer;font-size:14px;width:22px;text-align:center;line-height:1.7;opacity:0;transition:opacity .15s}
+  .ol-bullet:hover .del{opacity:1}
+  .ol-bullet .del:hover{color:var(--beiya)}
+  .add-bullet{
+    margin-top:6px;font-size:12px;color:var(--ink-3);cursor:pointer;
+    padding:6px 10px;border-radius:5px;border:1px dashed var(--line);text-align:center;
+    transition:all .15s
+  }
+  .add-bullet:hover{color:var(--beiya);border-color:var(--beiya);background:var(--beiya-soft)}
+
+  /* CHIPS */
+  .chips-area{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:10px 12px;background:#FAFAFA;border:1.5px dashed var(--line);border-radius:8px;min-height:46px}
+  .chip{
+    display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:14px;
+    font-size:12px;background:var(--beiya-soft);color:var(--beiya);font-weight:500;border:1px solid #F5D3CE
+  }
+  .chip.expr{background:var(--gold-soft);color:var(--gold-dark);border-color:#EAD9B8}
+  .chip .x{cursor:pointer;color:var(--ink-3);font-size:13px;line-height:1;margin-left:2px}
+  .chip .x:hover{color:var(--beiya)}
+  .chip-add{
+    background:#fff;border:1px dashed var(--ink-3);padding:3px 9px;border-radius:14px;font-size:12px;
+    color:var(--ink-3);cursor:pointer;font-weight:500;transition:all .15s
+  }
+  .chip-add:hover{border-color:var(--beiya);color:var(--beiya);background:var(--beiya-soft)}
+
+  /* MARK/LUCY toggle */
+  .npc-toggle{
+    background:#F4F4F6;border-radius:20px;padding:3px;display:inline-flex;font-size:12.5px;margin-bottom:14px
+  }
+  .npc-opt{padding:6px 14px;border-radius:18px;cursor:pointer;color:var(--ink-3);font-weight:500;transition:all .15s}
+  .npc-opt.on{background:var(--ink);color:#fff}
+  .mark-empty{
+    text-align:center;padding:48px 24px;background:var(--gold-soft);border:2px dashed #EAD9B8;border-radius:12px
+  }
+  .me-em{font-size:48px;line-height:1;margin-bottom:12px}
+  .me-h{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:700;color:var(--gold-dark);margin-bottom:6px}
+  .me-p{font-size:13px;color:var(--ink-2);max-width:380px;margin:0 auto 18px;line-height:1.7}
+  .me-actions{display:flex;gap:8px;justify-content:center}
+
+  /* PREVIEW PANE */
+  .preview-card{
+    background:linear-gradient(135deg,#fff 0%,#F4F4F6 100%);border:1px solid var(--line);
+    border-left:3px solid var(--beiya);border-radius:8px;padding:14px 18px;margin-bottom:14px
+  }
+  .preview-h{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;font-weight:600}
+  .preview-p{font-size:13px;color:var(--ink-2);line-height:1.7;font-style:italic}
+  .preview-p strong{color:var(--beiya);font-style:normal;background:var(--beiya-soft);padding:0 4px;border-radius:3px;font-weight:500}
+
+  /* ASSET PICKER MODAL */
+  .modal-bg{position:fixed;inset:0;background:rgba(30,30,34,.45);z-index:80;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px)}
+  .modal-bg.show{display:flex}
+  .modal{background:#fff;border-radius:14px;width:100%;max-width:500px;max-height:80vh;overflow:hidden;display:flex;flex-direction:column}
+  .modal-head{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+  .modal-title{font-family:'Noto Serif SC',serif;font-weight:700;font-size:15px}
+  .modal-close{cursor:pointer;color:var(--ink-3);font-size:18px}
+  .modal-search{padding:12px 22px}
+  .modal-list{flex:1;overflow-y:auto;padding:6px 0}
+  .ml-row{display:flex;align-items:center;gap:10px;padding:10px 22px;cursor:pointer;font-size:13px;transition:background .12s}
+  .ml-row:hover{background:var(--beiya-soft)}
+  .ml-em{font-size:18px;width:24px}
+  .ml-name{flex:1;color:var(--ink)}
+  .ml-meta{font-size:11px;color:var(--ink-3)}
+  .ml-add{font-size:12px;color:var(--beiya);font-weight:600}
+
+  @media(max-width:780px){
+    .row2,.row3{grid-template-columns:1fr}
+    .nav{overflow-x:auto;scrollbar-width:none}
+    .nav::-webkit-scrollbar{display:none}
+    .panel{padding:20px}
+  }
+
+  /* ═══ 手机端响应式适配 ═══ */
+  @media (max-width: 640px) {
+    html{font-size:14px}
+    body{line-height:1.6}
+
+    /* 顶栏压缩 */
+    .topbar{padding:10px 12px !important;gap:8px !important;flex-wrap:wrap;position:sticky;top:0}
+    .topbar .brand{font-size:13px !important}
+    .topbar .brand-mark{width:24px;height:24px;font-size:12px}
+    .topbar .nav{flex:1 1 100% !important;order:3;overflow-x:auto;scrollbar-width:none;gap:0 !important;padding:4px 0;border-top:1px solid var(--line,#E8E8EC);margin:8px 0 0 !important}
+    .topbar .nav::-webkit-scrollbar{display:none}
+    .topbar .nav a{padding:6px 10px !important;font-size:12px !important;flex-shrink:0;white-space:nowrap}
+    .search-wrap{display:none !important}
+    .role-sw{margin:0 !important;order:2}
+    .role-opt{padding:3px 8px !important;font-size:11px !important}
+
+    /* 主体 padding 减小 */
+    .wrap{padding:14px 12px 70px !important;max-width:100% !important}
+    .crumb{font-size:11.5px !important;margin-bottom:12px !important}
+
+    /* 所有 grid 一列化 */
+    .q-grid, .grid, .story-grid, .jump-mini-grid{grid-template-columns:1fr !important}
+    .row2, .row3{grid-template-columns:1fr !important}
+
+    /* 故事首页 - 故事卡 */
+    .story, .story.flagship, .story.runner-up{padding:18px !important}
+    .story .story-name{font-size:20px !important}
+    .entries{grid-template-columns:1fr !important}
+
+    /* 故事页 story-head */
+    .story-head{padding:20px !important;gap:16px !important}
+    .sh-emoji{font-size:58px !important;width:70px !important;height:70px !important}
+    .sh-name{font-size:22px !important}
+    .sh-desc{font-size:13px !important}
+    .sh-stats{gap:10px !important}
+    .sh-stat{padding-right:10px !important}
+    .sh-stat-num{font-size:16px !important}
+
+    /* 故事页 core-strip 分组 */
+    .core-group{flex-direction:column !important;align-items:stretch !important;padding:12px 0 0 !important}
+    .core-group-label{min-width:0 !important;padding-top:0 !important;margin-bottom:8px !important;font-size:11px !important}
+    .core-group-list{gap:10px !important}
+    .core-strip-title .hint{display:none}
+
+    /* gold-strip */
+    .gold-strip{padding:14px 16px !important}
+    .gs-grid{gap:6px !important}
+    .gs-chip{padding:6px 10px !important;font-size:12px !important}
+
+    /* filter-row */
+    .filter-row{gap:5px !important}
+    .filter-chip{padding:5px 10px !important;font-size:11.5px !important}
+
+    /* Q 卡片 */
+    .q-card{padding:14px 16px !important}
+    .qc-title{font-size:13px !important}
+    .qc-hook{font-size:12px !important}
+
+    /* 详情页 q-header */
+    .q-header{padding:14px 16px !important;margin-bottom:16px !important}
+    .q-title-en{font-size:15px !important;line-height:1.5 !important}
+    .q-tags{flex-wrap:wrap !important;gap:5px !important}
+    .tag{font-size:11px !important;padding:2px 8px !important}
+    .q-actions{flex-wrap:wrap !important;gap:5px !important}
+    .act{padding:5px 9px !important;font-size:11.5px !important}
+
+    /* prep-strip */
+    .prep-strip{flex-wrap:wrap !important;padding:10px 12px !important;gap:5px !important}
+    .prep-chip{font-size:12px !important;padding:3px 8px !important}
+    .prep-label{font-size:11px !important}
+
+    /* tier-tabs (详情页) */
+    .tier-tabs{overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap !important;padding-bottom:4px;margin-bottom:14px !important}
+    .tier-tabs::-webkit-scrollbar{display:none}
+    .tier-tab{padding:7px 11px !important;font-size:12px !important;white-space:nowrap;flex-shrink:0 !important}
+
+    /* outline sections */
+    .outline{padding:16px !important}
+    .sec{padding:14px !important}
+    .sec-body{font-size:13.5px !important}
+    .bullet{padding:5px 0 5px 20px !important;font-size:13.5px !important}
+
+    /* 参考范文 */
+    .ref-body{padding:16px 18px !important;font-size:13.5px !important;line-height:1.8 !important}
+
+    /* xrefs */
+    .xrefs{grid-template-columns:1fr !important}
+    .xref{padding:14px !important}
+
+    /* Hero (仪表盘) */
+    .hero{padding:22px !important;border-radius:14px !important}
+    .hero-num{font-size:30px !important}
+    .hero-row{gap:14px !important}
+    .hero-stat{min-width:100px !important}
+
+    /* FAB 方法论按钮 */
+    .fab{bottom:18px !important;right:18px !important;padding:10px 14px !important;font-size:12px !important}
+
+    /* jump-mini */
+    .jump-mini{padding:16px !important}
+
+    /* 登录页 */
+    .login-wrap, .login-card{padding:24px !important;max-width:100% !important;margin:0 12px !important}
+
+    /* 传统分类页 / 复现元素页 */
+    .tab-bar{flex-wrap:wrap !important}
+    .asset-grid{grid-template-columns:1fr 1fr !important}
+
+    /* 方法论页 · 各种 sec 排版 */
+    .mtd-hero{padding:24px 18px !important}
+    .mtd-hero h1{font-size:22px !important}
+
+    /* 仪表盘 card padding 减小 */
+    .card{padding:16px !important}
+    .card-title{font-size:12px !important}
+
+    /* 通用 padding 缩减 */
+    .panel, .panel-section, .cta-bar{padding:14px 16px !important}
+  }
+
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand"><div class="brand-mark">北</div><span>北雅 · 教学管理</span></div>
+  <span class="admin-tag">ADMIN</span>
+  <nav class="nav">
+    <a href="老师后台_Dashboard_v1.html">📊 Dashboard</a>
+    <a class="active" href="老师后台_题目列表_v1.html">📋 题目管理</a>
+    <a>🏷️ 素材索引</a>
+    <a href="老师后台_专属链接_v1.html">🔗 专属链接</a>
+    <a>📈 数据洞察</a>
+  </nav>
+  <div class="topbar-right">
+    <div class="user-chip">👩‍🏫 Tracy</div>
+  </div>
+</header>
+
+<!-- SUB TOOLBAR -->
+<div class="subbar">
+  <div class="subbar-left">
+    <a class="back-btn" href="老师后台_题目列表_v1.html" title="返回列表">←</a>
+    <span class="qid-pill">Q1</span>
+    <span class="group-pill">🍳 Creative Cooking</span>
+    <span class="cat-pill">🎬 事件</span>
+    <div class="qnav">
+      <a class="qnav-btn" title="上一题">◀</a>
+      <a class="qnav-btn" title="下一题">▶</a>
+    </div>
+    <span class="save-status" id="saveStatus">✓ 已保存 · 10:24</span>
+  </div>
+  <div class="subbar-right">
+    <a class="btn">👁 预览学生端</a>
+    <a class="btn dark">🔗 用此题生成专属链接</a>
+    <a class="btn primary" id="saveBtn">💾 保存修改</a>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <!-- HEALTH BAR -->
+  <section class="health-strip">
+    <span class="hs-label">📊 完整度</span>
+    <div class="hs-progress">
+      <div class="hs-cell done" data-name="标准版 ✓"></div>
+      <div class="hs-cell partial" data-name="中文版 (待补)"></div>
+      <div class="hs-cell partial" data-name="问题引导版 (待补)"></div>
+      <div class="hs-cell done" data-name="详细版 ✓"></div>
+      <div class="hs-cell" data-name="极简版 (空)"></div>
+      <div class="hs-cell done" data-name="复现元素 ✓"></div>
+      <div class="hs-cell done" data-name="高分表达 ✓"></div>
+      <div class="hs-cell" data-name="参考范文 (空)"></div>
+      <div class="hs-cell" data-name="Mark 男生版 (空)"></div>
+    </div>
+    <span class="hs-num" id="healthNum">5 / 9</span>
+  </section>
+
+  <!-- TABS -->
+  <div class="tabbar">
+    <div class="tab on" data-tab="basic">📝 基本信息</div>
+    <div class="tab" data-tab="outline">📋 5 档提纲 <span class="badge">2/5</span></div>
+    <div class="tab" data-tab="assets">🏷️ 复现元素 & 高分表达 <span class="badge ok">✓</span></div>
+    <div class="tab" data-tab="essay">📖 参考范文 <span class="badge warn">空</span></div>
+    <div class="tab" data-tab="mark">👨 Mark 男生版 <span class="badge warn">空</span></div>
+  </div>
+
+  <!-- PANEL: BASIC INFO -->
+  <div class="panel" id="panel-basic">
+    <div class="panel-section">
+      <div class="ps-h"><span class="h-num">1</span> 题目信息</div>
+      <div class="row3">
+        <div>
+          <span class="lbl">题号 (全局)</span>
+          <input class="inp" value="Q1" disabled>
+        </div>
+        <div>
+          <span class="lbl">题目英文 (考官原话)</span>
+          <input class="inp lg" value="Describe a time you needed to use your imagination">
+        </div>
+        <div>
+          <span class="lbl">分类</span>
+          <select class="inp">
+            <option>👤 人物</option>
+            <option>📍 地点</option>
+            <option>📦 物品</option>
+            <option selected>🎬 事件</option>
+          </select>
+        </div>
+      </div>
+      <div class="row2">
+        <div>
+          <span class="lbl">所属故事</span>
+          <select class="inp">
+            <option selected>🍳 Creative Cooking</option>
+            <option>🏞 Scenery</option>
+            <option>💻 Technology</option>
+            <option>🎨 Arts</option>
+            <option>🏐 Sports</option>
+            <option>🎬 Movies</option>
+            <option>🥗 Weight Loss</option>
+          </select>
+        </div>
+        <div>
+          <span class="lbl">本故事内题号</span>
+          <input class="inp" value="1">
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="ps-h"><span class="h-num">2</span> 切入 Hook（学生扫一眼就能想起素材路径）<span class="h-helper">使用 → 串联素材关键词</span></div>
+      <input class="inp lg" value="Fruit Roast Chicken 创意 → 中秋 → Potluck dinner">
+    </div>
+
+    <div class="panel-section">
+      <div class="ps-h"><span class="h-num">3</span> Prep 词（学生进题前预习）<span class="h-helper">空格分隔</span></div>
+      <input class="inp" value="potluck homemade weird mix create mouth-watering finger-licking">
+    </div>
+
+    <div class="panel-section">
+      <div class="ps-h">📊 标签（管理用）</div>
+      <div class="chips-area">
+        <span class="chip" style="background:#FFF8E6;color:#8A6A10;border-color:#E8C96A">🔥 高频</span>
+        <span class="chip" style="background:#E8F5E9;color:var(--ok);border-color:#A5D6A7">⭐ 经典</span>
+        <span class="chip-add">+ 加标签</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL: OUTLINE -->
+  <div class="panel" id="panel-outline" style="display:none">
+    <!-- inner tier tabs -->
+    <div style="display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap">
+      <span class="tab on" data-tier="standard" style="border:none;padding:8px 14px;border-radius:8px;background:var(--beiya);color:#fff;font-size:12.5px">📋 标准版 ✓</span>
+      <span class="tab" data-tier="cn" style="border:none;padding:8px 14px;border-radius:8px;background:#F4F4F6;color:var(--ink-3);font-size:12.5px">🀄 中文版 ⚠</span>
+      <span class="tab" data-tier="prompt" style="border:none;padding:8px 14px;border-radius:8px;background:#F4F4F6;color:var(--ink-3);font-size:12.5px">❓ 问题引导版 ⚠</span>
+      <span class="tab" data-tier="detailed" style="border:none;padding:8px 14px;border-radius:8px;background:#F4F4F6;color:var(--ink-3);font-size:12.5px">💡 详细版 ✓</span>
+      <span class="tab" data-tier="minimal" style="border:none;padding:8px 14px;border-radius:8px;background:#F4F4F6;color:var(--ink-3);font-size:12.5px">🎯 极简版 ⚠</span>
+      <span style="margin-left:auto;font-size:11.5px;color:var(--ink-3);align-self:center">点击 tab 切换不同档位</span>
+    </div>
+
+    <div style="background:#FBF4EA;border:1px solid #EAD9B8;border-radius:8px;padding:10px 14px;margin-bottom:18px;font-size:12px;color:var(--gold-dark);display:flex;gap:8px;align-items:center">
+      <span style="font-size:18px">💡</span>
+      <span>当前编辑：<strong>标准版 S1-S4</strong> · 4 段框架 · 每段一句一行 · 第一行可作为 Marker</span>
+    </div>
+
+    <div class="outline-grid">
+      <div class="ol-stage">
+        <div class="ol-stage-head">
+          <span class="ol-num">S1</span>
+          <span class="ol-name">Answer Directly</span>
+          <span class="ol-time">≈ 10 秒</span>
+        </div>
+        <input class="ol-marker-input" value="I'm going to talk about...">
+        <div class="ol-bullets">
+          <div class="ol-bullet"><span class="dot">•</span><input value="potluck dinner / had to use my imagination to decide what to cook"><span class="del">✕</span></div>
+        </div>
+        <div class="add-bullet">+ 添加一条</div>
+      </div>
+
+      <div class="ol-stage">
+        <div class="ol-stage-head">
+          <span class="ol-num">S2</span>
+          <span class="ol-name">Background</span>
+          <span class="ol-time">≈ 20 秒</span>
+        </div>
+        <input class="ol-marker-input" value="I remember, that was around...">
+        <div class="ol-bullets">
+          <div class="ol-bullet"><span class="dot">•</span><input value="roughly two years ago / Mid-Autumn Festival"><span class="del">✕</span></div>
+          <div class="ol-bullet"><span class="dot">•</span><input value="our teacher invited the whole class to her house for a potluck party"><span class="del">✕</span></div>
+          <div class="ol-bullet"><span class="dot">•</span><input value="everyone had to bring a homemade dish to share"><span class="del">✕</span></div>
+        </div>
+        <div class="add-bullet">+ 添加一条</div>
+      </div>
+
+      <div class="ol-stage s3">
+        <div class="ol-stage-head">
+          <span class="ol-num">S3</span>
+          <span class="ol-name">Details ⭐ 主战场</span>
+          <span class="ol-time">≈ 70 秒</span>
+        </div>
+        <input class="ol-marker-input" value="Now let me tell you how I used my imagination..." style="background:var(--gold-dark)">
+        <div class="ol-bullets">
+          <div class="ol-bullet"><span class="dot">•</span><input value="teacher made it clear: no fast food like burgers or pizza — too boring"><span class="del">✕</span></div>
+          <div class="ol-bullet"><span class="dot">•</span><input value="I had to use my imagination to think of what to cook"><span class="del">✕</span></div>
+          <div class="ol-bullet"><span class="dot">•</span><input value="I created a dish: Fruit Roast Chicken — fruits mixed with chicken"><span class="del">✕</span></div>
+          <div class="ol-bullet"><span class="dot">•</span><input value="sounded very weird, but I decided to try"><span class="del">✕</span></div>
+          <div class="ol-bullet"><span class="dot">•</span><input value="I made the dish and brought it to the party — it looked mouth-watering"><span class="del">✕</span></div>
+          <div class="ol-bullet"><span class="dot">•</span><input value="everyone loved it — finger-licking good"><span class="del">✕</span></div>
+        </div>
+        <div class="add-bullet">+ 添加一条</div>
+      </div>
+
+      <div class="ol-stage">
+        <div class="ol-stage-head">
+          <span class="ol-num">S4</span>
+          <span class="ol-name">Prospect</span>
+          <span class="ol-time">≈ 20 秒</span>
+        </div>
+        <input class="ol-marker-input" value="Anyway, [总结一句]...">
+        <div class="ol-bullets">
+          <div class="ol-bullet"><span class="dot">•</span><input value="Anyway, it turned out really well — everyone loved the dish"><span class="del">✕</span></div>
+          <div class="ol-bullet"><span class="dot">•</span><input value="since then I'm always looking for new ideas in the kitchen"><span class="del">✕</span></div>
+        </div>
+        <div class="add-bullet">+ 添加一条</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL: ASSETS -->
+  <div class="panel" id="panel-assets" style="display:none">
+    <div class="panel-section">
+      <div class="ps-h"><span class="h-num">1</span> 复现元素 (Recurring Elements) <span class="h-helper">点击素材弹 portal · 学生端可反查</span></div>
+      <div class="chips-area">
+        <span class="chip">👤 Lucy · 同班好友 <span class="x">✕</span></span>
+        <span class="chip">🍗 Fruit Roast Chicken <span class="x">✕</span></span>
+        <span class="chip">🌕 中秋节 <span class="x">✕</span></span>
+        <span class="chip">🍽 Potluck dinner <span class="x">✕</span></span>
+        <span class="chip">📍 老师家 <span class="x">✕</span></span>
+        <span class="chip-add" id="addAsset">+ 添加复现元素</span>
+      </div>
+    </div>
+    <div class="panel-section">
+      <div class="ps-h"><span class="h-num">2</span> 高分表达 (High-value Expressions) <span class="h-helper">形容词 / 短语 / 俚语 · 学生端故事页顶部展示</span></div>
+      <div class="chips-area">
+        <span class="chip expr">⭐ mouth-watering · adj <span class="x">✕</span></span>
+        <span class="chip expr">⭐ finger-licking good · idiom <span class="x">✕</span></span>
+        <span class="chip expr">⭐ homemade · adj <span class="x">✕</span></span>
+        <span class="chip expr">⭐ creative dish · noun <span class="x">✕</span></span>
+        <span class="chip-add">+ 添加表达</span>
+      </div>
+    </div>
+    <div class="panel-section">
+      <div class="ps-h"><span class="h-num">3</span> Paraphrase 选项 <span class="h-helper">每个表达可挂口语化近义词，学生端弹层显示</span></div>
+      <div style="background:#FAFAFA;border:1px solid var(--line);border-radius:8px;padding:14px;font-size:12.5px;color:var(--ink-3);text-align:center">
+        🚧 该功能开发中 · v2 加入 · 届时支持手动写 + LLM 生成
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL: ESSAY -->
+  <div class="panel" id="panel-essay" style="display:none">
+    <div class="panel-section">
+      <div class="ps-h"><span class="h-num">1</span> 参考范文 (band 6 水平) <span class="h-helper">学生端折叠展开 · Web Speech API 朗读</span></div>
+      <textarea class="inp" rows="14" placeholder="未填写。点击下方按钮自动从 5 档提纲合成草稿..."></textarea>
+    </div>
+    <div class="panel-section" style="display:flex;gap:8px;flex-wrap:wrap">
+      <a class="btn dark">🤖 AI 自动生成草稿</a>
+      <a class="btn">📋 从详细版导入</a>
+      <a class="btn">🔊 试听朗读</a>
+    </div>
+    <div class="panel-section">
+      <div class="ps-h"><span class="h-num">2</span> 范文标记区</div>
+      <div style="font-size:12.5px;color:var(--ink-3);background:var(--beiya-soft);padding:14px 18px;border-radius:8px;line-height:1.7">
+        💡 写好范文后，可以用<strong style="color:var(--beiya)">[[复现元素]]</strong>标记素材，学生端会自动渲染成可点击 portal。
+        例：<code style="background:#fff;padding:1px 5px;border-radius:3px">it was a [[Potluck dinner]] during [[中秋节]]</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL: MARK -->
+  <div class="panel" id="panel-mark" style="display:none">
+    <div class="npc-toggle">
+      <span class="npc-opt">👩 Lucy 版（女生默认）</span>
+      <span class="npc-opt on">👨 Mark 版（男生）</span>
+    </div>
+    <div class="mark-empty">
+      <div class="me-em">👨</div>
+      <div class="me-h">Mark 版尚未生成</div>
+      <div class="me-p">男生学生选 Mark 角色后会看到这个版本。可基于 Lucy 版自动替换 NPC 名字 + 代词，再人工审核。</div>
+      <div class="me-actions">
+        <a class="btn dark">🤖 AI 自动生成 Mark 版（基于 Lucy 版）</a>
+        <a class="btn">✍️ 从空白手写</a>
+      </div>
+    </div>
+    <div style="margin-top:18px;font-size:12px;color:var(--ink-3);background:#FAFAFA;border:1px solid var(--line);padding:14px 18px;border-radius:8px;line-height:1.7">
+      🤖 <strong>AI 自动生成规则：</strong>
+      <ul style="margin:6px 0 0 18px">
+        <li>Lucy → Mark</li>
+        <li>she / her → he / his</li>
+        <li>剧情结构、复现元素、高分表达 100% 一致</li>
+        <li>个别"邻家姐姐 / 妹妹"类身份替换为相应男性身份（"邻家哥哥 / 弟弟"）</li>
+      </ul>
+    </div>
+  </div>
+
+</main>
+
+<!-- ASSET PICKER MODAL -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <div class="modal-title">🏷️ 选择复现元素</div>
+      <span class="modal-close" id="modalClose">✕</span>
+    </div>
+    <div class="modal-search"><input class="inp" placeholder="搜素材或新建..."></div>
+    <div class="modal-list">
+      <div class="ml-row"><span class="ml-em">👴</span><span class="ml-name">Grandpa · 爷爷</span><span class="ml-meta">person · 4 题</span><span class="ml-add">+ 添加</span></div>
+      <div class="ml-row"><span class="ml-em">📖</span><span class="ml-name">Family recipe book</span><span class="ml-meta">thing · 3 题</span><span class="ml-add">+ 添加</span></div>
+      <div class="ml-row"><span class="ml-em">🧺</span><span class="ml-name">Picnic</span><span class="ml-meta">event · 11 题</span><span class="ml-add">+ 添加</span></div>
+      <div class="ml-row"><span class="ml-em">⭐</span><span class="ml-name">push somebody to...</span><span class="ml-meta">expression · 6 题</span><span class="ml-add">+ 添加</span></div>
+      <div class="ml-row" style="border-top:1px dashed var(--line);margin-top:6px"><span class="ml-em">+</span><span class="ml-name" style="color:var(--beiya)">新建复现元素 "妈妈"</span><span class="ml-meta"></span><span class="ml-add">创建</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Auth gate
+  try{ if(localStorage.getItem('beiya_admin_authed') !== '1') window.location.href = '老师后台_登录_v1.html'; }catch(e){}
+
+  // Tab switching
+  document.querySelectorAll('.tab[data-tab]').forEach(t=>{
+    t.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab[data-tab]').forEach(x=>x.classList.remove('on'));
+      t.classList.add('on');
+      const id = t.dataset.tab;
+      document.querySelectorAll('.panel').forEach(p=>p.style.display='none');
+      document.getElementById('panel-'+id).style.display='block';
+    });
+  });
+
+  // Dirty detection
+  let dirty = false;
+  document.querySelectorAll('.inp, .ol-bullet input, .ol-marker-input').forEach(i=>{
+    i.addEventListener('input', ()=>{
+      if(!dirty){
+        dirty = true;
+        const s = document.getElementById('saveStatus');
+        s.classList.add('dirty');
+        s.innerHTML = '● 未保存的修改';
+      }
+    });
+  });
+
+  // Save
+  document.getElementById('saveBtn').addEventListener('click', ()=>{
+    const s = document.getElementById('saveStatus');
+    s.classList.remove('dirty');
+    s.innerHTML = '✓ 已保存 · ' + new Date().toTimeString().slice(0,5);
+    dirty = false;
+    // Mock: 写 localStorage
+    try{ localStorage.setItem('beiya_q1_lastsaved', Date.now()); }catch(e){}
+  });
+
+  // Add bullet
+  document.querySelectorAll('.add-bullet').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const stage = btn.parentElement;
+      const bullets = stage.querySelector('.ol-bullets');
+      const div = document.createElement('div');
+      div.className = 'ol-bullet';
+      div.innerHTML = '<span class="dot">•</span><input placeholder="新加一条..." autofocus><span class="del">✕</span>';
+      bullets.appendChild(div);
+      div.querySelector('input').focus();
+      div.querySelector('.del').addEventListener('click', ()=>div.remove());
+    });
+  });
+  document.querySelectorAll('.ol-bullet .del').forEach(d=>{
+    d.addEventListener('click', ()=>d.parentElement.remove());
+  });
+  // Chip remove
+  document.querySelectorAll('.chip .x').forEach(x=>{
+    x.addEventListener('click', e=>{e.stopPropagation();x.parentElement.remove();});
+  });
+
+  // Modal
+  document.getElementById('addAsset').addEventListener('click', ()=>document.getElementById('modalBg').classList.add('show'));
+  document.getElementById('modalClose').addEventListener('click', ()=>document.getElementById('modalBg').classList.remove('show'));
+  document.getElementById('modalBg').addEventListener('click', ()=>document.getElementById('modalBg').classList.remove('show'));
+
+  // NPC toggle (in mark panel)
+  document.querySelectorAll('.npc-opt').forEach(o=>{
+    o.addEventListener('click', ()=>{
+      document.querySelectorAll('.npc-opt').forEach(x=>x.classList.remove('on'));
+      o.classList.add('on');
+    });
+  });
+
+  // Inner outline-tier tabs
+  document.querySelectorAll('.tab[data-tier]').forEach(t=>{
+    t.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab[data-tier]').forEach(x=>{
+        x.style.background='#F4F4F6';x.style.color='var(--ink-3)';
+      });
+      t.style.background='var(--beiya)';t.style.color='#fff';
+    });
+  });
+
+  // Ctrl/Cmd+S save shortcut
+  document.addEventListener('keydown', e=>{
+    if((e.ctrlKey||e.metaKey) && e.key==='s'){ e.preventDefault(); document.getElementById('saveBtn').click(); }
+  });
+</script>
+
+</body>
+</html>

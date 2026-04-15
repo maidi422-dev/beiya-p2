@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>北雅 · P2 · 🏷️ 复现元素索引</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --beiya:#C0392B;--beiya-dark:#9B2C20;--beiya-soft:#FDECEA;
+    --gold:#B8894A;--gold-soft:#FBF4EA;--gold-dark:#9A6F35;
+    --ink:#1E1E22;--ink-2:#4A4A52;--ink-3:#8A8A92;
+    --line:#E8E8EC;--bg:#FAFAFA;--white:#FFFFFF;
+    --ok:#2E7D32;--pending:#E8834A;
+    --t-person:#3A5BB8;--t-person-bg:#EDF2FE;
+    --t-place:#2F8F5C;--t-place-bg:#E8F5EE;
+    --t-thing:#7E4DAA;--t-thing-bg:#F3EBFB;
+    --t-event:#B86A2A;--t-event-bg:#FFF2E5;
+    --t-expr:#9A6F35;--t-expr-bg:#FBF4EA;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;
+    -webkit-font-smoothing:antialiased
+  }
+  a{color:inherit;text-decoration:none;cursor:pointer}
+
+  /* TOP BAR */
+  .topbar{position:sticky;top:0;z-index:40;background:var(--white);
+    border-bottom:1px solid var(--line);padding:14px 24px;display:flex;align-items:center;gap:18px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:var(--beiya);white-space:nowrap}
+  .brand-mark{width:28px;height:28px;background:var(--beiya);color:#fff;display:flex;align-items:center;justify-content:center;border-radius:4px;font-family:'Noto Serif SC',serif;font-size:14px}
+  .nav{display:flex;gap:2px;margin-left:8px;flex:1}
+  .nav a{padding:7px 14px;border-radius:6px;font-size:13px;color:var(--ink-2);font-weight:500;white-space:nowrap}
+  .nav a:hover{background:var(--beiya-soft);color:var(--beiya)}
+  .nav a.active{background:var(--beiya);color:#fff}
+  .role-sw{display:flex;align-items:center;gap:6px;background:#F4F4F6;border-radius:20px;padding:3px;font-size:12px}
+  .role-opt{padding:4px 12px;border-radius:16px;cursor:pointer;color:var(--ink-3);font-weight:500;transition:all .15s;white-space:nowrap}
+  .role-opt.on{background:var(--beiya);color:#fff}
+  .search-wrap{position:relative}
+  .search{background:#F4F4F6;border:1px solid transparent;border-radius:20px;padding:7px 14px 7px 36px;font-size:12.5px;width:200px;color:var(--ink);font-family:inherit;outline:none;transition:all .2s}
+  .search:focus{background:#fff;border-color:var(--beiya);width:240px}
+  .search-ico{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--ink-3);font-size:13px;pointer-events:none}
+
+  /* LAYOUT */
+  .wrap{max-width:1200px;margin:0 auto;padding:24px 24px 80px}
+  .crumb{font-size:12.5px;color:var(--ink-3);margin-bottom:18px;letter-spacing:.3px}
+  .crumb a:hover{color:var(--beiya)}
+  .crumb .sep{margin:0 6px;color:var(--ink-3)}
+
+  /* HERO */
+  .hero{
+    background:linear-gradient(135deg,#fff 0%,var(--beiya-soft) 100%);
+    border:1px solid var(--line);border-radius:16px;padding:28px 32px;
+    margin-bottom:18px;position:relative;overflow:hidden
+  }
+  .hero::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(192,57,43,.1) 0%,transparent 70%);pointer-events:none}
+  .hero-eyebrow{font-size:12px;letter-spacing:2px;color:var(--beiya);font-weight:600;text-transform:uppercase;margin-bottom:8px}
+  .hero-title{font-family:'Noto Serif SC',serif;font-size:26px;font-weight:700;line-height:1.3;color:var(--ink);margin-bottom:8px;position:relative;z-index:2}
+  .hero-title em{color:var(--beiya);font-style:normal}
+  .hero-sub{font-size:14px;color:var(--ink-2);max-width:720px;line-height:1.7;position:relative;z-index:2}
+  .hero-stats{display:flex;gap:24px;margin-top:18px;padding-top:18px;border-top:1px dashed var(--line);position:relative;z-index:2;flex-wrap:wrap}
+  .stat-item{display:flex;flex-direction:column;gap:1px}
+  .stat-num{font-family:'Noto Serif SC',serif;font-size:22px;font-weight:700;color:var(--beiya);line-height:1}
+  .stat-lbl{font-size:11px;color:var(--ink-3);margin-top:3px;letter-spacing:.3px}
+
+  /* TOP 10 BAR CHART */
+  .top10{
+    background:var(--white);border:1px solid var(--line);border-radius:14px;
+    padding:22px 26px;margin-bottom:24px
+  }
+  .top10-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;gap:12px;flex-wrap:wrap}
+  .top10-title{font-family:'Noto Serif SC',serif;font-size:16px;font-weight:700;color:var(--ink)}
+  .top10-hint{font-size:12px;color:var(--ink-3)}
+  .bars{display:flex;flex-direction:column;gap:6px}
+  .bar-row{display:flex;align-items:center;gap:10px;font-size:12.5px;cursor:pointer;padding:4px 0;border-radius:6px;transition:background .15s}
+  .bar-row:hover{background:var(--beiya-soft)}
+  .bar-rank{width:22px;text-align:right;color:var(--ink-3);font-weight:600;font-family:'Noto Serif SC',serif;font-size:12px;flex-shrink:0}
+  .bar-emoji{font-size:16px;width:22px;text-align:center;flex-shrink:0}
+  .bar-name{flex:0 0 140px;font-weight:600;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .bar-track{flex:1;height:18px;background:#F4F4F6;border-radius:4px;overflow:hidden;position:relative;min-width:60px}
+  .bar-fill{height:100%;background:linear-gradient(90deg,var(--beiya) 0%,var(--gold) 100%);border-radius:4px;transition:width .4s}
+  .bar-num{font-family:'Noto Serif SC',serif;font-weight:700;color:var(--beiya);font-size:13px;width:40px;text-align:right;flex-shrink:0}
+
+  /* FILTER + SORT BAR */
+  .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+  .filter-chip{
+    background:var(--white);border:1px solid var(--line);border-radius:18px;
+    padding:6px 14px;font-size:12.5px;font-weight:500;color:var(--ink-2);cursor:pointer;
+    transition:all .15s;display:flex;align-items:center;gap:5px
+  }
+  .filter-chip:hover{border-color:var(--beiya);color:var(--beiya)}
+  .filter-chip.on{background:var(--beiya);color:#fff;border-color:var(--beiya)}
+  .filter-chip .ct{background:rgba(0,0,0,.08);padding:1px 7px;border-radius:8px;font-size:11px;font-weight:600}
+  .filter-chip.on .ct{background:rgba(255,255,255,.25)}
+  .sort-wrap{margin-left:auto;display:flex;align-items:center;gap:8px}
+  .sort-lbl{font-size:12px;color:var(--ink-3)}
+  .sort-sel{
+    background:var(--white);border:1px solid var(--line);border-radius:18px;
+    padding:6px 14px;font-size:12.5px;color:var(--ink-2);cursor:pointer;font-family:inherit;outline:none
+  }
+  .sort-sel:focus{border-color:var(--beiya)}
+
+  /* ASSET GRID */
+  .asset-grid{
+    display:grid;gap:14px;
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr))
+  }
+  .asset-card{
+    background:var(--white);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px;cursor:pointer;transition:all .18s;
+    display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden
+  }
+  .asset-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--beiya);transform:scaleY(0);transform-origin:top;transition:transform .25s}
+  .asset-card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(192,57,43,.1);border-color:var(--beiya-soft)}
+  .asset-card:hover::before{transform:scaleY(1)}
+
+  .ac-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+  .ac-emoji-wrap{display:flex;align-items:center;gap:8px}
+  .ac-emoji{font-size:30px;line-height:1}
+  .ac-type{
+    font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+    padding:2px 8px;border-radius:8px
+  }
+  .ac-type.person{background:var(--t-person-bg);color:var(--t-person)}
+  .ac-type.thing{background:var(--t-thing-bg);color:var(--t-thing)}
+  .ac-type.event{background:var(--t-event-bg);color:var(--t-event)}
+  .ac-type.place{background:var(--t-place-bg);color:var(--t-place)}
+  .ac-type.expr{background:var(--t-expr-bg);color:var(--t-expr)}
+
+  .ac-name{font-family:'Noto Serif SC',serif;font-size:15.5px;font-weight:700;color:var(--ink);line-height:1.3}
+  .ac-stats{display:flex;align-items:baseline;gap:8px;margin-top:auto;padding-top:6px}
+  .ac-num{font-family:'Noto Serif SC',serif;font-size:30px;font-weight:700;color:var(--beiya);line-height:1}
+  .ac-num-lbl{font-size:11.5px;color:var(--ink-3)}
+  .ac-stories{display:flex;gap:3px;flex-wrap:wrap;margin-top:4px;align-items:center}
+  .ac-story-em{font-size:14px;line-height:1}
+  .ac-story-more{font-size:10.5px;color:var(--ink-3);margin-left:4px;font-weight:500}
+
+  /* PORTAL TRIGGER (re-used) */
+  .ax{cursor:pointer;color:var(--beiya);font-weight:600;border-bottom:1px dashed var(--beiya);padding:0 1px;transition:all .15s;display:inline-flex;align-items:center;gap:3px}
+  .ax:hover{background:var(--beiya-soft);border-radius:3px;border-bottom-style:solid}
+  .ax-count{font-size:10px;color:var(--gold-dark);background:var(--gold-soft);padding:1px 5px;border-radius:8px;font-weight:600;letter-spacing:0;border:1px solid #EAD9B8;line-height:1.2}
+
+  /* PORTAL OVERLAY (re-used) */
+  .portal-bg{position:fixed;inset:0;background:rgba(30,30,34,.45);z-index:80;display:none;align-items:flex-start;justify-content:center;padding:80px 20px 20px;backdrop-filter:blur(3px)}
+  .portal-bg.show{display:flex}
+  .portal{background:var(--white);border-radius:16px;width:100%;max-width:560px;max-height:80vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.25);animation:portalIn .2s ease-out}
+  @keyframes portalIn{from{transform:translateY(-12px);opacity:0}to{transform:none;opacity:1}}
+  .portal-head{padding:18px 22px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,var(--beiya-soft) 0%,#fff 100%);display:flex;align-items:center;gap:12px}
+  .portal-icon{width:40px;height:40px;border-radius:50%;background:var(--white);border:2px solid var(--beiya);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+  .portal-titlewrap{flex:1;min-width:0}
+  .portal-name{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:700;color:var(--ink);line-height:1.2}
+  .portal-meta{font-size:12px;color:var(--ink-3);margin-top:3px}
+  .portal-meta strong{color:var(--beiya);font-family:'Noto Serif SC',serif;font-size:13.5px}
+  .portal-close{width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink-3);font-size:16px;transition:all .15s;flex-shrink:0}
+  .portal-close:hover{background:var(--beiya-soft);color:var(--beiya);border-color:var(--beiya-soft)}
+  .portal-list{padding:6px 0;overflow-y:auto;flex:1}
+  .portal-row{display:flex;align-items:center;gap:11px;padding:10px 22px;cursor:pointer;transition:all .12s;border-left:3px solid transparent}
+  .portal-row:hover{background:var(--beiya-soft);border-left-color:var(--beiya)}
+  .pr-emoji{font-size:18px;line-height:1;flex-shrink:0;width:22px;text-align:center}
+  .pr-badge{background:var(--beiya);color:#fff;font-family:'Noto Serif SC',serif;font-weight:700;width:36px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11.5px;flex-shrink:0}
+  .pr-info{flex:1;min-width:0}
+  .pr-title{font-size:13px;color:var(--ink);font-style:italic;line-height:1.4;margin-bottom:2px}
+  .pr-meta{font-size:11px;color:var(--ink-3);display:flex;gap:6px;align-items:center}
+  .pr-cat{padding:1px 7px;border-radius:8px;font-weight:500}
+  .pr-cat.person{background:var(--t-person-bg);color:var(--t-person)}
+  .pr-cat.thing{background:var(--t-thing-bg);color:var(--t-thing)}
+  .pr-cat.event{background:var(--t-event-bg);color:var(--t-event)}
+  .pr-cat.place{background:var(--t-place-bg);color:var(--t-place)}
+  .pr-arrow{color:var(--ink-3);font-size:14px;flex-shrink:0}
+  .portal-row:hover .pr-arrow{color:var(--beiya)}
+  .portal-foot{padding:10px 22px;border-top:1px solid var(--line);background:#FAFAFA;font-size:11px;color:var(--ink-3);text-align:center}
+  .portal-foot kbd{background:#fff;border:1px solid var(--line);border-radius:4px;padding:1px 6px;font-size:10.5px;font-family:inherit;margin:0 2px}
+
+  .footer{text-align:center;padding:24px 0 0;font-size:11.5px;color:var(--ink-3);border-top:1px solid var(--line);margin-top:40px}
+  .footer strong{color:var(--beiya)}
+
+  @media(max-width:640px){
+    .hero{padding:22px 20px}
+    .hero-title{font-size:22px}
+    .nav{overflow-x:auto;scrollbar-width:none}
+    .nav::-webkit-scrollbar{display:none}
+    .search{width:120px}
+    .bar-name{flex:0 0 100px;font-size:11.5px}
+    .bar-num{font-size:12px;width:32px}
+  }
+
+  /* ═══ 手机端响应式适配 ═══ */
+  @media (max-width: 640px) {
+    html{font-size:14px}
+    body{line-height:1.6}
+
+    /* 顶栏压缩 */
+    .topbar{padding:10px 12px !important;gap:8px !important;flex-wrap:wrap;position:sticky;top:0}
+    .topbar .brand{font-size:13px !important}
+    .topbar .brand-mark{width:24px;height:24px;font-size:12px}
+    .topbar .nav{flex:1 1 100% !important;order:3;overflow-x:auto;scrollbar-width:none;gap:0 !important;padding:4px 0;border-top:1px solid var(--line,#E8E8EC);margin:8px 0 0 !important}
+    .topbar .nav::-webkit-scrollbar{display:none}
+    .topbar .nav a{padding:6px 10px !important;font-size:12px !important;flex-shrink:0;white-space:nowrap}
+    .search-wrap{display:none !important}
+    .role-sw{margin:0 !important;order:2}
+    .role-opt{padding:3px 8px !important;font-size:11px !important}
+
+    /* 主体 padding 减小 */
+    .wrap{padding:14px 12px 70px !important;max-width:100% !important}
+    .crumb{font-size:11.5px !important;margin-bottom:12px !important}
+
+    /* 所有 grid 一列化 */
+    .q-grid, .grid, .story-grid, .jump-mini-grid{grid-template-columns:1fr !important}
+    .row2, .row3{grid-template-columns:1fr !important}
+
+    /* 故事首页 - 故事卡 */
+    .story, .story.flagship, .story.runner-up{padding:18px !important}
+    .story .story-name{font-size:20px !important}
+    .entries{grid-template-columns:1fr !important}
+
+    /* 故事页 story-head */
+    .story-head{padding:20px !important;gap:16px !important}
+    .sh-emoji{font-size:58px !important;width:70px !important;height:70px !important}
+    .sh-name{font-size:22px !important}
+    .sh-desc{font-size:13px !important}
+    .sh-stats{gap:10px !important}
+    .sh-stat{padding-right:10px !important}
+    .sh-stat-num{font-size:16px !important}
+
+    /* 故事页 core-strip 分组 */
+    .core-group{flex-direction:column !important;align-items:stretch !important;padding:12px 0 0 !important}
+    .core-group-label{min-width:0 !important;padding-top:0 !important;margin-bottom:8px !important;font-size:11px !important}
+    .core-group-list{gap:10px !important}
+    .core-strip-title .hint{display:none}
+
+    /* gold-strip */
+    .gold-strip{padding:14px 16px !important}
+    .gs-grid{gap:6px !important}
+    .gs-chip{padding:6px 10px !important;font-size:12px !important}
+
+    /* filter-row */
+    .filter-row{gap:5px !important}
+    .filter-chip{padding:5px 10px !important;font-size:11.5px !important}
+
+    /* Q 卡片 */
+    .q-card{padding:14px 16px !important}
+    .qc-title{font-size:13px !important}
+    .qc-hook{font-size:12px !important}
+
+    /* 详情页 q-header */
+    .q-header{padding:14px 16px !important;margin-bottom:16px !important}
+    .q-title-en{font-size:15px !important;line-height:1.5 !important}
+    .q-tags{flex-wrap:wrap !important;gap:5px !important}
+    .tag{font-size:11px !important;padding:2px 8px !important}
+    .q-actions{flex-wrap:wrap !important;gap:5px !important}
+    .act{padding:5px 9px !important;font-size:11.5px !important}
+
+    /* prep-strip */
+    .prep-strip{flex-wrap:wrap !important;padding:10px 12px !important;gap:5px !important}
+    .prep-chip{font-size:12px !important;padding:3px 8px !important}
+    .prep-label{font-size:11px !important}
+
+    /* tier-tabs (详情页) */
+    .tier-tabs{overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap !important;padding-bottom:4px;margin-bottom:14px !important}
+    .tier-tabs::-webkit-scrollbar{display:none}
+    .tier-tab{padding:7px 11px !important;font-size:12px !important;white-space:nowrap;flex-shrink:0 !important}
+
+    /* outline sections */
+    .outline{padding:16px !important}
+    .sec{padding:14px !important}
+    .sec-body{font-size:13.5px !important}
+    .bullet{padding:5px 0 5px 20px !important;font-size:13.5px !important}
+
+    /* 参考范文 */
+    .ref-body{padding:16px 18px !important;font-size:13.5px !important;line-height:1.8 !important}
+
+    /* xrefs */
+    .xrefs{grid-template-columns:1fr !important}
+    .xref{padding:14px !important}
+
+    /* Hero (仪表盘) */
+    .hero{padding:22px !important;border-radius:14px !important}
+    .hero-num{font-size:30px !important}
+    .hero-row{gap:14px !important}
+    .hero-stat{min-width:100px !important}
+
+    /* FAB 方法论按钮 */
+    .fab{bottom:18px !important;right:18px !important;padding:10px 14px !important;font-size:12px !important}
+
+    /* jump-mini */
+    .jump-mini{padding:16px !important}
+
+    /* 登录页 */
+    .login-wrap, .login-card{padding:24px !important;max-width:100% !important;margin:0 12px !important}
+
+    /* 传统分类页 / 复现元素页 */
+    .tab-bar{flex-wrap:wrap !important}
+    .asset-grid{grid-template-columns:1fr 1fr !important}
+
+    /* 方法论页 · 各种 sec 排版 */
+    .mtd-hero{padding:24px 18px !important}
+    .mtd-hero h1{font-size:22px !important}
+
+    /* 仪表盘 card padding 减小 */
+    .card{padding:16px !important}
+    .card-title{font-size:12px !important}
+
+    /* 通用 padding 缩减 */
+    .panel, .panel-section, .cta-bar{padding:14px 16px !important}
+  }
+
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="brand"><div class="brand-mark">北</div><span>北雅国际教育</span></div>
+  <nav class="nav">
+    <a href="学生端_素材宇宙首页_v1.html">🌌 素材宇宙</a>
+    <a href="学生端_传统分类页_v1.html">📋 传统分类</a>
+    <a class="active" href="学生端_复现元素页_v1.html">🏷️ 复现元素</a>
+    <a href="学生端_方法论页_v1.html">🎯 方法论</a>
+    <a href="学生端_进度仪表盘_v1.html">⭐ 我的</a>
+  </nav>
+  <div class="role-sw">
+    <div class="role-opt" data-g="female">👩 Lucy</div>
+    <div class="role-opt" data-g="male">👨 Mark</div>
+  </div>
+  <div class="search-wrap">
+    <span class="search-ico">🔍</span>
+    <input class="search" id="searchBox" placeholder="搜素材...">
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="crumb">
+    <a>🌌 素材宇宙</a>
+    <span class="sep">›</span>
+    <a>🏷️ 复现元素索引</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">RECURRING ELEMENTS · 素材网络全图</div>
+    <h1 class="hero-title">24 个素材，串起 <em>53 道题</em></h1>
+    <p class="hero-sub">
+      这是平台的"素材网络"——所有反复出现的人物、道具、地点、场景、高分表达。
+      点击任何一个素材卡，可以看到它出现在哪些题里，跨哪些故事。
+      <strong>学一个素材，能复用一片题。</strong>
+    </p>
+    <div class="hero-stats">
+      <div class="stat-item"><div class="stat-num" id="statTotal">24</div><div class="stat-lbl">索引素材</div></div>
+      <div class="stat-item"><div class="stat-num">53</div><div class="stat-lbl">P2 题目</div></div>
+      <div class="stat-item"><div class="stat-num" id="statTop">42</div><div class="stat-lbl">最高频素材题量</div></div>
+      <div class="stat-item"><div class="stat-num">7</div><div class="stat-lbl">互通故事</div></div>
+    </div>
+  </section>
+
+  <!-- TOP 10 BAR CHART -->
+  <section class="top10">
+    <div class="top10-head">
+      <div class="top10-title">📊 TOP 10 高频素材</div>
+      <div class="top10-hint">学这 10 个素材 = 覆盖 80%+ 题目场景</div>
+    </div>
+    <div class="bars" id="barChart"></div>
+  </section>
+
+  <!-- FILTER + SORT -->
+  <div class="controls">
+    <div class="filter-chip on" data-type="all">全部 <span class="ct" id="cAll">24</span></div>
+    <div class="filter-chip" data-type="person">👤 人物 <span class="ct" id="cPerson">6</span></div>
+    <div class="filter-chip" data-type="thing">📦 物品 <span class="ct" id="cThing">6</span></div>
+    <div class="filter-chip" data-type="place">📍 地点 <span class="ct" id="cPlace">4</span></div>
+    <div class="filter-chip" data-type="event">🎬 事件 <span class="ct" id="cEvent">5</span></div>
+    <div class="filter-chip" data-type="expr">⭐ 高分表达 <span class="ct" id="cExpr">3</span></div>
+    <div class="sort-wrap">
+      <span class="sort-lbl">排序</span>
+      <select class="sort-sel" id="sortSel">
+        <option value="freq">出现题量 ↓</option>
+        <option value="freq-asc">出现题量 ↑</option>
+        <option value="stories">跨故事数 ↓</option>
+        <option value="name">按名字</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- ASSET GRID -->
+  <section class="asset-grid" id="assetGrid"></section>
+
+  <div class="footer">
+    <strong>北雅国际教育</strong> · 复现元素索引 v1 · Portal 全图视图
+  </div>
+
+</main>
+
+<!-- PORTAL OVERLAY -->
+<div class="portal-bg" id="portalBg">
+  <div class="portal" onclick="event.stopPropagation()">
+    <div class="portal-head">
+      <div class="portal-icon" id="pIcon">👤</div>
+      <div class="portal-titlewrap">
+        <div class="portal-name" id="pName">Lucy</div>
+        <div class="portal-meta" id="pMeta"></div>
+      </div>
+      <div class="portal-close" id="pClose">✕</div>
+    </div>
+    <div class="portal-list" id="pList"></div>
+    <div class="portal-foot">
+      点击题目跳转 · <kbd>Esc</kbd> 关闭
+    </div>
+  </div>
+</div>
+
+<script>
+  // gidOf: 按故事名 + 故事内 Q 号 → 全局 global_id
+  window.gidOf = function(storyName, qg){
+    qg = parseInt(qg);
+    var q = (window.P2_DATA||[]).find(function(x){return x.group===storyName && x.q_num_in_group===qg;});
+    return q ? q.global_id : 1;
+  };
+  // Auth gate
+  try{ if(localStorage.getItem('beiya_authed') !== '1') window.location.href = '学生端_登录_v1.html'; }catch(e){}
+
+  // ─── EMBED INDEX ───
+  // (Auto-injected from 素材索引.json)
+</script>
+<script id="indexData">
+const ASSET_INDEX = {"a":{"lucy":{"n":"Lucy","t":"person","e":"👤"},"grandpa":{"n":"Grandpa · 爷爷","t":"person","e":"👴"},"teacher":{"n":"老师","t":"person","e":"👩‍🏫"},"neighbor":{"n":"邻居","t":"person","e":"👵"},"coach":{"n":"教练","t":"person","e":"🧑‍🏫"},"jackie":{"n":"Jackie Chan","t":"person","e":"🎬"},"frc":{"n":"Fruit Roast Chicken","t":"thing","e":"🍗"},"recipe-book":{"n":"Family recipe book","t":"thing","e":"📖"},"macbook":{"n":"MacBook","t":"thing","e":"💻"},"guitar":{"n":"Guitar 吉他","t":"thing","e":"🎸"},"chatgpt":{"n":"ChatGPT","t":"thing","e":"🤖"},"nutrition":{"n":"营养学的书","t":"thing","e":"📗"},"teacher-home":{"n":"老师家","t":"place","e":"🏠"},"wc-park":{"n":"White Cloud Park","t":"place","e":"🌳"},"wc-temple":{"n":"White Cloud Temple","t":"place","e":"🛕"},"electronics":{"n":"电子城","t":"place","e":"🏬"},"potluck":{"n":"Potluck dinner","t":"event","e":"🍽"},"midautumn":{"n":"中秋节","t":"event","e":"🌕"},"singing":{"n":"唱歌比赛","t":"event","e":"🎤"},"picnic":{"n":"Picnic","t":"event","e":"🧺"},"music-fest":{"n":"学校音乐节","t":"event","e":"🎵"},"mouth-watering":{"n":"mouth-watering","t":"expr","e":"⭐"},"finger-licking":{"n":"finger-licking good","t":"expr","e":"⭐"},"homemade":{"n":"homemade","t":"expr","e":"⭐"}},"i":{"teacher":[{"g":1,"s":"Creative Cooking","em":"🍳","qg":1,"t":"Describe a time you needed to use your imagination","c":"事件"},{"g":16,"s":"Creative Cooking","em":"🍳","qg":16,"t":"Describe one of your friends who learned something new without a teacher","c":"人物"},{"g":48,"s":"Arts","em":"🎨","qg":5,"t":"Describe an occasion when you were not allowed to use your mobile phone","c":"事件"},{"g":52,"s":"Movies","em":"🎬","qg":2,"t":"Describe a story (like a fairy tale, etc.) you have read recently","c":"物品"}],"frc":[{"g":1,"s":"Creative Cooking","em":"🍳","qg":1,"t":"Describe a time you needed to use your imagination","c":"事件"},{"g":2,"s":"Creative Cooking","em":"🍳","qg":2,"t":"Describe a time when you gave advice to others","c":"事件"},{"g":4,"s":"Creative Cooking","em":"🍳","qg":4,"t":"Describe a person who solved a problem in a smart way","c":"人物"},{"g":5,"s":"Creative Cooking","em":"🍳","qg":5,"t":"Describe a perfect job you would like to have in the future","c":"物品"},{"g":6,"s":"Creative Cooking","em":"🍳","qg":6,"t":"Describe a time when you encouraged someone to do something he/she didn't want to do","c":"事件"},{"g":7,"s":"Creative Cooking","em":"🍳","qg":7,"t":"Describe a great dinner you and your friends or family members enjoyed","c":"物品"},{"g":8,"s":"Creative Cooking","em":"🍳","qg":8,"t":"Describe an exciting activity you have tried for the first time","c":"事件"},{"g":9,"s":"Creative Cooking","em":"🍳","qg":9,"t":"Describe a person you know who enjoys working for a family business","c":"人物"},{"g":10,"s":"Creative Cooking","em":"🍳","qg":10,"t":"Describe a creative person you admire","c":"人物"},{"g":11,"s":"Creative Cooking","em":"🍳","qg":11,"t":"Describe a time when you waited for something special that would happen","c":"事件"},{"g":12,"s":"Creative Cooking","em":"🍳","qg":12,"t":"Describe a book you read that you found useful","c":"物品"},{"g":13,"s":"Creative Cooking","em":"🍳","qg":13,"t":"Describe a time you saw something interesting on social media","c":"事件"},{"g":14,"s":"Creative Cooking","em":"🍳","qg":14,"t":"Describe a time when someone apologized to you","c":"事件"},{"g":15,"s":"Creative Cooking","em":"🍳","qg":15,"t":"Describe a good habit your friend has and you want to develop","c":"物品"},{"g":16,"s":"Creative Cooking","em":"🍳","qg":16,"t":"Describe one of your friends who learned something new without a teacher","c":"人物"},{"g":17,"s":"Creative Cooking","em":"🍳","qg":17,"t":"Describe an intelligent person you know","c":"人物"},{"g":18,"s":"Creative Cooking","em":"🍳","qg":18,"t":"Describe an important choice made with the help of other people","c":"事件"},{"g":19,"s":"Creative Cooking","em":"🍳","qg":19,"t":"Describe a TV or online program you like to watch","c":"物品"},{"g":20,"s":"Creative Cooking","em":"🍳","qg":20,"t":"Describe a program or app on your computer or phone","c":"物品"},{"g":21,"s":"Creative Cooking","em":"🍳","qg":21,"t":"Describe an occasion when many people were smiling","c":"事件"}],"teacher-home":[{"g":1,"s":"Creative Cooking","em":"🍳","qg":1,"t":"Describe a time you needed to use your imagination","c":"事件"}],"potluck":[{"g":1,"s":"Creative Cooking","em":"🍳","qg":1,"t":"Describe a time you needed to use your imagination","c":"事件"},{"g":2,"s":"Creative Cooking","em":"🍳","qg":2,"t":"Describe a time when you gave advice to others","c":"事件"},{"g":4,"s":"Creative Cooking","em":"🍳","qg":4,"t":"Describe a person who solved a problem in a smart way","c":"人物"},{"g":6,"s":"Creative Cooking","em":"🍳","qg":6,"t":"Describe a time when you encouraged someone to do something he/she didn't want to do","c":"事件"},{"g":7,"s":"Creative Cooking","em":"🍳","qg":7,"t":"Describe a great dinner you and your friends or family members enjoyed","c":"物品"},{"g":8,"s":"Creative Cooking","em":"🍳","qg":8,"t":"Describe an exciting activity you have tried for the first time","c":"事件"},{"g":11,"s":"Creative Cooking","em":"🍳","qg":11,"t":"Describe a time when you waited for something special that would happen","c":"事件"},{"g":13,"s":"Creative Cooking","em":"🍳","qg":13,"t":"Describe a time you saw something interesting on social media","c":"事件"},{"g":14,"s":"Creative Cooking","em":"🍳","qg":14,"t":"Describe a time when someone apologized to you","c":"事件"},{"g":15,"s":"Creative Cooking","em":"🍳","qg":15,"t":"Describe a good habit your friend has and you want to develop","c":"物品"},{"g":16,"s":"Creative Cooking","em":"🍳","qg":16,"t":"Describe one of your friends who learned something new without a teacher","c":"人物"},{"g":17,"s":"Creative Cooking","em":"🍳","qg":17,"t":"Describe an intelligent person you know","c":"人物"},{"g":18,"s":"Creative Cooking","em":"🍳","qg":18,"t":"Describe an important choice made with the help of other people","c":"事件"},{"g":19,"s":"Creative Cooking","em":"🍳","qg":19,"t":"Describe a TV or online program you like to watch","c":"物品"},{"g":20,"s":"Creative Cooking","em":"🍳","qg":20,"t":"Describe a program or app on your computer or phone","c":"物品"},{"g":21,"s":"Creative Cooking","em":"🍳","qg":21,"t":"Describe an occasion when many people were smiling","c":"事件"}],"midautumn":[{"g":1,"s":"Creative Cooking","em":"🍳","qg":1,"t":"Describe a time you needed to use your imagination","c":"事件"},{"g":2,"s":"Creative Cooking","em":"🍳","qg":2,"t":"Describe a time when you gave advice to others","c":"事件"},{"g":4,"s":"Creative Cooking","em":"🍳","qg":4,"t":"Describe a person who solved a problem in a smart way","c":"人物"},{"g":6,"s":"Creative Cooking","em":"🍳","qg":6,"t":"Describe a time when you encouraged someone to do something he/she didn't want to do","c":"事件"},{"g":7,"s":"Creative Cooking","em":"🍳","qg":7,"t":"Describe a great dinner you and your friends or family members enjoyed","c":"物品"},{"g":8,"s":"Creative Cooking","em":"🍳","qg":8,"t":"Describe an exciting activity you have tried for the first time","c":"事件"},{"g":11,"s":"Creative Cooking","em":"🍳","qg":11,"t":"Describe a time when you waited for something special that would happen","c":"事件"},{"g":13,"s":"Creative Cooking","em":"🍳","qg":13,"t":"Describe a time you saw something interesting on social media","c":"事件"},{"g":15,"s":"Creative Cooking","em":"🍳","qg":15,"t":"Describe a good habit your friend has and you want to develop","c":"物品"},{"g":16,"s":"Creative Cooking","em":"🍳","qg":16,"t":"Describe one of your friends who learned something new without a teacher","c":"人物"},{"g":17,"s":"Creative Cooking","em":"🍳","qg":17,"t":"Describe an intelligent person you know","c":"人物"},{"g":18,"s":"Creative Cooking","em":"🍳","qg":18,"t":"Describe an important choice made with the help of other people","c":"事件"},{"g":19,"s":"Creative Cooking","em":"🍳","qg":19,"t":"Describe a TV or online program you like to watch","c":"物品"},{"g":20,"s":"Creative Cooking","em":"🍳","qg":20,"t":"Describe a program or app on your computer or phone","c":"物品"},{"g":21,"s":"Creative Cooking","em":"🍳","qg":21,"t":"Describe an occasion when many people were smiling","c":"事件"}],"mouth-watering":[{"g":1,"s":"Creative Cooking","em":"🍳","qg":1,"t":"Describe a time you needed to use your imagination","c":"事件"},{"g":2,"s":"Creative Cooking","em":"🍳","qg":2,"t":"Describe a time when you gave advice to others","c":"事件"},{"g":4,"s":"Creative Cooking","em":"🍳","qg":4,"t":"Describe a person who solved a problem in a smart way","c":"人物"},{"g":8,"s":"Creative Cooking","em":"🍳","qg":8,"t":"Describe an exciting activity you have tried for the first time","c":"事件"},{"g":9,"s":"Creative Cooking","em":"🍳","qg":9,"t":"Describe a person you know who enjoys working for a family business","c":"人物"},{"g":10,"s":"Creative Cooking","em":"🍳","qg":10,"t":"Describe a creative person you admire","c":"人物"},{"g":11,"s":"Creative Cooking","em":"🍳","qg":11,"t":"Describe a time when you waited for something special that would happen","c":"事件"},{"g":12,"s":"Creative Cooking","em":"🍳","qg":12,"t":"Describe a book you read that you found useful","c":"物品"},{"g":13,"s":"Creative Cooking","em":"🍳","qg":13,"t":"Describe a time you saw something interesting on social media","c":"事件"},{"g":14,"s":"Creative Cooking","em":"🍳","qg":14,"t":"Describe a time when someone apologized to you","c":"事件"},{"g":15,"s":"Creative Cooking","em":"🍳","qg":15,"t":"Describe a good habit your friend has and you want to develop","c":"物品"},{"g":16,"s":"Creative Cooking","em":"🍳","qg":16,"t":"Describe one of your friends who learned something new without a teacher","c":"人物"},{"g":17,"s":"Creative Cooking","em":"🍳","qg":17,"t":"Describe an intelligent person you know","c":"人物"},{"g":18,"s":"Creative Cooking","em":"🍳","qg":18,"t":"Describe an important choice made with the help of other people","c":"事件"},{"g":19,"s":"Creative Cooking","em":"🍳","qg":19,"t":"Describe a TV or online program you like to watch","c":"物品"},{"g":20,"s":"Creative Cooking","em":"🍳","qg":20,"t":"Describe a program or app on your computer or phone","c":"物品"},{"g":22,"s":"Creative Cooking","em":"🍳","qg":22,"t":"Describe a time when you felt proud of a family member","c":"事件"}],"finger-licking":[{"g":1,"s":"Creative Cooking","em":"🍳","qg":1,"t":"Describe a time you needed to use your imagination","c":"事件"},{"g":2,"s":"Creative Cooking","em":"🍳","qg":2,"t":"Describe a time when you gave advice to others","c":"事件"},{"g":4,"s":"Creative Cooking","em":"🍳","qg":4,"t":"Describe a person who solved a problem in a smart way","c":"人物"},{"g":5,"s":"Creative Cooking","em":"🍳","qg":5,"t":"Describe a perfect job you would like to have in the future","c":"物品"},{"g":6,"s":"Creative Cooking","em":"🍳","qg":6,"t":"Describe a time when you encouraged someone to do something he/she didn't want to do","c":"事件"},{"g":7,"s":"Creative Cooking","em":"🍳","qg":7,"t":"Describe a great dinner you and your friends or family members enjoyed","c":"物品"},{"g":8,"s":"Creative Cooking","em":"🍳","qg":8,"t":"Describe an exciting activity you have tried for the first time","c":"事件"},{"g":9,"s":"Creative Cooking","em":"🍳","qg":9,"t":"Describe a person you know who enjoys working for a family business","c":"人物"},{"g":10,"s":"Creative Cooking","em":"🍳","qg":10,"t":"Describe a creative person you admire","c":"人物"},{"g":11,"s":"Creative Cooking","em":"🍳","qg":11,"t":"Describe a time when you waited for something special that would happen","c":"事件"},{"g":12,"s":"Creative Cooking","em":"🍳","qg":12,"t":"Describe a book you read that you found useful","c":"物品"},{"g":13,"s":"Creative Cooking","em":"🍳","qg":13,"t":"Describe a time you saw something interesting on social media","c":"事件"},{"g":14,"s":"Creative Cooking","em":"🍳","qg":14,"t":"Describe a time when someone apologized to you","c":"事件"},{"g":15,"s":"Creative Cooking","em":"🍳","qg":15,"t":"Describe a good habit your friend has and you want to develop","c":"物品"},{"g":16,"s":"Creative Cooking","em":"🍳","qg":16,"t":"Describe one of your friends who learned something new without a teacher","c":"人物"},{"g":17,"s":"Creative Cooking","em":"🍳","qg":17,"t":"Describe an intelligent person you know","c":"人物"},{"g":18,"s":"Creative Cooking","em":"🍳","qg":18,"t":"Describe an important choice made with the help of other people","c":"事件"},{"g":19,"s":"Creative Cooking","em":"🍳","qg":19,"t":"Describe a TV or online program you like to watch","c":"物品"},{"g":20,"s":"Creative Cooking","em":"🍳","qg":20,"t":"Describe a program or app on your computer or phone","c":"物品"},{"g":21,"s":"Creative Cooking","em":"🍳","qg":21,"t":"Describe an occasion when many people were smiling","c":"事件"},{"g":22,"s":"Creative Cooking","em":"🍳","qg":22,"t":"Describe a time when you felt proud of a family member","c":"事件"}],"homemade":[{"g":1,"s":"Creative Cooking","em":"🍳","qg":1,"t":"Describe a time you needed to use your imagination","c":"事件"},{"g":2,"s":"Creative Cooking","em":"🍳","qg":2,"t":"Describe a time when you gave advice to others","c":"事件"},{"g":4,"s":"Creative Cooking","em":"🍳","qg":4,"t":"Describe a person who solved a problem in a smart way","c":"人物"},{"g":6,"s":"Creative Cooking","em":"🍳","qg":6,"t":"Describe a time when you encouraged someone to do something he/she didn't want to do","c":"事件"},{"g":7,"s":"Creative Cooking","em":"🍳","qg":7,"t":"Describe a great dinner you and your friends or family members enjoyed","c":"物品"},{"g":8,"s":"Creative Cooking","em":"🍳","qg":8,"t":"Describe an exciting activity you have tried for the first time","c":"事件"},{"g":11,"s":"Creative Cooking","em":"🍳","qg":11,"t":"Describe a time when you waited for something special that would happen","c":"事件"},{"g":14,"s":"Creative Cooking","em":"🍳","qg":14,"t":"Describe a time when someone apologized to you","c":"事件"},{"g":15,"s":"Creative Cooking","em":"🍳","qg":15,"t":"Describe a good habit your friend has and you want to develop","c":"物品"},{"g":16,"s":"Creative Cooking","em":"🍳","qg":16,"t":"Describe one of your friends who learned something new without a teacher","c":"人物"},{"g":17,"s":"Creative Cooking","em":"🍳","qg":17,"t":"Describe an intelligent person you know","c":"人物"},{"g":18,"s":"Creative Cooking","em":"🍳","qg":18,"t":"Describe an important choice made with the help of other people","c":"事件"},{"g":20,"s":"Creative Cooking","em":"🍳","qg":20,"t":"Describe a program or app on your computer or phone","c":"物品"},{"g":21,"s":"Creative Cooking","em":"🍳","qg":21,"t":"Describe an occasion when many people were smiling","c":"事件"}],"lucy":[{"g":2,"s":"Creative Cooking","em":"🍳","qg":2,"t":"Describe a time when you gave advice to others","c":"事件"},{"g":4,"s":"Creative Cooking","em":"🍳","qg":4,"t":"Describe a person who solved a problem in a smart way","c":"人物"},{"g":5,"s":"Creative Cooking","em":"🍳","qg":5,"t":"Describe a perfect job you would like to have in the future","c":"物品"},{"g":6,"s":"Creative Cooking","em":"🍳","qg":6,"t":"Describe a time when you encouraged someone to do something he/she didn't want to do","c":"事件"},{"g":9,"s":"Creative Cooking","em":"🍳","qg":9,"t":"Describe a person you know who enjoys working for a family business","c":"人物"},{"g":10,"s":"Creative Cooking","em":"🍳","qg":10,"t":"Describe a creative person you admire","c":"人物"},{"g":12,"s":"Creative Cooking","em":"🍳","qg":12,"t":"Describe a book you read that you found useful","c":"物品"},{"g":14,"s":"Creative Cooking","em":"🍳","qg":14,"t":"Describe a time when someone apologized to you","c":"事件"},{"g":15,"s":"Creative Cooking","em":"🍳","qg":15,"t":"Describe a good habit your friend has and you want to develop","c":"物品"},{"g":16,"s":"Creative Cooking","em":"🍳","qg":16,"t":"Describe one of your friends who learned something new without a teacher","c":"人物"},{"g":17,"s":"Creative Cooking","em":"🍳","qg":17,"t":"Describe an intelligent person you know","c":"人物"},{"g":18,"s":"Creative Cooking","em":"🍳","qg":18,"t":"Describe an important choice made with the help of other people","c":"事件"},{"g":20,"s":"Creative Cooking","em":"🍳","qg":20,"t":"Describe a program or app on your computer or phone","c":"物品"},{"g":23,"s":"Scenery","em":"🏞","qg":1,"t":"Describe an interesting building","c":"地点"},{"g":24,"s":"Scenery","em":"🏞","qg":2,"t":"Describe an unusual but interesting building you would like to visit","c":"地点"},{"g":25,"s":"Scenery","em":"🏞","qg":3,"t":"Describe the time when you first talked in a foreign language","c":"事件"},{"g":26,"s":"Scenery","em":"🏞","qg":4,"t":"Describe a short-term job you want to have in a foreign country","c":"事件"},{"g":27,"s":"Scenery","em":"🏞","qg":5,"t":"Describe a natural place","c":"地点"},{"g":28,"s":"Scenery","em":"🏞","qg":6,"t":"Describe a quiet place you like to go","c":"地点"},{"g":29,"s":"Scenery","em":"🏞","qg":7,"t":"Describe a person who likes to look after the natural world","c":"人物"},{"g":30,"s":"Scenery","em":"🏞","qg":8,"t":"Describe a long journey you had and would like to take again","c":"事件"},{"g":31,"s":"Scenery","em":"🏞","qg":9,"t":"Describe a city that you have been to and would like to visit again","c":"地点"},{"g":32,"s":"Scenery","em":"🏞","qg":10,"t":"Describe an occasion when you lost your way","c":"事件"},{"g":33,"s":"Scenery","em":"🏞","qg":11,"t":"Describe a time when the electricity suddenly went off","c":"事件"},{"g":34,"s":"Scenery","em":"🏞","qg":12,"t":"Describe a place you went to and an outdoor activity you did there","c":"地点"},{"g":35,"s":"Scenery","em":"🏞","qg":13,"t":"Describe a person who makes plans a lot and is good at planning","c":"人物"},{"g":36,"s":"Scenery","em":"🏞","qg":14,"t":"Describe a wild animal that you want to learn more about","c":"物品"},{"g":37,"s":"Scenery","em":"🏞","qg":15,"t":"Describe a toy you liked in your childhood","c":"物品"},{"g":38,"s":"Technology","em":"💻","qg":1,"t":"Describe an item on which you spent more than expected","c":"物品"},{"g":39,"s":"Technology","em":"💻","qg":2,"t":"Describe a piece of technology (not a phone) that you would like to own","c":"物品"},{"g":41,"s":"Technology","em":"💻","qg":4,"t":"Describe a time when you broke something","c":"事件"},{"g":42,"s":"Technology","em":"💻","qg":5,"t":"Describe a person who often helps others","c":"人物"},{"g":43,"s":"Technology","em":"💻","qg":6,"t":"Describe a good friend who is important to you","c":"人物"},{"g":44,"s":"Arts","em":"🎨","qg":1,"t":"Describe a child who loves drawing/painting","c":"人物"},{"g":45,"s":"Arts","em":"🎨","qg":2,"t":"Describe a friend of yours who is good at music/singing","c":"人物"},{"g":46,"s":"Arts","em":"🎨","qg":3,"t":"Describe a natural talent (sports, music, etc.) you want to improve","c":"物品"},{"g":47,"s":"Arts","em":"🎨","qg":4,"t":"Describe an event you attended in which you didn't enjoy the music played","c":"事件"},{"g":49,"s":"Sports","em":"🏐","qg":1,"t":"Describe a famous person you would like to meet","c":"人物"},{"g":50,"s":"Sports","em":"🏐","qg":2,"t":"Describe a successful sportsperson you admire","c":"人物"},{"g":51,"s":"Movies","em":"🎬","qg":1,"t":"Describe a movie you watched and enjoyed recently","c":"物品"},{"g":52,"s":"Movies","em":"🎬","qg":2,"t":"Describe a story (like a fairy tale, etc.) you have read recently","c":"物品"},{"g":53,"s":"Weight Loss","em":"🥗","qg":1,"t":"Describe an area/subject of science that you are interested in and would like to learn more about","c":"物品"}],"grandpa":[{"g":3,"s":"Creative Cooking","em":"🍳","qg":3,"t":"Describe something important that has been kept in your family for a long time","c":"物品"},{"g":9,"s":"Creative Cooking","em":"🍳","qg":9,"t":"Describe a person you know who enjoys working for a family business","c":"人物"},{"g":10,"s":"Creative Cooking","em":"🍳","qg":10,"t":"Describe a creative person you admire","c":"人物"},{"g":12,"s":"Creative Cooking","em":"🍳","qg":12,"t":"Describe a book you read that you found useful","c":"物品"}],"recipe-book":[{"g":3,"s":"Creative Cooking","em":"🍳","qg":3,"t":"Describe something important that has been kept in your family for a long time","c":"物品"},{"g":12,"s":"Creative Cooking","em":"🍳","qg":12,"t":"Describe a book you read that you found useful","c":"物品"},{"g":22,"s":"Creative Cooking","em":"🍳","qg":22,"t":"Describe a time when you felt proud of a family member","c":"事件"}],"neighbor":[{"g":5,"s":"Creative Cooking","em":"🍳","qg":5,"t":"Describe a perfect job you would like to have in the future","c":"物品"},{"g":9,"s":"Creative Cooking","em":"🍳","qg":9,"t":"Describe a person you know who enjoys working for a family business","c":"人物"},{"g":10,"s":"Creative Cooking","em":"🍳","qg":10,"t":"Describe a creative person you admire","c":"人物"},{"g":12,"s":"Creative Cooking","em":"🍳","qg":12,"t":"Describe a book you read that you found useful","c":"物品"},{"g":44,"s":"Arts","em":"🎨","qg":1,"t":"Describe a child who loves drawing/painting","c":"人物"}],"chatgpt":[{"g":20,"s":"Creative Cooking","em":"🍳","qg":20,"t":"Describe a program or app on your computer or phone","c":"物品"}],"wc-temple":[{"g":23,"s":"Scenery","em":"🏞","qg":1,"t":"Describe an interesting building","c":"地点"},{"g":31,"s":"Scenery","em":"🏞","qg":9,"t":"Describe a city that you have been to and would like to visit again","c":"地点"},{"g":32,"s":"Scenery","em":"🏞","qg":10,"t":"Describe an occasion when you lost your way","c":"事件"},{"g":37,"s":"Scenery","em":"🏞","qg":15,"t":"Describe a toy you liked in your childhood","c":"物品"}],"wc-park":[{"g":27,"s":"Scenery","em":"🏞","qg":5,"t":"Describe a natural place","c":"地点"},{"g":28,"s":"Scenery","em":"🏞","qg":6,"t":"Describe a quiet place you like to go","c":"地点"},{"g":29,"s":"Scenery","em":"🏞","qg":7,"t":"Describe a person who likes to look after the natural world","c":"人物"},{"g":30,"s":"Scenery","em":"🏞","qg":8,"t":"Describe a long journey you had and would like to take again","c":"事件"},{"g":31,"s":"Scenery","em":"🏞","qg":9,"t":"Describe a city that you have been to and would like to visit again","c":"地点"},{"g":32,"s":"Scenery","em":"🏞","qg":10,"t":"Describe an occasion when you lost your way","c":"事件"},{"g":33,"s":"Scenery","em":"🏞","qg":11,"t":"Describe a time when the electricity suddenly went off","c":"事件"},{"g":34,"s":"Scenery","em":"🏞","qg":12,"t":"Describe a place you went to and an outdoor activity you did there","c":"地点"},{"g":35,"s":"Scenery","em":"🏞","qg":13,"t":"Describe a person who makes plans a lot and is good at planning","c":"人物"},{"g":36,"s":"Scenery","em":"🏞","qg":14,"t":"Describe a wild animal that you want to learn more about","c":"物品"}],"picnic":[{"g":27,"s":"Scenery","em":"🏞","qg":5,"t":"Describe a natural place","c":"地点"},{"g":29,"s":"Scenery","em":"🏞","qg":7,"t":"Describe a person who likes to look after the natural world","c":"人物"},{"g":30,"s":"Scenery","em":"🏞","qg":8,"t":"Describe a long journey you had and would like to take again","c":"事件"},{"g":31,"s":"Scenery","em":"🏞","qg":9,"t":"Describe a city that you have been to and would like to visit again","c":"地点"},{"g":32,"s":"Scenery","em":"🏞","qg":10,"t":"Describe an occasion when you lost your way","c":"事件"},{"g":33,"s":"Scenery","em":"🏞","qg":11,"t":"Describe a time when the electricity suddenly went off","c":"事件"},{"g":34,"s":"Scenery","em":"🏞","qg":12,"t":"Describe a place you went to and an outdoor activity you did there","c":"地点"},{"g":35,"s":"Scenery","em":"🏞","qg":13,"t":"Describe a person who makes plans a lot and is good at planning","c":"人物"},{"g":45,"s":"Arts","em":"🎨","qg":2,"t":"Describe a friend of yours who is good at music/singing","c":"人物"},{"g":46,"s":"Arts","em":"🎨","qg":3,"t":"Describe a natural talent (sports, music, etc.) you want to improve","c":"物品"},{"g":48,"s":"Arts","em":"🎨","qg":5,"t":"Describe an occasion when you were not allowed to use your mobile phone","c":"事件"}],"guitar":[{"g":30,"s":"Scenery","em":"🏞","qg":8,"t":"Describe a long journey you had and would like to take again","c":"事件"},{"g":34,"s":"Scenery","em":"🏞","qg":12,"t":"Describe a place you went to and an outdoor activity you did there","c":"地点"},{"g":35,"s":"Scenery","em":"🏞","qg":13,"t":"Describe a person who makes plans a lot and is good at planning","c":"人物"},{"g":45,"s":"Arts","em":"🎨","qg":2,"t":"Describe a friend of yours who is good at music/singing","c":"人物"}],"singing":[{"g":30,"s":"Scenery","em":"🏞","qg":8,"t":"Describe a long journey you had and would like to take again","c":"事件"},{"g":31,"s":"Scenery","em":"🏞","qg":9,"t":"Describe a city that you have been to and would like to visit again","c":"地点"},{"g":34,"s":"Scenery","em":"🏞","qg":12,"t":"Describe a place you went to and an outdoor activity you did there","c":"地点"},{"g":35,"s":"Scenery","em":"🏞","qg":13,"t":"Describe a person who makes plans a lot and is good at planning","c":"人物"},{"g":45,"s":"Arts","em":"🎨","qg":2,"t":"Describe a friend of yours who is good at music/singing","c":"人物"},{"g":46,"s":"Arts","em":"🎨","qg":3,"t":"Describe a natural talent (sports, music, etc.) you want to improve","c":"物品"},{"g":48,"s":"Arts","em":"🎨","qg":5,"t":"Describe an occasion when you were not allowed to use your mobile phone","c":"事件"}],"macbook":[{"g":38,"s":"Technology","em":"💻","qg":1,"t":"Describe an item on which you spent more than expected","c":"物品"},{"g":39,"s":"Technology","em":"💻","qg":2,"t":"Describe a piece of technology (not a phone) that you would like to own","c":"物品"},{"g":40,"s":"Technology","em":"💻","qg":3,"t":"Describe a shop/store you enjoy visiting  /  Describe a time when you received good service in a shop/store","c":"地点"},{"g":41,"s":"Technology","em":"💻","qg":4,"t":"Describe a time when you broke something","c":"事件"},{"g":42,"s":"Technology","em":"💻","qg":5,"t":"Describe a person who often helps others","c":"人物"},{"g":43,"s":"Technology","em":"💻","qg":6,"t":"Describe a good friend who is important to you","c":"人物"}],"electronics":[{"g":38,"s":"Technology","em":"💻","qg":1,"t":"Describe an item on which you spent more than expected","c":"物品"},{"g":40,"s":"Technology","em":"💻","qg":3,"t":"Describe a shop/store you enjoy visiting  /  Describe a time when you received good service in a shop/store","c":"地点"},{"g":42,"s":"Technology","em":"💻","qg":5,"t":"Describe a person who often helps others","c":"人物"}],"music-fest":[{"g":47,"s":"Arts","em":"🎨","qg":4,"t":"Describe an event you attended in which you didn't enjoy the music played","c":"事件"}],"coach":[{"g":50,"s":"Sports","em":"🏐","qg":2,"t":"Describe a successful sportsperson you admire","c":"人物"}],"jackie":[{"g":51,"s":"Movies","em":"🎬","qg":1,"t":"Describe a movie you watched and enjoyed recently","c":"物品"}],"nutrition":[{"g":53,"s":"Weight Loss","em":"🥗","qg":1,"t":"Describe an area/subject of science that you are interested in and would like to learn more about","c":"物品"}]}};
+</script>
+<script>
+  // NPC swap
+  const NPC = { female:{name:'Lucy', emoji:'👩'}, male:{name:'Mark', emoji:'👨'} };
+  function applyGender(g){
+    const n = NPC[g] || NPC.female;
+    document.querySelectorAll('[data-npc]').forEach(el => el.textContent = n.name);
+    document.querySelectorAll('[data-npc-emoji]').forEach(el => el.textContent = n.emoji);
+    document.querySelectorAll('.role-opt').forEach(el => el.classList.toggle('on', el.dataset.g===g));
+    try{ localStorage.setItem('beiya_gender', g); }catch(e){}
+  }
+  let curG='female';
+  try{ curG = localStorage.getItem('beiya_gender') || 'female'; }catch(e){}
+  applyGender(curG);
+  document.querySelectorAll('.role-opt').forEach(el=> el.addEventListener('click', ()=> applyGender(el.dataset.g)));
+
+  // ─── BUILD ASSET LIST ───
+  // Convert index → array with stats
+  const STORY_EMOJI = {'Creative Cooking':'🍳','Scenery':'🏞','Technology':'💻','Arts':'🎨','Sports':'🏐','Movies':'🎬','Weight Loss':'🥗'};
+  const TYPE_LABEL = {person:'人物',thing:'物品',place:'地点',event:'事件',expr:'高分表达'};
+
+  function buildAssets(){
+    const list = [];
+    Object.entries(ASSET_INDEX.a).forEach(([id, meta])=>{
+      const qs = ASSET_INDEX.i[id] || [];
+      const storySet = new Set(qs.map(q=>q.s));
+      list.push({id, ...meta, count:qs.length, stories:Array.from(storySet)});
+    });
+    return list;
+  }
+  const ALL = buildAssets();
+
+  // Update counts in filters
+  document.getElementById('cAll').textContent = ALL.length;
+  ['person','thing','place','event','expr'].forEach(t=>{
+    document.getElementById('c'+t.charAt(0).toUpperCase()+t.slice(1)).textContent = ALL.filter(a=>a.t===t).length;
+  });
+  document.getElementById('statTotal').textContent = ALL.length;
+  document.getElementById('statTop').textContent = Math.max(...ALL.map(a=>a.count));
+
+  // ─── BAR CHART (TOP 10) ───
+  const top10 = [...ALL].sort((a,b)=>b.count-a.count).slice(0,10);
+  const maxCount = top10[0].count;
+  document.getElementById('barChart').innerHTML = top10.map((a,i)=>`
+    <div class="bar-row" data-asset-trigger="${a.id}">
+      <div class="bar-rank">${i+1}.</div>
+      <div class="bar-emoji">${a.e}</div>
+      <div class="bar-name">${a.n}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${a.count/maxCount*100}%"></div></div>
+      <div class="bar-num">${a.count}</div>
+    </div>
+  `).join('');
+
+  // ─── ASSET GRID RENDER ───
+  let curFilter = 'all';
+  let curSort = 'freq';
+  let curSearch = '';
+
+  function renderGrid(){
+    let arr = ALL.slice();
+    if(curFilter !== 'all') arr = arr.filter(a=>a.t===curFilter);
+    if(curSearch) arr = arr.filter(a=>a.n.toLowerCase().includes(curSearch.toLowerCase()));
+    if(curSort==='freq') arr.sort((a,b)=>b.count-a.count);
+    else if(curSort==='freq-asc') arr.sort((a,b)=>a.count-b.count);
+    else if(curSort==='stories') arr.sort((a,b)=>b.stories.length-a.stories.length);
+    else if(curSort==='name') arr.sort((a,b)=>a.n.localeCompare(b.n));
+
+    document.getElementById('assetGrid').innerHTML = arr.map(a=>{
+      const showStories = a.stories.slice(0,7);
+      const more = a.stories.length > 7 ? `<span class="ac-story-more">+${a.stories.length-7}</span>` : '';
+      return `
+        <article class="asset-card" data-asset-trigger="${a.id}">
+          <div class="ac-head">
+            <div class="ac-emoji-wrap">
+              <div class="ac-emoji">${a.e}</div>
+            </div>
+            <div class="ac-type ${a.t}">${TYPE_LABEL[a.t]}</div>
+          </div>
+          <div class="ac-name">${a.n}</div>
+          <div class="ac-stats">
+            <span class="ac-num">${a.count}</span>
+            <span class="ac-num-lbl">题中出现</span>
+          </div>
+          <div class="ac-stories">
+            ${showStories.map(s=>`<span class="ac-story-em" title="${s}">${STORY_EMOJI[s]||''}</span>`).join('')}
+            ${more}
+          </div>
+        </article>
+      `;
+    }).join('');
+  }
+  renderGrid();
+
+  document.querySelectorAll('.filter-chip').forEach(c=>{
+    c.addEventListener('click', ()=>{
+      document.querySelectorAll('.filter-chip').forEach(x=>x.classList.remove('on'));
+      c.classList.add('on');
+      curFilter = c.dataset.type;
+      renderGrid();
+    });
+  });
+  document.getElementById('sortSel').addEventListener('change', e=>{
+    curSort = e.target.value;
+    renderGrid();
+  });
+  document.getElementById('searchBox').addEventListener('input', e=>{
+    curSearch = e.target.value.trim();
+    renderGrid();
+  });
+
+  // ─── PORTAL ───
+  function openPortal(assetId){
+    const a = ASSET_INDEX.a[assetId];
+    if(!a) return;
+    const list = ASSET_INDEX.i[assetId] || [];
+    const stories = new Set(list.map(q=>q.s));
+    document.getElementById('pIcon').textContent = a.e;
+    document.getElementById('pName').textContent = a.n;
+    document.getElementById('pMeta').innerHTML = `出现在 <strong>${list.length}</strong> 题 · 跨 <strong>${stories.size}</strong> 个故事`;
+    const catMap = {'人物':'person','物品':'thing','事件':'event','地点':'place'};
+    const catIcon = {'人物':'👤','物品':'📦','事件':'🎬','地点':'📍'};
+    document.getElementById('pList').innerHTML = list.map(q=>{
+      const cat = catMap[q.c] || '';
+      return `<div class="portal-row" onclick="location.href='题目详情_v1.html?q='+gidOf('${q.s}',${q.qg})">
+        <div class="pr-emoji">${q.em}</div>
+        <div class="pr-badge">Q${q.qg}</div>
+        <div class="pr-info">
+          <div class="pr-title">${q.t}</div>
+          <div class="pr-meta">
+            <span>${q.s}</span>
+            <span class="pr-cat ${cat}">${catIcon[q.c]} ${q.c}</span>
+          </div>
+        </div>
+        <div class="pr-arrow">→</div>
+      </div>`;
+    }).join('');
+    document.getElementById('portalBg').classList.add('show');
+  }
+  function closePortal(){ document.getElementById('portalBg').classList.remove('show'); }
+
+  // Trigger from asset cards + bar rows + ax spans
+  document.addEventListener('click', e=>{
+    const t = e.target.closest('[data-asset-trigger], .ax');
+    if(t){
+      e.stopPropagation();
+      openPortal(t.dataset.assetTrigger || t.dataset.asset);
+    }
+  });
+  document.getElementById('pClose').addEventListener('click', closePortal);
+  document.getElementById('portalBg').addEventListener('click', closePortal);
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePortal(); });
+</script>
+
+</body>
+</html>

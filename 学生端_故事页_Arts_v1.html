@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>北雅 · P2 · 🎨 Arts · 5题</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --beiya:#C0392B;--beiya-dark:#9B2C20;--beiya-soft:#FDECEA;
+    --gold:#B8894A;--gold-soft:#FBF4EA;--gold-dark:#9A6F35;
+    --ink:#1E1E22;--ink-2:#4A4A52;--ink-3:#8A8A92;
+    --line:#E8E8EC;--bg:#FAFAFA;--white:#FFFFFF;
+    --ok:#2E7D32;--pending:#E8834A;
+    --cat-person:#3A5BB8;--cat-person-bg:#EDF2FE;
+    --cat-place:#2F8F5C;--cat-place-bg:#E8F5EE;
+    --cat-thing:#7E4DAA;--cat-thing-bg:#F3EBFB;
+    --cat-event:#B86A2A;--cat-event-bg:#FFF2E5;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter','PingFang SC','Microsoft YaHei',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none;cursor:pointer}
+  .topbar{position:sticky;top:0;z-index:40;background:var(--white);border-bottom:1px solid var(--line);padding:14px 24px;display:flex;align-items:center;gap:18px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:var(--beiya);white-space:nowrap}
+  .brand-mark{width:28px;height:28px;background:var(--beiya);color:#fff;display:flex;align-items:center;justify-content:center;border-radius:4px;font-family:'Noto Serif SC',serif;font-size:14px}
+  .nav{display:flex;gap:2px;margin-left:8px;flex:1}
+  .nav a{padding:7px 14px;border-radius:6px;font-size:13px;color:var(--ink-2);font-weight:500;white-space:nowrap}
+  .nav a:hover{background:var(--beiya-soft);color:var(--beiya)}
+  .nav a.active{background:var(--beiya);color:#fff}
+  .role-sw{display:flex;align-items:center;gap:6px;background:#F4F4F6;border-radius:20px;padding:3px;font-size:12px}
+  .role-opt{padding:4px 12px;border-radius:16px;cursor:pointer;color:var(--ink-3);font-weight:500;transition:all .15s;white-space:nowrap}
+  .role-opt.on{background:var(--beiya);color:#fff}
+  .search-wrap{position:relative}
+  .search{background:#F4F4F6;border:1px solid transparent;border-radius:20px;padding:7px 14px 7px 36px;font-size:12.5px;width:200px;color:var(--ink);font-family:inherit;outline:none;transition:all .2s}
+  .search:focus{background:#fff;border-color:var(--beiya);width:240px}
+  .search-ico{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--ink-3);font-size:13px;pointer-events:none}
+  .wrap{max-width:1120px;margin:0 auto;padding:24px 24px 80px}
+  .crumb{font-size:12.5px;color:var(--ink-3);margin-bottom:18px;letter-spacing:.3px}
+  .crumb a:hover{color:var(--beiya)}
+  .crumb .sep{margin:0 6px;color:var(--ink-3)}
+  .story-head{background:linear-gradient(135deg,#fff 0%,var(--gold-soft) 100%);border:1px solid #EAD9B8;border-radius:16px;padding:32px 36px;margin-bottom:18px;position:relative;overflow:hidden;display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+  .story-head::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(184,137,74,.18) 0%,transparent 70%);pointer-events:none}
+  .sh-emoji{font-size:80px;line-height:1;width:100px;height:100px;background:var(--white);border-radius:24px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(184,137,74,.18);flex-shrink:0;position:relative;z-index:2}
+  .sh-body{flex:1;min-width:280px;position:relative;z-index:2}
+  .sh-flag{display:inline-flex;align-items:center;gap:6px;background:var(--gold);color:#fff;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;letter-spacing:.5px;margin-bottom:8px}
+  .sh-name{font-family:'Noto Serif SC',serif;font-size:30px;font-weight:700;color:var(--ink);line-height:1.2;margin-bottom:4px}
+  .sh-name-en{font-size:14px;color:var(--gold-dark);font-style:italic;margin-left:8px;font-weight:400}
+  .sh-desc{font-size:14px;color:var(--ink-2);margin-bottom:14px;max-width:580px;line-height:1.7}
+  .sh-stats{display:flex;gap:18px;flex-wrap:wrap}
+  .sh-stat{display:flex;flex-direction:column;gap:1px;padding-right:18px;border-right:1px dashed #EAD9B8}
+  .sh-stat:last-child{border-right:none;padding-right:0}
+  .sh-stat-num{font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--gold-dark);line-height:1.1}
+  .sh-stat-lbl{font-size:11px;color:var(--ink-3);margin-top:2px;letter-spacing:.3px}
+  .core-strip{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-bottom:14px;display:flex;flex-direction:column;gap:14px}
+  .core-strip-title{font-size:12px;font-weight:700;color:var(--beiya);text-transform:uppercase;letter-spacing:.6px;display:flex;align-items:center;gap:6px}
+  .core-strip-title .hint{color:var(--ink-3);font-weight:400;letter-spacing:0;text-transform:none;font-size:11px;margin-left:auto}
+  .core-group{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;padding:10px 0 0;border-top:1px dashed var(--line)}
+  .core-group:first-of-type{border-top:none;padding-top:0}
+  .core-group-label{font-size:11.5px;font-weight:700;color:var(--ink-3);letter-spacing:.3px;min-width:56px;padding-top:8px;flex-shrink:0}
+  .core-group-list{display:flex;gap:14px;flex-wrap:wrap;flex:1}
+  .core-item{display:flex;align-items:center;gap:8px}
+  .core-avatar{width:36px;height:36px;border-radius:50%;background:var(--beiya-soft);border:2px solid var(--beiya);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+  .core-meta{display:flex;flex-direction:column;line-height:1.3}
+  .core-name{font-size:13px;font-weight:600;color:var(--ink)}
+  .core-role{font-size:11.5px;color:var(--ink-3)}
+  .gold-strip{background:linear-gradient(135deg,var(--gold-soft) 0%,#FDF7EC 100%);border:1px solid #EAD9B8;border-radius:14px;padding:20px 24px;margin-bottom:24px;position:relative;overflow:hidden}
+  .gs-label{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:var(--gold-dark);letter-spacing:.5px;margin-bottom:12px}
+  .gs-label .gs-icon{width:24px;height:24px;background:var(--gold);color:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px}
+  .gs-hint{font-size:11px;color:var(--ink-3);margin-left:auto;font-weight:400;letter-spacing:0;text-transform:none}
+  .gs-grid{display:flex;gap:8px;flex-wrap:wrap}
+  .gs-chip{background:var(--white);border:1px solid #EAD9B8;border-radius:8px;padding:8px 12px;font-size:13px;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;gap:1px;min-width:0}
+  .gs-chip:hover{background:var(--gold);color:#fff;border-color:var(--gold);transform:translateY(-2px);box-shadow:0 4px 12px rgba(184,137,74,.25)}
+  .gs-chip:hover .gs-type{color:rgba(255,255,255,.85)}
+  .gs-word{font-weight:600;font-family:'Inter',serif}
+  .gs-type{font-size:10px;color:var(--gold);font-style:italic;letter-spacing:.3px}
+  .filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+  .filter-label{font-size:12px;color:var(--ink-3);margin-right:6px}
+  .filter-chip{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:6px 14px;font-size:12.5px;font-weight:500;color:var(--ink-2);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px}
+  .filter-chip:hover{border-color:var(--beiya);color:var(--beiya)}
+  .filter-chip.on{background:var(--beiya);color:#fff;border-color:var(--beiya)}
+  .filter-chip .ct{background:rgba(0,0,0,.08);padding:1px 7px;border-radius:8px;font-size:11px;font-weight:600}
+  .filter-chip.on .ct{background:rgba(255,255,255,.25)}
+  .q-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+  .q-card{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:18px 20px;cursor:pointer;transition:all .15s;position:relative;display:flex;flex-direction:column;gap:8px}
+  .q-card:hover{border-color:var(--beiya);box-shadow:0 6px 18px rgba(192,57,43,.08);transform:translateY(-2px)}
+  .qc-head{display:flex;align-items:center;gap:8px;justify-content:space-between}
+  .qc-num{background:var(--beiya);color:#fff;font-family:'Noto Serif SC',serif;font-weight:700;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+  .qc-cat{font-size:11px;font-weight:600;padding:2px 9px;border-radius:10px;letter-spacing:.3px}
+  .qc-cat.person{background:var(--cat-person-bg);color:var(--cat-person)}
+  .qc-cat.place{background:var(--cat-place-bg);color:var(--cat-place)}
+  .qc-cat.thing{background:var(--cat-thing-bg);color:var(--cat-thing)}
+  .qc-cat.event{background:var(--cat-event-bg);color:var(--cat-event)}
+  .qc-status{display:flex;gap:4px;margin-left:auto;font-size:14px;color:var(--ink-3)}
+  .qc-status .stat-icon{cursor:pointer;transition:transform .15s}
+  .qc-status .stat-icon:hover{transform:scale(1.2)}
+  .qc-title{font-size:14px;font-weight:600;line-height:1.5;font-style:italic;color:var(--beiya-dark)}
+  .qc-hook{font-size:12.5px;color:var(--ink-2);line-height:1.7;padding-top:8px;border-top:1px dashed var(--line)}
+  .qc-hook strong{color:var(--ink-3);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-right:4px}
+  .hook-arrow{color:var(--ink-3);margin:0 4px;font-size:10px}
+  .ax{cursor:pointer;color:var(--beiya);font-weight:600;border-bottom:1px dashed var(--beiya);padding:0 1px;transition:all .15s;display:inline-flex;align-items:center;gap:3px}
+  .ax:hover{background:var(--beiya-soft);border-radius:3px;border-bottom-style:solid}
+  .ax-count{font-size:10px;color:var(--gold-dark);background:var(--gold-soft);padding:1px 5px;border-radius:8px;font-weight:600;letter-spacing:0;border:1px solid #EAD9B8;line-height:1.2}
+  .ax:hover .ax-count{background:var(--gold);color:#fff;border-color:var(--gold)}
+  .fab{position:fixed;bottom:26px;right:26px;z-index:50;background:var(--beiya);color:#fff;border-radius:999px;padding:12px 18px;font-weight:600;font-size:13px;box-shadow:0 10px 24px rgba(192,57,43,.3);cursor:pointer;display:flex;align-items:center;gap:6px}
+  .fab:hover{background:var(--beiya-dark)}
+  .jump-mini{margin-top:40px;padding:22px 24px;background:var(--white);border:1px solid var(--line);border-radius:14px}
+  .jump-mini-title{font-size:13px;font-weight:700;color:var(--ink-3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:14px}
+  .jump-mini-grid{display:flex;gap:10px;flex-wrap:wrap}
+  .jump-mini-chip{background:#F4F4F6;border:1px solid var(--line);border-radius:20px;padding:8px 14px;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s}
+  .jump-mini-chip:hover{background:var(--beiya);color:#fff;border-color:var(--beiya)}
+  .jump-mini-chip .ct{font-size:11px;color:var(--ink-3);font-weight:600}
+  .jump-mini-chip:hover .ct{color:rgba(255,255,255,.85)}
+
+  /* ═══ 手机端响应式适配 ═══ */
+  @media (max-width: 640px) {
+    html{font-size:14px}
+    body{line-height:1.6}
+
+    /* 顶栏压缩 */
+    .topbar{padding:10px 12px !important;gap:8px !important;flex-wrap:wrap;position:sticky;top:0}
+    .topbar .brand{font-size:13px !important}
+    .topbar .brand-mark{width:24px;height:24px;font-size:12px}
+    .topbar .nav{flex:1 1 100% !important;order:3;overflow-x:auto;scrollbar-width:none;gap:0 !important;padding:4px 0;border-top:1px solid var(--line,#E8E8EC);margin:8px 0 0 !important}
+    .topbar .nav::-webkit-scrollbar{display:none}
+    .topbar .nav a{padding:6px 10px !important;font-size:12px !important;flex-shrink:0;white-space:nowrap}
+    .search-wrap{display:none !important}
+    .role-sw{margin:0 !important;order:2}
+    .role-opt{padding:3px 8px !important;font-size:11px !important}
+
+    /* 主体 padding 减小 */
+    .wrap{padding:14px 12px 70px !important;max-width:100% !important}
+    .crumb{font-size:11.5px !important;margin-bottom:12px !important}
+
+    /* 所有 grid 一列化 */
+    .q-grid, .grid, .story-grid, .jump-mini-grid{grid-template-columns:1fr !important}
+    .row2, .row3{grid-template-columns:1fr !important}
+
+    /* 故事首页 - 故事卡 */
+    .story, .story.flagship, .story.runner-up{padding:18px !important}
+    .story .story-name{font-size:20px !important}
+    .entries{grid-template-columns:1fr !important}
+
+    /* 故事页 story-head */
+    .story-head{padding:20px !important;gap:16px !important}
+    .sh-emoji{font-size:58px !important;width:70px !important;height:70px !important}
+    .sh-name{font-size:22px !important}
+    .sh-desc{font-size:13px !important}
+    .sh-stats{gap:10px !important}
+    .sh-stat{padding-right:10px !important}
+    .sh-stat-num{font-size:16px !important}
+
+    /* 故事页 core-strip 分组 */
+    .core-group{flex-direction:column !important;align-items:stretch !important;padding:12px 0 0 !important}
+    .core-group-label{min-width:0 !important;padding-top:0 !important;margin-bottom:8px !important;font-size:11px !important}
+    .core-group-list{gap:10px !important}
+    .core-strip-title .hint{display:none}
+
+    /* gold-strip */
+    .gold-strip{padding:14px 16px !important}
+    .gs-grid{gap:6px !important}
+    .gs-chip{padding:6px 10px !important;font-size:12px !important}
+
+    /* filter-row */
+    .filter-row{gap:5px !important}
+    .filter-chip{padding:5px 10px !important;font-size:11.5px !important}
+
+    /* Q 卡片 */
+    .q-card{padding:14px 16px !important}
+    .qc-title{font-size:13px !important}
+    .qc-hook{font-size:12px !important}
+
+    /* 详情页 q-header */
+    .q-header{padding:14px 16px !important;margin-bottom:16px !important}
+    .q-title-en{font-size:15px !important;line-height:1.5 !important}
+    .q-tags{flex-wrap:wrap !important;gap:5px !important}
+    .tag{font-size:11px !important;padding:2px 8px !important}
+    .q-actions{flex-wrap:wrap !important;gap:5px !important}
+    .act{padding:5px 9px !important;font-size:11.5px !important}
+
+    /* prep-strip */
+    .prep-strip{flex-wrap:wrap !important;padding:10px 12px !important;gap:5px !important}
+    .prep-chip{font-size:12px !important;padding:3px 8px !important}
+    .prep-label{font-size:11px !important}
+
+    /* tier-tabs (详情页) */
+    .tier-tabs{overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap !important;padding-bottom:4px;margin-bottom:14px !important}
+    .tier-tabs::-webkit-scrollbar{display:none}
+    .tier-tab{padding:7px 11px !important;font-size:12px !important;white-space:nowrap;flex-shrink:0 !important}
+
+    /* outline sections */
+    .outline{padding:16px !important}
+    .sec{padding:14px !important}
+    .sec-body{font-size:13.5px !important}
+    .bullet{padding:5px 0 5px 20px !important;font-size:13.5px !important}
+
+    /* 参考范文 */
+    .ref-body{padding:16px 18px !important;font-size:13.5px !important;line-height:1.8 !important}
+
+    /* xrefs */
+    .xrefs{grid-template-columns:1fr !important}
+    .xref{padding:14px !important}
+
+    /* Hero (仪表盘) */
+    .hero{padding:22px !important;border-radius:14px !important}
+    .hero-num{font-size:30px !important}
+    .hero-row{gap:14px !important}
+    .hero-stat{min-width:100px !important}
+
+    /* FAB 方法论按钮 */
+    .fab{bottom:18px !important;right:18px !important;padding:10px 14px !important;font-size:12px !important}
+
+    /* jump-mini */
+    .jump-mini{padding:16px !important}
+
+    /* 登录页 */
+    .login-wrap, .login-card{padding:24px !important;max-width:100% !important;margin:0 12px !important}
+
+    /* 传统分类页 / 复现元素页 */
+    .tab-bar{flex-wrap:wrap !important}
+    .asset-grid{grid-template-columns:1fr 1fr !important}
+
+    /* 方法论页 · 各种 sec 排版 */
+    .mtd-hero{padding:24px 18px !important}
+    .mtd-hero h1{font-size:22px !important}
+
+    /* 仪表盘 card padding 减小 */
+    .card{padding:16px !important}
+    .card-title{font-size:12px !important}
+
+    /* 通用 padding 缩减 */
+    .panel, .panel-section, .cta-bar{padding:14px 16px !important}
+  }
+
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand"><div class="brand-mark">北</div><span>北雅国际教育</span></div>
+  <nav class="nav">
+    <a href="学生端_素材宇宙首页_v1.html">🌌 素材宇宙</a>
+    <a href="学生端_传统分类页_v1.html">📋 传统分类</a>
+    <a href="学生端_复现元素页_v1.html">🏷️ 复现元素</a>
+    <a href="学生端_方法论页_v1.html">🎯 方法论</a>
+    <a href="学生端_进度仪表盘_v1.html">⭐ 我的</a>
+  </nav>
+  <div class="role-sw">
+    <div class="role-opt" data-g="female">👩 Lucy</div>
+    <div class="role-opt" data-g="male">👨 Mark</div>
+  </div>
+  <div class="search-wrap">
+    <span class="search-ico">🔍</span>
+    <input class="search" placeholder="搜题目 / 元素...">
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="crumb">
+    <a href="学生端_素材宇宙首页_v1.html">🌌 素材宇宙</a>
+    <span class="sep">›</span>
+    <a>🎨 Arts</a>
+  </div>
+
+  <section class="story-head">
+    <div class="sh-emoji">🎨</div>
+    <div class="sh-body">
+      <div class="sh-flag">★ 第四顺位 · 91% 里程碑</div>
+      <h1 class="sh-name">Arts <span class="sh-name-en">· 艺术音乐</span></h1>
+      <p class="sh-desc"><span data-npc>Lucy</span> 是邻居家的小女孩——喜欢画 <strong>eagle + ducklings</strong>，长大后成为歌手，清晨 6 点练<strong>吉他</strong>。<strong>学校音乐节</strong>上 rap 不是我的菜，但 picnic 上的<strong>唱歌比赛</strong>让我看到她的天赋。</p>
+      <div class="sh-stats">
+        <div class="sh-stat"><div class="sh-stat-num">5</div><div class="sh-stat-lbl">道题</div></div>
+        <div class="sh-stat"><div class="sh-stat-num">9%</div><div class="sh-stat-lbl">占 53 题</div></div>
+        <div class="sh-stat"><div class="sh-stat-num">2人 / 1物 / 2事</div><div class="sh-stat-lbl">类别分布</div></div>
+        <div class="sh-stat"><div class="sh-stat-num">★ 4</div><div class="sh-stat-lbl">收益排名</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="core-strip">
+    <div class="core-strip-title">🧩 本故事核心素材<span class="hint">主角是人 + 事件 —— Lucy 从小女孩到歌手</span></div>
+    <div class="core-group">
+      <div class="core-group-label">👤 人物</div>
+      <div class="core-group-list">
+        <div class="core-item">
+          <div class="core-avatar" data-npc-emoji>👩</div>
+          <div class="core-meta"><span class="core-name"><span class="ax" data-asset="lucy">Lucy<span class="ax-count">53</span></span></span><span class="core-role">邻居小女孩 → 歌手 · 5 题核心</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="core-group">
+      <div class="core-group-label">📦 物品</div>
+      <div class="core-group-list">
+        <div class="core-item">
+          <div class="core-avatar" style="background:#F3EBFB;border-color:#7E4DAA">🎸</div>
+          <div class="core-meta"><span class="core-name"><span class="ax" data-asset="guitar">Guitar<span class="ax-count">8</span></span></span><span class="core-role">Q2 清晨 6 点练习</span></div>
+        </div>
+        <div class="core-item">
+          <div class="core-avatar" style="background:#F3EBFB;border-color:#7E4DAA">🎨</div>
+          <div class="core-meta"><span class="core-name">Drawings</span><span class="core-role">Q1 老鹰 + 小鸭 · vivid</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="core-group">
+      <div class="core-group-label">🎬 事件</div>
+      <div class="core-group-list">
+        <div class="core-item">
+          <div class="core-avatar" style="background:#FFF2E5;border-color:#B86A2A">🎤</div>
+          <div class="core-meta"><span class="core-name"><span class="ax" data-asset="music-fest">学校音乐节<span class="ax-count">0</span></span></span><span class="core-role">Q4 · rap 不合胃口</span></div>
+        </div>
+        <div class="core-item">
+          <div class="core-avatar" style="background:#FFF2E5;border-color:#B86A2A">🎵</div>
+          <div class="core-meta"><span class="core-name"><span class="ax" data-asset="singing">Picnic 唱歌比赛<span class="ax-count">0</span></span></span><span class="core-role">Q5 · 禁手机 · Lucy 才华</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gold-strip">
+    <div class="gs-label">
+      <span class="gs-icon">⭐</span>
+      <span>本故事高分表达</span>
+      <span class="gs-hint">点击查看口语化 paraphrase（开发中）</span>
+    </div>
+    <div class="gs-grid">
+      <div class="gs-chip"><span class="gs-word">natural talent</span><span class="gs-type">noun · 天生才华</span></div>
+      <div class="gs-chip"><span class="gs-word">not my cup of tea</span><span class="gs-type">idiom · 不合胃口</span></div>
+      <div class="gs-chip"><span class="gs-word">singing voice</span><span class="gs-type">noun · 歌喉</span></div>
+      <div class="gs-chip"><span class="gs-word">work on</span><span class="gs-type">phrasal v · 打磨提高</span></div>
+      <div class="gs-chip"><span class="gs-word">jealous of</span><span class="gs-type">adj phrase · 嫉妒</span></div>
+      <div class="gs-chip"><span class="gs-word">hard-working</span><span class="gs-type">adj · 勤奋</span></div>
+      <div class="gs-chip"><span class="gs-word">6am practice</span><span class="gs-type">phrase · 清晨训练</span></div>
+      <div class="gs-chip"><span class="gs-word">vivid / lively</span><span class="gs-type">adj · 栩栩如生</span></div>
+      <div class="gs-chip"><span class="gs-word">have a good feel for</span><span class="gs-type">phrase · 天生感觉</span></div>
+    </div>
+  </section>
+
+  <div class="filter-row">
+    <span class="filter-label">筛选</span>
+    <div class="filter-chip on" data-cat="all">全部 <span class="ct">5</span></div>
+    <div class="filter-chip" data-cat="人物">👤 人物 <span class="ct">2</span></div>
+    <div class="filter-chip" data-cat="物品">📦 物品 <span class="ct">1</span></div>
+    <div class="filter-chip" data-cat="事件">🎬 事件 <span class="ct">2</span></div>
+  </div>
+
+  <section class="q-grid" id="qGrid">
+    <article class="q-card" data-cat="人物" data-q="44" onclick="if(!event.target.closest('.ax,.stat-icon'))location.href='题目详情_v1.html?q='+this.dataset.q">
+      <div class="qc-head">
+        <div class="qc-num">Q1</div>
+        <div class="qc-cat person">👤 人物</div>
+        <div class="qc-status"><span class="stat-icon">⭐</span><span class="stat-icon">✓</span><span class="stat-icon">⏱</span></div>
+      </div>
+      <div class="qc-title">Describe a child who loves drawing/painting</div>
+      <div class="qc-hook"><strong>素材路径</strong><span style="color:var(--ink-3)">drawing</span><span class="hook-arrow">→</span><span style="color:var(--ink-3)">cartoon</span><span class="hook-arrow">→</span><span style="color:var(--ink-3)">eagle</span></div>
+    </article>
+    <article class="q-card" data-cat="人物" data-q="45" onclick="if(!event.target.closest('.ax,.stat-icon'))location.href='题目详情_v1.html?q='+this.dataset.q">
+      <div class="qc-head">
+        <div class="qc-num">Q2</div>
+        <div class="qc-cat person">👤 人物</div>
+        <div class="qc-status"><span class="stat-icon">⭐</span><span class="stat-icon">✓</span><span class="stat-icon">⏱</span></div>
+      </div>
+      <div class="qc-title">Describe a friend of yours who is good at music/singing</div>
+      <div class="qc-hook"><strong>素材路径</strong><span style="color:var(--ink-3)">singing contest</span><span class="hook-arrow">→</span><span style="color:var(--ink-3)">voice</span><span class="hook-arrow">→</span><span style="color:var(--ink-3)">jealous</span></div>
+    </article>
+    <article class="q-card" data-cat="物品" data-q="46" onclick="if(!event.target.closest('.ax,.stat-icon'))location.href='题目详情_v1.html?q='+this.dataset.q">
+      <div class="qc-head">
+        <div class="qc-num">Q3</div>
+        <div class="qc-cat thing">📦 物品</div>
+        <div class="qc-status"><span class="stat-icon">⭐</span><span class="stat-icon">✓</span><span class="stat-icon">⏱</span></div>
+      </div>
+      <div class="qc-title">Describe a natural talent (sports, music, etc.) you want to improve</div>
+      <div class="qc-hook"><strong>素材路径</strong><span style="color:var(--ink-3)">singing</span><span class="hook-arrow">→</span><span style="color:var(--ink-3)">plan</span><span class="hook-arrow">→</span><span style="color:var(--ink-3)">improve</span></div>
+    </article>
+    <article class="q-card" data-cat="事件" data-q="47" onclick="if(!event.target.closest('.ax,.stat-icon'))location.href='题目详情_v1.html?q='+this.dataset.q">
+      <div class="qc-head">
+        <div class="qc-num">Q4</div>
+        <div class="qc-cat event">🎬 事件</div>
+        <div class="qc-status"><span class="stat-icon">⭐</span><span class="stat-icon">✓</span><span class="stat-icon">⏱</span></div>
+      </div>
+      <div class="qc-title">Describe an event you attended in which you didn't enjoy the music played</div>
+      <div class="qc-hook"><strong>素材路径</strong><span style="color:var(--ink-3)">music festival</span><span class="hook-arrow">→</span><span style="color:var(--ink-3)">romance</span><span class="hook-arrow">→</span><span style="color:var(--ink-3)">rap</span></div>
+    </article>
+    <article class="q-card" data-cat="事件" data-q="48" onclick="if(!event.target.closest('.ax,.stat-icon'))location.href='题目详情_v1.html?q='+this.dataset.q">
+      <div class="qc-head">
+        <div class="qc-num">Q5</div>
+        <div class="qc-cat event">🎬 事件</div>
+        <div class="qc-status"><span class="stat-icon">⭐</span><span class="stat-icon">✓</span><span class="stat-icon">⏱</span></div>
+      </div>
+      <div class="qc-title">Describe an occasion when you were not allowed to use your mobile phone</div>
+      <div class="qc-hook"><strong>素材路径</strong><span style="color:var(--ink-3)">rule</span><span class="hook-arrow">→</span><span style="color:var(--ink-3)">collected</span><span class="hook-arrow">→</span><span style="color:var(--ink-3)">uncomfortable</span></div>
+    </article>
+  </section>
+
+  <section class="jump-mini">
+    <div class="jump-mini-title">🔀 跳到其他故事</div>
+    <div class="jump-mini-grid" id="jumpMini"></div>
+  </section>
+
+</main>
+
+<a class="fab" href="学生端_方法论页_v1.html">🎯 方法论</a>
+
+<script src="data.js"></script>
+<script>
+  function setRole(g){
+    try{ localStorage.setItem('beiya_gender',g); }catch(e){}
+    document.querySelectorAll('.role-opt').forEach(el=>el.classList.toggle('on',el.dataset.g===g));
+    if(window.applyNPC) window.applyNPC();
+  }
+  document.querySelectorAll('.role-opt').forEach(el=>{
+    el.addEventListener('click',()=>setRole(el.dataset.g));
+  });
+  setRole((function(){try{return localStorage.getItem('beiya_gender')||'female';}catch(e){return 'female';}})());
+
+  document.querySelectorAll('.filter-chip').forEach(chip=>{
+    chip.addEventListener('click',()=>{
+      document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('on'));
+      chip.classList.add('on');
+      const cat=chip.dataset.cat;
+      document.querySelectorAll('.q-card').forEach(card=>{
+        card.style.display = (cat==='all' || card.dataset.cat===cat) ? '' : 'none';
+      });
+    });
+  });
+
+  if(window.STORIES){
+    const cur = 'Arts';
+    const html = window.STORIES.filter(s=>s.name!==cur).map(s=>
+      `<a class="jump-mini-chip" href="${s.file}">${s.emoji} ${s.name} <span class="ct">${s.count}题</span></a>`
+    ).join('');
+    document.getElementById('jumpMini').innerHTML = html;
+  }
+</script>
+</body>
+</html>

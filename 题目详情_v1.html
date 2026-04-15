@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>题目详情 · 北雅雅思 P2</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --beiya:#C0392B;
+    --beiya-dark:#9B2C20;
+    --beiya-soft:#FDECEA;
+    --gold:#B8894A;
+    --gold-soft:#FBF4EA;
+    --ink:#1E1E22;
+    --ink-2:#4A4A52;
+    --ink-3:#8A8A92;
+    --line:#E8E8EC;
+    --bg:#FAFAFA;
+    --white:#FFFFFF;
+    --ok:#2E7D32;
+    --pending:#E8834A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;cursor:pointer}
+
+  /* ─── TOP BAR ─── */
+  .topbar{
+    position:sticky;top:0;z-index:40;background:var(--white);
+    border-bottom:1px solid var(--line);
+    padding:14px 24px;display:flex;align-items:center;gap:24px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:var(--beiya);white-space:nowrap}
+  .brand-mark{width:28px;height:28px;background:var(--beiya);color:#fff;
+    display:flex;align-items:center;justify-content:center;border-radius:4px;
+    font-family:'Noto Serif SC',serif;font-size:14px}
+  .nav{display:flex;gap:2px;margin-left:8px;flex:1}
+  .nav a{padding:7px 14px;border-radius:6px;font-size:13px;color:var(--ink-2);font-weight:500;white-space:nowrap}
+  .nav a:hover{background:var(--beiya-soft);color:var(--beiya)}
+  .nav a.active{background:var(--beiya);color:#fff}
+  .search-wrap{position:relative;margin-left:auto}
+  .search{
+    background:#F4F4F6;border:1px solid transparent;border-radius:20px;
+    padding:7px 14px 7px 36px;font-size:12.5px;width:220px;
+    color:var(--ink);font-family:inherit;outline:none;transition:all .2s
+  }
+  .search:focus{background:#fff;border-color:var(--beiya);width:280px}
+  .search-ico{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--ink-3);font-size:13px;pointer-events:none}
+
+  /* ─── LAYOUT ─── */
+  .wrap{max-width:900px;margin:0 auto;padding:28px 24px 80px}
+  .crumb{font-size:12px;color:var(--ink-3);margin-bottom:14px;letter-spacing:0.3px}
+  .crumb a{color:var(--ink-3)}
+  .crumb a:hover{color:var(--beiya)}
+
+  /* ─── Q HEADER ─── */
+  .q-header{
+    background:var(--white);border:1px solid var(--line);border-radius:12px;
+    padding:28px 32px;margin-bottom:20px;position:relative;overflow:hidden;
+  }
+  .q-header::before{
+    content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--beiya)
+  }
+  .q-title{
+    font-family:'Noto Serif SC','Inter',serif;font-size:22px;font-weight:700;
+    line-height:1.4;color:var(--ink);margin-bottom:14px
+  }
+  .q-title-en{font-style:italic;color:var(--beiya)}
+  .q-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+  .tag{
+    display:inline-flex;align-items:center;gap:4px;
+    padding:3px 10px;border-radius:20px;font-size:12px;font-weight:500
+  }
+  .tag-story{background:var(--beiya-soft);color:var(--beiya)}
+  .tag-cat{background:#EDF4FF;color:#2E3B6B}
+  .q-actions{display:flex;gap:8px;margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);flex-wrap:wrap}
+  .act{
+    display:inline-flex;align-items:center;gap:6px;padding:6px 12px;
+    border:1px solid var(--line);border-radius:20px;font-size:12px;
+    background:var(--white);cursor:pointer;transition:all .15s;
+    color:var(--ink-2);font-weight:500
+  }
+  .act:hover{border-color:var(--beiya);color:var(--beiya)}
+  .act.on.fav{background:#FFF8E6;border-color:#E8C96A;color:#8A6A10}
+  .act.on.done{background:#E8F5E9;border-color:#A5D6A7;color:var(--ok)}
+  .act.on.review{background:#FFF3E0;border-color:#FFCC80;color:var(--pending)}
+
+  /* ─── PREP WORDS ─── */
+  .prep-strip{
+    background:var(--gold-soft);border:1px solid #EAD9B8;border-radius:10px;
+    padding:14px 18px;margin-bottom:20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center
+  }
+  .prep-label{font-size:12px;font-weight:700;color:var(--gold);margin-right:4px}
+  .prep-chip{
+    background:var(--white);padding:4px 10px;border-radius:6px;font-size:13px;
+    cursor:pointer;border:1px solid #EAD9B8;transition:all .15s;font-weight:500
+  }
+  .prep-chip:hover{background:var(--gold);color:#fff;border-color:var(--gold)}
+
+  /* ─── OUTLINE TIER TABS ─── */
+  .tier-tabs{
+    display:flex;gap:0;background:var(--white);border:1px solid var(--line);
+    border-radius:10px;padding:4px;margin-bottom:12px;overflow-x:auto
+  }
+  .tier-tab{
+    padding:8px 14px;border-radius:7px;font-size:13px;font-weight:500;
+    cursor:pointer;color:var(--ink-3);transition:all .15s;white-space:nowrap;flex-shrink:0
+  }
+  .tier-tab.active{background:var(--beiya);color:#fff}
+  .tier-tab:not(.active):hover{color:var(--beiya)}
+  .tier-hint{
+    font-size:12px;color:var(--ink-3);margin-bottom:16px;display:flex;align-items:center;gap:6px;
+    padding:2px 4px;font-style:italic
+  }
+
+  /* ─── OUTLINE SECTIONS ─── */
+  .outline{display:none}
+  .outline.active{display:block}
+
+  .sec{
+    background:var(--white);border:1px solid var(--line);border-radius:10px;
+    margin-bottom:14px;overflow:hidden
+  }
+  .sec-head{
+    display:flex;align-items:center;gap:14px;padding:14px 18px;
+    border-bottom:1px solid var(--line);background:#FCFCFD
+  }
+  .sec-badge{
+    width:40px;height:40px;border-radius:50%;
+    background:var(--beiya);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Noto Serif SC',serif;font-size:15px;font-weight:700;flex-shrink:0
+  }
+  .sec-s3 .sec-badge{background:var(--gold)}
+  .sec-s3 .sec-head{background:var(--gold-soft)}
+  .sec-meta{flex:1;min-width:0}
+  .sec-label{font-size:11px;letter-spacing:2px;color:var(--ink-3);font-weight:600;text-transform:uppercase}
+  .sec-marker-line{font-size:14px;color:var(--gold);font-weight:600;margin-top:2px;font-style:italic}
+  .main-stage{font-size:10px;background:var(--gold);color:#fff;padding:2px 8px;border-radius:4px;margin-left:6px;letter-spacing:1px;font-weight:700}
+
+  .sec-body{padding:14px 22px}
+  .bullet{
+    position:relative;padding:6px 0 6px 24px;font-size:14.5px;line-height:1.8;color:var(--ink-2)
+  }
+  .bullet::before{
+    content:'→';position:absolute;left:0;color:var(--beiya);font-weight:700
+  }
+  /* 同义替换 hover 提示（仅 detailed tier 使用） */
+  .alt{
+    color:var(--gold-dark);border-bottom:1.5px dotted var(--gold);
+    cursor:help;position:relative;font-weight:500;padding:0 1px;transition:background .12s
+  }
+  .alt:hover{background:var(--gold-soft);border-radius:2px}
+  .alt-pop{
+    display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);
+    background:#1E1E22;color:#fff;padding:6px 12px;border-radius:6px;font-size:12.5px;
+    white-space:nowrap;z-index:100;font-style:italic;font-weight:400;pointer-events:none;
+    letter-spacing:.2px;box-shadow:0 4px 14px rgba(0,0,0,.2)
+  }
+  .alt-pop::before{content:'↔ ';opacity:.6;font-style:normal}
+  .alt-pop::after{
+    content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+    border:5px solid transparent;border-top-color:#1E1E22
+  }
+  .alt:hover .alt-pop{display:block}
+  .sec-s3 .bullet::before{color:var(--gold)}
+
+  /* question-prompt tier styling */
+  .qp-step{
+    padding:10px 16px;background:#F8F8FA;border-radius:8px;margin:6px 0;
+    font-size:14.5px;color:var(--ink);font-weight:500;border-left:3px solid var(--beiya)
+  }
+  .sec-s3 .qp-step{border-left-color:var(--gold)}
+  .qp-step-q{color:var(--ink-2);margin-top:4px;font-size:13.5px;font-style:italic;font-weight:400}
+
+  /* clickable word */
+  .w{cursor:pointer;border-bottom:1px dotted transparent;transition:all .1s;padding:0 1px;border-radius:2px}
+  .w:hover{background:var(--gold-soft);border-bottom-color:var(--gold)}
+  .w.prep{color:var(--gold);font-weight:600;border-bottom:1px dotted var(--gold)}
+  .w.prep:hover{background:var(--gold);color:#fff;border-bottom-color:transparent}
+
+  /* ─── REFERENCE ESSAY ─── */
+  .ref{
+    background:var(--white);border:1px solid var(--line);border-radius:10px;
+    margin-top:24px;overflow:hidden
+  }
+  .ref-head{
+    padding:14px 20px;background:#FAFAFA;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;
+    font-size:13px;font-weight:600;color:var(--ink-2)
+  }
+  .ref-head::after{content:'▾';margin-left:auto;transition:transform .2s;color:var(--ink-3)}
+  .ref.collapsed .ref-head::after{transform:rotate(-90deg)}
+  .ref-body{padding:22px 28px;font-size:14.5px;line-height:1.9;color:var(--ink-2);display:block}
+  /* 参考范文内的金句高亮 */
+  .ref-gold{color:var(--gold-dark);background:var(--gold-soft);padding:0 4px;border-radius:3px;font-weight:600;border-bottom:1px solid #EAD9B8}
+  /* 参考范文内 S3 主战场的子标题 */
+  .ref-sub{color:var(--beiya);font-weight:700;margin-right:4px;font-size:13.5px;letter-spacing:.2px}
+  .ref.collapsed .ref-body{display:none}
+  .ref-note{font-size:11px;color:var(--ink-3);margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);font-style:italic}
+
+  /* ─── CROSS REFS ─── */
+  .xrefs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
+  .xref{
+    background:var(--white);border:1px solid var(--line);border-radius:10px;padding:16px 18px;
+    transition:all .15s;cursor:pointer
+  }
+  .xref:hover{border-color:var(--beiya);transform:translateY(-2px);box-shadow:0 4px 12px rgba(192,57,43,.08)}
+  .xref-lbl{font-size:11px;color:var(--ink-3);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+  .xref-main{font-size:15px;font-weight:700;color:var(--ink)}
+  .xref-sub{font-size:12px;color:var(--ink-3);margin-top:6px;line-height:1.6}
+
+  .elem-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .elem{
+    background:#F4F4F6;color:var(--ink-2);padding:3px 10px;border-radius:12px;
+    font-size:12px;cursor:pointer;transition:all .15s;font-weight:500
+  }
+  .elem:hover{background:var(--beiya);color:#fff}
+
+  /* ─── DICT POPUP ─── */
+  .dict-pop{
+    position:absolute;z-index:100;background:var(--ink);color:#fff;
+    border-radius:10px;padding:14px 18px;max-width:320px;min-width:240px;
+    font-size:13px;line-height:1.7;box-shadow:0 12px 32px rgba(0,0,0,.2);
+    opacity:0;pointer-events:none;transform:translateY(4px);transition:all .15s;
+  }
+  .dict-pop.open{opacity:1;pointer-events:auto;transform:translateY(0)}
+  .dict-word{font-weight:700;font-size:15px;margin-bottom:2px}
+  .dict-ipa{font-size:12px;color:#FFD188;font-family:monospace;margin-bottom:8px}
+  .dict-def{font-size:13px;color:#E8E8EC}
+
+  /* ─── FLOATING METHODOLOGY BUTTON ─── */
+  .fab{
+    position:fixed;bottom:24px;right:24px;
+    background:var(--beiya);color:#fff;padding:12px 18px;border-radius:26px;
+    font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 6px 20px rgba(192,57,43,.3);
+    display:flex;align-items:center;gap:8px;z-index:30
+  }
+  .fab:hover{background:var(--beiya-dark);transform:translateY(-2px)}
+
+  .demo-banner{
+    background:#FFF4E6;border:1px dashed #E8B87A;color:#8A5A10;
+    padding:10px 16px;border-radius:8px;font-size:12px;margin-bottom:18px;
+    display:flex;align-items:center;gap:10px
+  }
+  .demo-banner::before{content:'🎬';font-size:16px}
+
+  @media (max-width:768px){
+    .xrefs{grid-template-columns:1fr}
+    .wrap{padding:16px}
+    .q-header{padding:20px 18px}
+    .sec-body{padding:14px 16px}
+    .nav{display:none}
+    .search{width:140px}
+    .search:focus{width:180px}
+  }
+</style>
+</head><body>
+<div class="topbar">
+  <div class="brand"><div class="brand-mark">雅</div>北雅 · IELTS Speaking</div>
+  <div class="nav">
+    <a href="学生端_素材宇宙首页_v1.html">🌌 素材宇宙</a>
+    <a href="学生端_传统分类页_v1.html">📋 传统分类</a>
+    <a href="学生端_复现元素页_v1.html">🏷️ 复现元素</a>
+    <a href="学生端_方法论页_v1.html">🎯 方法论</a>
+    <a href="学生端_进度仪表盘_v1.html">⭐ 我的</a>
+  </div>
+  <div class="role-sw" id="roleSw" style="display:flex;align-items:center;gap:4px;background:#F4F4F6;border-radius:20px;padding:3px;font-size:12px;margin-right:8px">
+    <div class="role-opt" data-g="female" style="padding:4px 12px;border-radius:16px;cursor:pointer;color:var(--ink-3);font-weight:500;white-space:nowrap">👩 Lucy</div>
+    <div class="role-opt" data-g="male" style="padding:4px 12px;border-radius:16px;cursor:pointer;color:var(--ink-3);font-weight:500;white-space:nowrap">👨 Mark</div>
+  </div>
+  <div class="search-wrap"><span class="search-ico">🔍</span><input class="search" placeholder="搜索题目、素材、人物…" /></div>
+</div>
+<style>
+  .role-opt.on{background:var(--beiya);color:#fff !important}
+
+  /* ═══ 手机端响应式适配 ═══ */
+  @media (max-width: 640px) {
+    html{font-size:14px}
+    body{line-height:1.6}
+
+    /* 顶栏压缩 */
+    .topbar{padding:10px 12px !important;gap:8px !important;flex-wrap:wrap;position:sticky;top:0}
+    .topbar .brand{font-size:13px !important}
+    .topbar .brand-mark{width:24px;height:24px;font-size:12px}
+    .topbar .nav{flex:1 1 100% !important;order:3;overflow-x:auto;scrollbar-width:none;gap:0 !important;padding:4px 0;border-top:1px solid var(--line,#E8E8EC);margin:8px 0 0 !important}
+    .topbar .nav::-webkit-scrollbar{display:none}
+    .topbar .nav a{padding:6px 10px !important;font-size:12px !important;flex-shrink:0;white-space:nowrap}
+    .search-wrap{display:none !important}
+    .role-sw{margin:0 !important;order:2}
+    .role-opt{padding:3px 8px !important;font-size:11px !important}
+
+    /* 主体 padding 减小 */
+    .wrap{padding:14px 12px 70px !important;max-width:100% !important}
+    .crumb{font-size:11.5px !important;margin-bottom:12px !important}
+
+    /* 所有 grid 一列化 */
+    .q-grid, .grid, .story-grid, .jump-mini-grid{grid-template-columns:1fr !important}
+    .row2, .row3{grid-template-columns:1fr !important}
+
+    /* 故事首页 - 故事卡 */
+    .story, .story.flagship, .story.runner-up{padding:18px !important}
+    .story .story-name{font-size:20px !important}
+    .entries{grid-template-columns:1fr !important}
+
+    /* 故事页 story-head */
+    .story-head{padding:20px !important;gap:16px !important}
+    .sh-emoji{font-size:58px !important;width:70px !important;height:70px !important}
+    .sh-name{font-size:22px !important}
+    .sh-desc{font-size:13px !important}
+    .sh-stats{gap:10px !important}
+    .sh-stat{padding-right:10px !important}
+    .sh-stat-num{font-size:16px !important}
+
+    /* 故事页 core-strip 分组 */
+    .core-group{flex-direction:column !important;align-items:stretch !important;padding:12px 0 0 !important}
+    .core-group-label{min-width:0 !important;padding-top:0 !important;margin-bottom:8px !important;font-size:11px !important}
+    .core-group-list{gap:10px !important}
+    .core-strip-title .hint{display:none}
+
+    /* gold-strip */
+    .gold-strip{padding:14px 16px !important}
+    .gs-grid{gap:6px !important}
+    .gs-chip{padding:6px 10px !important;font-size:12px !important}
+
+    /* filter-row */
+    .filter-row{gap:5px !important}
+    .filter-chip{padding:5px 10px !important;font-size:11.5px !important}
+
+    /* Q 卡片 */
+    .q-card{padding:14px 16px !important}
+    .qc-title{font-size:13px !important}
+    .qc-hook{font-size:12px !important}
+
+    /* 详情页 q-header */
+    .q-header{padding:14px 16px !important;margin-bottom:16px !important}
+    .q-title-en{font-size:15px !important;line-height:1.5 !important}
+    .q-tags{flex-wrap:wrap !important;gap:5px !important}
+    .tag{font-size:11px !important;padding:2px 8px !important}
+    .q-actions{flex-wrap:wrap !important;gap:5px !important}
+    .act{padding:5px 9px !important;font-size:11.5px !important}
+
+    /* prep-strip */
+    .prep-strip{flex-wrap:wrap !important;padding:10px 12px !important;gap:5px !important}
+    .prep-chip{font-size:12px !important;padding:3px 8px !important}
+    .prep-label{font-size:11px !important}
+
+    /* tier-tabs (详情页) */
+    .tier-tabs{overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap !important;padding-bottom:4px;margin-bottom:14px !important}
+    .tier-tabs::-webkit-scrollbar{display:none}
+    .tier-tab{padding:7px 11px !important;font-size:12px !important;white-space:nowrap;flex-shrink:0 !important}
+
+    /* outline sections */
+    .outline{padding:16px !important}
+    .sec{padding:14px !important}
+    .sec-body{font-size:13.5px !important}
+    .bullet{padding:5px 0 5px 20px !important;font-size:13.5px !important}
+
+    /* 参考范文 */
+    .ref-body{padding:16px 18px !important;font-size:13.5px !important;line-height:1.8 !important}
+
+    /* xrefs */
+    .xrefs{grid-template-columns:1fr !important}
+    .xref{padding:14px !important}
+
+    /* Hero (仪表盘) */
+    .hero{padding:22px !important;border-radius:14px !important}
+    .hero-num{font-size:30px !important}
+    .hero-row{gap:14px !important}
+    .hero-stat{min-width:100px !important}
+
+    /* FAB 方法论按钮 */
+    .fab{bottom:18px !important;right:18px !important;padding:10px 14px !important;font-size:12px !important}
+
+    /* jump-mini */
+    .jump-mini{padding:16px !important}
+
+    /* 登录页 */
+    .login-wrap, .login-card{padding:24px !important;max-width:100% !important;margin:0 12px !important}
+
+    /* 传统分类页 / 复现元素页 */
+    .tab-bar{flex-wrap:wrap !important}
+    .asset-grid{grid-template-columns:1fr 1fr !important}
+
+    /* 方法论页 · 各种 sec 排版 */
+    .mtd-hero{padding:24px 18px !important}
+    .mtd-hero h1{font-size:22px !important}
+
+    /* 仪表盘 card padding 减小 */
+    .card{padding:16px !important}
+    .card-title{font-size:12px !important}
+
+    /* 通用 padding 缩减 */
+    .panel, .panel-section, .cta-bar{padding:14px 16px !important}
+  }
+
+</style>
+<div class="wrap" id="app"></div>
+<div class="fab" title="查看方法论" onclick="location.href='学生端_方法论页_v1.html'">🎯 方法论</div>
+<div class="dict-pop" id="dictPop">
+  <div class="dict-word" id="dictWord">—</div>
+  <div class="dict-ipa" id="dictIpa">—</div>
+  <div class="dict-def" id="dictDef">加载中...</div>
+</div>
+<script src="data.js"></script>
+<script src="tiers.js"></script>
+<script>
+try{ if(localStorage.getItem('beiya_authed')!=='1') location.href='学生端_登录_v1.html'; }catch(e){}
+
+// ═══ 老师后台编辑覆盖层（读 localStorage.beiya_edits）═══
+(function applyAdminEdits(){
+  try {
+    const edits = JSON.parse(localStorage.getItem('beiya_edits') || '{}');
+    if (!Object.keys(edits).length) return;
+    const origGetQ = window.getQ;
+    window.getQ = function(gid){
+      const q = origGetQ(gid); if (!q) return q;
+      const ov = edits[gid]; if (!ov) return q;
+      const merged = Object.assign({}, q);
+      ['title','category','group','q_num_in_group','prep_words','S1','S2','S3','S4','S1_marker','S2_marker','S3_marker','S4_marker'].forEach(k => { if (ov[k] !== undefined) merged[k] = ov[k]; });
+      return merged;
+    };
+    const origTiers = window.TIERS || {};
+    const wrapped = {};
+    for (const key in origTiers) {
+      const gid = Number(key); const ov = edits[gid];
+      if (!ov) { wrapped[key] = origTiers[key]; continue; }
+      const m = Object.assign({}, origTiers[key]);
+      if (ov.ref !== undefined) m.ref = ov.ref;
+      if (ov.tiers) ['cn','minimal','prompt','detailed'].forEach(t => { if (ov.tiers[t]) m[t] = ov.tiers[t]; });
+      wrapped[key] = m;
+    }
+    window.TIERS = wrapped;
+  } catch(e) {}
+})();
+
+// tier 内容渲染 · 读 window.TIERS → 按 S1-S4 渲染真实内容；空则返回空字符串（上层 fallback 到 stub）
+function renderTier(q, tier){
+  const T = (window.TIERS||{})[q.global_id];
+  if(!T || !T[tier]) return '';
+  const data = T[tier];
+  return ['S1','S2','S3','S4'].map(k=>{
+    const meta=SEC[k], marker=q[k+'_marker']||meta.m, isS3=k==='S3';
+    return `<div class="sec${isS3?' sec-s3':''}"><div class="sec-head"><div class="sec-badge">${k}</div><div class="sec-meta"><div class="sec-label">${meta.l}${isS3?' <span class="main-stage">主战场</span>':''}</div><div class="sec-marker-line">${esc(marker)}</div></div></div><div class="sec-body">${bullets(data[k])}</div></div>`;
+  }).join('');
+}
+const TIER_HINTS={cn:'建立框架认知 · 弱基础第一次看用',prompt:'脚手架引导 · 有点框架但想不起内容时',standard:'内容本身 · 学习和记诵用',detailed:'表达精进 · 6.5+ 冲刺多样性',minimal:'考前闪回 · 30 秒关键词复现'};
+const SEC={S1:{l:'Answer Directly',m:'"I\'m going to talk about..."'},S2:{l:'Background',m:'"I remember, that was roughly..."'},S3:{l:'Details',m:'"Now let me tell you..."'},S4:{l:'Prospect',m:'"Anyway, it turned out..."'}};
+const CAT={'人物':{i:'👤'},'地点':{i:'📍'},'物品':{i:'📦'},'事件':{i:'🎬'},'人':{i:'👤'},'地':{i:'📍'},'物':{i:'📦'},'事':{i:'🎬'}};
+function esc(s){return String(s==null?'':s).replace(/[<>&"]/g,c=>({ '<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;' }[c]));}
+// Mark 男生版 · 根据 localStorage.beiya_gender 做文本性别替换
+function getGender(){ try{ return localStorage.getItem('beiya_gender') || 'female'; }catch(e){ return 'female'; } }
+function swapGender(s){
+  if (getGender() !== 'male' || s == null) return s;
+  s = String(s);
+  // 英文词替换 · word boundary
+  s = s.replace(/\bLucy\b/g, 'Mark');
+  s = s.replace(/\blucy\b/g, 'mark');
+  s = s.replace(/\bShe\b/g, 'He').replace(/\bshe\b/g, 'he');
+  s = s.replace(/\bHer\b/g, 'His').replace(/\bher\b/g, 'his');
+  s = s.replace(/\bherself\b/g, 'himself');
+  s = s.replace(/\bHerself\b/g, 'Himself');
+  // 中文
+  s = s.replace(/她/g, '他');
+  return s;
+}
+// detailed 版同义替换: [[主|替换1|替换2]] → hover span
+function renderAlts(s){
+  return s.replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g, (m, main, rest) => {
+    const alts = rest.split('|').map(a=>a.trim()).filter(Boolean);
+    return `<span class="alt">${main.trim()}<span class="alt-pop">${alts.join(' · ')}</span></span>`;
+  });
+}
+function bullets(arr){if(!arr||!arr.length)return '<div class="bullet" style="color:var(--ink-3);font-style:italic">（此段内容待补充）</div>';return arr.map(s=>`<div class="bullet">${renderAlts(esc(swapGender(s)))}</div>`).join('');}
+function renderStd(q){return ['S1','S2','S3','S4'].map(k=>{const meta=SEC[k],marker=q[k+'_marker']||meta.m,isS3=k==='S3';return `<div class="sec${isS3?' sec-s3':''}"><div class="sec-head"><div class="sec-badge">${k}</div><div class="sec-meta"><div class="sec-label">${meta.l}${isS3?' <span class="main-stage">主战场</span>':''}</div><div class="sec-marker-line">${esc(marker)}</div></div></div><div class="sec-body">${bullets(q[k])}</div></div>`;}).join('');}
+function stub(label){return `<div class="sec"><div class="sec-head"><div class="sec-badge" style="background:var(--ink-3)">📚</div><div class="sec-meta"><div class="sec-label">${label}</div></div></div><div class="sec-body" style="color:var(--ink-3);font-style:italic;line-height:2">该档内容正在建设中 · 老师正在编写中。<br>想优先看这道题的${label}？→ <span style="color:var(--beiya);cursor:pointer" onclick="alert('留言通道待开发')">💬 催更这道题</span></div></div>`;}
+function prep(ws){if(!ws||!ws.length)return '';return `<div class="prep-strip"><span class="prep-label">📝 预习</span>${ws.map(w=>`<span class="prep-chip" data-w="${esc(w)}">${esc(w)}</span>`).join('')}</div>`;}
+function xrefs(q){const same=(getQsByStory(q.group)||[]).filter(x=>x.global_id!==q.global_id);return `<div class="xrefs"><div class="xref" onclick="location.href='${q.story_file}'"><div class="xref-lbl">所属故事</div><div class="xref-main">${q.story_emoji} ${esc(q.group)}</div><div class="xref-sub">同故事下还有 ${same.length} 道题可以用这套素材。点击查看全部。</div></div><div class="xref" onclick="location.href='学生端_复现元素页_v1.html'"><div class="xref-lbl">本题涉及的复现元素</div><div class="xref-main">点击元素查看它可用于哪些题</div><div class="elem-list">${(q.group_keywords||[]).slice(0,6).map(k=>`<span class="elem">${esc(k)}</span>`).join('')}</div></div></div>`;}
+function render(){const gid=getQParam(),q=getQ(gid),app=document.getElementById('app');if(!q){app.innerHTML=`<div style="padding:80px;text-align:center;color:var(--ink-3)">题目 Q${gid} 不存在<br><a href="学生端_素材宇宙首页_v1.html" style="color:var(--beiya)">← 返回首页</a></div>`;return;}
+const cat=CAT[q.category]||CAT['事件'];
+const refQ1=`I'm going to talk about a potluck dinner during Mid-Autumn Festival — I had to use my imagination to decide what to cook.<br><br>I remember, that was roughly two years ago. Our teacher invited the whole class to her house for a potluck party — everyone had to bring a homemade dish to share.<br><br>Now let me tell you how I used my imagination. She made it clear — no fast food, like burgers or pizza, because that's too boring. So I had to think of something creative. I came up with a dish called Fruit Roast Chicken — it's basically fruits mixed with chicken. It sounded really weird, but I decided to try. I made it and brought it to the party, and it looked so mouth-watering. Everyone loved it — finger-licking good — and they were really impressed.<br><br>Anyway, it turned out really well — everyone loved the dish. Since then, I'm always looking for new ideas in the kitchen.`;
+const refStub='<span style="color:var(--ink-3);font-style:italic">该题参考范文建设中 · 可参考左侧标准版 S1-S4 自行扩写</span>';
+app.innerHTML=`<div class="crumb"><a href="学生端_素材宇宙首页_v1.html">🌌 素材宇宙</a> › <a href="${q.story_file}">${q.story_emoji} ${esc(q.group)}</a> › <span>Q${q.q_num_in_group} · 全站 Q${q.global_id}</span></div><div class="q-header"><div class="q-tags"><span class="tag tag-story">${q.story_emoji} ${esc(q.group)} 故事</span><span class="tag tag-cat">${cat.i} ${esc(q.category)}</span></div><div class="q-title"><span class="q-title-en">${esc(q.title)}</span></div><div class="q-actions"><button class="act" id="btn-fav" onclick="toggleFav()">⭐ 收藏</button><button class="act" id="btn-done" onclick="setState('done')">✓ 已掌握</button><button class="act" id="btn-review" onclick="setState('review')">↻ 待复习</button><button class="act" id="btn-reset" onclick="setState('')">○ 未开始</button></div></div>${prep(q.prep_words)}<div class="tier-tabs" role="tablist"><div class="tier-tab" data-tier="cn">🀄 中文版</div><div class="tier-tab" data-tier="prompt">❓ 问题引导版</div><div class="tier-tab active" data-tier="standard">📋 标准版 S1-S4</div><div class="tier-tab" data-tier="detailed">💡 详细版</div><div class="tier-tab" data-tier="minimal">🎯 极简版</div></div><div class="tier-hint" id="tierHint">${TIER_HINTS.standard}</div><div class="outline" data-tier="cn">${renderTier(q,'cn')||stub('🀄 中文版 · 弱基础建框架')}</div><div class="outline" data-tier="prompt">${renderTier(q,'prompt')||stub('❓ 问题引导版 · 自问自答脚手架')}</div><div class="outline active" data-tier="standard">${renderStd(q)}</div><div class="outline" data-tier="detailed">${renderTier(q,'detailed')||stub('💡 详细版 · 连接词+同义替换')}</div><div class="outline" data-tier="minimal">${renderTier(q,'minimal')||stub('🎯 极简版 · 30秒关键词复现')}</div><div class="ref collapsed" id="ref"><div class="ref-head" onclick="document.getElementById('ref').classList.toggle('collapsed')">📖 参考范文 · 点开查看</div><div class="ref-body">${swapGender(((window.TIERS||{})[q.global_id]||{}).ref) || refStub}<div class="ref-note">* 参考范文供学习参考，建议结合自己的经历重新组织。</div></div></div>${xrefs(q)}`;
+document.querySelectorAll('.tier-tab').forEach(tab=>tab.addEventListener('click',()=>{document.querySelectorAll('.tier-tab').forEach(t=>t.classList.remove('active'));tab.classList.add('active');const tier=tab.dataset.tier;document.querySelectorAll('.outline').forEach(o=>o.classList.toggle('active',o.dataset.tier===tier));document.getElementById('tierHint').textContent=TIER_HINTS[tier]||'';}));
+document.title='Q'+q.global_id+' · '+q.title.slice(0,30)+' · 北雅雅思';applyNPC && applyNPC();
+// 更新角色切换按钮高亮
+document.querySelectorAll('#roleSw .role-opt').forEach(el=>el.classList.toggle('on', el.dataset.g === getGender()));
+}
+// 角色切换按钮
+document.querySelectorAll('#roleSw .role-opt').forEach(el => {
+  el.addEventListener('click', () => {
+    try { localStorage.setItem('beiya_gender', el.dataset.g); } catch(e) {}
+    render();
+  });
+});
+// ═══ 进度持久化 · localStorage ═══
+window.BEIYA_PROGRESS_KEY = 'beiya_progress';
+window.getProgress = function(){
+  try { return JSON.parse(localStorage.getItem(BEIYA_PROGRESS_KEY) || '{}'); } catch(e) { return {}; }
+};
+window.saveProgress = function(p){
+  try { localStorage.setItem(BEIYA_PROGRESS_KEY, JSON.stringify(p)); } catch(e) {}
+};
+window.setQProgress = function(gid, patch){
+  const p = getProgress();
+  p[gid] = Object.assign({}, p[gid]||{}, patch, { last: Date.now() });
+  saveProgress(p);
+};
+window.getQProgress = function(gid){
+  return getProgress()[gid] || {};
+};
+// 首次访问题目时写入 last（无状态变化也算"刷过"）
+window.touchQ = function(gid){
+  const p = getProgress();
+  p[gid] = Object.assign({}, p[gid]||{}, { last: Date.now() });
+  saveProgress(p);
+};
+
+render();
+// render() 后根据 localStorage 回填按钮状态 + touchQ
+(function restoreState(){
+  const gid = getQParam();
+  const qp = getQProgress(gid);
+  touchQ(gid);
+  // 收藏
+  if (qp.fav) {
+    const b = document.getElementById('btn-fav');
+    if (b) { b.classList.add('on','fav'); b.textContent = '⭐ 已收藏'; }
+  }
+  // 状态
+  if (qp.state === 'done' || qp.state === 'review') {
+    const b = document.getElementById('btn-' + qp.state);
+    if (b) { b.classList.add('on', qp.state); }
+  }
+})();
+
+window.toggleFav = function(){
+  const b = document.getElementById('btn-fav');
+  b.classList.toggle('on'); b.classList.toggle('fav');
+  const on = b.classList.contains('on');
+  b.textContent = on ? '⭐ 已收藏' : '⭐ 收藏';
+  setQProgress(getQParam(), { fav: on });
+};
+window.setState = function(s){
+  ['done','review','reset'].forEach(k=>{
+    const b = document.getElementById('btn-'+k);
+    if (b) b.classList.remove('on','done','review');
+  });
+  const b = document.getElementById('btn-'+(s||'reset'));
+  if (b) { b.classList.add('on'); if (s) b.classList.add(s); }
+  setQProgress(getQParam(), { state: s || '' });
+};
+const DICT={'potluck':{ipa:'/ˈpɒt.lʌk/',def:'聚餐每人带一道菜分享'},'homemade':{ipa:'/ˌhəʊmˈmeɪd/',def:'（形）自家做的'},'mouth-watering':{ipa:'/ˈmaʊθˌwɔː.tər.ɪŋ/',def:'（形）让人垂涎的'},'finger-licking good':{ipa:'—',def:'（俚）好吃到舔手指'}};
+const pop=document.getElementById('dictPop');
+document.addEventListener('click',(e)=>{const el=e.target.closest('.prep-chip');if(!el){pop.classList.remove('open');return;}e.stopPropagation();const w=(el.dataset.w||el.textContent).trim();const r=el.getBoundingClientRect();pop.style.left=(window.scrollX+r.left)+'px';pop.style.top=(window.scrollY+r.bottom+10)+'px';document.getElementById('dictWord').textContent=w;const d=DICT[w.toLowerCase()];document.getElementById('dictIpa').textContent=d?d.ipa:'—';document.getElementById('dictDef').textContent=d?d.def:'（词典数据建设中）';pop.classList.add('open');});
+</script></body></html>

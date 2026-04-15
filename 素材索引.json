@@ -1,0 +1,1981 @@
+{
+  "assets": [
+    {
+      "id": "lucy",
+      "name": "Lucy",
+      "type": "person",
+      "icon": "👤",
+      "patterns": [
+        "Lucy"
+      ]
+    },
+    {
+      "id": "grandpa",
+      "name": "Grandpa · 爷爷",
+      "type": "person",
+      "icon": "👴",
+      "patterns": [
+        "grandpa",
+        "Grandpa"
+      ]
+    },
+    {
+      "id": "teacher",
+      "name": "老师",
+      "type": "person",
+      "icon": "👩‍🏫",
+      "patterns": [
+        "our teacher",
+        "teacher invited",
+        "teacher"
+      ]
+    },
+    {
+      "id": "neighbor",
+      "name": "邻居",
+      "type": "person",
+      "icon": "👵",
+      "patterns": [
+        "neighbor",
+        "my neighbor"
+      ]
+    },
+    {
+      "id": "coach",
+      "name": "教练",
+      "type": "person",
+      "icon": "🧑‍🏫",
+      "patterns": [
+        "coach"
+      ]
+    },
+    {
+      "id": "jackie",
+      "name": "Jackie Chan",
+      "type": "person",
+      "icon": "🎬",
+      "patterns": [
+        "Jackie Chan"
+      ]
+    },
+    {
+      "id": "frc",
+      "name": "Fruit Roast Chicken",
+      "type": "thing",
+      "icon": "🍗",
+      "patterns": [
+        "Fruit Roast Chicken",
+        "fruit roast chicken",
+        "fruits mixed with chicken"
+      ]
+    },
+    {
+      "id": "recipe-book",
+      "name": "Family recipe book",
+      "type": "thing",
+      "icon": "📖",
+      "patterns": [
+        "recipe book",
+        "handwritten recipe",
+        "family recipe"
+      ]
+    },
+    {
+      "id": "macbook",
+      "name": "MacBook",
+      "type": "thing",
+      "icon": "💻",
+      "patterns": [
+        "MacBook",
+        "Mac"
+      ]
+    },
+    {
+      "id": "guitar",
+      "name": "Guitar 吉他",
+      "type": "thing",
+      "icon": "🎸",
+      "patterns": [
+        "guitar"
+      ]
+    },
+    {
+      "id": "chatgpt",
+      "name": "ChatGPT",
+      "type": "thing",
+      "icon": "🤖",
+      "patterns": [
+        "ChatGPT"
+      ]
+    },
+    {
+      "id": "nutrition",
+      "name": "营养学的书",
+      "type": "thing",
+      "icon": "📗",
+      "patterns": [
+        "nutrition",
+        "diet plan"
+      ]
+    },
+    {
+      "id": "teacher-home",
+      "name": "老师家",
+      "type": "place",
+      "icon": "🏠",
+      "patterns": [
+        "teacher's house",
+        "teacher invited",
+        "her house"
+      ]
+    },
+    {
+      "id": "wc-park",
+      "name": "White Cloud Park",
+      "type": "place",
+      "icon": "🌳",
+      "patterns": [
+        "White Cloud Park",
+        "白云公园"
+      ]
+    },
+    {
+      "id": "wc-temple",
+      "name": "White Cloud Temple",
+      "type": "place",
+      "icon": "🛕",
+      "patterns": [
+        "White Cloud Temple",
+        "白云观"
+      ]
+    },
+    {
+      "id": "electronics",
+      "name": "电子城",
+      "type": "place",
+      "icon": "🏬",
+      "patterns": [
+        "electronics shop",
+        "electronics"
+      ]
+    },
+    {
+      "id": "potluck",
+      "name": "Potluck dinner",
+      "type": "event",
+      "icon": "🍽",
+      "patterns": [
+        "potluck"
+      ]
+    },
+    {
+      "id": "midautumn",
+      "name": "中秋节",
+      "type": "event",
+      "icon": "🌕",
+      "patterns": [
+        "Mid-Autumn"
+      ]
+    },
+    {
+      "id": "singing",
+      "name": "唱歌比赛",
+      "type": "event",
+      "icon": "🎤",
+      "patterns": [
+        "singing contest"
+      ]
+    },
+    {
+      "id": "picnic",
+      "name": "Picnic",
+      "type": "event",
+      "icon": "🧺",
+      "patterns": [
+        "picnic"
+      ]
+    },
+    {
+      "id": "music-fest",
+      "name": "学校音乐节",
+      "type": "event",
+      "icon": "🎵",
+      "patterns": [
+        "music festival"
+      ]
+    },
+    {
+      "id": "mouth-watering",
+      "name": "mouth-watering",
+      "type": "expr",
+      "icon": "⭐",
+      "patterns": [
+        "mouth-watering"
+      ]
+    },
+    {
+      "id": "finger-licking",
+      "name": "finger-licking good",
+      "type": "expr",
+      "icon": "⭐",
+      "patterns": [
+        "finger-licking"
+      ]
+    },
+    {
+      "id": "homemade",
+      "name": "homemade",
+      "type": "expr",
+      "icon": "⭐",
+      "patterns": [
+        "homemade"
+      ]
+    }
+  ],
+  "index": {
+    "teacher": [
+      {
+        "q_global": 1,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 1,
+        "title": "Describe a time you needed to use your imagination",
+        "category": "事件"
+      },
+      {
+        "q_global": 16,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 16,
+        "title": "Describe one of your friends who learned something new without a teacher",
+        "category": "人物"
+      },
+      {
+        "q_global": 48,
+        "group": "Arts",
+        "emoji": "🎨",
+        "q_in_group": 5,
+        "title": "Describe an occasion when you were not allowed to use your mobile phone",
+        "category": "事件"
+      },
+      {
+        "q_global": 52,
+        "group": "Movies",
+        "emoji": "🎬",
+        "q_in_group": 2,
+        "title": "Describe a story (like a fairy tale, etc.) you have read recently",
+        "category": "物品"
+      }
+    ],
+    "frc": [
+      {
+        "q_global": 1,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 1,
+        "title": "Describe a time you needed to use your imagination",
+        "category": "事件"
+      },
+      {
+        "q_global": 2,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 2,
+        "title": "Describe a time when you gave advice to others",
+        "category": "事件"
+      },
+      {
+        "q_global": 4,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 4,
+        "title": "Describe a person who solved a problem in a smart way",
+        "category": "人物"
+      },
+      {
+        "q_global": 5,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 5,
+        "title": "Describe a perfect job you would like to have in the future",
+        "category": "物品"
+      },
+      {
+        "q_global": 6,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 6,
+        "title": "Describe a time when you encouraged someone to do something he/she didn't want to do",
+        "category": "事件"
+      },
+      {
+        "q_global": 7,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 7,
+        "title": "Describe a great dinner you and your friends or family members enjoyed",
+        "category": "物品"
+      },
+      {
+        "q_global": 8,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 8,
+        "title": "Describe an exciting activity you have tried for the first time",
+        "category": "事件"
+      },
+      {
+        "q_global": 9,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 9,
+        "title": "Describe a person you know who enjoys working for a family business",
+        "category": "人物"
+      },
+      {
+        "q_global": 10,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 10,
+        "title": "Describe a creative person you admire",
+        "category": "人物"
+      },
+      {
+        "q_global": 11,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 11,
+        "title": "Describe a time when you waited for something special that would happen",
+        "category": "事件"
+      },
+      {
+        "q_global": 12,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 12,
+        "title": "Describe a book you read that you found useful",
+        "category": "物品"
+      },
+      {
+        "q_global": 13,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 13,
+        "title": "Describe a time you saw something interesting on social media",
+        "category": "事件"
+      },
+      {
+        "q_global": 14,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 14,
+        "title": "Describe a time when someone apologized to you",
+        "category": "事件"
+      },
+      {
+        "q_global": 15,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 15,
+        "title": "Describe a good habit your friend has and you want to develop",
+        "category": "物品"
+      },
+      {
+        "q_global": 16,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 16,
+        "title": "Describe one of your friends who learned something new without a teacher",
+        "category": "人物"
+      },
+      {
+        "q_global": 17,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 17,
+        "title": "Describe an intelligent person you know",
+        "category": "人物"
+      },
+      {
+        "q_global": 18,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 18,
+        "title": "Describe an important choice made with the help of other people",
+        "category": "事件"
+      },
+      {
+        "q_global": 19,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 19,
+        "title": "Describe a TV or online program you like to watch",
+        "category": "物品"
+      },
+      {
+        "q_global": 20,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 20,
+        "title": "Describe a program or app on your computer or phone",
+        "category": "物品"
+      },
+      {
+        "q_global": 21,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 21,
+        "title": "Describe an occasion when many people were smiling",
+        "category": "事件"
+      }
+    ],
+    "teacher-home": [
+      {
+        "q_global": 1,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 1,
+        "title": "Describe a time you needed to use your imagination",
+        "category": "事件"
+      }
+    ],
+    "potluck": [
+      {
+        "q_global": 1,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 1,
+        "title": "Describe a time you needed to use your imagination",
+        "category": "事件"
+      },
+      {
+        "q_global": 2,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 2,
+        "title": "Describe a time when you gave advice to others",
+        "category": "事件"
+      },
+      {
+        "q_global": 4,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 4,
+        "title": "Describe a person who solved a problem in a smart way",
+        "category": "人物"
+      },
+      {
+        "q_global": 6,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 6,
+        "title": "Describe a time when you encouraged someone to do something he/she didn't want to do",
+        "category": "事件"
+      },
+      {
+        "q_global": 7,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 7,
+        "title": "Describe a great dinner you and your friends or family members enjoyed",
+        "category": "物品"
+      },
+      {
+        "q_global": 8,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 8,
+        "title": "Describe an exciting activity you have tried for the first time",
+        "category": "事件"
+      },
+      {
+        "q_global": 11,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 11,
+        "title": "Describe a time when you waited for something special that would happen",
+        "category": "事件"
+      },
+      {
+        "q_global": 13,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 13,
+        "title": "Describe a time you saw something interesting on social media",
+        "category": "事件"
+      },
+      {
+        "q_global": 14,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 14,
+        "title": "Describe a time when someone apologized to you",
+        "category": "事件"
+      },
+      {
+        "q_global": 15,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 15,
+        "title": "Describe a good habit your friend has and you want to develop",
+        "category": "物品"
+      },
+      {
+        "q_global": 16,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 16,
+        "title": "Describe one of your friends who learned something new without a teacher",
+        "category": "人物"
+      },
+      {
+        "q_global": 17,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 17,
+        "title": "Describe an intelligent person you know",
+        "category": "人物"
+      },
+      {
+        "q_global": 18,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 18,
+        "title": "Describe an important choice made with the help of other people",
+        "category": "事件"
+      },
+      {
+        "q_global": 19,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 19,
+        "title": "Describe a TV or online program you like to watch",
+        "category": "物品"
+      },
+      {
+        "q_global": 20,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 20,
+        "title": "Describe a program or app on your computer or phone",
+        "category": "物品"
+      },
+      {
+        "q_global": 21,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 21,
+        "title": "Describe an occasion when many people were smiling",
+        "category": "事件"
+      }
+    ],
+    "midautumn": [
+      {
+        "q_global": 1,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 1,
+        "title": "Describe a time you needed to use your imagination",
+        "category": "事件"
+      },
+      {
+        "q_global": 2,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 2,
+        "title": "Describe a time when you gave advice to others",
+        "category": "事件"
+      },
+      {
+        "q_global": 4,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 4,
+        "title": "Describe a person who solved a problem in a smart way",
+        "category": "人物"
+      },
+      {
+        "q_global": 6,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 6,
+        "title": "Describe a time when you encouraged someone to do something he/she didn't want to do",
+        "category": "事件"
+      },
+      {
+        "q_global": 7,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 7,
+        "title": "Describe a great dinner you and your friends or family members enjoyed",
+        "category": "物品"
+      },
+      {
+        "q_global": 8,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 8,
+        "title": "Describe an exciting activity you have tried for the first time",
+        "category": "事件"
+      },
+      {
+        "q_global": 11,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 11,
+        "title": "Describe a time when you waited for something special that would happen",
+        "category": "事件"
+      },
+      {
+        "q_global": 13,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 13,
+        "title": "Describe a time you saw something interesting on social media",
+        "category": "事件"
+      },
+      {
+        "q_global": 15,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 15,
+        "title": "Describe a good habit your friend has and you want to develop",
+        "category": "物品"
+      },
+      {
+        "q_global": 16,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 16,
+        "title": "Describe one of your friends who learned something new without a teacher",
+        "category": "人物"
+      },
+      {
+        "q_global": 17,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 17,
+        "title": "Describe an intelligent person you know",
+        "category": "人物"
+      },
+      {
+        "q_global": 18,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 18,
+        "title": "Describe an important choice made with the help of other people",
+        "category": "事件"
+      },
+      {
+        "q_global": 19,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 19,
+        "title": "Describe a TV or online program you like to watch",
+        "category": "物品"
+      },
+      {
+        "q_global": 20,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 20,
+        "title": "Describe a program or app on your computer or phone",
+        "category": "物品"
+      },
+      {
+        "q_global": 21,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 21,
+        "title": "Describe an occasion when many people were smiling",
+        "category": "事件"
+      }
+    ],
+    "mouth-watering": [
+      {
+        "q_global": 1,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 1,
+        "title": "Describe a time you needed to use your imagination",
+        "category": "事件"
+      },
+      {
+        "q_global": 2,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 2,
+        "title": "Describe a time when you gave advice to others",
+        "category": "事件"
+      },
+      {
+        "q_global": 4,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 4,
+        "title": "Describe a person who solved a problem in a smart way",
+        "category": "人物"
+      },
+      {
+        "q_global": 8,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 8,
+        "title": "Describe an exciting activity you have tried for the first time",
+        "category": "事件"
+      },
+      {
+        "q_global": 9,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 9,
+        "title": "Describe a person you know who enjoys working for a family business",
+        "category": "人物"
+      },
+      {
+        "q_global": 10,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 10,
+        "title": "Describe a creative person you admire",
+        "category": "人物"
+      },
+      {
+        "q_global": 11,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 11,
+        "title": "Describe a time when you waited for something special that would happen",
+        "category": "事件"
+      },
+      {
+        "q_global": 12,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 12,
+        "title": "Describe a book you read that you found useful",
+        "category": "物品"
+      },
+      {
+        "q_global": 13,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 13,
+        "title": "Describe a time you saw something interesting on social media",
+        "category": "事件"
+      },
+      {
+        "q_global": 14,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 14,
+        "title": "Describe a time when someone apologized to you",
+        "category": "事件"
+      },
+      {
+        "q_global": 15,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 15,
+        "title": "Describe a good habit your friend has and you want to develop",
+        "category": "物品"
+      },
+      {
+        "q_global": 16,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 16,
+        "title": "Describe one of your friends who learned something new without a teacher",
+        "category": "人物"
+      },
+      {
+        "q_global": 17,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 17,
+        "title": "Describe an intelligent person you know",
+        "category": "人物"
+      },
+      {
+        "q_global": 18,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 18,
+        "title": "Describe an important choice made with the help of other people",
+        "category": "事件"
+      },
+      {
+        "q_global": 19,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 19,
+        "title": "Describe a TV or online program you like to watch",
+        "category": "物品"
+      },
+      {
+        "q_global": 20,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 20,
+        "title": "Describe a program or app on your computer or phone",
+        "category": "物品"
+      },
+      {
+        "q_global": 22,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 22,
+        "title": "Describe a time when you felt proud of a family member",
+        "category": "事件"
+      }
+    ],
+    "finger-licking": [
+      {
+        "q_global": 1,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 1,
+        "title": "Describe a time you needed to use your imagination",
+        "category": "事件"
+      },
+      {
+        "q_global": 2,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 2,
+        "title": "Describe a time when you gave advice to others",
+        "category": "事件"
+      },
+      {
+        "q_global": 4,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 4,
+        "title": "Describe a person who solved a problem in a smart way",
+        "category": "人物"
+      },
+      {
+        "q_global": 5,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 5,
+        "title": "Describe a perfect job you would like to have in the future",
+        "category": "物品"
+      },
+      {
+        "q_global": 6,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 6,
+        "title": "Describe a time when you encouraged someone to do something he/she didn't want to do",
+        "category": "事件"
+      },
+      {
+        "q_global": 7,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 7,
+        "title": "Describe a great dinner you and your friends or family members enjoyed",
+        "category": "物品"
+      },
+      {
+        "q_global": 8,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 8,
+        "title": "Describe an exciting activity you have tried for the first time",
+        "category": "事件"
+      },
+      {
+        "q_global": 9,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 9,
+        "title": "Describe a person you know who enjoys working for a family business",
+        "category": "人物"
+      },
+      {
+        "q_global": 10,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 10,
+        "title": "Describe a creative person you admire",
+        "category": "人物"
+      },
+      {
+        "q_global": 11,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 11,
+        "title": "Describe a time when you waited for something special that would happen",
+        "category": "事件"
+      },
+      {
+        "q_global": 12,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 12,
+        "title": "Describe a book you read that you found useful",
+        "category": "物品"
+      },
+      {
+        "q_global": 13,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 13,
+        "title": "Describe a time you saw something interesting on social media",
+        "category": "事件"
+      },
+      {
+        "q_global": 14,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 14,
+        "title": "Describe a time when someone apologized to you",
+        "category": "事件"
+      },
+      {
+        "q_global": 15,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 15,
+        "title": "Describe a good habit your friend has and you want to develop",
+        "category": "物品"
+      },
+      {
+        "q_global": 16,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 16,
+        "title": "Describe one of your friends who learned something new without a teacher",
+        "category": "人物"
+      },
+      {
+        "q_global": 17,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 17,
+        "title": "Describe an intelligent person you know",
+        "category": "人物"
+      },
+      {
+        "q_global": 18,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 18,
+        "title": "Describe an important choice made with the help of other people",
+        "category": "事件"
+      },
+      {
+        "q_global": 19,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 19,
+        "title": "Describe a TV or online program you like to watch",
+        "category": "物品"
+      },
+      {
+        "q_global": 20,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 20,
+        "title": "Describe a program or app on your computer or phone",
+        "category": "物品"
+      },
+      {
+        "q_global": 21,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 21,
+        "title": "Describe an occasion when many people were smiling",
+        "category": "事件"
+      },
+      {
+        "q_global": 22,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 22,
+        "title": "Describe a time when you felt proud of a family member",
+        "category": "事件"
+      }
+    ],
+    "homemade": [
+      {
+        "q_global": 1,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 1,
+        "title": "Describe a time you needed to use your imagination",
+        "category": "事件"
+      },
+      {
+        "q_global": 2,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 2,
+        "title": "Describe a time when you gave advice to others",
+        "category": "事件"
+      },
+      {
+        "q_global": 4,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 4,
+        "title": "Describe a person who solved a problem in a smart way",
+        "category": "人物"
+      },
+      {
+        "q_global": 6,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 6,
+        "title": "Describe a time when you encouraged someone to do something he/she didn't want to do",
+        "category": "事件"
+      },
+      {
+        "q_global": 7,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 7,
+        "title": "Describe a great dinner you and your friends or family members enjoyed",
+        "category": "物品"
+      },
+      {
+        "q_global": 8,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 8,
+        "title": "Describe an exciting activity you have tried for the first time",
+        "category": "事件"
+      },
+      {
+        "q_global": 11,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 11,
+        "title": "Describe a time when you waited for something special that would happen",
+        "category": "事件"
+      },
+      {
+        "q_global": 14,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 14,
+        "title": "Describe a time when someone apologized to you",
+        "category": "事件"
+      },
+      {
+        "q_global": 15,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 15,
+        "title": "Describe a good habit your friend has and you want to develop",
+        "category": "物品"
+      },
+      {
+        "q_global": 16,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 16,
+        "title": "Describe one of your friends who learned something new without a teacher",
+        "category": "人物"
+      },
+      {
+        "q_global": 17,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 17,
+        "title": "Describe an intelligent person you know",
+        "category": "人物"
+      },
+      {
+        "q_global": 18,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 18,
+        "title": "Describe an important choice made with the help of other people",
+        "category": "事件"
+      },
+      {
+        "q_global": 20,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 20,
+        "title": "Describe a program or app on your computer or phone",
+        "category": "物品"
+      },
+      {
+        "q_global": 21,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 21,
+        "title": "Describe an occasion when many people were smiling",
+        "category": "事件"
+      }
+    ],
+    "lucy": [
+      {
+        "q_global": 2,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 2,
+        "title": "Describe a time when you gave advice to others",
+        "category": "事件"
+      },
+      {
+        "q_global": 4,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 4,
+        "title": "Describe a person who solved a problem in a smart way",
+        "category": "人物"
+      },
+      {
+        "q_global": 5,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 5,
+        "title": "Describe a perfect job you would like to have in the future",
+        "category": "物品"
+      },
+      {
+        "q_global": 6,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 6,
+        "title": "Describe a time when you encouraged someone to do something he/she didn't want to do",
+        "category": "事件"
+      },
+      {
+        "q_global": 9,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 9,
+        "title": "Describe a person you know who enjoys working for a family business",
+        "category": "人物"
+      },
+      {
+        "q_global": 10,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 10,
+        "title": "Describe a creative person you admire",
+        "category": "人物"
+      },
+      {
+        "q_global": 12,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 12,
+        "title": "Describe a book you read that you found useful",
+        "category": "物品"
+      },
+      {
+        "q_global": 14,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 14,
+        "title": "Describe a time when someone apologized to you",
+        "category": "事件"
+      },
+      {
+        "q_global": 15,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 15,
+        "title": "Describe a good habit your friend has and you want to develop",
+        "category": "物品"
+      },
+      {
+        "q_global": 16,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 16,
+        "title": "Describe one of your friends who learned something new without a teacher",
+        "category": "人物"
+      },
+      {
+        "q_global": 17,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 17,
+        "title": "Describe an intelligent person you know",
+        "category": "人物"
+      },
+      {
+        "q_global": 18,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 18,
+        "title": "Describe an important choice made with the help of other people",
+        "category": "事件"
+      },
+      {
+        "q_global": 20,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 20,
+        "title": "Describe a program or app on your computer or phone",
+        "category": "物品"
+      },
+      {
+        "q_global": 23,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 1,
+        "title": "Describe an interesting building",
+        "category": "地点"
+      },
+      {
+        "q_global": 24,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 2,
+        "title": "Describe an unusual but interesting building you would like to visit",
+        "category": "地点"
+      },
+      {
+        "q_global": 25,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 3,
+        "title": "Describe the time when you first talked in a foreign language",
+        "category": "事件"
+      },
+      {
+        "q_global": 26,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 4,
+        "title": "Describe a short-term job you want to have in a foreign country",
+        "category": "事件"
+      },
+      {
+        "q_global": 27,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 5,
+        "title": "Describe a natural place",
+        "category": "地点"
+      },
+      {
+        "q_global": 28,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 6,
+        "title": "Describe a quiet place you like to go",
+        "category": "地点"
+      },
+      {
+        "q_global": 29,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 7,
+        "title": "Describe a person who likes to look after the natural world",
+        "category": "人物"
+      },
+      {
+        "q_global": 30,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 8,
+        "title": "Describe a long journey you had and would like to take again",
+        "category": "事件"
+      },
+      {
+        "q_global": 31,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 9,
+        "title": "Describe a city that you have been to and would like to visit again",
+        "category": "地点"
+      },
+      {
+        "q_global": 32,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 10,
+        "title": "Describe an occasion when you lost your way",
+        "category": "事件"
+      },
+      {
+        "q_global": 33,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 11,
+        "title": "Describe a time when the electricity suddenly went off",
+        "category": "事件"
+      },
+      {
+        "q_global": 34,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 12,
+        "title": "Describe a place you went to and an outdoor activity you did there",
+        "category": "地点"
+      },
+      {
+        "q_global": 35,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 13,
+        "title": "Describe a person who makes plans a lot and is good at planning",
+        "category": "人物"
+      },
+      {
+        "q_global": 36,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 14,
+        "title": "Describe a wild animal that you want to learn more about",
+        "category": "物品"
+      },
+      {
+        "q_global": 37,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 15,
+        "title": "Describe a toy you liked in your childhood",
+        "category": "物品"
+      },
+      {
+        "q_global": 38,
+        "group": "Technology",
+        "emoji": "💻",
+        "q_in_group": 1,
+        "title": "Describe an item on which you spent more than expected",
+        "category": "物品"
+      },
+      {
+        "q_global": 39,
+        "group": "Technology",
+        "emoji": "💻",
+        "q_in_group": 2,
+        "title": "Describe a piece of technology (not a phone) that you would like to own",
+        "category": "物品"
+      },
+      {
+        "q_global": 41,
+        "group": "Technology",
+        "emoji": "💻",
+        "q_in_group": 4,
+        "title": "Describe a time when you broke something",
+        "category": "事件"
+      },
+      {
+        "q_global": 42,
+        "group": "Technology",
+        "emoji": "💻",
+        "q_in_group": 5,
+        "title": "Describe a person who often helps others",
+        "category": "人物"
+      },
+      {
+        "q_global": 43,
+        "group": "Technology",
+        "emoji": "💻",
+        "q_in_group": 6,
+        "title": "Describe a good friend who is important to you",
+        "category": "人物"
+      },
+      {
+        "q_global": 44,
+        "group": "Arts",
+        "emoji": "🎨",
+        "q_in_group": 1,
+        "title": "Describe a child who loves drawing/painting",
+        "category": "人物"
+      },
+      {
+        "q_global": 45,
+        "group": "Arts",
+        "emoji": "🎨",
+        "q_in_group": 2,
+        "title": "Describe a friend of yours who is good at music/singing",
+        "category": "人物"
+      },
+      {
+        "q_global": 46,
+        "group": "Arts",
+        "emoji": "🎨",
+        "q_in_group": 3,
+        "title": "Describe a natural talent (sports, music, etc.) you want to improve",
+        "category": "物品"
+      },
+      {
+        "q_global": 47,
+        "group": "Arts",
+        "emoji": "🎨",
+        "q_in_group": 4,
+        "title": "Describe an event you attended in which you didn't enjoy the music played",
+        "category": "事件"
+      },
+      {
+        "q_global": 49,
+        "group": "Sports",
+        "emoji": "🏐",
+        "q_in_group": 1,
+        "title": "Describe a famous person you would like to meet",
+        "category": "人物"
+      },
+      {
+        "q_global": 50,
+        "group": "Sports",
+        "emoji": "🏐",
+        "q_in_group": 2,
+        "title": "Describe a successful sportsperson you admire",
+        "category": "人物"
+      },
+      {
+        "q_global": 51,
+        "group": "Movies",
+        "emoji": "🎬",
+        "q_in_group": 1,
+        "title": "Describe a movie you watched and enjoyed recently",
+        "category": "物品"
+      },
+      {
+        "q_global": 52,
+        "group": "Movies",
+        "emoji": "🎬",
+        "q_in_group": 2,
+        "title": "Describe a story (like a fairy tale, etc.) you have read recently",
+        "category": "物品"
+      },
+      {
+        "q_global": 53,
+        "group": "Weight Loss",
+        "emoji": "🥗",
+        "q_in_group": 1,
+        "title": "Describe an area/subject of science that you are interested in and would like to learn more about",
+        "category": "物品"
+      }
+    ],
+    "grandpa": [
+      {
+        "q_global": 3,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 3,
+        "title": "Describe something important that has been kept in your family for a long time",
+        "category": "物品"
+      },
+      {
+        "q_global": 9,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 9,
+        "title": "Describe a person you know who enjoys working for a family business",
+        "category": "人物"
+      },
+      {
+        "q_global": 10,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 10,
+        "title": "Describe a creative person you admire",
+        "category": "人物"
+      },
+      {
+        "q_global": 12,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 12,
+        "title": "Describe a book you read that you found useful",
+        "category": "物品"
+      }
+    ],
+    "recipe-book": [
+      {
+        "q_global": 3,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 3,
+        "title": "Describe something important that has been kept in your family for a long time",
+        "category": "物品"
+      },
+      {
+        "q_global": 12,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 12,
+        "title": "Describe a book you read that you found useful",
+        "category": "物品"
+      },
+      {
+        "q_global": 22,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 22,
+        "title": "Describe a time when you felt proud of a family member",
+        "category": "事件"
+      }
+    ],
+    "neighbor": [
+      {
+        "q_global": 5,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 5,
+        "title": "Describe a perfect job you would like to have in the future",
+        "category": "物品"
+      },
+      {
+        "q_global": 9,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 9,
+        "title": "Describe a person you know who enjoys working for a family business",
+        "category": "人物"
+      },
+      {
+        "q_global": 10,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 10,
+        "title": "Describe a creative person you admire",
+        "category": "人物"
+      },
+      {
+        "q_global": 12,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 12,
+        "title": "Describe a book you read that you found useful",
+        "category": "物品"
+      },
+      {
+        "q_global": 44,
+        "group": "Arts",
+        "emoji": "🎨",
+        "q_in_group": 1,
+        "title": "Describe a child who loves drawing/painting",
+        "category": "人物"
+      }
+    ],
+    "chatgpt": [
+      {
+        "q_global": 20,
+        "group": "Creative Cooking",
+        "emoji": "🍳",
+        "q_in_group": 20,
+        "title": "Describe a program or app on your computer or phone",
+        "category": "物品"
+      }
+    ],
+    "wc-temple": [
+      {
+        "q_global": 23,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 1,
+        "title": "Describe an interesting building",
+        "category": "地点"
+      },
+      {
+        "q_global": 31,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 9,
+        "title": "Describe a city that you have been to and would like to visit again",
+        "category": "地点"
+      },
+      {
+        "q_global": 32,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 10,
+        "title": "Describe an occasion when you lost your way",
+        "category": "事件"
+      },
+      {
+        "q_global": 37,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 15,
+        "title": "Describe a toy you liked in your childhood",
+        "category": "物品"
+      }
+    ],
+    "wc-park": [
+      {
+        "q_global": 27,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 5,
+        "title": "Describe a natural place",
+        "category": "地点"
+      },
+      {
+        "q_global": 28,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 6,
+        "title": "Describe a quiet place you like to go",
+        "category": "地点"
+      },
+      {
+        "q_global": 29,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 7,
+        "title": "Describe a person who likes to look after the natural world",
+        "category": "人物"
+      },
+      {
+        "q_global": 30,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 8,
+        "title": "Describe a long journey you had and would like to take again",
+        "category": "事件"
+      },
+      {
+        "q_global": 31,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 9,
+        "title": "Describe a city that you have been to and would like to visit again",
+        "category": "地点"
+      },
+      {
+        "q_global": 32,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 10,
+        "title": "Describe an occasion when you lost your way",
+        "category": "事件"
+      },
+      {
+        "q_global": 33,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 11,
+        "title": "Describe a time when the electricity suddenly went off",
+        "category": "事件"
+      },
+      {
+        "q_global": 34,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 12,
+        "title": "Describe a place you went to and an outdoor activity you did there",
+        "category": "地点"
+      },
+      {
+        "q_global": 35,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 13,
+        "title": "Describe a person who makes plans a lot and is good at planning",
+        "category": "人物"
+      },
+      {
+        "q_global": 36,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 14,
+        "title": "Describe a wild animal that you want to learn more about",
+        "category": "物品"
+      }
+    ],
+    "picnic": [
+      {
+        "q_global": 27,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 5,
+        "title": "Describe a natural place",
+        "category": "地点"
+      },
+      {
+        "q_global": 29,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 7,
+        "title": "Describe a person who likes to look after the natural world",
+        "category": "人物"
+      },
+      {
+        "q_global": 30,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 8,
+        "title": "Describe a long journey you had and would like to take again",
+        "category": "事件"
+      },
+      {
+        "q_global": 31,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 9,
+        "title": "Describe a city that you have been to and would like to visit again",
+        "category": "地点"
+      },
+      {
+        "q_global": 32,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 10,
+        "title": "Describe an occasion when you lost your way",
+        "category": "事件"
+      },
+      {
+        "q_global": 33,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 11,
+        "title": "Describe a time when the electricity suddenly went off",
+        "category": "事件"
+      },
+      {
+        "q_global": 34,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 12,
+        "title": "Describe a place you went to and an outdoor activity you did there",
+        "category": "地点"
+      },
+      {
+        "q_global": 35,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 13,
+        "title": "Describe a person who makes plans a lot and is good at planning",
+        "category": "人物"
+      },
+      {
+        "q_global": 45,
+        "group": "Arts",
+        "emoji": "🎨",
+        "q_in_group": 2,
+        "title": "Describe a friend of yours who is good at music/singing",
+        "category": "人物"
+      },
+      {
+        "q_global": 46,
+        "group": "Arts",
+        "emoji": "🎨",
+        "q_in_group": 3,
+        "title": "Describe a natural talent (sports, music, etc.) you want to improve",
+        "category": "物品"
+      },
+      {
+        "q_global": 48,
+        "group": "Arts",
+        "emoji": "🎨",
+        "q_in_group": 5,
+        "title": "Describe an occasion when you were not allowed to use your mobile phone",
+        "category": "事件"
+      }
+    ],
+    "guitar": [
+      {
+        "q_global": 30,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 8,
+        "title": "Describe a long journey you had and would like to take again",
+        "category": "事件"
+      },
+      {
+        "q_global": 34,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 12,
+        "title": "Describe a place you went to and an outdoor activity you did there",
+        "category": "地点"
+      },
+      {
+        "q_global": 35,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 13,
+        "title": "Describe a person who makes plans a lot and is good at planning",
+        "category": "人物"
+      },
+      {
+        "q_global": 45,
+        "group": "Arts",
+        "emoji": "🎨",
+        "q_in_group": 2,
+        "title": "Describe a friend of yours who is good at music/singing",
+        "category": "人物"
+      }
+    ],
+    "singing": [
+      {
+        "q_global": 30,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 8,
+        "title": "Describe a long journey you had and would like to take again",
+        "category": "事件"
+      },
+      {
+        "q_global": 31,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 9,
+        "title": "Describe a city that you have been to and would like to visit again",
+        "category": "地点"
+      },
+      {
+        "q_global": 34,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 12,
+        "title": "Describe a place you went to and an outdoor activity you did there",
+        "category": "地点"
+      },
+      {
+        "q_global": 35,
+        "group": "Scenery",
+        "emoji": "🏞",
+        "q_in_group": 13,
+        "title": "Describe a person who makes plans a lot and is good at planning",
+        "category": "人物"
+      },
+      {
+        "q_global": 45,
+        "group": "Arts",
+        "emoji": "🎨",
+        "q_in_group": 2,
+        "title": "Describe a friend of yours who is good at music/singing",
+        "category": "人物"
+      },
+      {
+        "q_global": 46,
+        "group": "Arts",
+        "emoji": "🎨",
+        "q_in_group": 3,
+        "title": "Describe a natural talent (sports, music, etc.) you want to improve",
+        "category": "物品"
+      },
+      {
+        "q_global": 48,
+        "group": "Arts",
+        "emoji": "🎨",
+        "q_in_group": 5,
+        "title": "Describe an occasion when you were not allowed to use your mobile phone",
+        "category": "事件"
+      }
+    ],
+    "macbook": [
+      {
+        "q_global": 38,
+        "group": "Technology",
+        "emoji": "💻",
+        "q_in_group": 1,
+        "title": "Describe an item on which you spent more than expected",
+        "category": "物品"
+      },
+      {
+        "q_global": 39,
+        "group": "Technology",
+        "emoji": "💻",
+        "q_in_group": 2,
+        "title": "Describe a piece of technology (not a phone) that you would like to own",
+        "category": "物品"
+      },
+      {
+        "q_global": 40,
+        "group": "Technology",
+        "emoji": "💻",
+        "q_in_group": 3,
+        "title": "Describe a shop/store you enjoy visiting  /  Describe a time when you received good service in a shop/store",
+        "category": "地点"
+      },
+      {
+        "q_global": 41,
+        "group": "Technology",
+        "emoji": "💻",
+        "q_in_group": 4,
+        "title": "Describe a time when you broke something",
+        "category": "事件"
+      },
+      {
+        "q_global": 42,
+        "group": "Technology",
+        "emoji": "💻",
+        "q_in_group": 5,
+        "title": "Describe a person who often helps others",
+        "category": "人物"
+      },
+      {
+        "q_global": 43,
+        "group": "Technology",
+        "emoji": "💻",
+        "q_in_group": 6,
+        "title": "Describe a good friend who is important to you",
+        "category": "人物"
+      }
+    ],
+    "electronics": [
+      {
+        "q_global": 38,
+        "group": "Technology",
+        "emoji": "💻",
+        "q_in_group": 1,
+        "title": "Describe an item on which you spent more than expected",
+        "category": "物品"
+      },
+      {
+        "q_global": 40,
+        "group": "Technology",
+        "emoji": "💻",
+        "q_in_group": 3,
+        "title": "Describe a shop/store you enjoy visiting  /  Describe a time when you received good service in a shop/store",
+        "category": "地点"
+      },
+      {
+        "q_global": 42,
+        "group": "Technology",
+        "emoji": "💻",
+        "q_in_group": 5,
+        "title": "Describe a person who often helps others",
+        "category": "人物"
+      }
+    ],
+    "music-fest": [
+      {
+        "q_global": 47,
+        "group": "Arts",
+        "emoji": "🎨",
+        "q_in_group": 4,
+        "title": "Describe an event you attended in which you didn't enjoy the music played",
+        "category": "事件"
+      }
+    ],
+    "coach": [
+      {
+        "q_global": 50,
+        "group": "Sports",
+        "emoji": "🏐",
+        "q_in_group": 2,
+        "title": "Describe a successful sportsperson you admire",
+        "category": "人物"
+      }
+    ],
+    "jackie": [
+      {
+        "q_global": 51,
+        "group": "Movies",
+        "emoji": "🎬",
+        "q_in_group": 1,
+        "title": "Describe a movie you watched and enjoyed recently",
+        "category": "物品"
+      }
+    ],
+    "nutrition": [
+      {
+        "q_global": 53,
+        "group": "Weight Loss",
+        "emoji": "🥗",
+        "q_in_group": 1,
+        "title": "Describe an area/subject of science that you are interested in and would like to learn more about",
+        "category": "物品"
+      }
+    ]
+  }
+}

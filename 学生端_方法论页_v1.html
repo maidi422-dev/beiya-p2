@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>北雅 · P2 完整方法论 · 一个宇宙 七个故事</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --beiya:#C0392B;--beiya-dark:#9B2C20;--beiya-soft:#FDECEA;
+    --gold:#B8894A;--gold-soft:#FBF4EA;--gold-dark:#9A6F35;
+    --ink:#1E1E22;--ink-2:#4A4A52;--ink-3:#8A8A92;
+    --line:#E8E8EC;--bg:#FAFAFA;--white:#FFFFFF;
+    --ok:#2E7D32;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter','PingFang SC','Microsoft YaHei',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none;cursor:pointer}
+
+  /* TOP BAR */
+  .topbar{position:sticky;top:0;z-index:50;background:var(--white);border-bottom:1px solid var(--line);padding:14px 24px;display:flex;align-items:center;gap:18px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:var(--beiya)}
+  .brand-mark{width:28px;height:28px;background:var(--beiya);color:#fff;display:flex;align-items:center;justify-content:center;border-radius:4px;font-family:'Noto Serif SC',serif;font-size:14px}
+  .nav{display:flex;gap:2px;margin-left:8px;flex:1}
+  .nav a{padding:7px 14px;border-radius:6px;font-size:13px;color:var(--ink-2);font-weight:500;white-space:nowrap}
+  .nav a:hover{background:var(--beiya-soft);color:var(--beiya)}
+  .nav a.active{background:var(--beiya);color:#fff}
+  .role-sw{display:flex;align-items:center;gap:6px;background:#F4F4F6;border-radius:20px;padding:3px;font-size:12px}
+  .role-opt{padding:4px 12px;border-radius:16px;cursor:pointer;color:var(--ink-3);font-weight:500;transition:all .15s}
+  .role-opt.on{background:var(--beiya);color:#fff}
+
+  /* CHAPTER NAV (sticky 2nd layer) */
+  .chapnav{
+    position:sticky;top:60px;z-index:40;background:var(--white);
+    border-bottom:1px solid var(--line);padding:8px 24px;
+    overflow-x:auto;scrollbar-width:none
+  }
+  .chapnav::-webkit-scrollbar{display:none}
+  .chapnav-inner{display:flex;gap:6px;max-width:1120px;margin:0 auto}
+  .chap-link{
+    padding:6px 12px;border-radius:14px;font-size:11.5px;color:var(--ink-3);
+    cursor:pointer;white-space:nowrap;transition:all .15s;font-weight:500;
+    border:1px solid transparent
+  }
+  .chap-link:hover{color:var(--beiya);background:var(--beiya-soft)}
+  .chap-link.on{background:var(--beiya);color:#fff}
+
+  /* PROGRESS BAR */
+  .progbar{position:fixed;top:0;left:0;right:0;height:3px;background:transparent;z-index:60;pointer-events:none}
+  .progbar-fill{height:100%;background:linear-gradient(90deg,var(--beiya),var(--gold));width:0;transition:width .1s}
+
+  /* LAYOUT */
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px}
+
+  /* CHAPTER */
+  .chap{padding:64px 0 40px;border-bottom:1px solid var(--line)}
+  .chap:last-of-type{border-bottom:none}
+  .chap-num{
+    display:inline-block;font-family:'Noto Serif SC',serif;font-size:13px;
+    background:var(--beiya);color:#fff;padding:3px 12px;border-radius:14px;
+    margin-bottom:12px;font-weight:700;letter-spacing:1px
+  }
+  .chap-num.gold{background:var(--gold)}
+  .chap-title{
+    font-family:'Noto Serif SC',serif;font-size:32px;font-weight:700;
+    line-height:1.25;color:var(--ink);margin-bottom:8px
+  }
+  .chap-title em{color:var(--beiya);font-style:normal}
+  .chap-title .gold-em{color:var(--gold-dark)}
+  .chap-sub{font-size:15px;color:var(--ink-2);max-width:680px;line-height:1.7;margin-bottom:32px}
+
+  /* HERO COVER */
+  .hero{
+    padding:80px 0 64px;text-align:center;
+    background:linear-gradient(180deg,var(--beiya-soft) 0%,#fff 100%);
+    margin:0 -24px 0;padding-left:24px;padding-right:24px
+  }
+  .hero-eyebrow{font-size:12px;letter-spacing:3px;color:var(--beiya);font-weight:700;text-transform:uppercase;margin-bottom:18px}
+  .hero-h1{
+    font-family:'Noto Serif SC',serif;font-size:54px;font-weight:900;
+    line-height:1.15;color:var(--ink);margin-bottom:18px
+  }
+  .hero-h1 em{color:var(--beiya);font-style:normal}
+  .hero-h1 .gold{color:var(--gold)}
+  .hero-tagline{font-size:17px;color:var(--ink-2);max-width:620px;margin:0 auto 36px;line-height:1.7}
+  .hero-stats{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;padding-top:28px;border-top:1px dashed var(--line);max-width:680px;margin:0 auto}
+  .hero-stat{display:flex;flex-direction:column;gap:4px;align-items:center;min-width:80px}
+  .hs-num{font-family:'Noto Serif SC',serif;font-size:30px;font-weight:800;color:var(--beiya);line-height:1}
+  .hs-num.gold{color:var(--gold)}
+  .hs-lbl{font-size:11px;color:var(--ink-3);letter-spacing:.5px}
+  .hero-by{font-size:11.5px;color:var(--ink-3);margin-top:32px;letter-spacing:.5px}
+
+  /* PAINPOINTS GRID */
+  .pain-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .pain-card{
+    background:var(--white);border:1px solid var(--line);border-radius:12px;
+    padding:22px;display:flex;gap:14px;align-items:flex-start
+  }
+  .pain-num{
+    font-family:'Noto Serif SC',serif;font-size:28px;font-weight:800;
+    color:var(--beiya-soft);line-height:1;flex-shrink:0;width:48px
+  }
+  .pain-body{flex:1;min-width:0}
+  .pain-h{font-family:'Noto Serif SC',serif;font-size:15.5px;font-weight:700;color:var(--ink);margin-bottom:6px}
+  .pain-p{font-size:13px;color:var(--ink-2);line-height:1.7}
+
+  /* 7 STORIES PILL ROW */
+  .story-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px}
+  .spill{
+    background:var(--white);border:1px solid var(--line);border-radius:12px;
+    padding:14px 18px;display:flex;align-items:center;gap:10px;flex:1;min-width:200px;
+    transition:all .15s;cursor:pointer
+  }
+  .spill:hover{border-color:var(--beiya);transform:translateY(-1px)}
+  .spill.flagship{background:var(--gold-soft);border-color:#EAD9B8}
+  .spill-em{font-size:24px;line-height:1}
+  .spill-info{flex:1;min-width:0}
+  .spill-name{font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:var(--ink);line-height:1.2}
+  .spill-meta{font-size:11px;color:var(--ink-3);margin-top:1px}
+  .spill-cnt{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:var(--beiya)}
+  .spill.flagship .spill-cnt{color:var(--gold-dark)}
+
+  .interconnect{
+    background:var(--gold-soft);border-left:4px solid var(--gold);
+    padding:18px 22px;border-radius:10px;font-size:13.5px;color:var(--ink-2);
+    line-height:1.7;display:flex;gap:14px;align-items:flex-start
+  }
+  .interconnect-icon{font-size:22px;flex-shrink:0;line-height:1.2}
+
+  /* CUMULATIVE */
+  .cum-wrap{margin-bottom:18px}
+  .cum-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;font-size:12.5px}
+  .cum-head strong{font-family:'Noto Serif SC',serif;font-size:14px;color:var(--ink)}
+  .cum-head .pct{font-family:'Noto Serif SC',serif;font-weight:700;color:var(--beiya);font-size:18px}
+  .cum-bar{height:36px;background:#F4F4F6;border-radius:8px;overflow:hidden;position:relative}
+  .cum-fill{height:100%;border-radius:8px;display:flex;align-items:center;padding:0 14px;color:#fff;font-size:12px;font-weight:600;transition:width .8s}
+  .cum-fill.s1{width:42%;background:linear-gradient(90deg,#C0392B,#D14E3F)}
+  .cum-fill.s2{width:70%;background:linear-gradient(90deg,#C0392B,#D58A4E)}
+  .cum-fill.s3{width:81%;background:linear-gradient(90deg,#C0392B,#C99554)}
+  .cum-fill.s4{width:91%;background:linear-gradient(90deg,#C0392B,#B8894A)}
+
+  /* NPC PROFILE */
+  .npc-card{
+    background:var(--white);border:1px solid var(--line);border-radius:14px;
+    padding:24px;margin-bottom:14px
+  }
+  .npc-card-head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+  .npc-avatar{
+    width:60px;height:60px;border-radius:50%;background:var(--beiya-soft);
+    border:3px solid var(--beiya);display:flex;align-items:center;justify-content:center;
+    font-size:30px;flex-shrink:0
+  }
+  .npc-card.chef .npc-avatar{background:var(--gold-soft);border-color:var(--gold)}
+  .npc-card-info{flex:1;min-width:0}
+  .npc-card-name{font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--ink)}
+  .npc-card-tag{font-size:11px;color:var(--beiya);letter-spacing:1.5px;font-weight:600;text-transform:uppercase;margin-top:2px}
+  .npc-card.chef .npc-card-tag{color:var(--gold-dark)}
+  .npc-card-blurb{font-size:13.5px;color:var(--ink-2);line-height:1.7;margin-bottom:14px}
+  .npc-roles-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;font-size:12.5px;color:var(--ink-2)}
+  .npc-roles-grid div{padding:8px 12px;background:#F8F8FA;border-radius:6px;border-left:3px solid var(--beiya-soft)}
+  .npc-card.chef .npc-roles-grid div{border-left-color:var(--gold-soft)}
+
+  /* SECTION FRAMEWORK 4-STAGES */
+  .stages-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+  .stage{
+    background:var(--white);border:1px solid var(--line);border-radius:12px;padding:18px 14px;
+    display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden
+  }
+  .stage.s3{background:var(--gold-soft);border-color:var(--gold);border-width:2px}
+  .stage::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--beiya)}
+  .stage.s3::before{background:var(--gold);height:4px}
+  .stage-num{font-family:'Noto Serif SC',serif;font-size:22px;font-weight:800;color:var(--beiya);line-height:1}
+  .stage.s3 .stage-num{color:var(--gold-dark)}
+  .stage-time{font-size:10.5px;color:var(--ink-3);letter-spacing:.5px}
+  .stage-name{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:700;color:var(--ink);margin-top:4px}
+  .stage-desc{font-size:11.5px;color:var(--ink-2);line-height:1.6}
+  .stage-marker{
+    background:var(--ink);color:#fff;font-family:'Inter',monospace;
+    padding:6px 10px;border-radius:6px;font-size:11px;line-height:1.4;font-style:italic;margin-top:6px
+  }
+  .stage.s3 .stage-marker{background:var(--gold-dark)}
+
+  .s3-callout{
+    background:var(--ink);color:#fff;border-radius:10px;padding:18px 22px;
+    display:flex;gap:14px;align-items:center;font-size:13.5px;line-height:1.6
+  }
+  .s3-callout .ico{font-size:22px;flex-shrink:0;color:var(--gold)}
+  .s3-callout strong{color:var(--gold)}
+
+  /* 5 SKILLS OVERVIEW */
+  .skill-overview{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:18px}
+  .skill-card{
+    background:var(--white);border:1px solid var(--line);border-radius:12px;padding:16px;
+    cursor:pointer;transition:all .15s;display:flex;flex-direction:column;gap:6px
+  }
+  .skill-card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.06);border-color:var(--beiya)}
+  .skill-tag{
+    font-size:9.5px;letter-spacing:1px;color:var(--beiya);font-weight:700;
+    background:var(--beiya-soft);padding:2px 8px;border-radius:8px;display:inline-block;width:fit-content
+  }
+  .skill-name{font-family:'Noto Serif SC',serif;font-size:16px;font-weight:700;color:var(--ink);line-height:1.3}
+  .skill-blurb{font-size:12px;color:var(--ink-3);line-height:1.6;margin-top:2px}
+  .skill-applies{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap}
+  .skill-applies span{font-size:10px;background:#F4F4F6;padding:1px 7px;border-radius:6px;color:var(--ink-2);font-weight:500}
+
+  /* SKILL DETAIL CARD */
+  .skill-detail{
+    background:var(--white);border:1px solid var(--line);border-radius:14px;
+    padding:24px 28px;margin-bottom:18px
+  }
+  .sd-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .sd-num-pill{
+    background:var(--beiya);color:#fff;font-family:'Noto Serif SC',serif;font-weight:700;
+    padding:4px 12px;border-radius:14px;font-size:12px;letter-spacing:1px
+  }
+  .sd-h{font-family:'Noto Serif SC',serif;font-size:22px;font-weight:700;color:var(--ink)}
+  .sd-summary{font-size:13.5px;color:var(--ink-2);margin-bottom:18px;line-height:1.7;padding-bottom:14px;border-bottom:1px dashed var(--line)}
+  .sd-summary strong{color:var(--ink)}
+  .sd-formula{
+    background:var(--gold-soft);border-left:4px solid var(--gold);padding:14px 18px;border-radius:8px;
+    font-family:'Inter',monospace;font-size:14px;color:var(--gold-dark);font-weight:600;margin-bottom:18px
+  }
+  .sd-examples{display:grid;grid-template-columns:1fr;gap:14px}
+  .sd-ex{background:#FAFAFA;border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .sd-ex-head{font-size:12px;font-weight:700;color:var(--beiya);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+  .sd-ex-body{font-size:12.5px;color:var(--ink-2);line-height:1.7;font-style:italic}
+  .sd-ex-body em{font-style:normal;background:var(--beiya-soft);padding:0 4px;border-radius:3px;color:var(--beiya);font-weight:500}
+
+  /* COMPARE EXAMPLE (SKILL 2) */
+  .vs-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin-bottom:14px}
+  .vs-card{background:#FAFAFA;border:1px solid var(--line);border-radius:8px;padding:12px 14px;text-align:center}
+  .vs-card-h{font-size:11px;color:var(--ink-3);font-weight:600;margin-bottom:4px;letter-spacing:.5px}
+  .vs-card-b{font-size:13px;color:var(--ink-2);line-height:1.5}
+  .vs-sep{font-family:'Noto Serif SC',serif;font-weight:700;color:var(--beiya);font-size:14px}
+
+  /* SELF-DISCIPLINE GRID (SKILL 5) */
+  .disc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+  .disc-card{background:#FAFAFA;border:1px solid var(--line);border-radius:8px;padding:12px;text-align:center;display:flex;flex-direction:column;gap:4px}
+  .disc-em{font-size:24px;line-height:1}
+  .disc-name{font-size:13px;font-weight:600;color:var(--ink);margin-top:4px}
+  .disc-detail{font-size:11px;color:var(--ink-3);line-height:1.5}
+
+  /* STACK DEMO */
+  .stack-q{
+    background:linear-gradient(135deg,var(--beiya) 0%,var(--beiya-dark) 100%);
+    color:#fff;padding:18px 22px;border-radius:12px;margin-bottom:14px
+  }
+  .stack-q-lbl{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;opacity:.85;margin-bottom:4px}
+  .stack-q-text{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:700;font-style:italic}
+  .stack-block{
+    background:var(--white);border:1px solid var(--line);border-left:4px solid var(--gold);
+    border-radius:10px;padding:16px 20px;margin-bottom:10px
+  }
+  .stack-block .sb-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .stack-block .sb-marker{font-size:11px;font-weight:700;color:var(--beiya);letter-spacing:.5px;background:var(--beiya-soft);padding:2px 9px;border-radius:8px}
+  .stack-block .sb-skill{font-size:10px;color:var(--gold-dark);background:var(--gold-soft);padding:2px 9px;border-radius:8px;font-weight:700;letter-spacing:.5px}
+  .stack-block .sb-text{font-size:13.5px;color:var(--ink-2);line-height:1.75;font-style:italic}
+  .stack-block .sb-text em{font-style:normal;background:var(--gold-soft);padding:0 4px;border-radius:3px;color:var(--gold-dark);font-weight:500}
+
+  /* CTA SECTION */
+  .cta-section{
+    background:linear-gradient(135deg,var(--ink) 0%,#000 100%);color:#fff;
+    border-radius:18px;padding:48px 36px;text-align:center;margin:32px 0 60px;position:relative;overflow:hidden
+  }
+  .cta-section::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(192,57,43,.3) 0%,transparent 70%)}
+  .cta-section::after{content:'';position:absolute;bottom:-60px;left:-60px;width:240px;height:240px;background:radial-gradient(circle,rgba(184,137,74,.25) 0%,transparent 70%)}
+  .cta-h{font-family:'Noto Serif SC',serif;font-size:30px;font-weight:800;line-height:1.3;margin-bottom:10px;position:relative;z-index:2}
+  .cta-h em{color:var(--gold);font-style:normal}
+  .cta-p{font-size:14px;opacity:.85;margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto;position:relative;z-index:2}
+  .cta-btn{
+    display:inline-flex;align-items:center;gap:8px;padding:16px 32px;
+    background:var(--beiya);color:#fff;border-radius:30px;font-size:15px;font-weight:700;
+    transition:all .15s;position:relative;z-index:2
+  }
+  .cta-btn:hover{background:#fff;color:var(--beiya);transform:translateY(-2px);box-shadow:0 8px 24px rgba(192,57,43,.4)}
+  .cta-secondary{margin-top:14px;font-size:12px;opacity:.7;position:relative;z-index:2}
+  .cta-secondary a{color:var(--gold);border-bottom:1px dashed var(--gold)}
+
+  /* PORTAL TRIGGER */
+  .ax{cursor:pointer;color:var(--beiya);font-weight:600;border-bottom:1px dashed var(--beiya);padding:0 1px;transition:all .15s;display:inline-flex;align-items:center;gap:3px}
+  .ax:hover{background:var(--beiya-soft);border-radius:3px;border-bottom-style:solid}
+  .ax-count{font-size:10px;color:var(--gold-dark);background:var(--gold-soft);padding:1px 5px;border-radius:8px;font-weight:600;border:1px solid #EAD9B8;line-height:1.2}
+
+  /* PORTAL OVERLAY */
+  .portal-bg{position:fixed;inset:0;background:rgba(30,30,34,.45);z-index:80;display:none;align-items:flex-start;justify-content:center;padding:80px 20px 20px;backdrop-filter:blur(3px)}
+  .portal-bg.show{display:flex}
+  .portal{background:var(--white);border-radius:16px;width:100%;max-width:560px;max-height:80vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.25)}
+  .portal-head{padding:18px 22px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,var(--beiya-soft) 0%,#fff 100%);display:flex;align-items:center;gap:12px}
+  .portal-icon{width:40px;height:40px;border-radius:50%;background:var(--white);border:2px solid var(--beiya);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+  .portal-titlewrap{flex:1;min-width:0}
+  .portal-name{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:700;color:var(--ink);line-height:1.2}
+  .portal-meta{font-size:12px;color:var(--ink-3);margin-top:3px}
+  .portal-meta strong{color:var(--beiya);font-family:'Noto Serif SC',serif;font-size:13.5px}
+  .portal-close{width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink-3);font-size:16px;transition:all .15s;flex-shrink:0}
+  .portal-close:hover{background:var(--beiya-soft);color:var(--beiya);border-color:var(--beiya-soft)}
+  .portal-list{padding:6px 0;overflow-y:auto;flex:1}
+  .portal-row{display:flex;align-items:center;gap:11px;padding:10px 22px;cursor:pointer;transition:all .12s;border-left:3px solid transparent}
+  .portal-row:hover{background:var(--beiya-soft);border-left-color:var(--beiya)}
+  .pr-emoji{font-size:18px;width:22px;text-align:center;flex-shrink:0}
+  .pr-badge{background:var(--beiya);color:#fff;font-family:'Noto Serif SC',serif;font-weight:700;width:36px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11.5px;flex-shrink:0}
+  .pr-info{flex:1;min-width:0}
+  .pr-title{font-size:13px;color:var(--ink);font-style:italic;line-height:1.4;margin-bottom:2px}
+  .pr-meta{font-size:11px;color:var(--ink-3);display:flex;gap:6px;align-items:center}
+  .pr-arrow{color:var(--ink-3);font-size:14px;flex-shrink:0}
+
+  .footer{text-align:center;padding:40px 0 20px;font-size:11.5px;color:var(--ink-3);border-top:1px solid var(--line);margin-top:0}
+  .footer strong{color:var(--beiya)}
+
+  @media(max-width:760px){
+    .hero-h1{font-size:34px}
+    .chap-title{font-size:24px}
+    .pain-grid{grid-template-columns:1fr}
+    .stages-grid{grid-template-columns:repeat(2,1fr)}
+    .vs-grid{grid-template-columns:1fr}
+    .vs-sep{padding:6px 0}
+    .nav{overflow-x:auto;scrollbar-width:none}
+    .nav::-webkit-scrollbar{display:none}
+    .role-sw{font-size:11px}
+  }
+
+  /* ═══ 手机端响应式适配 ═══ */
+  @media (max-width: 640px) {
+    html{font-size:14px}
+    body{line-height:1.6}
+
+    /* 顶栏压缩 */
+    .topbar{padding:10px 12px !important;gap:8px !important;flex-wrap:wrap;position:sticky;top:0}
+    .topbar .brand{font-size:13px !important}
+    .topbar .brand-mark{width:24px;height:24px;font-size:12px}
+    .topbar .nav{flex:1 1 100% !important;order:3;overflow-x:auto;scrollbar-width:none;gap:0 !important;padding:4px 0;border-top:1px solid var(--line,#E8E8EC);margin:8px 0 0 !important}
+    .topbar .nav::-webkit-scrollbar{display:none}
+    .topbar .nav a{padding:6px 10px !important;font-size:12px !important;flex-shrink:0;white-space:nowrap}
+    .search-wrap{display:none !important}
+    .role-sw{margin:0 !important;order:2}
+    .role-opt{padding:3px 8px !important;font-size:11px !important}
+
+    /* 主体 padding 减小 */
+    .wrap{padding:14px 12px 70px !important;max-width:100% !important}
+    .crumb{font-size:11.5px !important;margin-bottom:12px !important}
+
+    /* 所有 grid 一列化 */
+    .q-grid, .grid, .story-grid, .jump-mini-grid{grid-template-columns:1fr !important}
+    .row2, .row3{grid-template-columns:1fr !important}
+
+    /* 故事首页 - 故事卡 */
+    .story, .story.flagship, .story.runner-up{padding:18px !important}
+    .story .story-name{font-size:20px !important}
+    .entries{grid-template-columns:1fr !important}
+
+    /* 故事页 story-head */
+    .story-head{padding:20px !important;gap:16px !important}
+    .sh-emoji{font-size:58px !important;width:70px !important;height:70px !important}
+    .sh-name{font-size:22px !important}
+    .sh-desc{font-size:13px !important}
+    .sh-stats{gap:10px !important}
+    .sh-stat{padding-right:10px !important}
+    .sh-stat-num{font-size:16px !important}
+
+    /* 故事页 core-strip 分组 */
+    .core-group{flex-direction:column !important;align-items:stretch !important;padding:12px 0 0 !important}
+    .core-group-label{min-width:0 !important;padding-top:0 !important;margin-bottom:8px !important;font-size:11px !important}
+    .core-group-list{gap:10px !important}
+    .core-strip-title .hint{display:none}
+
+    /* gold-strip */
+    .gold-strip{padding:14px 16px !important}
+    .gs-grid{gap:6px !important}
+    .gs-chip{padding:6px 10px !important;font-size:12px !important}
+
+    /* filter-row */
+    .filter-row{gap:5px !important}
+    .filter-chip{padding:5px 10px !important;font-size:11.5px !important}
+
+    /* Q 卡片 */
+    .q-card{padding:14px 16px !important}
+    .qc-title{font-size:13px !important}
+    .qc-hook{font-size:12px !important}
+
+    /* 详情页 q-header */
+    .q-header{padding:14px 16px !important;margin-bottom:16px !important}
+    .q-title-en{font-size:15px !important;line-height:1.5 !important}
+    .q-tags{flex-wrap:wrap !important;gap:5px !important}
+    .tag{font-size:11px !important;padding:2px 8px !important}
+    .q-actions{flex-wrap:wrap !important;gap:5px !important}
+    .act{padding:5px 9px !important;font-size:11.5px !important}
+
+    /* prep-strip */
+    .prep-strip{flex-wrap:wrap !important;padding:10px 12px !important;gap:5px !important}
+    .prep-chip{font-size:12px !important;padding:3px 8px !important}
+    .prep-label{font-size:11px !important}
+
+    /* tier-tabs (详情页) */
+    .tier-tabs{overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap !important;padding-bottom:4px;margin-bottom:14px !important}
+    .tier-tabs::-webkit-scrollbar{display:none}
+    .tier-tab{padding:7px 11px !important;font-size:12px !important;white-space:nowrap;flex-shrink:0 !important}
+
+    /* outline sections */
+    .outline{padding:16px !important}
+    .sec{padding:14px !important}
+    .sec-body{font-size:13.5px !important}
+    .bullet{padding:5px 0 5px 20px !important;font-size:13.5px !important}
+
+    /* 参考范文 */
+    .ref-body{padding:16px 18px !important;font-size:13.5px !important;line-height:1.8 !important}
+
+    /* xrefs */
+    .xrefs{grid-template-columns:1fr !important}
+    .xref{padding:14px !important}
+
+    /* Hero (仪表盘) */
+    .hero{padding:22px !important;border-radius:14px !important}
+    .hero-num{font-size:30px !important}
+    .hero-row{gap:14px !important}
+    .hero-stat{min-width:100px !important}
+
+    /* FAB 方法论按钮 */
+    .fab{bottom:18px !important;right:18px !important;padding:10px 14px !important;font-size:12px !important}
+
+    /* jump-mini */
+    .jump-mini{padding:16px !important}
+
+    /* 登录页 */
+    .login-wrap, .login-card{padding:24px !important;max-width:100% !important;margin:0 12px !important}
+
+    /* 传统分类页 / 复现元素页 */
+    .tab-bar{flex-wrap:wrap !important}
+    .asset-grid{grid-template-columns:1fr 1fr !important}
+
+    /* 方法论页 · 各种 sec 排版 */
+    .mtd-hero{padding:24px 18px !important}
+    .mtd-hero h1{font-size:22px !important}
+
+    /* 仪表盘 card padding 减小 */
+    .card{padding:16px !important}
+    .card-title{font-size:12px !important}
+
+    /* 通用 padding 缩减 */
+    .panel, .panel-section, .cta-bar{padding:14px 16px !important}
+  }
+
+</style>
+</head>
+<body>
+
+<div class="progbar"><div class="progbar-fill" id="progFill"></div></div>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="brand"><div class="brand-mark">北</div><span>北雅国际教育</span></div>
+  <nav class="nav">
+    <a href="学生端_素材宇宙首页_v1.html">🌌 素材宇宙</a>
+    <a href="学生端_传统分类页_v1.html">📋 传统分类</a>
+    <a href="学生端_复现元素页_v1.html">🏷️ 复现元素</a>
+    <a class="active" href="学生端_方法论页_v1.html">🎯 方法论</a>
+    <a href="学生端_进度仪表盘_v1.html">⭐ 我的</a>
+  </nav>
+  <div class="role-sw">
+    <div class="role-opt" data-g="female">👩 Lucy</div>
+    <div class="role-opt" data-g="male">👨 Mark</div>
+  </div>
+</header>
+
+<!-- CHAPTER NAV -->
+<div class="chapnav">
+  <div class="chapnav-inner">
+    <a class="chap-link" href="#cover">🏠 封面</a>
+    <a class="chap-link" href="#pain">😰 痛点</a>
+    <a class="chap-link" href="#stories">🌌 7 故事</a>
+    <a class="chap-link" href="#yield">📈 收益曲线</a>
+    <a class="chap-link" href="#npc">👥 人物互通</a>
+    <a class="chap-link" href="#frame">📐 4 段框架</a>
+    <a class="chap-link" href="#skills">🛠 5 拓展技巧</a>
+    <a class="chap-link" href="#stack">⚡ 技巧叠加</a>
+    <a class="chap-link" href="#go">🎯 立刻开始</a>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <!-- ═══ HERO COVER ═══ -->
+  <section class="hero" id="cover">
+    <div class="hero-eyebrow">IELTS SPEAKING · PART 2 · 完整方法论</div>
+    <h1 class="hero-h1">一个<em>宇宙</em>，<br>七个<span class="gold">互通故事</span></h1>
+    <p class="hero-tagline">人物互通 · 细节共用 · 场景复用——你准备的是一套<strong>体系</strong>，不是一堆答案。</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hs-num">1</div><div class="hs-lbl">素材宇宙</div></div>
+      <div class="hero-stat"><div class="hs-num">7</div><div class="hs-lbl">互通故事</div></div>
+      <div class="hero-stat"><div class="hs-num">4</div><div class="hs-lbl">段式框架</div></div>
+      <div class="hero-stat"><div class="hs-num gold">5</div><div class="hs-lbl">拓展技巧</div></div>
+      <div class="hero-stat"><div class="hs-num">53</div><div class="hs-lbl">道题覆盖</div></div>
+    </div>
+    <div class="hero-by">Tracy · Beiya International Education · Jining</div>
+  </section>
+
+  <!-- ═══ PAIN POINTS ═══ -->
+  <section class="chap" id="pain">
+    <span class="chap-num">CHAPTER 01</span>
+    <h2 class="chap-title">为什么 Part 2 总是<em>卡壳</em></h2>
+    <p class="chap-sub">不是你准备不够——是<strong>方向不对</strong>。死记硬背 100 道题的方法天然失败。</p>
+    <div class="pain-grid">
+      <div class="pain-card"><div class="pain-num">01</div><div class="pain-body"><div class="pain-h">题目太多 · 记不住</div><div class="pain-p">P2 真题库上百道。每道背一个故事？考场一看脑子一片空白。</div></div></div>
+      <div class="pain-card"><div class="pain-num">02</div><div class="pain-body"><div class="pain-h">内容空洞 · 不知道说啥维度</div><div class="pain-p">第一句答完了，接下来细节、感受、对比、关联，完全没意识。</div></div></div>
+      <div class="pain-card"><div class="pain-num">03</div><div class="pain-body"><div class="pain-h">逻辑跳跃 · 结构混乱</div><div class="pain-p">说话没有层次，考官听不出清晰的组织能力。</div></div></div>
+      <div class="pain-card"><div class="pain-num">04</div><div class="pain-body"><div class="pain-h">临场紧张 · 一分钟不够想</div><div class="pain-p">看到题卡的 60 秒根本不够想故事，越急越乱，开口就磕磕绊绊。</div></div></div>
+    </div>
+  </section>
+
+  <!-- ═══ 7 STORIES ═══ -->
+  <section class="chap" id="stories">
+    <span class="chap-num">CHAPTER 02 · 核心解法</span>
+    <h2 class="chap-title">一个宇宙，<em>七个互通的故事</em></h2>
+    <p class="chap-sub">不是 7 个独立素材库——是<strong>同一个宇宙里的 7 个故事</strong>。<span class="ax" data-asset="lucy">Lucy<span class="ax-count">42</span></span>、<span class="ax" data-asset="frc">Fruit Roast Chicken<span class="ax-count">20</span></span>、<span class="ax" data-asset="potluck">Potluck<span class="ax-count">16</span></span>……同一批人物和事件，在不同故事里以不同视角出现。</p>
+
+    <div class="story-row">
+      <a class="spill flagship"><span class="spill-em">🍳</span><div class="spill-info"><div class="spill-name">Creative Cooking</div><div class="spill-meta">创意料理</div></div><div class="spill-cnt">22</div></a>
+      <a class="spill"><span class="spill-em">🏞</span><div class="spill-info"><div class="spill-name">Scenery</div><div class="spill-meta">自然风景</div></div><div class="spill-cnt">15</div></a>
+      <a class="spill"><span class="spill-em">💻</span><div class="spill-info"><div class="spill-name">Technology</div><div class="spill-meta">科技产品</div></div><div class="spill-cnt">6</div></a>
+    </div>
+    <div class="story-row">
+      <a class="spill"><span class="spill-em">🎨</span><div class="spill-info"><div class="spill-name">Arts</div><div class="spill-meta">艺术</div></div><div class="spill-cnt">5</div></a>
+      <a class="spill"><span class="spill-em">🏐</span><div class="spill-info"><div class="spill-name">Sports</div><div class="spill-meta">运动</div></div><div class="spill-cnt">2</div></a>
+      <a class="spill"><span class="spill-em">🎬</span><div class="spill-info"><div class="spill-name">Movies</div><div class="spill-meta">电影</div></div><div class="spill-cnt">2</div></a>
+      <a class="spill"><span class="spill-em">🥗</span><div class="spill-info"><div class="spill-name">Weight Loss</div><div class="spill-meta">减脂·健康</div></div><div class="spill-cnt">1</div></a>
+    </div>
+
+    <div class="interconnect">
+      <span class="interconnect-icon">🔗</span>
+      <div>Cooking 故事里的 <strong>Fruit Roast Chicken</strong>，可以在 Scenery 故事里作为 Potluck 的菜品出现；Scenery 故事里的 <strong><span data-npc>Lucy</span></strong>，在 Sports 故事里摇身变成国家排球运动员——<strong>同一个宇宙，人物永远认识彼此</strong>。</div>
+    </div>
+  </section>
+
+  <!-- ═══ YIELD CURVE ═══ -->
+  <section class="chap" id="yield">
+    <span class="chap-num gold">CHAPTER 03 · 收益分析</span>
+    <h2 class="chap-title">先掌握前几个故事，<span class="gold-em">就够用了</span></h2>
+    <p class="chap-sub">每多掌握一个故事，覆盖题目数量大幅跳升——前 4 个故事覆盖 91% 题目。剩余 9% 考前一周再过即可。</p>
+
+    <div class="cum-wrap">
+      <div class="cum-head"><strong>🍳 Cooking</strong> · 22 题<span>22 / 53 · <span class="pct">42%</span></span></div>
+      <div class="cum-bar"><div class="cum-fill s1">学完 1 个故事</div></div>
+    </div>
+    <div class="cum-wrap">
+      <div class="cum-head"><strong>+ 🏞 Scenery</strong> · +15 题<span>37 / 53 · <span class="pct">70%</span></span></div>
+      <div class="cum-bar"><div class="cum-fill s2">学完 2 个故事</div></div>
+    </div>
+    <div class="cum-wrap">
+      <div class="cum-head"><strong>+ 💻 Technology</strong> · +6 题<span>43 / 53 · <span class="pct">81%</span></span></div>
+      <div class="cum-bar"><div class="cum-fill s3">学完 3 个故事</div></div>
+    </div>
+    <div class="cum-wrap">
+      <div class="cum-head"><strong>+ 🎨 Arts</strong> · +5 题<span>48 / 53 · <span class="pct">91%</span></span></div>
+      <div class="cum-bar"><div class="cum-fill s4">学完 4 个故事</div></div>
+    </div>
+
+    <div class="interconnect" style="margin-top:18px">
+      <span class="interconnect-icon">💡</span>
+      <div><strong>策略：</strong>先把 <strong>Cooking + Scenery</strong> 做到滚瓜烂熟（70%），考前再加 Tech + Arts（91%）。最后 5 题（Sports / Movies / Weight Loss）考前 1 周扫一遍即可。</div>
+    </div>
+  </section>
+
+  <!-- ═══ NPC INTERCHANGE ═══ -->
+  <section class="chap" id="npc">
+    <span class="chap-num">CHAPTER 04 · 宇宙内部逻辑</span>
+    <h2 class="chap-title">同一批人物，<em>不同故事里换角色</em></h2>
+    <p class="chap-sub">Lucy 不是一个固定身份的人——她在不同故事里扮演不同角色，但<strong>永远是同一个人</strong>。性格、外貌、跟"我"的关系始终一致。</p>
+
+    <div class="npc-card">
+      <div class="npc-card-head">
+        <div class="npc-avatar" data-npc-emoji>👩</div>
+        <div class="npc-card-info">
+          <div class="npc-card-name"><span class="ax" data-asset="lucy"><span data-npc>Lucy</span><span class="ax-count">42</span></span></div>
+          <div class="npc-card-tag">SHAPE-SHIFTING CHARACTER · 出现在 42 / 53 题</div>
+        </div>
+      </div>
+      <div class="npc-card-blurb">宇宙里最重要的人物。同一个 <span data-npc>Lucy</span>，随故事主题切换身份，但跟"我"的关系永远一致。<strong>记一个人，能讲 79% 的题</strong>。</div>
+      <div class="npc-roles-grid">
+        <div>🍳 Cooking → 建议我做 Fruit Roast Chicken 的同班好友</div>
+        <div>🏞 Scenery → 一起去 White Cloud Park 的同行旅伴</div>
+        <div>🏐 Sports → 国家排球运动员</div>
+        <div>🎨 Arts → 唱歌特别美的邻家姐姐</div>
+        <div>💻 Technology → 帮我选 MacBook 的数码顾问</div>
+        <div>🥗 Weight Loss → 推荐营养学书籍的健康达人</div>
+      </div>
+    </div>
+
+    <div class="npc-card chef">
+      <div class="npc-card-head">
+        <div class="npc-avatar">👴</div>
+        <div class="npc-card-info">
+          <div class="npc-card-name"><span class="ax" data-asset="grandpa">Grandpa · 爷爷大厨<span class="ax-count">4</span></span></div>
+          <div class="npc-card-tag">RECURRING FIGURE · COOKING / ARTS</div>
+        </div>
+      </div>
+      <div class="npc-card-blurb">知名的本地厨师，以创意著称。他的故事和食谱贯穿 Cooking 宇宙，也在 Arts 故事中作为"创意人物"出现。</div>
+      <div class="npc-roles-grid">
+        <div>🍳 Cooking → 创意菜品的发明者</div>
+        <div>🍳 Cooking → 手写 family recipe book 的主人</div>
+        <div>🎨 Arts → 把烹饪当艺术的创意榜样</div>
+        <div>🍗 <span class="ax" data-asset="frc">Fruit Roast Chicken<span class="ax-count">20</span></span> 的灵感源头</div>
+      </div>
+    </div>
+
+    <div class="interconnect" style="margin-top:14px">
+      <span class="interconnect-icon">🧠</span>
+      <div>考场上遇到题目，先判断它属于哪个故事——<span data-npc>Lucy</span> 和 Grandpa 就在那里等你。<strong>你要做的只是调整视角，不是从零想人物。</strong></div>
+    </div>
+  </section>
+
+  <!-- ═══ 4-STAGE FRAMEWORK ═══ -->
+  <section class="chap" id="frame">
+    <span class="chap-num">CHAPTER 05 · 回答框架</span>
+    <h2 class="chap-title">四段框架 · 每段都有<em>专属 Marker</em></h2>
+    <p class="chap-sub">把 2 分钟独白拆成 4 段，每段用一个 discourse marker 开场——考官 1 秒就知道你在哪个阶段。</p>
+
+    <div class="stages-grid">
+      <div class="stage">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><div class="stage-num">S1</div><div class="stage-time">≈ 10 秒</div></div>
+        <div class="stage-name">Answer Directly</div>
+        <div class="stage-desc">一句话直接回答题目，让考官立刻知道你在讲什么。</div>
+        <div class="stage-marker">"I'm going to talk about..."</div>
+      </div>
+      <div class="stage">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><div class="stage-num">S2</div><div class="stage-time">≈ 20 秒</div></div>
+        <div class="stage-name">Background</div>
+        <div class="stage-desc">从时间开始铺背景，给故事舞台，建立清晰背景。</div>
+        <div class="stage-marker">"I remember, that was around..."</div>
+      </div>
+      <div class="stage s3">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><div class="stage-num">S3</div><div class="stage-time">≈ 70 秒</div></div>
+        <div class="stage-name">Details ⭐</div>
+        <div class="stage-desc">主战场。情节、细节、5 拓展技巧全部在这里叠加使用。</div>
+        <div class="stage-marker">"Now let me tell you..."</div>
+      </div>
+      <div class="stage">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><div class="stage-num">S4</div><div class="stage-time">≈ 20 秒</div></div>
+        <div class="stage-name">Prospect</div>
+        <div class="stage-desc">朴实真实的收尾，未来打算或感受，不需要刻意升华。</div>
+        <div class="stage-marker">"Anyway, [总结一句]..."</div>
+      </div>
+    </div>
+
+    <div class="s3-callout">
+      <span class="ico">⚡</span>
+      <div><strong>S3 是主战场</strong> — 80% 的技巧、80% 的分数都在这里产生。接下来的 <strong>5 个拓展技巧</strong>，全部在 S3 叠加使用。</div>
+    </div>
+  </section>
+
+  <!-- ═══ 5 SKILLS OVERVIEW ═══ -->
+  <section class="chap" id="skills">
+    <span class="chap-num gold">CHAPTER 06</span>
+    <h2 class="chap-title">五个拓展技巧 · <span class="gold-em">S3 工具箱</span></h2>
+    <p class="chap-sub">这五个技巧不只为 P2 准备——贯穿 P1、P2、P3，<strong>掌握一次，三个 Part 全都能用</strong>。</p>
+
+    <div class="skill-overview">
+      <a class="skill-card" href="#skill1">
+        <span class="skill-tag">SKILL 01</span>
+        <div class="skill-name">主体 + 客体</div>
+        <div class="skill-blurb">物→我，一个维度变两个</div>
+        <div class="skill-applies"><span>P1 ✓</span><span>P2 ✓</span><span>P3 ✓</span></div>
+      </a>
+      <a class="skill-card" href="#skill2">
+        <span class="skill-tag">SKILL 02</span>
+        <div class="skill-name">对比手法</div>
+        <div class="skill-blurb">找对照组，瞬间多 30 秒</div>
+        <div class="skill-applies"><span>P1 ✓</span><span>P2 ✓</span><span>P3 ✓</span></div>
+      </a>
+      <a class="skill-card" href="#skill3">
+        <span class="skill-tag">SKILL 03</span>
+        <div class="skill-name">举例技巧</div>
+        <div class="skill-blurb">P1 背景举例 / P3 细化举例</div>
+        <div class="skill-applies"><span>P1 背景</span><span>P3 细化</span></div>
+      </a>
+      <a class="skill-card" href="#skill4">
+        <span class="skill-tag">SKILL 04 · NEW</span>
+        <div class="skill-name">睹物思人</div>
+        <div class="skill-blurb">物→人，让答案有人物温度</div>
+        <div class="skill-applies"><span>P2 ✓</span><span>物品题专精</span></div>
+      </a>
+      <a class="skill-card" href="#skill5">
+        <span class="skill-tag">SKILL 05</span>
+        <div class="skill-name">自律万金油</div>
+        <div class="skill-blurb">谈技能/习惯立刻有内容</div>
+        <div class="skill-applies"><span>P1 ✓</span><span>P2 ✓</span><span>P3 ✓</span></div>
+      </a>
+    </div>
+
+    <div class="interconnect">
+      <span class="interconnect-icon">🛠</span>
+      <div><strong>关键认知：</strong>S3 是工具箱，技巧不是"二选一"——而是<strong>叠加使用</strong>。一段 70 秒的 S3 里，主体客体 + 对比 + 举例 三个技巧可以无缝交织。本章末尾有完整叠加示范。</div>
+    </div>
+  </section>
+
+  <!-- ═══ SKILL 1 ═══ -->
+  <section class="chap" id="skill1">
+    <span class="chap-num">SKILL 01</span>
+    <h2 class="chap-title">主体 + 客体</h2>
+    <p class="chap-sub">描述事物（客体）时，立刻延伸到"我 / 感受 / 关联"（主体）。<strong>一个维度变两个，篇幅翻倍。</strong></p>
+
+    <div class="skill-detail">
+      <div class="sd-formula">公式：客体（事物本身） → 主体（"我"或"我的感受/关联"）</div>
+      <div class="sd-examples">
+        <div class="sd-ex">
+          <div class="sd-ex-head">🖥️ 描述物品 · MacBook</div>
+          <div class="sd-ex-body"><em>客体：</em>"Its battery life is super long..." → <em>主体：</em>"I'm a student, I don't need to carry a charger every time I leave my apartment — super convenient."</div>
+        </div>
+        <div class="sd-ex">
+          <div class="sd-ex-head">🌿 描述地点 · Park</div>
+          <div class="sd-ex-body"><em>客体：</em>"It's a small park near my apartment..." → <em>主体：</em>"For me, it's the most peaceful place in the city — I go there every weekend to clear my head."</div>
+        </div>
+        <div class="sd-ex">
+          <div class="sd-ex-head">🎬 描述电影 · Forrest Gump</div>
+          <div class="sd-ex-body"><em>客体：</em>"It tells the story of a man with a low IQ who lives an extraordinary life..." → <em>主体：</em>"It really inspired me — every time I want to give up, I think of Forrest just running."</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SKILL 2 ═══ -->
+  <section class="chap" id="skill2">
+    <span class="chap-num">SKILL 02</span>
+    <h2 class="chap-title">对比手法</h2>
+    <p class="chap-sub">任何主题都能找到对照组——<strong>瞬间多说 30 秒</strong>，同时突出主体的独特性。</p>
+
+    <div class="skill-detail">
+      <div class="sd-formula">公式：找一个对照组 → "好/坏"或"普通/特别"或"以前/现在"</div>
+
+      <div style="font-size:12px;color:var(--ink-3);margin-bottom:8px;font-weight:600">🏛️ Unusual Building</div>
+      <div class="vs-grid">
+        <div class="vs-card"><div class="vs-card-h">现代城市建筑</div><div class="vs-card-b">高耸入云、玻璃幕墙、冰冷钢铁</div></div>
+        <div class="vs-sep">VS</div>
+        <div class="vs-card"><div class="vs-card-h">古老寺庙</div><div class="vs-card-b">红墙黛瓦、雕梁画栋、香火缭绕</div></div>
+      </div>
+
+      <div style="font-size:12px;color:var(--ink-3);margin:14px 0 8px;font-weight:600">🍳 Creative Cooking</div>
+      <div class="vs-grid">
+        <div class="vs-card"><div class="vs-card-h">无聊的食物</div><div class="vs-card-b">KFC、汉堡、披萨 — too boring</div></div>
+        <div class="vs-sep">VS</div>
+        <div class="vs-card"><div class="vs-card-h">创意菜品</div><div class="vs-card-b">Fruit Roast Chicken — weird but amazing</div></div>
+      </div>
+
+      <div style="font-size:12px;color:var(--ink-3);margin:14px 0 8px;font-weight:600">💻 MacBook vs Windows</div>
+      <div class="vs-grid">
+        <div class="vs-card"><div class="vs-card-h">MacBook</div><div class="vs-card-b">Sleek, smooth OS, long battery</div></div>
+        <div class="vs-sep">VS</div>
+        <div class="vs-card"><div class="vs-card-h">Windows Laptop</div><div class="vs-card-b">Affordable, gaming-friendly, flexible</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SKILL 3 ═══ -->
+  <section class="chap" id="skill3">
+    <span class="chap-num">SKILL 03</span>
+    <h2 class="chap-title">举例技巧</h2>
+    <p class="chap-sub">P1 叫"背景举例"，P3 叫"细化举例"——本质都是：用一个具体的<strong>时间 + 地点 + 场景</strong>，把抽象的一句话变成真实的画面。</p>
+
+    <div class="skill-detail">
+      <div class="sd-formula">公式：抽象观点 → "Just [时间], I [地点] [具体发生了什么]"</div>
+      <div class="sd-examples">
+        <div class="sd-ex">
+          <div class="sd-ex-head">P1 · 背景举例</div>
+          <div class="sd-ex-body"><strong style="font-style:normal">Q: Do you like walking?</strong><br>"Absolutely, I love walking quite a lot. Actually, <em>just yesterday morning, I went to a park near my home and walked around for about half an hour</em>. The air was really fresh and it helped me clear my head before starting the day."</div>
+        </div>
+        <div class="sd-ex">
+          <div class="sd-ex-head">P3 · 细化举例</div>
+          <div class="sd-ex-body"><strong style="font-style:normal">Q: Do you think young people today are less patient?</strong><br>"I think so. <em>For example, my friend <span data-npc>Lucy</span> told me she used to practice volleyball for three hours every single day — even when she was exhausted</em>. That kind of patience is really rare now."</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SKILL 4 · 睹物思人 NEW ═══ -->
+  <section class="chap" id="skill4">
+    <span class="chap-num gold">SKILL 04 · 新增</span>
+    <h2 class="chap-title">睹物思人</h2>
+    <p class="chap-sub">描述<strong>物品 / 地点 / 场景</strong>题时，从客体延伸到"另一个人物"——让答案瞬间有<strong>人物温度</strong>，避免冷冰冰的说明文。</p>
+
+    <div class="skill-detail">
+      <div class="sd-formula">公式：物 → 人 · "Whenever I see / use ___, I'm reminded of ___"</div>
+      <div style="background:var(--beiya-soft);padding:12px 16px;border-radius:8px;font-size:12.5px;color:var(--ink-2);margin-bottom:14px;line-height:1.7"><strong>与 SKILL 01 区别：</strong>主体客体是"物 → <strong>我自己</strong>"；睹物思人是"物 → <strong>另一个人</strong>"。当题目要求里就有"我"（如 "describe a habit you want to develop"），先用 01；当题目偏物本身（如 "describe an important item"），用 04 引入人物。</div>
+      <div class="sd-examples">
+        <div class="sd-ex">
+          <div class="sd-ex-head">📖 Q3 · Family recipe book → 爷爷</div>
+          <div class="sd-ex-body">"It's an old handwritten recipe book... <em>Whenever I open it, I'm reminded of my grandpa</em> — he used to flip through these pages every morning, scribbling new ideas in the margins. The book itself isn't expensive, but every page carries his handwriting and his memory."</div>
+        </div>
+        <div class="sd-ex">
+          <div class="sd-ex-head">🎸 Q · Guitar → Lucy</div>
+          <div class="sd-ex-body">"It's a small acoustic guitar... <em>Whenever I see it sitting in the corner, I'm reminded of <span data-npc>Lucy</span></em> — she used to practice every morning at 6, singing along until her voice got hoarse. The guitar isn't really mine, but it makes me think of her every time."</div>
+        </div>
+        <div class="sd-ex">
+          <div class="sd-ex-head">🌳 Q · Childhood Park → 童年朋友</div>
+          <div class="sd-ex-body">"It's a quiet little park behind my old elementary school... <em>Whenever I walk past it, I'm reminded of my best friend from back then</em> — we used to climb the trees together, race each other to the swings. The park is exactly the same, but everything else has changed."</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SKILL 5 ═══ -->
+  <section class="chap" id="skill5">
+    <span class="chap-num">SKILL 05</span>
+    <h2 class="chap-title">自律万金油</h2>
+    <p class="chap-sub">凡是聊到「<strong>技能 / 学习 / 改变 / 习惯</strong>」——都可以套上 self-discipline，立刻有内容、有深度。</p>
+
+    <div class="skill-detail">
+      <div class="sd-formula">"___ requires a lot of self-discipline — you have to keep practicing every single day, even when you don't feel like it."</div>
+      <div class="disc-grid">
+        <div class="disc-card"><div class="disc-em">🎨</div><div class="disc-name">Drawing</div><div class="disc-detail">becoming good at drawing</div></div>
+        <div class="disc-card"><div class="disc-em">🎤</div><div class="disc-name">Singing</div><div class="disc-detail">training your voice daily</div></div>
+        <div class="disc-card"><div class="disc-em">🏀</div><div class="disc-name">Sports</div><div class="disc-detail">improving your skills</div></div>
+        <div class="disc-card"><div class="disc-em">📚</div><div class="disc-name">Learning English</div><div class="disc-detail">memorizing vocabulary</div></div>
+        <div class="disc-card"><div class="disc-em">💪</div><div class="disc-name">Weight Loss</div><div class="disc-detail">sticking to a plan</div></div>
+        <div class="disc-card"><div class="disc-em">🎹</div><div class="disc-name">Any Skill</div><div class="disc-detail">any habit you build</div></div>
+      </div>
+      <div class="interconnect" style="margin-top:14px">
+        <span class="interconnect-icon">⭐</span>
+        <div><strong>关键词触发：</strong>技能 / 习惯 / 改变 / 坚持 → 立刻想到 self-discipline，套上万能句，<strong>内容瞬间有了</strong>。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ STACK DEMO ═══ -->
+  <section class="chap" id="stack">
+    <span class="chap-num gold">CHAPTER 07 · 实战</span>
+    <h2 class="chap-title">S3 里，<em>技巧是可以叠加的</em></h2>
+    <p class="chap-sub">高分不是来自"用了一个技巧"——而是在 S3 里把多个技巧<strong>自然地叠在一起</strong>。</p>
+
+    <div class="stack-q">
+      <div class="stack-q-lbl">🍳 COOKING · Q1 · S3 完整示范</div>
+      <div class="stack-q-text">Describe a time you needed to use your imagination</div>
+    </div>
+
+    <div class="stack-block">
+      <div class="sb-head"><span class="sb-marker">S3 MARKER</span></div>
+      <div class="sb-text">Now let me tell you how I used my imagination.</div>
+    </div>
+
+    <div class="stack-block">
+      <div class="sb-head"><span class="sb-marker">展开 1</span><span class="sb-skill">SKILL 01 · 主体客体</span></div>
+      <div class="sb-text">Our teacher said: <em>no fast food — too boring</em>. So I had to think of something creative. I came up with <em><span class="ax" data-asset="frc">Fruit Roast Chicken<span class="ax-count">20</span></span></em> — fruits mixed with chicken. The dish itself looked <em>mouth-watering</em>. And for me personally, it was the first time I realized I actually had some talent for cooking.</div>
+    </div>
+
+    <div class="stack-block">
+      <div class="sb-head"><span class="sb-marker">展开 2</span><span class="sb-skill">SKILL 02 · 对比</span></div>
+      <div class="sb-text">Compare this to what I would've done before — I would've just ordered KFC like everyone else. <em>Boring, predictable, no story to tell</em>. But this time, I pushed myself out of my comfort zone, and the result was completely different.</div>
+    </div>
+
+    <div class="stack-block">
+      <div class="sb-head"><span class="sb-marker">展开 3</span><span class="sb-skill">SKILL 03 · 举例细化</span></div>
+      <div class="sb-text">When I brought it to the potluck, <em>everyone went silent for a second — then they all reached out to try a piece. <span data-npc>Lucy</span> said it tasted "weird but amazing"</em>. That moment was when I knew the imagination paid off.</div>
+    </div>
+
+    <div class="interconnect" style="margin-top:18px">
+      <span class="interconnect-icon">🎯</span>
+      <div><strong>看完这段你应该感受到：</strong>S3 里的 70 秒不是匀速描述——是一波一波叠加的小高潮。每个技巧都为下一个技巧让出空间，最后落到 S4 的"From then on, I'm always looking for new ideas in the kitchen."</div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="cta-section" id="go">
+    <h1 class="cta-h">现在，<em>开始第一个故事</em></h1>
+    <p class="cta-p">读完方法论只是开始。Cooking 是 22 题、42% 覆盖率的 flagship 故事，是收益最高的起手。</p>
+    <a class="cta-btn">🍳 进入 Creative Cooking · 22 题 →</a>
+    <div class="cta-secondary">还想看其他故事？<a href="#">回到素材宇宙首页</a></div>
+  </section>
+
+</main>
+
+<div class="footer">
+  <strong>北雅国际教育</strong> · IELTS Speaking P2 完整方法论 v1 · 1 个宇宙 · 7 故事 · 4 段框架 · 5 拓展技巧
+</div>
+
+<!-- PORTAL OVERLAY -->
+<div class="portal-bg" id="portalBg">
+  <div class="portal" onclick="event.stopPropagation()">
+    <div class="portal-head">
+      <div class="portal-icon" id="pIcon">👤</div>
+      <div class="portal-titlewrap">
+        <div class="portal-name" id="pName">Lucy</div>
+        <div class="portal-meta" id="pMeta"></div>
+      </div>
+      <div class="portal-close" id="pClose">✕</div>
+    </div>
+    <div class="portal-list" id="pList"></div>
+  </div>
+</div>
+
+<script>
+  // gidOf: 按故事名 + 故事内 Q 号 → 全局 global_id
+  window.gidOf = function(storyName, qg){
+    qg = parseInt(qg);
+    var q = (window.P2_DATA||[]).find(function(x){return x.group===storyName && x.q_num_in_group===qg;});
+    return q ? q.global_id : 1;
+  };
+  // Auth gate
+  try{ if(localStorage.getItem('beiya_authed') !== '1') window.location.href = '学生端_登录_v1.html'; }catch(e){}
+
+  // NPC swap
+  const NPC = { female:{name:'Lucy', emoji:'👩'}, male:{name:'Mark', emoji:'👨'} };
+  function applyGender(g){
+    const n = NPC[g] || NPC.female;
+    document.querySelectorAll('[data-npc]').forEach(el => el.textContent = n.name);
+    document.querySelectorAll('[data-npc-emoji]').forEach(el => el.textContent = n.emoji);
+    document.querySelectorAll('.role-opt').forEach(el => el.classList.toggle('on', el.dataset.g===g));
+    try{ localStorage.setItem('beiya_gender', g); }catch(e){}
+  }
+  let curG='female';
+  try{ curG = localStorage.getItem('beiya_gender') || 'female'; }catch(e){}
+  applyGender(curG);
+  document.querySelectorAll('.role-opt').forEach(el=> el.addEventListener('click', ()=> applyGender(el.dataset.g)));
+
+  // Progress bar
+  window.addEventListener('scroll', ()=>{
+    const h = document.documentElement;
+    const pct = h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
+    document.getElementById('progFill').style.width = pct + '%';
+  });
+
+  // Chapter nav active state
+  const chapters = document.querySelectorAll('.chap, .hero, .cta-section');
+  const chapLinks = document.querySelectorAll('.chap-link');
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const id = e.target.id;
+        chapLinks.forEach(l => l.classList.toggle('on', l.getAttribute('href')==='#'+id));
+      }
+    });
+  }, {rootMargin:'-30% 0px -60% 0px'});
+  chapters.forEach(c => obs.observe(c));
+</script>
+
+<script id="indexData">
+const ASSET_INDEX = {"a":{"lucy":{"n":"Lucy","t":"person","e":"👤"},"grandpa":{"n":"Grandpa · 爷爷","t":"person","e":"👴"},"teacher":{"n":"老师","t":"person","e":"👩‍🏫"},"neighbor":{"n":"邻居","t":"person","e":"👵"},"coach":{"n":"教练","t":"person","e":"🧑‍🏫"},"jackie":{"n":"Jackie Chan","t":"person","e":"🎬"},"frc":{"n":"Fruit Roast Chicken","t":"thing","e":"🍗"},"recipe-book":{"n":"Family recipe book","t":"thing","e":"📖"},"macbook":{"n":"MacBook","t":"thing","e":"💻"},"guitar":{"n":"Guitar 吉他","t":"thing","e":"🎸"},"chatgpt":{"n":"ChatGPT","t":"thing","e":"🤖"},"nutrition":{"n":"营养学的书","t":"thing","e":"📗"},"teacher-home":{"n":"老师家","t":"place","e":"🏠"},"wc-park":{"n":"White Cloud Park","t":"place","e":"🌳"},"wc-temple":{"n":"White Cloud Temple","t":"place","e":"🛕"},"electronics":{"n":"电子城","t":"place","e":"🏬"},"potluck":{"n":"Potluck dinner","t":"event","e":"🍽"},"midautumn":{"n":"中秋节","t":"event","e":"🌕"},"singing":{"n":"唱歌比赛","t":"event","e":"🎤"},"picnic":{"n":"Picnic","t":"event","e":"🧺"},"music-fest":{"n":"学校音乐节","t":"event","e":"🎵"},"mouth-watering":{"n":"mouth-watering","t":"expr","e":"⭐"},"finger-licking":{"n":"finger-licking good","t":"expr","e":"⭐"},"homemade":{"n":"homemade","t":"expr","e":"⭐"}},"i":{"teacher":[{"g":1,"s":"Creative Cooking","em":"🍳","qg":1,"t":"Describe a time you needed to use your imagination","c":"事件"},{"g":16,"s":"Creative Cooking","em":"🍳","qg":16,"t":"Describe one of your friends who learned something new without a teacher","c":"人物"},{"g":48,"s":"Arts","em":"🎨","qg":5,"t":"Describe an occasion when you were not allowed to use your mobile phone","c":"事件"},{"g":52,"s":"Movies","em":"🎬","qg":2,"t":"Describe a story (like a fairy tale, etc.) you have read recently","c":"物品"}],"frc":[{"g":1,"s":"Creative Cooking","em":"🍳","qg":1,"t":"Describe a time you needed to use your imagination","c":"事件"},{"g":2,"s":"Creative Cooking","em":"🍳","qg":2,"t":"Describe a time when you gave advice to others","c":"事件"},{"g":4,"s":"Creative Cooking","em":"🍳","qg":4,"t":"Describe a person who solved a problem in a smart way","c":"人物"},{"g":5,"s":"Creative Cooking","em":"🍳","qg":5,"t":"Describe a perfect job you would like to have in the future","c":"物品"},{"g":6,"s":"Creative Cooking","em":"🍳","qg":6,"t":"Describe a time when you encouraged someone to do something he/she didn't want to do","c":"事件"},{"g":7,"s":"Creative Cooking","em":"🍳","qg":7,"t":"Describe a great dinner you and your friends or family members enjoyed","c":"物品"},{"g":8,"s":"Creative Cooking","em":"🍳","qg":8,"t":"Describe an exciting activity you have tried for the first time","c":"事件"},{"g":9,"s":"Creative Cooking","em":"🍳","qg":9,"t":"Describe a person you know who enjoys working for a family business","c":"人物"},{"g":10,"s":"Creative Cooking","em":"🍳","qg":10,"t":"Describe a creative person you admire","c":"人物"},{"g":11,"s":"Creative Cooking","em":"🍳","qg":11,"t":"Describe a time when you waited for something special that would happen","c":"事件"},{"g":12,"s":"Creative Cooking","em":"🍳","qg":12,"t":"Describe a book you read that you found useful","c":"物品"},{"g":13,"s":"Creative Cooking","em":"🍳","qg":13,"t":"Describe a time you saw something interesting on social media","c":"事件"},{"g":14,"s":"Creative Cooking","em":"🍳","qg":14,"t":"Describe a time when someone apologized to you","c":"事件"},{"g":15,"s":"Creative Cooking","em":"🍳","qg":15,"t":"Describe a good habit your friend has and you want to develop","c":"物品"},{"g":16,"s":"Creative Cooking","em":"🍳","qg":16,"t":"Describe one of your friends who learned something new without a teacher","c":"人物"},{"g":17,"s":"Creative Cooking","em":"🍳","qg":17,"t":"Describe an intelligent person you know","c":"人物"},{"g":18,"s":"Creative Cooking","em":"🍳","qg":18,"t":"Describe an important choice made with the help of other people","c":"事件"},{"g":19,"s":"Creative Cooking","em":"🍳","qg":19,"t":"Describe a TV or online program you like to watch","c":"物品"},{"g":20,"s":"Creative Cooking","em":"🍳","qg":20,"t":"Describe a program or app on your computer or phone","c":"物品"},{"g":21,"s":"Creative Cooking","em":"🍳","qg":21,"t":"Describe an occasion when many people were smiling","c":"事件"}],"teacher-home":[{"g":1,"s":"Creative Cooking","em":"🍳","qg":1,"t":"Describe a time you needed to use your imagination","c":"事件"}],"potluck":[{"g":1,"s":"Creative Cooking","em":"🍳","qg":1,"t":"Describe a time you needed to use your imagination","c":"事件"},{"g":2,"s":"Creative Cooking","em":"🍳","qg":2,"t":"Describe a time when you gave advice to others","c":"事件"},{"g":4,"s":"Creative Cooking","em":"🍳","qg":4,"t":"Describe a person who solved a problem in a smart way","c":"人物"},{"g":6,"s":"Creative Cooking","em":"🍳","qg":6,"t":"Describe a time when you encouraged someone to do something he/she didn't want to do","c":"事件"},{"g":7,"s":"Creative Cooking","em":"🍳","qg":7,"t":"Describe a great dinner you and your friends or family members enjoyed","c":"物品"},{"g":8,"s":"Creative Cooking","em":"🍳","qg":8,"t":"Describe an exciting activity you have tried for the first time","c":"事件"},{"g":11,"s":"Creative Cooking","em":"🍳","qg":11,"t":"Describe a time when you waited for something special that would happen","c":"事件"},{"g":13,"s":"Creative Cooking","em":"🍳","qg":13,"t":"Describe a time you saw something interesting on social media","c":"事件"},{"g":14,"s":"Creative Cooking","em":"🍳","qg":14,"t":"Describe a time when someone apologized to you","c":"事件"},{"g":15,"s":"Creative Cooking","em":"🍳","qg":15,"t":"Describe a good habit your friend has and you want to develop","c":"物品"},{"g":16,"s":"Creative Cooking","em":"🍳","qg":16,"t":"Describe one of your friends who learned something new without a teacher","c":"人物"},{"g":17,"s":"Creative Cooking","em":"🍳","qg":17,"t":"Describe an intelligent person you know","c":"人物"},{"g":18,"s":"Creative Cooking","em":"🍳","qg":18,"t":"Describe an important choice made with the help of other people","c":"事件"},{"g":19,"s":"Creative Cooking","em":"🍳","qg":19,"t":"Describe a TV or online program you like to watch","c":"物品"},{"g":20,"s":"Creative Cooking","em":"🍳","qg":20,"t":"Describe a program or app on your computer or phone","c":"物品"},{"g":21,"s":"Creative Cooking","em":"🍳","qg":21,"t":"Describe an occasion when many people were smiling","c":"事件"}],"midautumn":[{"g":1,"s":"Creative Cooking","em":"🍳","qg":1,"t":"Describe a time you needed to use your imagination","c":"事件"},{"g":2,"s":"Creative Cooking","em":"🍳","qg":2,"t":"Describe a time when you gave advice to others","c":"事件"},{"g":4,"s":"Creative Cooking","em":"🍳","qg":4,"t":"Describe a person who solved a problem in a smart way","c":"人物"},{"g":6,"s":"Creative Cooking","em":"🍳","qg":6,"t":"Describe a time when you encouraged someone to do something he/she didn't want to do","c":"事件"},{"g":7,"s":"Creative Cooking","em":"🍳","qg":7,"t":"Describe a great dinner you and your friends or family members enjoyed","c":"物品"},{"g":8,"s":"Creative Cooking","em":"🍳","qg":8,"t":"Describe an exciting activity you have tried for the first time","c":"事件"},{"g":11,"s":"Creative Cooking","em":"🍳","qg":11,"t":"Describe a time when you waited for something special that would happen","c":"事件"},{"g":13,"s":"Creative Cooking","em":"🍳","qg":13,"t":"Describe a time you saw something interesting on social media","c":"事件"},{"g":15,"s":"Creative Cooking","em":"🍳","qg":15,"t":"Describe a good habit your friend has and you want to develop","c":"物品"},{"g":16,"s":"Creative Cooking","em":"🍳","qg":16,"t":"Describe one of your friends who learned something new without a teacher","c":"人物"},{"g":17,"s":"Creative Cooking","em":"🍳","qg":17,"t":"Describe an intelligent person you know","c":"人物"},{"g":18,"s":"Creative Cooking","em":"🍳","qg":18,"t":"Describe an important choice made with the help of other people","c":"事件"},{"g":19,"s":"Creative Cooking","em":"🍳","qg":19,"t":"Describe a TV or online program you like to watch","c":"物品"},{"g":20,"s":"Creative Cooking","em":"🍳","qg":20,"t":"Describe a program or app on your computer or phone","c":"物品"},{"g":21,"s":"Creative Cooking","em":"🍳","qg":21,"t":"Describe an occasion when many people were smiling","c":"事件"}],"mouth-watering":[{"g":1,"s":"Creative Cooking","em":"🍳","qg":1,"t":"Describe a time you needed to use your imagination","c":"事件"},{"g":2,"s":"Creative Cooking","em":"🍳","qg":2,"t":"Describe a time when you gave advice to others","c":"事件"},{"g":4,"s":"Creative Cooking","em":"🍳","qg":4,"t":"Describe a person who solved a problem in a smart way","c":"人物"},{"g":8,"s":"Creative Cooking","em":"🍳","qg":8,"t":"Describe an exciting activity you have tried for the first time","c":"事件"},{"g":9,"s":"Creative Cooking","em":"🍳","qg":9,"t":"Describe a person you know who enjoys working for a family business","c":"人物"},{"g":10,"s":"Creative Cooking","em":"🍳","qg":10,"t":"Describe a creative person you admire","c":"人物"},{"g":11,"s":"Creative Cooking","em":"🍳","qg":11,"t":"Describe a time when you waited for something special that would happen","c":"事件"},{"g":12,"s":"Creative Cooking","em":"🍳","qg":12,"t":"Describe a book you read that you found useful","c":"物品"},{"g":13,"s":"Creative Cooking","em":"🍳","qg":13,"t":"Describe a time you saw something interesting on social media","c":"事件"},{"g":14,"s":"Creative Cooking","em":"🍳","qg":14,"t":"Describe a time when someone apologized to you","c":"事件"},{"g":15,"s":"Creative Cooking","em":"🍳","qg":15,"t":"Describe a good habit your friend has and you want to develop","c":"物品"},{"g":16,"s":"Creative Cooking","em":"🍳","qg":16,"t":"Describe one of your friends who learned something new without a teacher","c":"人物"},{"g":17,"s":"Creative Cooking","em":"🍳","qg":17,"t":"Describe an intelligent person you know","c":"人物"},{"g":18,"s":"Creative Cooking","em":"🍳","qg":18,"t":"Describe an important choice made with the help of other people","c":"事件"},{"g":19,"s":"Creative Cooking","em":"🍳","qg":19,"t":"Describe a TV or online program you like to watch","c":"物品"},{"g":20,"s":"Creative Cooking","em":"🍳","qg":20,"t":"Describe a program or app on your computer or phone","c":"物品"},{"g":22,"s":"Creative Cooking","em":"🍳","qg":22,"t":"Describe a time when you felt proud of a family member","c":"事件"}],"finger-licking":[{"g":1,"s":"Creative Cooking","em":"🍳","qg":1,"t":"Describe a time you needed to use your imagination","c":"事件"},{"g":2,"s":"Creative Cooking","em":"🍳","qg":2,"t":"Describe a time when you gave advice to others","c":"事件"},{"g":4,"s":"Creative Cooking","em":"🍳","qg":4,"t":"Describe a person who solved a problem in a smart way","c":"人物"},{"g":5,"s":"Creative Cooking","em":"🍳","qg":5,"t":"Describe a perfect job you would like to have in the future","c":"物品"},{"g":6,"s":"Creative Cooking","em":"🍳","qg":6,"t":"Describe a time when you encouraged someone to do something he/she didn't want to do","c":"事件"},{"g":7,"s":"Creative Cooking","em":"🍳","qg":7,"t":"Describe a great dinner you and your friends or family members enjoyed","c":"物品"},{"g":8,"s":"Creative Cooking","em":"🍳","qg":8,"t":"Describe an exciting activity you have tried for the first time","c":"事件"},{"g":9,"s":"Creative Cooking","em":"🍳","qg":9,"t":"Describe a person you know who enjoys working for a family business","c":"人物"},{"g":10,"s":"Creative Cooking","em":"🍳","qg":10,"t":"Describe a creative person you admire","c":"人物"},{"g":11,"s":"Creative Cooking","em":"🍳","qg":11,"t":"Describe a time when you waited for something special that would happen","c":"事件"},{"g":12,"s":"Creative Cooking","em":"🍳","qg":12,"t":"Describe a book you read that you found useful","c":"物品"},{"g":13,"s":"Creative Cooking","em":"🍳","qg":13,"t":"Describe a time you saw something interesting on social media","c":"事件"},{"g":14,"s":"Creative Cooking","em":"🍳","qg":14,"t":"Describe a time when someone apologized to you","c":"事件"},{"g":15,"s":"Creative Cooking","em":"🍳","qg":15,"t":"Describe a good habit your friend has and you want to develop","c":"物品"},{"g":16,"s":"Creative Cooking","em":"🍳","qg":16,"t":"Describe one of your friends who learned something new without a teacher","c":"人物"},{"g":17,"s":"Creative Cooking","em":"🍳","qg":17,"t":"Describe an intelligent person you know","c":"人物"},{"g":18,"s":"Creative Cooking","em":"🍳","qg":18,"t":"Describe an important choice made with the help of other people","c":"事件"},{"g":19,"s":"Creative Cooking","em":"🍳","qg":19,"t":"Describe a TV or online program you like to watch","c":"物品"},{"g":20,"s":"Creative Cooking","em":"🍳","qg":20,"t":"Describe a program or app on your computer or phone","c":"物品"},{"g":21,"s":"Creative Cooking","em":"🍳","qg":21,"t":"Describe an occasion when many people were smiling","c":"事件"},{"g":22,"s":"Creative Cooking","em":"🍳","qg":22,"t":"Describe a time when you felt proud of a family member","c":"事件"}],"homemade":[{"g":1,"s":"Creative Cooking","em":"🍳","qg":1,"t":"Describe a time you needed to use your imagination","c":"事件"},{"g":2,"s":"Creative Cooking","em":"🍳","qg":2,"t":"Describe a time when you gave advice to others","c":"事件"},{"g":4,"s":"Creative Cooking","em":"🍳","qg":4,"t":"Describe a person who solved a problem in a smart way","c":"人物"},{"g":6,"s":"Creative Cooking","em":"🍳","qg":6,"t":"Describe a time when you encouraged someone to do something he/she didn't want to do","c":"事件"},{"g":7,"s":"Creative Cooking","em":"🍳","qg":7,"t":"Describe a great dinner you and your friends or family members enjoyed","c":"物品"},{"g":8,"s":"Creative Cooking","em":"🍳","qg":8,"t":"Describe an exciting activity you have tried for the first time","c":"事件"},{"g":11,"s":"Creative Cooking","em":"🍳","qg":11,"t":"Describe a time when you waited for something special that would happen","c":"事件"},{"g":14,"s":"Creative Cooking","em":"🍳","qg":14,"t":"Describe a time when someone apologized to you","c":"事件"},{"g":15,"s":"Creative Cooking","em":"🍳","qg":15,"t":"Describe a good habit your friend has and you want to develop","c":"物品"},{"g":16,"s":"Creative Cooking","em":"🍳","qg":16,"t":"Describe one of your friends who learned something new without a teacher","c":"人物"},{"g":17,"s":"Creative Cooking","em":"🍳","qg":17,"t":"Describe an intelligent person you know","c":"人物"},{"g":18,"s":"Creative Cooking","em":"🍳","qg":18,"t":"Describe an important choice made with the help of other people","c":"事件"},{"g":20,"s":"Creative Cooking","em":"🍳","qg":20,"t":"Describe a program or app on your computer or phone","c":"物品"},{"g":21,"s":"Creative Cooking","em":"🍳","qg":21,"t":"Describe an occasion when many people were smiling","c":"事件"}],"lucy":[{"g":2,"s":"Creative Cooking","em":"🍳","qg":2,"t":"Describe a time when you gave advice to others","c":"事件"},{"g":4,"s":"Creative Cooking","em":"🍳","qg":4,"t":"Describe a person who solved a problem in a smart way","c":"人物"},{"g":5,"s":"Creative Cooking","em":"🍳","qg":5,"t":"Describe a perfect job you would like to have in the future","c":"物品"},{"g":6,"s":"Creative Cooking","em":"🍳","qg":6,"t":"Describe a time when you encouraged someone to do something he/she didn't want to do","c":"事件"},{"g":9,"s":"Creative Cooking","em":"🍳","qg":9,"t":"Describe a person you know who enjoys working for a family business","c":"人物"},{"g":10,"s":"Creative Cooking","em":"🍳","qg":10,"t":"Describe a creative person you admire","c":"人物"},{"g":12,"s":"Creative Cooking","em":"🍳","qg":12,"t":"Describe a book you read that you found useful","c":"物品"},{"g":14,"s":"Creative Cooking","em":"🍳","qg":14,"t":"Describe a time when someone apologized to you","c":"事件"},{"g":15,"s":"Creative Cooking","em":"🍳","qg":15,"t":"Describe a good habit your friend has and you want to develop","c":"物品"},{"g":16,"s":"Creative Cooking","em":"🍳","qg":16,"t":"Describe one of your friends who learned something new without a teacher","c":"人物"},{"g":17,"s":"Creative Cooking","em":"🍳","qg":17,"t":"Describe an intelligent person you know","c":"人物"},{"g":18,"s":"Creative Cooking","em":"🍳","qg":18,"t":"Describe an important choice made with the help of other people","c":"事件"},{"g":20,"s":"Creative Cooking","em":"🍳","qg":20,"t":"Describe a program or app on your computer or phone","c":"物品"},{"g":23,"s":"Scenery","em":"🏞","qg":1,"t":"Describe an interesting building","c":"地点"},{"g":24,"s":"Scenery","em":"🏞","qg":2,"t":"Describe an unusual but interesting building you would like to visit","c":"地点"},{"g":25,"s":"Scenery","em":"🏞","qg":3,"t":"Describe the time when you first talked in a foreign language","c":"事件"},{"g":26,"s":"Scenery","em":"🏞","qg":4,"t":"Describe a short-term job you want to have in a foreign country","c":"事件"},{"g":27,"s":"Scenery","em":"🏞","qg":5,"t":"Describe a natural place","c":"地点"},{"g":28,"s":"Scenery","em":"🏞","qg":6,"t":"Describe a quiet place you like to go","c":"地点"},{"g":29,"s":"Scenery","em":"🏞","qg":7,"t":"Describe a person who likes to look after the natural world","c":"人物"},{"g":30,"s":"Scenery","em":"🏞","qg":8,"t":"Describe a long journey you had and would like to take again","c":"事件"},{"g":31,"s":"Scenery","em":"🏞","qg":9,"t":"Describe a city that you have been to and would like to visit again","c":"地点"},{"g":32,"s":"Scenery","em":"🏞","qg":10,"t":"Describe an occasion when you lost your way","c":"事件"},{"g":33,"s":"Scenery","em":"🏞","qg":11,"t":"Describe a time when the electricity suddenly went off","c":"事件"},{"g":34,"s":"Scenery","em":"🏞","qg":12,"t":"Describe a place you went to and an outdoor activity you did there","c":"地点"},{"g":35,"s":"Scenery","em":"🏞","qg":13,"t":"Describe a person who makes plans a lot and is good at planning","c":"人物"},{"g":36,"s":"Scenery","em":"🏞","qg":14,"t":"Describe a wild animal that you want to learn more about","c":"物品"},{"g":37,"s":"Scenery","em":"🏞","qg":15,"t":"Describe a toy you liked in your childhood","c":"物品"},{"g":38,"s":"Technology","em":"💻","qg":1,"t":"Describe an item on which you spent more than expected","c":"物品"},{"g":39,"s":"Technology","em":"💻","qg":2,"t":"Describe a piece of technology (not a phone) that you would like to own","c":"物品"},{"g":41,"s":"Technology","em":"💻","qg":4,"t":"Describe a time when you broke something","c":"事件"},{"g":42,"s":"Technology","em":"💻","qg":5,"t":"Describe a person who often helps others","c":"人物"},{"g":43,"s":"Technology","em":"💻","qg":6,"t":"Describe a good friend who is important to you","c":"人物"},{"g":44,"s":"Arts","em":"🎨","qg":1,"t":"Describe a child who loves drawing/painting","c":"人物"},{"g":45,"s":"Arts","em":"🎨","qg":2,"t":"Describe a friend of yours who is good at music/singing","c":"人物"},{"g":46,"s":"Arts","em":"🎨","qg":3,"t":"Describe a natural talent (sports, music, etc.) you want to improve","c":"物品"},{"g":47,"s":"Arts","em":"🎨","qg":4,"t":"Describe an event you attended in which you didn't enjoy the music played","c":"事件"},{"g":49,"s":"Sports","em":"🏐","qg":1,"t":"Describe a famous person you would like to meet","c":"人物"},{"g":50,"s":"Sports","em":"🏐","qg":2,"t":"Describe a successful sportsperson you admire","c":"人物"},{"g":51,"s":"Movies","em":"🎬","qg":1,"t":"Describe a movie you watched and enjoyed recently","c":"物品"},{"g":52,"s":"Movies","em":"🎬","qg":2,"t":"Describe a story (like a fairy tale, etc.) you have read recently","c":"物品"},{"g":53,"s":"Weight Loss","em":"🥗","qg":1,"t":"Describe an area/subject of science that you are interested in and would like to learn more about","c":"物品"}],"grandpa":[{"g":3,"s":"Creative Cooking","em":"🍳","qg":3,"t":"Describe something important that has been kept in your family for a long time","c":"物品"},{"g":9,"s":"Creative Cooking","em":"🍳","qg":9,"t":"Describe a person you know who enjoys working for a family business","c":"人物"},{"g":10,"s":"Creative Cooking","em":"🍳","qg":10,"t":"Describe a creative person you admire","c":"人物"},{"g":12,"s":"Creative Cooking","em":"🍳","qg":12,"t":"Describe a book you read that you found useful","c":"物品"}],"recipe-book":[{"g":3,"s":"Creative Cooking","em":"🍳","qg":3,"t":"Describe something important that has been kept in your family for a long time","c":"物品"},{"g":12,"s":"Creative Cooking","em":"🍳","qg":12,"t":"Describe a book you read that you found useful","c":"物品"},{"g":22,"s":"Creative Cooking","em":"🍳","qg":22,"t":"Describe a time when you felt proud of a family member","c":"事件"}],"neighbor":[{"g":5,"s":"Creative Cooking","em":"🍳","qg":5,"t":"Describe a perfect job you would like to have in the future","c":"物品"},{"g":9,"s":"Creative Cooking","em":"🍳","qg":9,"t":"Describe a person you know who enjoys working for a family business","c":"人物"},{"g":10,"s":"Creative Cooking","em":"🍳","qg":10,"t":"Describe a creative person you admire","c":"人物"},{"g":12,"s":"Creative Cooking","em":"🍳","qg":12,"t":"Describe a book you read that you found useful","c":"物品"},{"g":44,"s":"Arts","em":"🎨","qg":1,"t":"Describe a child who loves drawing/painting","c":"人物"}],"chatgpt":[{"g":20,"s":"Creative Cooking","em":"🍳","qg":20,"t":"Describe a program or app on your computer or phone","c":"物品"}],"wc-temple":[{"g":23,"s":"Scenery","em":"🏞","qg":1,"t":"Describe an interesting building","c":"地点"},{"g":31,"s":"Scenery","em":"🏞","qg":9,"t":"Describe a city that you have been to and would like to visit again","c":"地点"},{"g":32,"s":"Scenery","em":"🏞","qg":10,"t":"Describe an occasion when you lost your way","c":"事件"},{"g":37,"s":"Scenery","em":"🏞","qg":15,"t":"Describe a toy you liked in your childhood","c":"物品"}],"wc-park":[{"g":27,"s":"Scenery","em":"🏞","qg":5,"t":"Describe a natural place","c":"地点"},{"g":28,"s":"Scenery","em":"🏞","qg":6,"t":"Describe a quiet place you like to go","c":"地点"},{"g":29,"s":"Scenery","em":"🏞","qg":7,"t":"Describe a person who likes to look after the natural world","c":"人物"},{"g":30,"s":"Scenery","em":"🏞","qg":8,"t":"Describe a long journey you had and would like to take again","c":"事件"},{"g":31,"s":"Scenery","em":"🏞","qg":9,"t":"Describe a city that you have been to and would like to visit again","c":"地点"},{"g":32,"s":"Scenery","em":"🏞","qg":10,"t":"Describe an occasion when you lost your way","c":"事件"},{"g":33,"s":"Scenery","em":"🏞","qg":11,"t":"Describe a time when the electricity suddenly went off","c":"事件"},{"g":34,"s":"Scenery","em":"🏞","qg":12,"t":"Describe a place you went to and an outdoor activity you did there","c":"地点"},{"g":35,"s":"Scenery","em":"🏞","qg":13,"t":"Describe a person who makes plans a lot and is good at planning","c":"人物"},{"g":36,"s":"Scenery","em":"🏞","qg":14,"t":"Describe a wild animal that you want to learn more about","c":"物品"}],"picnic":[{"g":27,"s":"Scenery","em":"🏞","qg":5,"t":"Describe a natural place","c":"地点"},{"g":29,"s":"Scenery","em":"🏞","qg":7,"t":"Describe a person who likes to look after the natural world","c":"人物"},{"g":30,"s":"Scenery","em":"🏞","qg":8,"t":"Describe a long journey you had and would like to take again","c":"事件"},{"g":31,"s":"Scenery","em":"🏞","qg":9,"t":"Describe a city that you have been to and would like to visit again","c":"地点"},{"g":32,"s":"Scenery","em":"🏞","qg":10,"t":"Describe an occasion when you lost your way","c":"事件"},{"g":33,"s":"Scenery","em":"🏞","qg":11,"t":"Describe a time when the electricity suddenly went off","c":"事件"},{"g":34,"s":"Scenery","em":"🏞","qg":12,"t":"Describe a place you went to and an outdoor activity you did there","c":"地点"},{"g":35,"s":"Scenery","em":"🏞","qg":13,"t":"Describe a person who makes plans a lot and is good at planning","c":"人物"},{"g":45,"s":"Arts","em":"🎨","qg":2,"t":"Describe a friend of yours who is good at music/singing","c":"人物"},{"g":46,"s":"Arts","em":"🎨","qg":3,"t":"Describe a natural talent (sports, music, etc.) you want to improve","c":"物品"},{"g":48,"s":"Arts","em":"🎨","qg":5,"t":"Describe an occasion when you were not allowed to use your mobile phone","c":"事件"}],"guitar":[{"g":30,"s":"Scenery","em":"🏞","qg":8,"t":"Describe a long journey you had and would like to take again","c":"事件"},{"g":34,"s":"Scenery","em":"🏞","qg":12,"t":"Describe a place you went to and an outdoor activity you did there","c":"地点"},{"g":35,"s":"Scenery","em":"🏞","qg":13,"t":"Describe a person who makes plans a lot and is good at planning","c":"人物"},{"g":45,"s":"Arts","em":"🎨","qg":2,"t":"Describe a friend of yours who is good at music/singing","c":"人物"}],"singing":[{"g":30,"s":"Scenery","em":"🏞","qg":8,"t":"Describe a long journey you had and would like to take again","c":"事件"},{"g":31,"s":"Scenery","em":"🏞","qg":9,"t":"Describe a city that you have been to and would like to visit again","c":"地点"},{"g":34,"s":"Scenery","em":"🏞","qg":12,"t":"Describe a place you went to and an outdoor activity you did there","c":"地点"},{"g":35,"s":"Scenery","em":"🏞","qg":13,"t":"Describe a person who makes plans a lot and is good at planning","c":"人物"},{"g":45,"s":"Arts","em":"🎨","qg":2,"t":"Describe a friend of yours who is good at music/singing","c":"人物"},{"g":46,"s":"Arts","em":"🎨","qg":3,"t":"Describe a natural talent (sports, music, etc.) you want to improve","c":"物品"},{"g":48,"s":"Arts","em":"🎨","qg":5,"t":"Describe an occasion when you were not allowed to use your mobile phone","c":"事件"}],"macbook":[{"g":38,"s":"Technology","em":"💻","qg":1,"t":"Describe an item on which you spent more than expected","c":"物品"},{"g":39,"s":"Technology","em":"💻","qg":2,"t":"Describe a piece of technology (not a phone) that you would like to own","c":"物品"},{"g":40,"s":"Technology","em":"💻","qg":3,"t":"Describe a shop/store you enjoy visiting  /  Describe a time when you received good service in a shop/store","c":"地点"},{"g":41,"s":"Technology","em":"💻","qg":4,"t":"Describe a time when you broke something","c":"事件"},{"g":42,"s":"Technology","em":"💻","qg":5,"t":"Describe a person who often helps others","c":"人物"},{"g":43,"s":"Technology","em":"💻","qg":6,"t":"Describe a good friend who is important to you","c":"人物"}],"electronics":[{"g":38,"s":"Technology","em":"💻","qg":1,"t":"Describe an item on which you spent more than expected","c":"物品"},{"g":40,"s":"Technology","em":"💻","qg":3,"t":"Describe a shop/store you enjoy visiting  /  Describe a time when you received good service in a shop/store","c":"地点"},{"g":42,"s":"Technology","em":"💻","qg":5,"t":"Describe a person who often helps others","c":"人物"}],"music-fest":[{"g":47,"s":"Arts","em":"🎨","qg":4,"t":"Describe an event you attended in which you didn't enjoy the music played","c":"事件"}],"coach":[{"g":50,"s":"Sports","em":"🏐","qg":2,"t":"Describe a successful sportsperson you admire","c":"人物"}],"jackie":[{"g":51,"s":"Movies","em":"🎬","qg":1,"t":"Describe a movie you watched and enjoyed recently","c":"物品"}],"nutrition":[{"g":53,"s":"Weight Loss","em":"🥗","qg":1,"t":"Describe an area/subject of science that you are interested in and would like to learn more about","c":"物品"}]}};
+</script>
+<script>
+  // PORTAL
+  function openPortal(assetId){
+    const a = ASSET_INDEX.a[assetId];
+    if(!a) return;
+    const list = ASSET_INDEX.i[assetId] || [];
+    const stories = new Set(list.map(q=>q.s));
+    document.getElementById('pIcon').textContent = a.e;
+    document.getElementById('pName').textContent = a.n;
+    document.getElementById('pMeta').innerHTML = `出现在 <strong>${list.length}</strong> 题 · 跨 <strong>${stories.size}</strong> 个故事`;
+    document.getElementById('pList').innerHTML = list.map(q=>`
+      <div class="portal-row" onclick="location.href='题目详情_v1.html?q='+gidOf('${q.s}',${q.qg})">
+        <div class="pr-emoji">${q.em}</div>
+        <div class="pr-badge">Q${q.qg}</div>
+        <div class="pr-info">
+          <div class="pr-title">${q.t}</div>
+          <div class="pr-meta"><span>${q.s} · ${q.c}</span></div>
+        </div>
+        <div class="pr-arrow">→</div>
+      </div>`).join('');
+    document.getElementById('portalBg').classList.add('show');
+  }
+  function closePortal(){ document.getElementById('portalBg').classList.remove('show'); }
+  document.addEventListener('click', e=>{
+    const t = e.target.closest('.ax');
+    if(t){ e.stopPropagation(); openPortal(t.dataset.asset); }
+  });
+  document.getElementById('pClose').addEventListener('click', closePortal);
+  document.getElementById('portalBg').addEventListener('click', closePortal);
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePortal(); });
+</script>
+
+</body>
+</html>

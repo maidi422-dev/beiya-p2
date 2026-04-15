@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>北雅 · 老师后台 · Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --beiya:#C0392B;--beiya-dark:#9B2C20;--beiya-soft:#FDECEA;
+    --gold:#B8894A;--gold-soft:#FBF4EA;--gold-dark:#9A6F35;
+    --ink:#1E1E22;--ink-2:#4A4A52;--ink-3:#8A8A92;
+    --line:#E8E8EC;--bg:#F4F4F6;--white:#FFFFFF;
+    --ok:#2E7D32;--warn:#E8834A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter','PingFang SC','Microsoft YaHei',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none;cursor:pointer}
+
+  /* ADMIN TOPBAR */
+  .topbar{
+    background:var(--ink);color:#fff;padding:14px 24px;
+    display:flex;align-items:center;gap:18px;position:sticky;top:0;z-index:40
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;white-space:nowrap}
+  .brand-mark{width:28px;height:28px;background:var(--beiya);color:#fff;display:flex;align-items:center;justify-content:center;border-radius:4px;font-family:'Noto Serif SC',serif;font-size:14px}
+  .admin-tag{font-size:10px;background:var(--beiya);color:#fff;padding:2px 8px;border-radius:8px;font-weight:600;letter-spacing:.5px}
+  .nav{display:flex;gap:2px;margin-left:8px;flex:1}
+  .nav a{padding:7px 14px;border-radius:6px;font-size:13px;color:rgba(255,255,255,.7);font-weight:500;white-space:nowrap;transition:all .15s}
+  .nav a:hover{background:rgba(255,255,255,.08);color:#fff}
+  .nav a.active{background:var(--beiya);color:#fff}
+  .topbar-right{display:flex;align-items:center;gap:12px;font-size:12.5px}
+  .user-chip{display:flex;align-items:center;gap:6px;padding:5px 12px;background:rgba(255,255,255,.08);border-radius:16px;color:rgba(255,255,255,.85)}
+  .logout{font-size:12px;color:rgba(255,255,255,.5);cursor:pointer;transition:color .15s}
+  .logout:hover{color:#fff}
+
+  /* LAYOUT */
+  .wrap{max-width:1240px;margin:0 auto;padding:28px 24px 60px}
+
+  /* PAGE TITLE */
+  .ph{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:24px;gap:12px;flex-wrap:wrap}
+  .ph-title{font-family:'Noto Serif SC',serif;font-size:28px;font-weight:800;color:var(--ink);line-height:1.2}
+  .ph-sub{font-size:13px;color:var(--ink-3);margin-top:4px}
+  .ph-actions{display:flex;gap:8px}
+  .btn{
+    display:inline-flex;align-items:center;gap:6px;padding:10px 18px;
+    border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;
+    border:1px solid var(--line);background:var(--white);color:var(--ink-2)
+  }
+  .btn:hover{border-color:var(--beiya);color:var(--beiya)}
+  .btn.primary{background:var(--beiya);color:#fff;border-color:var(--beiya)}
+  .btn.primary:hover{background:var(--beiya-dark);color:#fff}
+  .btn.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .btn.dark:hover{background:#000;color:var(--gold)}
+
+  /* STAT CARDS */
+  .stats-grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+    gap:14px;margin-bottom:32px
+  }
+  .stat-card{
+    background:var(--white);border-radius:14px;padding:22px;
+    border:1px solid var(--line);position:relative;overflow:hidden
+  }
+  .stat-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--beiya)}
+  .stat-card.gold::before{background:var(--gold)}
+  .stat-card.ok::before{background:var(--ok)}
+  .stat-card.warn::before{background:var(--warn)}
+  .stat-ico{font-size:22px;line-height:1;margin-bottom:10px}
+  .stat-num{font-family:'Noto Serif SC',serif;font-size:34px;font-weight:800;color:var(--ink);line-height:1}
+  .stat-num .small{font-size:18px;color:var(--ink-3);font-weight:600}
+  .stat-lbl{font-size:12px;color:var(--ink-3);margin-top:6px}
+  .stat-trend{font-size:11px;color:var(--ok);margin-top:4px;font-weight:600}
+  .stat-trend.warn{color:var(--warn)}
+
+  /* SECTION HEADER */
+  .sh{display:flex;align-items:flex-end;justify-content:space-between;margin:8px 0 14px;gap:12px}
+  .sh-title{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .sh-title .em{font-size:18px}
+  .sh-link{font-size:12.5px;color:var(--beiya);font-weight:500;cursor:pointer}
+  .sh-link:hover{text-decoration:underline}
+
+  /* QUICK ACTIONS */
+  .qa-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-bottom:32px}
+  .qa-card{
+    background:var(--white);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px;cursor:pointer;transition:all .15s;
+    display:flex;align-items:center;gap:14px
+  }
+  .qa-card:hover{border-color:var(--beiya);transform:translateY(-2px);box-shadow:0 6px 18px rgba(192,57,43,.08)}
+  .qa-icon{
+    width:42px;height:42px;border-radius:10px;background:var(--beiya-soft);
+    display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0
+  }
+  .qa-card.gold .qa-icon{background:var(--gold-soft)}
+  .qa-card.dark .qa-icon{background:var(--ink);color:#fff}
+  .qa-info{flex:1;min-width:0}
+  .qa-name{font-family:'Noto Serif SC',serif;font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.3}
+  .qa-desc{font-size:11.5px;color:var(--ink-3);margin-top:2px;line-height:1.4}
+  .qa-arrow{color:var(--ink-3);font-size:16px;flex-shrink:0}
+  .qa-card:hover .qa-arrow{color:var(--beiya)}
+
+  /* 2-COL: STORY HEALTH + RECENT ACTIVITY */
+  .col-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:32px}
+  .panel{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:22px 24px}
+  .panel-h{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:700;color:var(--ink);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
+  .panel-h .h-em{margin-right:6px}
+
+  /* STORY HEALTH BARS */
+  .sh-row{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:12.5px;border-bottom:1px solid #F4F4F6}
+  .sh-row:last-child{border-bottom:none}
+  .sh-em{font-size:18px;width:24px}
+  .sh-name{flex:0 0 130px;font-weight:600;color:var(--ink)}
+  .sh-bar-track{flex:1;height:8px;background:#F4F4F6;border-radius:4px;overflow:hidden}
+  .sh-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--ok),#90C495)}
+  .sh-bar-fill.partial{background:linear-gradient(90deg,var(--warn),#F0B080)}
+  .sh-bar-fill.empty{background:linear-gradient(90deg,#D9D9DC,#E8E8EC)}
+  .sh-pct{font-family:'Noto Serif SC',serif;font-weight:700;color:var(--ink-2);font-size:12px;width:60px;text-align:right}
+  .sh-pct .small{color:var(--ink-3);font-weight:500}
+
+  /* ACTIVITY LIST */
+  .act-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;font-size:12.5px;border-bottom:1px solid #F4F4F6}
+  .act-row:last-child{border-bottom:none}
+  .act-time{color:var(--ink-3);font-size:11px;flex-shrink:0;width:60px;padding-top:2px}
+  .act-em{font-size:14px;line-height:1.4;flex-shrink:0;width:18px}
+  .act-text{color:var(--ink-2);line-height:1.6}
+  .act-text strong{color:var(--ink)}
+  .act-text .pill{font-size:10px;background:var(--beiya-soft);color:var(--beiya);padding:1px 7px;border-radius:6px;font-weight:600;margin-left:4px}
+
+  /* FILL ALERT */
+  .fill-alert{
+    background:var(--gold-soft);border:1px solid #EAD9B8;border-left:4px solid var(--gold);
+    border-radius:10px;padding:14px 18px;margin-bottom:24px;
+    display:flex;align-items:center;gap:12px;font-size:13px;color:var(--ink-2)
+  }
+  .fill-alert-em{font-size:20px;flex-shrink:0}
+  .fill-alert strong{color:var(--gold-dark)}
+  .fill-alert a{color:var(--gold-dark);font-weight:600;border-bottom:1px dashed var(--gold-dark);margin-left:auto}
+
+  @media(max-width:780px){
+    .col-grid{grid-template-columns:1fr}
+    .nav{overflow-x:auto;scrollbar-width:none}
+    .nav::-webkit-scrollbar{display:none}
+  }
+
+  /* ═══ 手机端响应式适配 ═══ */
+  @media (max-width: 640px) {
+    html{font-size:14px}
+    body{line-height:1.6}
+
+    /* 顶栏压缩 */
+    .topbar{padding:10px 12px !important;gap:8px !important;flex-wrap:wrap;position:sticky;top:0}
+    .topbar .brand{font-size:13px !important}
+    .topbar .brand-mark{width:24px;height:24px;font-size:12px}
+    .topbar .nav{flex:1 1 100% !important;order:3;overflow-x:auto;scrollbar-width:none;gap:0 !important;padding:4px 0;border-top:1px solid var(--line,#E8E8EC);margin:8px 0 0 !important}
+    .topbar .nav::-webkit-scrollbar{display:none}
+    .topbar .nav a{padding:6px 10px !important;font-size:12px !important;flex-shrink:0;white-space:nowrap}
+    .search-wrap{display:none !important}
+    .role-sw{margin:0 !important;order:2}
+    .role-opt{padding:3px 8px !important;font-size:11px !important}
+
+    /* 主体 padding 减小 */
+    .wrap{padding:14px 12px 70px !important;max-width:100% !important}
+    .crumb{font-size:11.5px !important;margin-bottom:12px !important}
+
+    /* 所有 grid 一列化 */
+    .q-grid, .grid, .story-grid, .jump-mini-grid{grid-template-columns:1fr !important}
+    .row2, .row3{grid-template-columns:1fr !important}
+
+    /* 故事首页 - 故事卡 */
+    .story, .story.flagship, .story.runner-up{padding:18px !important}
+    .story .story-name{font-size:20px !important}
+    .entries{grid-template-columns:1fr !important}
+
+    /* 故事页 story-head */
+    .story-head{padding:20px !important;gap:16px !important}
+    .sh-emoji{font-size:58px !important;width:70px !important;height:70px !important}
+    .sh-name{font-size:22px !important}
+    .sh-desc{font-size:13px !important}
+    .sh-stats{gap:10px !important}
+    .sh-stat{padding-right:10px !important}
+    .sh-stat-num{font-size:16px !important}
+
+    /* 故事页 core-strip 分组 */
+    .core-group{flex-direction:column !important;align-items:stretch !important;padding:12px 0 0 !important}
+    .core-group-label{min-width:0 !important;padding-top:0 !important;margin-bottom:8px !important;font-size:11px !important}
+    .core-group-list{gap:10px !important}
+    .core-strip-title .hint{display:none}
+
+    /* gold-strip */
+    .gold-strip{padding:14px 16px !important}
+    .gs-grid{gap:6px !important}
+    .gs-chip{padding:6px 10px !important;font-size:12px !important}
+
+    /* filter-row */
+    .filter-row{gap:5px !important}
+    .filter-chip{padding:5px 10px !important;font-size:11.5px !important}
+
+    /* Q 卡片 */
+    .q-card{padding:14px 16px !important}
+    .qc-title{font-size:13px !important}
+    .qc-hook{font-size:12px !important}
+
+    /* 详情页 q-header */
+    .q-header{padding:14px 16px !important;margin-bottom:16px !important}
+    .q-title-en{font-size:15px !important;line-height:1.5 !important}
+    .q-tags{flex-wrap:wrap !important;gap:5px !important}
+    .tag{font-size:11px !important;padding:2px 8px !important}
+    .q-actions{flex-wrap:wrap !important;gap:5px !important}
+    .act{padding:5px 9px !important;font-size:11.5px !important}
+
+    /* prep-strip */
+    .prep-strip{flex-wrap:wrap !important;padding:10px 12px !important;gap:5px !important}
+    .prep-chip{font-size:12px !important;padding:3px 8px !important}
+    .prep-label{font-size:11px !important}
+
+    /* tier-tabs (详情页) */
+    .tier-tabs{overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap !important;padding-bottom:4px;margin-bottom:14px !important}
+    .tier-tabs::-webkit-scrollbar{display:none}
+    .tier-tab{padding:7px 11px !important;font-size:12px !important;white-space:nowrap;flex-shrink:0 !important}
+
+    /* outline sections */
+    .outline{padding:16px !important}
+    .sec{padding:14px !important}
+    .sec-body{font-size:13.5px !important}
+    .bullet{padding:5px 0 5px 20px !important;font-size:13.5px !important}
+
+    /* 参考范文 */
+    .ref-body{padding:16px 18px !important;font-size:13.5px !important;line-height:1.8 !important}
+
+    /* xrefs */
+    .xrefs{grid-template-columns:1fr !important}
+    .xref{padding:14px !important}
+
+    /* Hero (仪表盘) */
+    .hero{padding:22px !important;border-radius:14px !important}
+    .hero-num{font-size:30px !important}
+    .hero-row{gap:14px !important}
+    .hero-stat{min-width:100px !important}
+
+    /* FAB 方法论按钮 */
+    .fab{bottom:18px !important;right:18px !important;padding:10px 14px !important;font-size:12px !important}
+
+    /* jump-mini */
+    .jump-mini{padding:16px !important}
+
+    /* 登录页 */
+    .login-wrap, .login-card{padding:24px !important;max-width:100% !important;margin:0 12px !important}
+
+    /* 传统分类页 / 复现元素页 */
+    .tab-bar{flex-wrap:wrap !important}
+    .asset-grid{grid-template-columns:1fr 1fr !important}
+
+    /* 方法论页 · 各种 sec 排版 */
+    .mtd-hero{padding:24px 18px !important}
+    .mtd-hero h1{font-size:22px !important}
+
+    /* 仪表盘 card padding 减小 */
+    .card{padding:16px !important}
+    .card-title{font-size:12px !important}
+
+    /* 通用 padding 缩减 */
+    .panel, .panel-section, .cta-bar{padding:14px 16px !important}
+  }
+
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">北</div>
+    <span>北雅 · 教学管理</span>
+  </div>
+  <span class="admin-tag">ADMIN</span>
+  <nav class="nav">
+    <a class="active">📊 Dashboard</a>
+    <a>📋 题目管理</a>
+    <a>🏷️ 素材索引</a>
+    <a>🔗 专属链接</a>
+    <a>📈 数据洞察</a>
+  </nav>
+  <div class="topbar-right">
+    <div class="user-chip">👩‍🏫 Tracy</div>
+    <span class="logout" id="logout">退出</span>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="ph">
+    <div>
+      <div class="ph-title">Dashboard</div>
+      <div class="ph-sub">2026 Q2 · P2 题库 · Creative Cooking + Scenery 已基本就绪</div>
+    </div>
+    <div class="ph-actions">
+      <a class="btn" href="老师后台_题目列表_v1.html">📋 管理题目</a>
+      <a class="btn primary">🔗 生成专属链接</a>
+    </div>
+  </div>
+
+  <!-- DATA COMPLETENESS ALERT -->
+  <section class="fill-alert">
+    <span class="fill-alert-em">⚠️</span>
+    <span><strong>数据完整度提示：</strong>53 题中有 <strong>53 题缺失"中文/问题引导/详细/极简"4 档提纲变体</strong>，需要补齐才能提供完整学生体验。Mark 男生版本同样 53 题待生成。</span>
+    <a>去补齐 →</a>
+  </section>
+
+  <!-- STAT CARDS -->
+  <section class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-ico">📋</div>
+      <div class="stat-num">53<span class="small">/53</span></div>
+      <div class="stat-lbl">P2 题目（已录入）</div>
+      <div class="stat-trend">✓ 全量录入完成</div>
+    </div>
+    <div class="stat-card gold">
+      <div class="stat-ico">🌌</div>
+      <div class="stat-num">7</div>
+      <div class="stat-lbl">互通故事</div>
+      <div class="stat-trend">flagship: 🍳 Cooking</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-ico">🏷️</div>
+      <div class="stat-num">24</div>
+      <div class="stat-lbl">复现素材索引</div>
+      <div class="stat-trend">最高频: Lucy · 42 题</div>
+    </div>
+    <div class="stat-card warn">
+      <div class="stat-ico">📝</div>
+      <div class="stat-num">1<span class="small">/53</span></div>
+      <div class="stat-lbl">参考范文（band 6）</div>
+      <div class="stat-trend warn">⚠ 仅 Q1 完成</div>
+    </div>
+    <div class="stat-card warn">
+      <div class="stat-ico">👨</div>
+      <div class="stat-num">0<span class="small">/53</span></div>
+      <div class="stat-lbl">Mark 男生版本</div>
+      <div class="stat-trend warn">⚠ 待批量生成</div>
+    </div>
+    <div class="stat-card ok">
+      <div class="stat-ico">🔗</div>
+      <div class="stat-num">3</div>
+      <div class="stat-lbl">已生成专属链接</div>
+      <div class="stat-trend">活跃: 王同学 · 李沛轩 · 张老师班</div>
+    </div>
+  </section>
+
+  <!-- QUICK ACTIONS -->
+  <div class="sh">
+    <h2 class="sh-title"><span class="em">⚡</span> 快速操作</h2>
+  </div>
+  <section class="qa-grid">
+    <a class="qa-card" href="老师后台_题目列表_v1.html">
+      <div class="qa-icon">📝</div>
+      <div class="qa-info"><div class="qa-name">编辑题目</div><div class="qa-desc">改提纲、加范文、调复现元素</div></div>
+      <span class="qa-arrow">→</span>
+    </a>
+    <a class="qa-card gold">
+      <div class="qa-icon">🔗</div>
+      <div class="qa-info"><div class="qa-name">生成专属链接</div><div class="qa-desc">勾 N 题 → 命名 → 发学生</div></div>
+      <span class="qa-arrow">→</span>
+    </a>
+    <a class="qa-card">
+      <div class="qa-icon">🏷️</div>
+      <div class="qa-info"><div class="qa-name">补素材标记</div><div class="qa-desc">给题目挂复现元素 / 高分表达</div></div>
+      <span class="qa-arrow">→</span>
+    </a>
+    <a class="qa-card dark">
+      <div class="qa-icon">📥</div>
+      <div class="qa-info"><div class="qa-name">批量导入</div><div class="qa-desc">上传新版 docx 自动解析</div></div>
+      <span class="qa-arrow">→</span>
+    </a>
+  </section>
+
+  <!-- 2-COL -->
+  <section class="col-grid">
+
+    <!-- STORY HEALTH -->
+    <div class="panel">
+      <div class="panel-h">
+        <span><span class="h-em">🌌</span>故事内容健康度</span>
+        <a class="sh-link">详细 →</a>
+      </div>
+      <div class="sh-row"><span class="sh-em">🍳</span><span class="sh-name">Creative Cooking</span><div class="sh-bar-track"><div class="sh-bar-fill" style="width:90%"></div></div><span class="sh-pct">90%<span class="small"> · 22题</span></span></div>
+      <div class="sh-row"><span class="sh-em">🏞</span><span class="sh-name">Scenery</span><div class="sh-bar-track"><div class="sh-bar-fill partial" style="width:65%"></div></div><span class="sh-pct">65%<span class="small"> · 15题</span></span></div>
+      <div class="sh-row"><span class="sh-em">💻</span><span class="sh-name">Technology</span><div class="sh-bar-track"><div class="sh-bar-fill partial" style="width:50%"></div></div><span class="sh-pct">50%<span class="small"> · 6题</span></span></div>
+      <div class="sh-row"><span class="sh-em">🎨</span><span class="sh-name">Arts</span><div class="sh-bar-track"><div class="sh-bar-fill partial" style="width:40%"></div></div><span class="sh-pct">40%<span class="small"> · 5题</span></span></div>
+      <div class="sh-row"><span class="sh-em">🏐</span><span class="sh-name">Sports</span><div class="sh-bar-track"><div class="sh-bar-fill empty" style="width:25%"></div></div><span class="sh-pct">25%<span class="small"> · 2题</span></span></div>
+      <div class="sh-row"><span class="sh-em">🎬</span><span class="sh-name">Movies</span><div class="sh-bar-track"><div class="sh-bar-fill empty" style="width:20%"></div></div><span class="sh-pct">20%<span class="small"> · 2题</span></span></div>
+      <div class="sh-row"><span class="sh-em">🥗</span><span class="sh-name">Weight Loss</span><div class="sh-bar-track"><div class="sh-bar-fill empty" style="width:15%"></div></div><span class="sh-pct">15%<span class="small"> · 1题</span></span></div>
+    </div>
+
+    <!-- RECENT ACTIVITY (mock) -->
+    <div class="panel">
+      <div class="panel-h">
+        <span><span class="h-em">📜</span>最近编辑活动</span>
+        <a class="sh-link">全部 →</a>
+      </div>
+      <div class="act-row"><span class="act-time">10:24</span><span class="act-em">📝</span><span class="act-text">编辑了 <strong>Q1 用想象力</strong>—— 添加了"详细版"提纲<span class="pill">🍳 Cooking</span></span></div>
+      <div class="act-row"><span class="act-time">10:08</span><span class="act-em">🏷️</span><span class="act-text">给 <strong>Q15</strong> 添加复现元素：<strong>homemade · Lucy</strong><span class="pill">🍳 Cooking</span></span></div>
+      <div class="act-row"><span class="act-time">09:42</span><span class="act-em">🔗</span><span class="act-text">生成专属链接 <strong>"李沛轩 · 3月加巩"</strong>（5 题）</span></div>
+      <div class="act-row"><span class="act-time">昨天</span><span class="act-em">📝</span><span class="act-text">批量编辑 Scenery 故事 3 题的"问题引导版"<span class="pill">🏞 Scenery</span></span></div>
+      <div class="act-row"><span class="act-time">昨天</span><span class="act-em">⭐</span><span class="act-text">添加高分表达：<strong>"finger-licking good"</strong> → 标记为 idiom</span></div>
+      <div class="act-row"><span class="act-time">2 天前</span><span class="act-em">📥</span><span class="act-text">批量导入 v3 docx：53 题更新成功</span></div>
+    </div>
+
+  </section>
+
+  <!-- TOP ASSETS PREVIEW -->
+  <div class="sh">
+    <h2 class="sh-title"><span class="em">🔥</span> TOP 5 高频素材</h2>
+    <a class="sh-link">查看复现元素索引 →</a>
+  </div>
+  <div class="panel">
+    <div class="sh-row"><span class="sh-em">👤</span><span class="sh-name">Lucy</span><div class="sh-bar-track"><div class="sh-bar-fill" style="width:100%;background:linear-gradient(90deg,var(--beiya),var(--gold))"></div></div><span class="sh-pct">42<span class="small"> 题</span></span></div>
+    <div class="sh-row"><span class="sh-em">⭐</span><span class="sh-name">finger-licking good</span><div class="sh-bar-track"><div class="sh-bar-fill" style="width:50%;background:linear-gradient(90deg,var(--beiya),var(--gold))"></div></div><span class="sh-pct">21<span class="small"> 题</span></span></div>
+    <div class="sh-row"><span class="sh-em">🍗</span><span class="sh-name">Fruit Roast Chicken</span><div class="sh-bar-track"><div class="sh-bar-fill" style="width:48%;background:linear-gradient(90deg,var(--beiya),var(--gold))"></div></div><span class="sh-pct">20<span class="small"> 题</span></span></div>
+    <div class="sh-row"><span class="sh-em">⭐</span><span class="sh-name">mouth-watering</span><div class="sh-bar-track"><div class="sh-bar-fill" style="width:40%;background:linear-gradient(90deg,var(--beiya),var(--gold))"></div></div><span class="sh-pct">17<span class="small"> 题</span></span></div>
+    <div class="sh-row"><span class="sh-em">🍽</span><span class="sh-name">Potluck dinner</span><div class="sh-bar-track"><div class="sh-bar-fill" style="width:38%;background:linear-gradient(90deg,var(--beiya),var(--gold))"></div></div><span class="sh-pct">16<span class="small"> 题</span></span></div>
+  </div>
+
+</main>
+
+<script>
+  // Auth gate
+  try{ if(localStorage.getItem('beiya_admin_authed') !== '1') window.location.href = '老师后台_登录_v1.html'; }catch(e){}
+  document.getElementById('logout').addEventListener('click', ()=>{
+    if(confirm('确认退出后台？')){
+      localStorage.removeItem('beiya_admin_authed');
+      window.location.href = '老师后台_登录_v1.html';
+    }
+  });
+</script>
+
+</body>
+</html>

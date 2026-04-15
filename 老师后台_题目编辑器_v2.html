@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>北雅 · 老师后台 · 题目编辑器 v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --beiya:#C0392B;--beiya-dark:#9B2C20;--beiya-soft:#FDECEA;
+    --gold:#B8894A;--gold-soft:#FBF4EA;--gold-dark:#9A6F35;
+    --ink:#1E1E22;--ink-2:#4A4A52;--ink-3:#8A8A92;
+    --line:#E8E8EC;--bg:#F4F4F6;--white:#FFFFFF;
+    --ok:#2E7D32;--warn:#E8834A;
+    --c-event:#B86A2A;--c-event-bg:#FFF2E5;
+    --c-thing:#7E4DAA;--c-thing-bg:#F3EBFB;
+    --c-person:#3A5BB8;--c-person-bg:#EDF2FE;
+    --c-place:#2F8F5C;--c-place-bg:#E8F5EE;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter','PingFang SC','Microsoft YaHei',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none;cursor:pointer}
+
+  .topbar{background:var(--ink);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:18px;position:sticky;top:0;z-index:40}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;white-space:nowrap}
+  .brand-mark{width:28px;height:28px;background:var(--beiya);color:#fff;display:flex;align-items:center;justify-content:center;border-radius:4px;font-family:'Noto Serif SC',serif;font-size:14px}
+  .admin-tag{font-size:10px;background:var(--beiya);padding:2px 8px;border-radius:8px;font-weight:600;letter-spacing:.5px}
+  .nav{display:flex;gap:2px;margin-left:8px;flex:1}
+  .nav a{padding:7px 14px;border-radius:6px;font-size:13px;color:rgba(255,255,255,.7);font-weight:500;white-space:nowrap;transition:all .15s}
+  .nav a:hover{background:rgba(255,255,255,.08);color:#fff}
+  .nav a.active{background:var(--beiya);color:#fff}
+  .topbar-right{display:flex;align-items:center;gap:12px;font-size:12.5px}
+  .user-chip{display:flex;align-items:center;gap:6px;padding:5px 12px;background:rgba(255,255,255,.08);border-radius:16px}
+
+  .subbar{background:var(--white);border-bottom:1px solid var(--line);padding:12px 24px;position:sticky;top:60px;z-index:30;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .subbar-left{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+  .back-btn{width:34px;height:34px;border-radius:8px;background:#F4F4F6;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink-2);font-size:16px;transition:all .15s}
+  .back-btn:hover{background:var(--beiya-soft);color:var(--beiya);border-color:var(--beiya)}
+  .qid-pill{background:var(--beiya);color:#fff;font-family:'Noto Serif SC',serif;font-weight:700;padding:6px 14px;border-radius:8px;font-size:13px}
+  .group-pill{font-size:12px;color:var(--ink-2);font-weight:500;display:flex;align-items:center;gap:5px}
+  .cat-pill{font-size:11px;padding:2px 9px;border-radius:8px;font-weight:600}
+  .cat-pill.event{background:var(--c-event-bg);color:var(--c-event)}
+  .cat-pill.thing{background:var(--c-thing-bg);color:var(--c-thing)}
+  .cat-pill.person{background:var(--c-person-bg);color:var(--c-person)}
+  .cat-pill.place{background:var(--c-place-bg);color:var(--c-place)}
+  .qnav{display:flex;gap:4px;margin-left:8px}
+  .qnav-btn{width:30px;height:28px;border-radius:7px;background:#F4F4F6;border:1px solid var(--line);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink-3);transition:all .15s;font-size:13px}
+  .qnav-btn:hover{border-color:var(--beiya);color:var(--beiya);background:var(--beiya-soft)}
+  .q-select{background:#F4F4F6;border:1px solid var(--line);border-radius:7px;padding:6px 10px;font-size:12px;font-family:inherit;cursor:pointer;min-width:180px}
+  .q-select:focus{outline:none;border-color:var(--beiya)}
+
+  .subbar-right{display:flex;gap:8px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;font-size:12.5px;font-weight:600;cursor:pointer;transition:all .15s;border:1px solid var(--line);background:var(--white);color:var(--ink-2);font-family:inherit}
+  .btn:hover{border-color:var(--beiya);color:var(--beiya)}
+  .btn.primary{background:var(--beiya);color:#fff;border-color:var(--beiya)}
+  .btn.primary:hover{background:var(--beiya-dark);color:#fff}
+  .btn.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .btn.dark:hover{background:#000;color:var(--gold)}
+  .save-status{font-size:11.5px;color:var(--ok);font-weight:500;display:flex;align-items:center;gap:4px}
+  .save-status.dirty{color:var(--warn)}
+
+  .wrap{max-width:1100px;margin:0 auto;padding:24px 24px 80px}
+
+  .health-strip{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .hs-label{font-size:11.5px;color:var(--ink-3);font-weight:700;letter-spacing:.4px;text-transform:uppercase}
+  .hs-progress{flex:1;display:flex;gap:5px;min-width:200px}
+  .hs-cell{flex:1;height:7px;border-radius:3px;background:#F0F0F2;cursor:pointer;transition:all .15s;position:relative}
+  .hs-cell.done{background:linear-gradient(90deg,var(--ok),#90C495)}
+  .hs-cell.partial{background:linear-gradient(90deg,var(--warn),#F0B080)}
+  .hs-cell:hover::after{content:attr(data-name);position:absolute;bottom:14px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:10.5px;padding:3px 8px;border-radius:5px;white-space:nowrap;font-weight:600}
+  .hs-num{font-family:'Noto Serif SC',serif;font-weight:700;color:var(--ink-2);font-size:13px}
+
+  .tabbar{background:var(--white);border:1px solid var(--line);border-radius:12px 12px 0 0;padding:0 4px;display:flex;gap:0;border-bottom:none;overflow-x:auto;scrollbar-width:none}
+  .tabbar::-webkit-scrollbar{display:none}
+  .tab{padding:14px 18px;font-size:13px;font-weight:600;color:var(--ink-3);cursor:pointer;border-bottom:3px solid transparent;transition:all .15s;white-space:nowrap;display:flex;align-items:center;gap:6px}
+  .tab:hover{color:var(--beiya)}
+  .tab.on{color:var(--beiya);border-bottom-color:var(--beiya)}
+  .tab .badge{background:var(--beiya-soft);color:var(--beiya);font-size:10.5px;padding:1px 7px;border-radius:8px;font-weight:700;font-family:'Noto Serif SC',serif}
+
+  .panel{background:var(--white);border:1px solid var(--line);border-top:none;border-radius:0 0 12px 12px;padding:28px 32px;min-height:400px}
+  .panel-section{margin-bottom:24px}
+  .ps-h{font-family:'Noto Serif SC',serif;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:10px;display:flex;align-items:center;gap:8px;letter-spacing:.3px}
+  .ps-h .h-num{background:var(--beiya);color:#fff;width:22px;height:22px;border-radius:50%;font-size:11px;display:flex;align-items:center;justify-content:center;font-weight:700}
+  .ps-h .h-helper{font-size:11.5px;color:var(--ink-3);font-weight:400;margin-left:6px}
+
+  .inp{width:100%;padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;font-size:13.5px;font-family:inherit;outline:none;transition:all .15s;background:var(--white)}
+  .inp:focus{border-color:var(--beiya);box-shadow:0 0 0 3px var(--beiya-soft)}
+  .inp.lg{padding:14px 16px;font-size:15px}
+  textarea.inp{resize:vertical;min-height:80px;line-height:1.7;font-family:'Inter','PingFang SC',sans-serif}
+  .row2{display:grid;grid-template-columns:1fr 200px;gap:12px;margin-bottom:14px}
+  .row3{display:grid;grid-template-columns:120px 1fr 200px;gap:12px;margin-bottom:14px}
+  .lbl{font-size:11px;color:var(--ink-3);font-weight:600;display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+
+  /* Tier sub-tabs */
+  .tier-subtabs{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap;padding-bottom:14px;border-bottom:1px dashed var(--line)}
+  .tier-subtab{border:none;padding:8px 14px;border-radius:8px;background:#F4F4F6;color:var(--ink-3);font-size:12.5px;cursor:pointer;font-family:inherit;font-weight:600;transition:all .15s}
+  .tier-subtab:hover{background:var(--beiya-soft);color:var(--beiya)}
+  .tier-subtab.on{background:var(--beiya);color:#fff}
+  .tier-hint{background:#FBF4EA;border:1px solid #EAD9B8;border-radius:8px;padding:10px 14px;margin-bottom:18px;font-size:12px;color:var(--gold-dark);display:flex;gap:8px;align-items:center}
+
+  .outline-grid{display:grid;gap:14px}
+  .ol-stage{background:#FAFAFA;border:1px solid var(--line);border-radius:10px;padding:16px 18px;position:relative}
+  .ol-stage.s3{background:var(--gold-soft);border-color:#EAD9B8}
+  .ol-stage-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .ol-num{background:var(--beiya);color:#fff;font-family:'Noto Serif SC',serif;font-weight:700;padding:2px 9px;border-radius:6px;font-size:11px}
+  .ol-stage.s3 .ol-num{background:var(--gold-dark)}
+  .ol-name{font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;color:var(--ink)}
+  .ol-time{font-size:11px;color:var(--ink-3);margin-left:auto}
+  .ol-marker-input{background:var(--ink);color:#fff;border:none;padding:6px 10px;border-radius:6px;font-family:'Inter',monospace;font-size:11.5px;width:100%;margin-bottom:8px;font-style:italic;outline:none}
+  .ol-bullets{display:flex;flex-direction:column;gap:6px}
+  .ol-bullet{display:flex;gap:8px;align-items:flex-start}
+  .ol-bullet .dot{color:var(--beiya);font-size:14px;font-weight:700;line-height:1.7;flex-shrink:0;width:14px;text-align:center}
+  .ol-bullet input{flex:1;padding:6px 10px;border:1px solid transparent;border-radius:5px;font-size:13px;font-family:inherit;background:#fff;outline:none;transition:all .15s}
+  .ol-bullet input:focus{border-color:var(--beiya);box-shadow:0 0 0 2px var(--beiya-soft)}
+  .ol-bullet .del{color:var(--ink-3);cursor:pointer;font-size:14px;width:22px;text-align:center;line-height:1.7;opacity:0;transition:opacity .15s}
+  .ol-bullet:hover .del{opacity:1}
+  .ol-bullet .del:hover{color:var(--beiya)}
+  .add-bullet{margin-top:6px;font-size:12px;color:var(--ink-3);cursor:pointer;padding:6px 10px;border-radius:5px;border:1px dashed var(--line);text-align:center;transition:all .15s}
+  .add-bullet:hover{color:var(--beiya);border-color:var(--beiya);background:var(--beiya-soft)}
+
+  .edited-badge{background:var(--warn);color:#fff;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;margin-left:6px}
+
+  /* ═══ 手机端响应式适配 ═══ */
+  @media (max-width: 640px) {
+    html{font-size:14px}
+    body{line-height:1.6}
+
+    /* 顶栏压缩 */
+    .topbar{padding:10px 12px !important;gap:8px !important;flex-wrap:wrap;position:sticky;top:0}
+    .topbar .brand{font-size:13px !important}
+    .topbar .brand-mark{width:24px;height:24px;font-size:12px}
+    .topbar .nav{flex:1 1 100% !important;order:3;overflow-x:auto;scrollbar-width:none;gap:0 !important;padding:4px 0;border-top:1px solid var(--line,#E8E8EC);margin:8px 0 0 !important}
+    .topbar .nav::-webkit-scrollbar{display:none}
+    .topbar .nav a{padding:6px 10px !important;font-size:12px !important;flex-shrink:0;white-space:nowrap}
+    .search-wrap{display:none !important}
+    .role-sw{margin:0 !important;order:2}
+    .role-opt{padding:3px 8px !important;font-size:11px !important}
+
+    /* 主体 padding 减小 */
+    .wrap{padding:14px 12px 70px !important;max-width:100% !important}
+    .crumb{font-size:11.5px !important;margin-bottom:12px !important}
+
+    /* 所有 grid 一列化 */
+    .q-grid, .grid, .story-grid, .jump-mini-grid{grid-template-columns:1fr !important}
+    .row2, .row3{grid-template-columns:1fr !important}
+
+    /* 故事首页 - 故事卡 */
+    .story, .story.flagship, .story.runner-up{padding:18px !important}
+    .story .story-name{font-size:20px !important}
+    .entries{grid-template-columns:1fr !important}
+
+    /* 故事页 story-head */
+    .story-head{padding:20px !important;gap:16px !important}
+    .sh-emoji{font-size:58px !important;width:70px !important;height:70px !important}
+    .sh-name{font-size:22px !important}
+    .sh-desc{font-size:13px !important}
+    .sh-stats{gap:10px !important}
+    .sh-stat{padding-right:10px !important}
+    .sh-stat-num{font-size:16px !important}
+
+    /* 故事页 core-strip 分组 */
+    .core-group{flex-direction:column !important;align-items:stretch !important;padding:12px 0 0 !important}
+    .core-group-label{min-width:0 !important;padding-top:0 !important;margin-bottom:8px !important;font-size:11px !important}
+    .core-group-list{gap:10px !important}
+    .core-strip-title .hint{display:none}
+
+    /* gold-strip */
+    .gold-strip{padding:14px 16px !important}
+    .gs-grid{gap:6px !important}
+    .gs-chip{padding:6px 10px !important;font-size:12px !important}
+
+    /* filter-row */
+    .filter-row{gap:5px !important}
+    .filter-chip{padding:5px 10px !important;font-size:11.5px !important}
+
+    /* Q 卡片 */
+    .q-card{padding:14px 16px !important}
+    .qc-title{font-size:13px !important}
+    .qc-hook{font-size:12px !important}
+
+    /* 详情页 q-header */
+    .q-header{padding:14px 16px !important;margin-bottom:16px !important}
+    .q-title-en{font-size:15px !important;line-height:1.5 !important}
+    .q-tags{flex-wrap:wrap !important;gap:5px !important}
+    .tag{font-size:11px !important;padding:2px 8px !important}
+    .q-actions{flex-wrap:wrap !important;gap:5px !important}
+    .act{padding:5px 9px !important;font-size:11.5px !important}
+
+    /* prep-strip */
+    .prep-strip{flex-wrap:wrap !important;padding:10px 12px !important;gap:5px !important}
+    .prep-chip{font-size:12px !important;padding:3px 8px !important}
+    .prep-label{font-size:11px !important}
+
+    /* tier-tabs (详情页) */
+    .tier-tabs{overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap !important;padding-bottom:4px;margin-bottom:14px !important}
+    .tier-tabs::-webkit-scrollbar{display:none}
+    .tier-tab{padding:7px 11px !important;font-size:12px !important;white-space:nowrap;flex-shrink:0 !important}
+
+    /* outline sections */
+    .outline{padding:16px !important}
+    .sec{padding:14px !important}
+    .sec-body{font-size:13.5px !important}
+    .bullet{padding:5px 0 5px 20px !important;font-size:13.5px !important}
+
+    /* 参考范文 */
+    .ref-body{padding:16px 18px !important;font-size:13.5px !important;line-height:1.8 !important}
+
+    /* xrefs */
+    .xrefs{grid-template-columns:1fr !important}
+    .xref{padding:14px !important}
+
+    /* Hero (仪表盘) */
+    .hero{padding:22px !important;border-radius:14px !important}
+    .hero-num{font-size:30px !important}
+    .hero-row{gap:14px !important}
+    .hero-stat{min-width:100px !important}
+
+    /* FAB 方法论按钮 */
+    .fab{bottom:18px !important;right:18px !important;padding:10px 14px !important;font-size:12px !important}
+
+    /* jump-mini */
+    .jump-mini{padding:16px !important}
+
+    /* 登录页 */
+    .login-wrap, .login-card{padding:24px !important;max-width:100% !important;margin:0 12px !important}
+
+    /* 传统分类页 / 复现元素页 */
+    .tab-bar{flex-wrap:wrap !important}
+    .asset-grid{grid-template-columns:1fr 1fr !important}
+
+    /* 方法论页 · 各种 sec 排版 */
+    .mtd-hero{padding:24px 18px !important}
+    .mtd-hero h1{font-size:22px !important}
+
+    /* 仪表盘 card padding 减小 */
+    .card{padding:16px !important}
+    .card-title{font-size:12px !important}
+
+    /* 通用 padding 缩减 */
+    .panel, .panel-section, .cta-bar{padding:14px 16px !important}
+  }
+
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand"><div class="brand-mark">北</div><span>北雅 · 教学管理</span></div>
+  <span class="admin-tag">ADMIN</span>
+  <nav class="nav">
+    <a href="老师后台_Dashboard_v1.html">📊 Dashboard</a>
+    <a class="active" href="老师后台_题目列表_v1.html">📋 题目管理</a>
+    <a href="#">🏷️ 素材索引</a>
+    <a href="老师后台_专属链接_v1.html">🔗 专属链接</a>
+    <a href="#">📈 数据洞察</a>
+  </nav>
+  <div class="topbar-right">
+    <div class="user-chip">👩‍🏫 Tracy</div>
+  </div>
+</header>
+
+<div class="subbar">
+  <div class="subbar-left">
+    <a class="back-btn" href="老师后台_题目列表_v1.html" title="返回列表">←</a>
+    <span class="qid-pill" id="qidPill">Q?</span>
+    <span class="group-pill" id="groupPill">—</span>
+    <span class="cat-pill" id="catPill">—</span>
+    <div class="qnav">
+      <a class="qnav-btn" id="prevBtn" title="上一题">◀</a>
+      <a class="qnav-btn" id="nextBtn" title="下一题">▶</a>
+    </div>
+    <select class="q-select" id="qSelect" title="直接跳题"></select>
+    <span class="save-status" id="saveStatus">—</span>
+  </div>
+  <div class="subbar-right">
+    <a class="btn" id="previewBtn">👁 预览学生端</a>
+    <a class="btn" id="resetBtn" title="撤销当前题的所有修改">↺ 撤销修改</a>
+    <a class="btn dark" id="exportBtn">📤 导出全部修改</a>
+    <a class="btn primary" id="saveBtn">💾 保存修改</a>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <!-- HEALTH -->
+  <section class="health-strip">
+    <span class="hs-label">📊 完整度</span>
+    <div class="hs-progress" id="healthProgress"></div>
+    <span class="hs-num" id="healthNum">—</span>
+  </section>
+
+  <!-- TABS -->
+  <div class="tabbar">
+    <div class="tab on" data-tab="basic">📝 基本信息</div>
+    <div class="tab" data-tab="outline">📋 5 档提纲</div>
+    <div class="tab" data-tab="essay">📖 参考范文</div>
+  </div>
+
+  <!-- PANEL: BASIC INFO -->
+  <div class="panel" id="panel-basic">
+    <div class="panel-section">
+      <div class="ps-h"><span class="h-num">1</span> 题目信息</div>
+      <div class="row3">
+        <div>
+          <span class="lbl">题号 (全局)</span>
+          <input class="inp" id="fld-qid" disabled>
+        </div>
+        <div>
+          <span class="lbl">题目英文 (考官原话)</span>
+          <input class="inp lg" id="fld-title">
+        </div>
+        <div>
+          <span class="lbl">分类</span>
+          <select class="inp" id="fld-category">
+            <option>人物</option><option>地点</option><option>物品</option><option>事件</option>
+          </select>
+        </div>
+      </div>
+      <div class="row2">
+        <div>
+          <span class="lbl">所属故事</span>
+          <select class="inp" id="fld-group">
+            <option>Creative Cooking</option><option>Scenery</option><option>Technology</option>
+            <option>Arts</option><option>Sports</option><option>Movies</option><option>Weight Loss</option>
+          </select>
+        </div>
+        <div>
+          <span class="lbl">本故事内题号</span>
+          <input class="inp" id="fld-qg" type="number" min="1">
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="ps-h"><span class="h-num">2</span> Prep 词 <span class="h-helper">学生进题前预习 · 逗号分隔</span></div>
+      <input class="inp" id="fld-prep">
+    </div>
+
+    <div class="panel-section">
+      <div class="ps-h"><span class="h-num">3</span> group_keywords <span class="h-helper">该故事所有题通用 · 只读展示</span></div>
+      <input class="inp" id="fld-groupkw" disabled>
+    </div>
+  </div>
+
+  <!-- PANEL: OUTLINE -->
+  <div class="panel" id="panel-outline" style="display:none">
+    <div class="tier-subtabs" id="tierSubtabs"></div>
+    <div class="tier-hint" id="tierHint"><span style="font-size:18px">💡</span><span id="tierHintText">—</span></div>
+    <div class="outline-grid" id="outlineGrid"></div>
+  </div>
+
+  <!-- PANEL: ESSAY -->
+  <div class="panel" id="panel-essay" style="display:none">
+    <div class="panel-section">
+      <div class="ps-h"><span class="h-num">1</span> 参考范文 <span class="h-helper">150-200 字 · 支持 &lt;span class="ref-gold"&gt;金句&lt;/span&gt; 和 &lt;span class="ref-sub"&gt;子标题&lt;/span&gt; 标签</span></div>
+      <textarea class="inp" id="fld-ref" rows="16" placeholder="从 5 档提纲合成或手写..."></textarea>
+    </div>
+    <div class="panel-section">
+      <div class="ps-h"><span class="h-num">2</span> 标签语法帮助</div>
+      <div style="background:var(--gold-soft);border:1px solid #EAD9B8;border-radius:8px;padding:14px 18px;font-size:12.5px;color:var(--ink-2);line-height:1.9">
+        🟡 <strong>金句高亮</strong>：<code style="background:#fff;padding:1px 5px;border-radius:3px">&lt;span class="ref-gold"&gt;mouth-watering&lt;/span&gt;</code><br>
+        🔴 <strong>S3 子标题</strong>：<code style="background:#fff;padding:1px 5px;border-radius:3px">&lt;span class="ref-sub"&gt;First, the rule.&lt;/span&gt;</code><br>
+        ↩ <strong>分段</strong>：用 <code style="background:#fff;padding:1px 5px;border-radius:3px">&lt;br&gt;&lt;br&gt;</code> 分段
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script src="data.js"></script>
+<script src="tiers.js"></script>
+<script>
+// ═══ 数据层：读 + 存 override ═══
+const STORAGE_KEY = 'beiya_edits';
+
+function loadEdits(){
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e) { return {}; }
+}
+function saveEdits(edits){
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(edits)); } catch(e) { alert('保存失败: ' + e.message); }
+}
+
+function getCurrentGid(){
+  return parseInt(new URLSearchParams(location.search).get('q')) || 1;
+}
+
+// 合并原始数据 + override → 编辑态
+function getMergedQ(gid){
+  const orig = window.getQ(gid) || {};
+  const edits = loadEdits();
+  const ov = edits[gid] || {};
+  return Object.assign({}, orig, ov);
+}
+function getMergedTiers(gid){
+  const orig = ((window.TIERS||{})[gid]) || {};
+  const edits = loadEdits();
+  const ov = edits[gid] || {};
+  const ovTiers = ov.tiers || {};
+  return {
+    ref: ov.ref !== undefined ? ov.ref : orig.ref,
+    cn: ovTiers.cn || orig.cn,
+    minimal: ovTiers.minimal || orig.minimal,
+    prompt: ovTiers.prompt || orig.prompt,
+    detailed: ovTiers.detailed || orig.detailed
+  };
+}
+
+// ═══ Tab 切换 ═══
+document.querySelectorAll('.tab[data-tab]').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tab[data-tab]').forEach(x => x.classList.remove('on'));
+    t.classList.add('on');
+    document.querySelectorAll('.panel').forEach(p => p.style.display = 'none');
+    document.getElementById('panel-' + t.dataset.tab).style.display = 'block';
+  });
+});
+
+// ═══ 下拉选择器 ═══
+function initQSelect(){
+  const sel = document.getElementById('qSelect');
+  sel.innerHTML = '';
+  const groups = {};
+  window.P2_DATA.forEach(q => {
+    if (!groups[q.group]) groups[q.group] = [];
+    groups[q.group].push(q);
+  });
+  const order = window.STORIES.map(s => s.name);
+  order.forEach(name => {
+    if (!groups[name]) return;
+    const og = document.createElement('optgroup');
+    const meta = window.STORIES.find(s => s.name === name);
+    og.label = (meta ? meta.emoji + ' ' : '') + name;
+    groups[name].forEach(q => {
+      const o = document.createElement('option');
+      o.value = q.global_id;
+      o.textContent = 'Q' + q.global_id + ' · ' + q.title.slice(0, 45) + (q.title.length > 45 ? '…' : '');
+      og.appendChild(o);
+    });
+    sel.appendChild(og);
+  });
+  sel.addEventListener('change', () => {
+    if (dirty && !confirm('当前题有未保存的修改，确定跳走？')) { sel.value = getCurrentGid(); return; }
+    location.href = '老师后台_题目编辑器_v2.html?q=' + sel.value;
+  });
+}
+
+// ═══ 脏标记 ═══
+let dirty = false;
+function markDirty(){
+  if (dirty) return;
+  dirty = true;
+  const s = document.getElementById('saveStatus');
+  s.classList.add('dirty');
+  s.innerHTML = '● 未保存的修改';
+}
+function markClean(msg){
+  dirty = false;
+  const s = document.getElementById('saveStatus');
+  s.classList.remove('dirty');
+  s.innerHTML = msg || '✓ 已保存 · ' + new Date().toTimeString().slice(0, 5);
+}
+
+// ═══ 当前 tier ═══
+let currentTier = 'standard'; // standard / cn / prompt / detailed / minimal
+
+const TIER_META = {
+  standard: { label: '📋 标准版 S1-S4', hint: '原生 S1-S4 骨架（data.js 里的基础数据）' },
+  cn:       { label: '🀄 中文版',       hint: '混合风格：保留英文关键词 + 中文复述' },
+  prompt:   { label: '❓ 问题引导版',   hint: '12 左右引导问题 + 中文速记（括号内）' },
+  detailed: { label: '💡 详细版',       hint: '主体简单英文 + [[主词|替换]] hover 标记' },
+  minimal:  { label: '🎯 极简版',       hint: '冒号分割 label: content · 括号并列 · → 递进' }
+};
+const SEC_META = {
+  S1: { name: 'Answer Directly', time: '≈ 10 秒' },
+  S2: { name: 'Background',      time: '≈ 20 秒' },
+  S3: { name: 'Details ⭐ 主战场', time: '≈ 70 秒' },
+  S4: { name: 'Prospect',        time: '≈ 20 秒' }
+};
+
+function initTierSubtabs(){
+  const ts = document.getElementById('tierSubtabs');
+  ts.innerHTML = '';
+  ['standard', 'cn', 'prompt', 'detailed', 'minimal'].forEach(tier => {
+    const b = document.createElement('span');
+    b.className = 'tier-subtab' + (tier === currentTier ? ' on' : '');
+    b.textContent = TIER_META[tier].label;
+    b.dataset.tier = tier;
+    b.addEventListener('click', () => {
+      if (dirty && !confirm('当前 tier 有未保存的修改，切换会丢失，确定继续？')) return;
+      // 先保存当前 tier 的输入
+      persistCurrentOutlineToFormState();
+      currentTier = tier;
+      initTierSubtabs(); // refresh UI
+      renderOutline();
+    });
+    ts.appendChild(b);
+  });
+  document.getElementById('tierHintText').textContent = TIER_META[currentTier].hint;
+}
+
+// form 临时状态（在 tier 切换间保留）
+let _formState = { standard: null, cn: null, prompt: null, detailed: null, minimal: null };
+
+function renderOutline(){
+  const gid = getCurrentGid();
+  const grid = document.getElementById('outlineGrid');
+  grid.innerHTML = '';
+
+  let data;
+  if (_formState[currentTier]) {
+    data = _formState[currentTier];
+  } else if (currentTier === 'standard') {
+    const q = getMergedQ(gid);
+    data = { S1: q.S1 || [], S2: q.S2 || [], S3: q.S3 || [], S4: q.S4 || [],
+      S1_marker: q.S1_marker || '', S2_marker: q.S2_marker || '',
+      S3_marker: q.S3_marker || '', S4_marker: q.S4_marker || '' };
+  } else {
+    const tiers = getMergedTiers(gid);
+    const t = tiers[currentTier] || {};
+    data = { S1: t.S1 || [], S2: t.S2 || [], S3: t.S3 || [], S4: t.S4 || [],
+      S1_marker: '', S2_marker: '', S3_marker: '', S4_marker: '' };
+  }
+
+  ['S1', 'S2', 'S3', 'S4'].forEach(key => {
+    const stage = document.createElement('div');
+    stage.className = 'ol-stage' + (key === 'S3' ? ' s3' : '');
+    stage.dataset.sec = key;
+
+    const head = document.createElement('div');
+    head.className = 'ol-stage-head';
+    head.innerHTML = `<span class="ol-num">${key}</span><span class="ol-name">${SEC_META[key].name}</span><span class="ol-time">${SEC_META[key].time}</span>`;
+    stage.appendChild(head);
+
+    if (currentTier === 'standard') {
+      const markerInp = document.createElement('input');
+      markerInp.className = 'ol-marker-input';
+      markerInp.value = data[key + '_marker'] || '';
+      markerInp.placeholder = 'Marker (起手句) ...';
+      markerInp.addEventListener('input', markDirty);
+      stage.appendChild(markerInp);
+    }
+
+    const bulletsDiv = document.createElement('div');
+    bulletsDiv.className = 'ol-bullets';
+    (data[key] || []).forEach(text => bulletsDiv.appendChild(makeBullet(text)));
+    stage.appendChild(bulletsDiv);
+
+    const add = document.createElement('div');
+    add.className = 'add-bullet';
+    add.textContent = '+ 添加一条';
+    add.addEventListener('click', () => {
+      const b = makeBullet('');
+      bulletsDiv.appendChild(b);
+      b.querySelector('input').focus();
+      markDirty();
+    });
+    stage.appendChild(add);
+
+    grid.appendChild(stage);
+  });
+}
+
+function makeBullet(text){
+  const div = document.createElement('div');
+  div.className = 'ol-bullet';
+  div.innerHTML = '<span class="dot">•</span><input><span class="del">✕</span>';
+  const inp = div.querySelector('input');
+  inp.value = text;
+  inp.addEventListener('input', markDirty);
+  div.querySelector('.del').addEventListener('click', () => { div.remove(); markDirty(); });
+  return div;
+}
+
+function persistCurrentOutlineToFormState(){
+  const grid = document.getElementById('outlineGrid');
+  if (!grid || !grid.children.length) return;
+  const d = { S1: [], S2: [], S3: [], S4: [] };
+  grid.querySelectorAll('.ol-stage').forEach(stage => {
+    const key = stage.dataset.sec;
+    if (currentTier === 'standard') {
+      const mk = stage.querySelector('.ol-marker-input');
+      if (mk) d[key + '_marker'] = mk.value;
+    }
+    stage.querySelectorAll('.ol-bullet input').forEach(inp => {
+      if (inp.value.trim()) d[key].push(inp.value);
+    });
+  });
+  _formState[currentTier] = d;
+}
+
+// ═══ 渲染整页 ═══
+function renderPage(){
+  const gid = getCurrentGid();
+  const q = getMergedQ(gid);
+  if (!q || !q.global_id) {
+    document.querySelector('.wrap').innerHTML = '<div style="padding:80px;text-align:center;color:var(--ink-3)">题目 Q' + gid + ' 不存在 · <a href="老师后台_题目列表_v1.html" style="color:var(--beiya)">返回题目列表</a></div>';
+    return;
+  }
+  document.title = '北雅 · 编辑 Q' + gid;
+
+  // Subbar
+  const edits = loadEdits();
+  const hasEdit = !!edits[gid];
+  document.getElementById('qidPill').innerHTML = 'Q' + gid + (hasEdit ? ' <span class="edited-badge">已改</span>' : '');
+  const story = (window.STORIES || []).find(s => s.name === q.group);
+  document.getElementById('groupPill').textContent = (story ? story.emoji : '📁') + ' ' + q.group;
+  const catMap = { '人物': 'person', '地点': 'place', '物品': 'thing', '事件': 'event' };
+  const catEl = document.getElementById('catPill');
+  catEl.className = 'cat-pill ' + (catMap[q.category] || 'event');
+  catEl.textContent = q.category;
+
+  document.getElementById('qSelect').value = gid;
+  document.getElementById('prevBtn').href = 'javascript:void(0)';
+  document.getElementById('nextBtn').href = 'javascript:void(0)';
+  document.getElementById('prevBtn').onclick = () => { if (gid > 1) location.href = '?q=' + (gid - 1); };
+  document.getElementById('nextBtn').onclick = () => { if (gid < window.P2_DATA.length) location.href = '?q=' + (gid + 1); };
+
+  // Basic fields
+  document.getElementById('fld-qid').value = 'Q' + gid;
+  document.getElementById('fld-title').value = q.title || '';
+  document.getElementById('fld-category').value = q.category || '事件';
+  document.getElementById('fld-group').value = q.group || 'Creative Cooking';
+  document.getElementById('fld-qg').value = q.q_num_in_group || 1;
+  document.getElementById('fld-prep').value = (q.prep_words || []).join(', ');
+  document.getElementById('fld-groupkw').value = (q.group_keywords || []).join(' · ');
+
+  // Essay
+  const tiers = getMergedTiers(gid);
+  document.getElementById('fld-ref').value = tiers.ref || '';
+
+  // Outline
+  _formState = { standard: null, cn: null, prompt: null, detailed: null, minimal: null };
+  initTierSubtabs();
+  renderOutline();
+
+  // Health (now simpler: 5 tier + ref)
+  const healthProgress = document.getElementById('healthProgress');
+  healthProgress.innerHTML = '';
+  let done = 0;
+  const cells = [
+    { name: '标准版 S1-S4', ok: !!(q.S1 && q.S1.length) },
+    { name: '中文版', ok: !!(tiers.cn && tiers.cn.S1 && tiers.cn.S1.length) },
+    { name: '问题引导版', ok: !!(tiers.prompt && tiers.prompt.S1 && tiers.prompt.S1.length) },
+    { name: '详细版', ok: !!(tiers.detailed && tiers.detailed.S1 && tiers.detailed.S1.length) },
+    { name: '极简版', ok: !!(tiers.minimal && tiers.minimal.S1 && tiers.minimal.S1.length) },
+    { name: '参考范文', ok: !!(tiers.ref && tiers.ref.length > 50) }
+  ];
+  cells.forEach(c => {
+    const d = document.createElement('div');
+    d.className = 'hs-cell' + (c.ok ? ' done' : '');
+    d.dataset.name = c.name + (c.ok ? ' ✓' : ' (空)');
+    if (c.ok) done++;
+    healthProgress.appendChild(d);
+  });
+  document.getElementById('healthNum').textContent = done + ' / ' + cells.length;
+
+  // Init status
+  markClean('✓ 已加载' + (hasEdit ? ' (有未导出修改)' : ''));
+
+  // Attach input listeners
+  ['fld-title', 'fld-category', 'fld-group', 'fld-qg', 'fld-prep', 'fld-ref'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', markDirty);
+  });
+}
+
+// ═══ 保存 ═══
+document.getElementById('saveBtn').addEventListener('click', () => {
+  const gid = getCurrentGid();
+  const orig = window.getQ(gid);
+  const origTiers = ((window.TIERS||{})[gid]) || {};
+  const ov = {};
+
+  // Basic
+  const title = document.getElementById('fld-title').value.trim();
+  const cat = document.getElementById('fld-category').value;
+  const group = document.getElementById('fld-group').value;
+  const qg = parseInt(document.getElementById('fld-qg').value) || 1;
+  const prep = document.getElementById('fld-prep').value.split(',').map(s => s.trim()).filter(Boolean);
+
+  if (title !== orig.title) ov.title = title;
+  if (cat !== orig.category) ov.category = cat;
+  if (group !== orig.group) ov.group = group;
+  if (qg !== orig.q_num_in_group) ov.q_num_in_group = qg;
+  if (JSON.stringify(prep) !== JSON.stringify(orig.prep_words || [])) ov.prep_words = prep;
+
+  // Current outline → form state
+  persistCurrentOutlineToFormState();
+
+  // Standard S1-S4
+  if (_formState.standard) {
+    const fs = _formState.standard;
+    ['S1','S2','S3','S4'].forEach(k => {
+      if (JSON.stringify(fs[k]) !== JSON.stringify(orig[k] || [])) ov[k] = fs[k];
+      if (fs[k + '_marker'] !== (orig[k + '_marker'] || '')) ov[k + '_marker'] = fs[k + '_marker'];
+    });
+  }
+
+  // Other tiers
+  const tiersOv = {};
+  ['cn', 'minimal', 'prompt', 'detailed'].forEach(tier => {
+    if (_formState[tier]) {
+      const fs = _formState[tier];
+      const tierData = { S1: fs.S1, S2: fs.S2, S3: fs.S3, S4: fs.S4 };
+      const origTier = origTiers[tier] || {};
+      if (JSON.stringify(tierData) !== JSON.stringify({ S1: origTier.S1, S2: origTier.S2, S3: origTier.S3, S4: origTier.S4 })) {
+        tiersOv[tier] = tierData;
+      }
+    }
+  });
+  if (Object.keys(tiersOv).length) ov.tiers = tiersOv;
+
+  // Ref
+  const ref = document.getElementById('fld-ref').value;
+  if (ref !== (origTiers.ref || '')) ov.ref = ref;
+
+  const edits = loadEdits();
+  if (Object.keys(ov).length === 0) {
+    delete edits[gid];
+  } else {
+    edits[gid] = ov;
+  }
+  saveEdits(edits);
+  markClean('✓ 已保存到浏览器 · ' + new Date().toTimeString().slice(0, 5));
+
+  // refresh "已改" badge
+  const pill = document.getElementById('qidPill');
+  if (edits[gid]) {
+    if (!pill.innerHTML.includes('已改')) pill.innerHTML = 'Q' + gid + ' <span class="edited-badge">已改</span>';
+  } else {
+    pill.innerHTML = 'Q' + gid;
+  }
+});
+
+// ═══ 撤销当前题修改 ═══
+document.getElementById('resetBtn').addEventListener('click', () => {
+  const gid = getCurrentGid();
+  if (!confirm('确定撤销 Q' + gid + ' 的所有修改？无法恢复。')) return;
+  const edits = loadEdits();
+  delete edits[gid];
+  saveEdits(edits);
+  location.reload();
+});
+
+// ═══ 导出所有修改 ═══
+document.getElementById('exportBtn').addEventListener('click', () => {
+  const edits = loadEdits();
+  const n = Object.keys(edits).length;
+  if (n === 0) { alert('暂无修改可导出。'); return; }
+  const payload = {
+    exportedAt: new Date().toISOString(),
+    user: 'Tracy',
+    editedQuestionCount: n,
+    edits: edits
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = '北雅教师修改_' + new Date().toISOString().slice(0, 10) + '.json';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+});
+
+// ═══ 预览 ═══
+document.getElementById('previewBtn').addEventListener('click', () => {
+  window.open('题目详情_v1.html?q=' + getCurrentGid(), '_blank');
+});
+
+// ═══ Ctrl/Cmd+S ═══
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+    e.preventDefault();
+    document.getElementById('saveBtn').click();
+  }
+});
+
+// ═══ 启动 ═══
+(function init(){
+  if (!window.P2_DATA || !window.STORIES) {
+    setTimeout(init, 50);
+    return;
+  }
+  initQSelect();
+  renderPage();
+})();
+</script>
+
+</body>
+</html>
