@@ -274,6 +274,9 @@
   <!-- 左主列 -->
   <div class="main-col">
 
+    <!-- 生成成功 banner（默认隐藏） -->
+    <div class="gen-banner" id="genBanner" style="display:none"></div>
+
     <!-- STEP 0 · 题目 + 核心素材 -->
     <div class="card">
       <div class="card-h"><span class="num">0</span> 你要讲哪道题？</div>
@@ -353,7 +356,9 @@
 
     <!-- TOOLBAR -->
     <div class="toolbar">
-      <button class="btn primary" id="saveBtn">💾 保存到浏览器</button>
+      <button class="btn primary" id="wizardBtn" style="background:linear-gradient(135deg,#B8894A 0%,#9A6F35 100%);border-color:#9A6F35">🪄 引导我生成提纲</button>
+      <button class="btn" id="exampleBtn">📺 跑个例子看看</button>
+      <button class="btn" id="saveBtn">💾 保存到浏览器</button>
       <button class="btn" id="exportBtn">📤 导出为文本</button>
       <button class="btn" id="newBtn">🆕 新建一份</button>
       <button class="btn" id="clearBtn">🗑 清空本题</button>
@@ -412,6 +417,77 @@
   </aside>
 
 </main>
+
+<!-- 🪄 WIZARD MODAL · 引导生成提纲 -->
+<div class="modal-bg" id="wizardBg">
+  <div class="modal" onclick="event.stopPropagation()" style="max-width:640px">
+    <div class="modal-head">
+      <div class="modal-title">🪄 引导我生成提纲</div>
+      <span class="modal-close" id="wizardClose">✕</span>
+    </div>
+    <div class="modal-body" style="max-height:70vh;overflow-y:auto">
+      <p style="font-size:12.5px;color:var(--ink-3);margin-bottom:14px;line-height:1.7">
+        随便填几个空 · 系统帮你按 <strong style="color:var(--beiya)">S1-S4 框架</strong>组织成提纲 · 之后还能继续编辑。
+      </p>
+
+      <div class="wz-q">
+        <label>① 一句话概括 · 你想讲什么？</label>
+        <input class="inp" id="wz-summary" placeholder="例：我想讲我初中的语文老师如何帮我提高写作">
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="wz-q">
+          <label>② 大约什么时候？</label>
+          <input class="inp" id="wz-time" placeholder="例：roughly three years ago / 初中时">
+        </div>
+        <div class="wz-q">
+          <label>③ 在哪里 / 什么场合？</label>
+          <input class="inp" id="wz-place" placeholder="例：在学校办公室 / on a road trip">
+        </div>
+      </div>
+
+      <div class="wz-q">
+        <label>④ 主要人物 · 简单介绍下（除了你）</label>
+        <input class="inp" id="wz-person" placeholder="例：李老师 · 我的语文老师 · 严格但贴心">
+      </div>
+
+      <div class="wz-q">
+        <label>⑤ <strong>重点 1</strong> · 第一个想说的点
+          <span style="font-weight:400;color:var(--ink-3);font-size:11.5px;margin-left:6px">可以是：第一个原因 / 第一个特点 / 第一件事 / 一面对比的"原本"</span>
+        </label>
+        <textarea class="inp" id="wz-p1" rows="3" placeholder="例：她每次课后留 30 分钟单独帮我改作文，从开头一句到结尾一句都仔细圈画"></textarea>
+      </div>
+
+      <div class="wz-q">
+        <label>⑥ <strong>重点 2</strong> · 第二个想说的点
+          <span style="font-weight:400;color:var(--ink-3);font-size:11.5px;margin-left:6px">可以是：第二个原因 / 第二个特点 / 后来发生的 / 对比的"后来"</span>
+        </label>
+        <textarea class="inp" id="wz-p2" rows="3" placeholder="例：她还自己掏钱给我买课外书，说阅读量决定写作高度"></textarea>
+      </div>
+
+      <div class="wz-q">
+        <label>⑦ 结果 / 感受 · 给你带来什么</label>
+        <input class="inp" id="wz-out" placeholder="例：现在写作能力是她培养出来的 · 至今每年还会去看她">
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:18px;justify-content:flex-end">
+        <button class="btn" id="wzCancel">取消</button>
+        <button class="btn primary" id="wzGenerate" style="background:linear-gradient(135deg,#B8894A,#9A6F35);border-color:#9A6F35">🪄 生成提纲</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .wz-q{margin-bottom:14px}
+  .wz-q label{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px}
+  .gen-banner{background:linear-gradient(135deg,#E8F5EE,#D7EFE0);border:1px solid #BEE0C9;color:var(--ok);padding:14px 18px;border-radius:10px;margin-bottom:14px;font-size:13.5px;line-height:1.7}
+  .gen-banner strong{color:var(--ok)}
+  .gen-banner .qsuggest{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
+  .gen-banner .qsuggest a{background:#fff;color:var(--beiya);padding:3px 10px;border-radius:10px;font-weight:600;font-size:12px;border:1px solid #BEE0C9;cursor:pointer;text-decoration:none}
+  .gen-banner .qsuggest a:hover{background:var(--beiya);color:#fff;border-color:var(--beiya)}
+  .gen-banner .close{float:right;cursor:pointer;color:var(--ink-3);font-size:16px}
+</style>
 
 <!-- EXPORT MODAL -->
 <div class="modal-bg" id="modalBg">
@@ -645,6 +721,143 @@ document.getElementById('copyBtn').addEventListener('click', ()=>{
     _dirty = true;
     document.getElementById('saveStatus').textContent = '● 未保存';
   });
+});
+
+// ═══════════════════════════════════════════════════════════
+// 🪄 引导式生成提纲
+// ═══════════════════════════════════════════════════════════
+const wizardBg = document.getElementById('wizardBg');
+document.getElementById('wizardBtn').addEventListener('click', ()=>{
+  // 把已填入的题目带过来（如果有）
+  const t = document.getElementById('customTitle').value.trim();
+  // 简单提示
+  wizardBg.classList.add('show');
+});
+document.getElementById('wizardClose').addEventListener('click', ()=>wizardBg.classList.remove('show'));
+document.getElementById('wzCancel').addEventListener('click', ()=>wizardBg.classList.remove('show'));
+wizardBg.addEventListener('click', ()=>wizardBg.classList.remove('show'));
+
+// 生成提纲核心函数
+document.getElementById('wzGenerate').addEventListener('click', ()=>{
+  const summary = document.getElementById('wz-summary').value.trim();
+  const time = document.getElementById('wz-time').value.trim();
+  const place = document.getElementById('wz-place').value.trim();
+  const person = document.getElementById('wz-person').value.trim();
+  const p1 = document.getElementById('wz-p1').value.trim();
+  const p2 = document.getElementById('wz-p2').value.trim();
+  const out = document.getElementById('wz-out').value.trim();
+
+  if (!summary && !p1 && !p2) {
+    alert('至少填写①一句话概括 + 两个重点之一才能生成');
+    return;
+  }
+
+  // 填 S1
+  document.getElementById('s1').value = summary
+    ? `I'm going to talk about ${summary}.`
+    : "I'm going to talk about ...";
+
+  // 填 S2
+  const s2lines = [];
+  if (time) s2lines.push(`It happened ${time}.`);
+  if (place) s2lines.push(`We were at ${place}.`);
+  if (person) s2lines.push(`The main person involved was ${person}.`);
+  document.getElementById('s2').value = s2lines.join('\n') || '(填时间 / 地点 / 人物)';
+
+  // 填 S3 TP1
+  document.getElementById('s3a').value = p1
+    ? `First, let me tell you the first key point.\n${p1}\n💡 可叠技巧：「主体+客体」(说完事再说"我的感受")`
+    : '';
+
+  // 填 S3 TP2
+  document.getElementById('s3b').value = p2
+    ? `Then, the second point worth mentioning.\n${p2}\n💡 可叠技巧：「对比」(对比"原本/后来" 或 "别人/我")`
+    : '';
+
+  // 填 S4
+  document.getElementById('s4').value = out
+    ? `Anyway, ${out}\n💡 可叠技巧：「睹物思人」(每次看到 X 就想起 Y)`
+    : 'Anyway, ...';
+
+  _dirty = true;
+  document.getElementById('saveStatus').textContent = '✅ 已生成 · 你可以继续编辑';
+
+  // 关弹窗
+  wizardBg.classList.remove('show');
+
+  // 显示成功 banner + 推荐同类题
+  showGenBanner(summary || person || p1);
+
+  // 滚到 S1
+  document.getElementById('s1').scrollIntoView({behavior:'smooth', block:'center'});
+});
+
+// 显示生成成功 banner + 推荐同类题
+function showGenBanner(snippet){
+  const banner = document.getElementById('genBanner');
+  // 推荐同类题：根据当前题目的 category 找其他同类题
+  const qPick = document.getElementById('qPicker').value;
+  let recommend = '';
+  if (qPick && window.P2_DATA) {
+    const q = window.P2_DATA.find(x=>x.global_id === Number(qPick));
+    if (q) {
+      const sameCat = window.P2_DATA.filter(x=>x.category === q.category && x.global_id !== q.global_id).slice(0, 6);
+      const chips = sameCat.map(x=>
+        `<a href="?q=${x.global_id}" title="${x.title.replace(/"/g,'&quot;')}">Q${x.global_id} · ${x.title.slice(0,30)}${x.title.length>30?'…':''}</a>`
+      ).join('');
+      recommend = `<div style="margin-top:10px;font-size:12.5px;color:var(--ink-2)">💡 你这套素材是「${q.category}」类，<strong>同类题也可以套这套素材</strong>：</div><div class="qsuggest">${chips}</div>`;
+    }
+  }
+
+  banner.innerHTML = `
+    <span class="close" onclick="document.getElementById('genBanner').style.display='none'">✕</span>
+    <strong>✅ 提纲已生成！</strong>系统按 S1-S4 框架填好了，可以直接编辑下面四段。
+    每段还有「💡 可叠技巧」小提示——别忘了在 S3 至少叠 1 个技巧让分数更高。
+    ${recommend}
+  `;
+  banner.style.display = 'block';
+  banner.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ═══════════════════════════════════════════════════════════
+// 📺 跑个例子看看 · 用一个非 Lucy 的故事
+// ═══════════════════════════════════════════════════════════
+document.getElementById('exampleBtn').addEventListener('click', ()=>{
+  if (_dirty && !confirm('当前有未保存内容，载入例子会覆盖。确定？')) return;
+
+  // 一个完全不同的例子（不是 Lucy / Fruit Roast Chicken）
+  document.getElementById('customTitle').value = 'Describe a person who often helps others';
+  document.getElementById('myAssets').value = '李老师 · 我初中语文老师 · 三年前 · 课后留 30 分钟改作文 · 自己掏钱给我买课外书 · 现在写作能力是她培养的';
+
+  document.getElementById('s1').value = "I'm going to talk about my middle school Chinese teacher, Ms. Li — she's a person who has helped me again and again.";
+
+  document.getElementById('s2').value = `It happened roughly three years ago, when I was in middle school.\nShe was my Chinese teacher.\nMy writing back then was honestly pretty weak.`;
+
+  document.getElementById('s3a').value = `First, let me tell you the first thing she did for me.\nAfter every class, she would stay an extra 30 minutes just to go through my essays with me — line by line, from the opening to the closing sentence.\nShe never rushed, never complained.\n💡 主体+客体：说完她做了什么 → 说"对我来说，那种被认真对待的感觉特别难得"`;
+
+  document.getElementById('s3b').value = `Then, the second thing was even more touching.\nShe used her own money to buy me extra reading books, saying "the depth of your reading decides the height of your writing".\n💡 对比：以前我从不读课外书，现在我家里堆满了她送的书`;
+
+  document.getElementById('s4').value = `Anyway, my writing today is basically what she built up.\n💡 睹物思人：every time I open one of her gifted books, I think of her face when she handed it to me.\nI still go visit her every year during the new year.`;
+
+  _dirty = true;
+  document.getElementById('saveStatus').textContent = '📺 已载入示例 · 这个故事可以套用在多道题';
+
+  // 显示推荐同类题（人物类）
+  if (window.P2_DATA) {
+    const personQs = window.P2_DATA.filter(x=>x.category==='人物').slice(0,6);
+    const chips = personQs.map(x=>
+      `<a href="?q=${x.global_id}" title="${x.title.replace(/"/g,'&quot;')}">Q${x.global_id} · ${x.title.slice(0,28)}${x.title.length>28?'…':''}</a>`
+    ).join('');
+    const banner = document.getElementById('genBanner');
+    banner.innerHTML = `
+      <span class="close" onclick="document.getElementById('genBanner').style.display='none'">✕</span>
+      <strong>📺 已载入示例 · 「李老师」的故事</strong><br>
+      这个素材是「人物」类，下面这些同类题<strong>都能套这套素材</strong>（换换说法即可）：
+      <div class="qsuggest">${chips}</div>
+    `;
+    banner.style.display = 'block';
+    banner.scrollIntoView({behavior:'smooth', block:'start'});
+  }
 });
 </script>
 
