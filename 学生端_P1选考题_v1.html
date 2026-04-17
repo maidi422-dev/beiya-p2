@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>北雅国际教育 · 雅思口语 Part 1 · 选考题</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --beiya:#C0392B;--beiya-dark:#9B2C20;--beiya-soft:#FDECEA;
+    --gold:#B8894A;--gold-soft:#FBF4EA;
+    --ink:#1E1E22;--ink-2:#4A4A52;--ink-3:#8A8A92;
+    --line:#E8E8EC;--bg:#FAFAFA;--white:#FFFFFF;
+    --green:#2E7D32;--green-soft:#E8F5E9;--green-bd:#A5D6A7;
+    --orange:#E8834A;--orange-soft:#FFF3E0;--orange-bd:#FFCC80;
+    --blue:#2E3B6B;--blue-soft:#EDF4FF;--blue-bd:#C9D4EA;
+    --purple:#6B4E9C;--purple-soft:#F3EEFB;--purple-bd:#D8CBEA;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;cursor:pointer}
+
+  /* ─── TOP BAR ─── */
+  .topbar{
+    position:sticky;top:0;z-index:40;background:var(--white);
+    border-bottom:1px solid var(--line);
+    padding:14px 24px;display:flex;align-items:center;gap:14px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:var(--beiya);white-space:nowrap}
+  .brand-mark{width:28px;height:28px;background:var(--beiya);color:#fff;
+    display:flex;align-items:center;justify-content:center;border-radius:4px;
+    font-family:'Noto Serif SC',serif;font-size:14px}
+  .part-sw{
+    display:flex;gap:2px;background:#F4F4F6;padding:3px;border-radius:22px;
+    margin-left:4px;flex-shrink:0
+  }
+  .part-sw a{
+    padding:6px 14px;border-radius:18px;font-size:12.5px;color:var(--ink-3);
+    font-weight:600;transition:all .15s;white-space:nowrap
+  }
+  .part-sw a:hover:not(.disabled):not(.active){color:var(--beiya)}
+  .part-sw a.active{background:var(--beiya);color:#fff;box-shadow:0 2px 6px rgba(192,57,43,.2)}
+  .part-sw a.disabled{color:#C5C5CD;cursor:not-allowed;pointer-events:none}
+  .nav{display:flex;gap:4px;margin-left:10px;flex:1}
+  .nav a{padding:7px 14px;border-radius:6px;font-size:13px;color:var(--ink-2);font-weight:500;white-space:nowrap}
+  .nav a:hover:not(.disabled){background:var(--beiya-soft);color:var(--beiya)}
+  .nav a.active{background:var(--beiya);color:#fff}
+  .nav a.disabled{color:#C5C5CD;cursor:not-allowed;pointer-events:none}
+  .search-wrap{position:relative}
+  .search{
+    background:#F4F4F6;border:1px solid transparent;border-radius:20px;
+    padding:7px 14px 7px 36px;font-size:12.5px;width:200px;
+    color:var(--ink);font-family:inherit;outline:none;transition:all .2s
+  }
+  .search:focus{background:#fff;border-color:var(--beiya);width:240px}
+  .search-ico{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--ink-3);font-size:13px;pointer-events:none}
+
+  /* ─── LAYOUT ─── */
+  .wrap{max-width:1120px;margin:0 auto;padding:32px 24px 80px}
+
+  /* ─── HERO ─── */
+  .hero{
+    background:linear-gradient(135deg,#fff 0%,#F0F8F3 100%);
+    border:1px solid var(--line);border-radius:16px;
+    padding:32px 36px;margin-bottom:22px;position:relative;overflow:hidden
+  }
+  .hero::before{
+    content:'';position:absolute;top:-40px;right:-40px;width:220px;height:220px;
+    background:radial-gradient(circle,var(--green-soft) 0%,transparent 70%);opacity:.7
+  }
+  .hero-eyebrow{
+    font-size:12px;letter-spacing:2px;color:var(--green);font-weight:600;
+    text-transform:uppercase;margin-bottom:10px
+  }
+  .hero-title{
+    font-family:'Noto Serif SC',serif;font-size:28px;font-weight:700;
+    line-height:1.3;color:var(--ink);margin-bottom:10px;position:relative;z-index:2
+  }
+  .hero-title em{color:var(--green);font-style:normal}
+  .hero-sub{font-size:14px;color:var(--ink-2);max-width:720px;line-height:1.8;position:relative;z-index:2}
+  .hero-stats{
+    display:flex;gap:28px;margin-top:20px;padding-top:20px;
+    border-top:1px dashed var(--line);position:relative;z-index:2;flex-wrap:wrap
+  }
+  .stat{display:flex;flex-direction:column;gap:2px}
+  .stat-num{font-family:'Noto Serif SC',serif;font-size:22px;font-weight:700;color:var(--green);line-height:1}
+  .stat-lbl{font-size:11.5px;color:var(--ink-3);margin-top:3px;letter-spacing:.5px}
+
+  /* ─── 页内二级切换 ─── */
+  .sub-tabs{
+    display:flex;gap:4px;background:#F4F4F6;padding:4px;border-radius:14px;
+    margin-bottom:18px;width:fit-content;flex-wrap:wrap
+  }
+  .sub-tabs a{
+    padding:9px 18px;border-radius:10px;font-size:13px;font-weight:600;
+    color:var(--ink-2);display:flex;align-items:center;gap:6px;transition:all .15s;
+    border:1px solid transparent
+  }
+  .sub-tabs a:hover:not(.active){color:var(--beiya)}
+  .sub-tabs a.active{background:#fff;color:var(--beiya);box-shadow:0 2px 6px rgba(0,0,0,.05);border-color:var(--beiya-soft)}
+  .sub-tabs .c{
+    background:#E8E8EC;color:var(--ink-3);padding:1px 7px;border-radius:10px;
+    font-size:11px;font-weight:600
+  }
+  .sub-tabs a.active .c{background:var(--beiya-soft);color:var(--beiya)}
+  .sub-tabs .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:2px}
+  .sub-tabs .dot-stable{background:var(--green)}
+  .sub-tabs .dot-dynamic{background:var(--orange)}
+  .sub-tabs .dot-card{background:var(--purple)}
+
+  /* ─── GROUP ─── */
+  .grp{margin-bottom:32px}
+  .grp-head{
+    display:flex;align-items:baseline;justify-content:space-between;
+    margin-bottom:12px;gap:10px;flex-wrap:wrap
+  }
+  .grp-title{
+    font-family:'Noto Serif SC',serif;font-size:19px;font-weight:700;color:var(--ink)
+  }
+  .grp-title .emoji{margin-right:8px}
+  .grp-title .count{color:var(--ink-3);font-weight:500;font-size:14px;margin-left:8px}
+  .grp-hint{font-size:12.5px;color:var(--ink-3)}
+
+  /* ─── 选考题卡片 ─── */
+  .egrid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(340px,1fr))}
+  .ecard{
+    background:var(--white);border:1px solid var(--line);border-radius:12px;
+    padding:16px 18px;position:relative;overflow:hidden;
+    display:flex;flex-direction:column;gap:10px;transition:all .18s
+  }
+  .ecard:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.04);border-color:var(--green-bd)}
+  .ecard::before{
+    content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--green)
+  }
+  .ec-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+  .ec-seq{
+    font-family:'Noto Serif SC',serif;font-size:11.5px;font-weight:600;color:var(--green);
+    background:var(--green-soft);padding:2px 9px;border-radius:10px;flex-shrink:0
+  }
+  .ec-q{font-size:14px;color:var(--ink);font-weight:500;line-height:1.55}
+  .ec-tip{
+    background:var(--gold-soft);border:1px dashed #EAD9B8;border-radius:8px;
+    padding:10px 12px;font-size:12.5px;color:var(--ink-2);line-height:1.6
+  }
+  .ec-tip b{color:var(--gold);margin-right:4px}
+  .ec-cards{display:flex;gap:6px;flex-wrap:wrap;padding-top:2px}
+  .card-chip{
+    display:inline-flex;align-items:center;gap:4px;padding:4px 10px;
+    background:var(--purple-soft);color:var(--purple);border:1px solid var(--purple-bd);
+    border-radius:14px;font-size:11.5px;font-weight:600;cursor:pointer;transition:all .12s
+  }
+  .card-chip:hover{background:var(--purple);color:#fff}
+  .card-chip.sub{background:#F8F6FB;opacity:.85}
+
+  /* ─── 动态题占位 ─── */
+  .dyn-placeholder{
+    background:var(--white);border:1px solid var(--line);border-radius:14px;
+    padding:32px 36px;text-align:center
+  }
+  .dyn-label{
+    display:inline-block;background:var(--orange-soft);color:var(--orange);
+    padding:4px 14px;border-radius:12px;font-size:12px;font-weight:700;letter-spacing:.5px;margin-bottom:16px
+  }
+  .dyn-title{
+    font-family:'Noto Serif SC',serif;font-size:22px;font-weight:700;color:var(--ink);margin-bottom:10px
+  }
+  .dyn-sub{font-size:14px;color:var(--ink-2);max-width:600px;margin:0 auto 24px;line-height:1.75}
+  .tech-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;
+    text-align:left;margin-top:20px
+  }
+  .tech-card{
+    background:#FFFBF0;border:1px solid #EAD9B8;border-radius:10px;
+    padding:14px 16px;transition:all .15s
+  }
+  .tech-card:hover{border-color:var(--orange);transform:translateY(-2px)}
+  .tech-id{
+    font-family:'Noto Serif SC',serif;font-size:11px;color:var(--orange);
+    font-weight:700;letter-spacing:.5px;margin-bottom:4px
+  }
+  .tech-name{font-size:14px;color:var(--ink);font-weight:700;margin-bottom:6px}
+  .tech-ex{font-size:12px;color:var(--ink-3);line-height:1.55;font-style:italic}
+
+  /* ─── 素材卡 ─── */
+  .cardgrid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(360px,1fr))}
+  .mcard{
+    background:var(--white);border:1px solid var(--line);border-radius:14px;
+    padding:18px 20px;display:flex;flex-direction:column;gap:10px;
+    position:relative;overflow:hidden;transition:all .18s
+  }
+  .mcard::before{
+    content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--purple)
+  }
+  .mcard.type-MOD::before{background:var(--blue)}
+  .mcard:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(107,78,156,.08)}
+  .mc-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .mc-id{
+    font-family:'Noto Serif SC',serif;font-size:11.5px;font-weight:700;
+    background:var(--purple-soft);color:var(--purple);padding:3px 10px;border-radius:12px;letter-spacing:.5px
+  }
+  .mcard.type-MOD .mc-id{background:var(--blue-soft);color:var(--blue)}
+  .mc-star{color:var(--gold);font-size:14px;letter-spacing:1px}
+  .mc-type{
+    font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:10px;
+    background:var(--purple-soft);color:var(--purple)
+  }
+  .mcard.type-MOD .mc-type{background:var(--blue-soft);color:var(--blue)}
+  .mc-name{
+    font-family:'Noto Serif SC',serif;font-size:17px;font-weight:700;color:var(--ink);line-height:1.4
+  }
+  .mc-persona{
+    font-size:12.5px;color:var(--ink-2);background:#F8F7FB;border-left:3px solid var(--purple);
+    padding:10px 12px;border-radius:6px;line-height:1.6
+  }
+  .mcard.type-MOD .mc-persona{border-left-color:var(--blue);background:#F5F8FD}
+  .mc-kw{
+    background:var(--beiya-soft);border:1px dashed #E5B3AE;border-radius:8px;
+    padding:8px 12px;font-size:12px;color:var(--beiya-dark);line-height:1.55;font-weight:600
+  }
+  .mc-expand{
+    background:#F4F4F6;border:none;border-radius:8px;padding:8px 12px;
+    font-size:12px;color:var(--ink-2);cursor:pointer;font-weight:600;
+    display:flex;align-items:center;justify-content:center;gap:6px;font-family:inherit
+  }
+  .mc-expand:hover{background:#E8E8EC;color:var(--ink)}
+  .mc-detail{
+    display:none;padding-top:10px;margin-top:4px;border-top:1px dashed var(--line);
+    flex-direction:column;gap:10px
+  }
+  .mcard.open .mc-detail{display:flex}
+  .mc-detail .s-title{
+    font-size:11px;font-weight:700;color:var(--ink-3);letter-spacing:.5px;margin-bottom:4px
+  }
+  .mc-detail .sample{
+    font-size:13.5px;line-height:1.85;color:var(--ink);padding:10px 12px;border-radius:6px
+  }
+  .mc-detail .sample.s-a{background:var(--green-soft);border-left:3px solid var(--green)}
+  .mc-detail .sample.s-b{background:var(--orange-soft);border-left:3px solid var(--orange)}
+  .mc-detail .chunks{font-size:12.5px;color:var(--ink-2);line-height:1.65;white-space:pre-line;background:#F8FAFD;padding:10px 12px;border-radius:6px;border:1px solid #DDE4F0}
+
+  /* ─── 高亮定位的卡片（从 chip 跳过来）─── */
+  .mcard.highlight{
+    box-shadow:0 0 0 3px var(--gold),0 8px 24px rgba(184,137,74,.2);
+    animation:pulse 1.6s ease-in-out
+  }
+  @keyframes pulse{0%{box-shadow:0 0 0 6px var(--gold)}100%{box-shadow:0 0 0 3px var(--gold),0 8px 24px rgba(184,137,74,.2)}}
+
+  /* ─── 动态题 · 话题分组 + 4-tier 题卡 + cycle 徽章 ─── */
+  .dyn-intro{
+    background:linear-gradient(135deg,#FFFBF0 0%,#fff 60%);
+    border:1px solid #EAD9B8;border-radius:14px;
+    padding:24px 28px;margin-bottom:22px;position:relative;overflow:hidden
+  }
+  .dyn-intro::before{
+    content:'';position:absolute;top:-30px;right:-30px;width:180px;height:180px;
+    background:radial-gradient(circle,#FFF3E0 0%,transparent 70%);opacity:.8
+  }
+  .dyn-intro-head{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;position:relative;z-index:2}
+  .dyn-intro-label{
+    display:inline-block;background:var(--orange-soft);color:var(--orange);
+    padding:3px 11px;border-radius:12px;font-size:11px;font-weight:700;letter-spacing:.5px
+  }
+  .dyn-intro-status{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-weight:500}
+  .dyn-intro-title{
+    font-family:'Noto Serif SC',serif;font-size:19px;font-weight:700;color:var(--ink);
+    margin-bottom:8px;position:relative;z-index:2
+  }
+  .dyn-intro-sub{font-size:13.5px;color:var(--ink-2);margin-bottom:16px;line-height:1.7;position:relative;z-index:2}
+  .dyn-intro .tech-grid{margin-top:0;position:relative;z-index:2}
+
+  .dyn-topic{
+    background:var(--white);border:1px solid var(--line);border-radius:14px;
+    padding:22px 26px;margin-bottom:18px
+  }
+  .dyn-topic-head{
+    display:flex;align-items:center;gap:10px;padding-bottom:14px;margin-bottom:16px;
+    border-bottom:2px solid var(--ink);flex-wrap:wrap
+  }
+  .dyn-topic-name{
+    font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--ink)
+  }
+  .dyn-topic-zh{font-size:13px;color:var(--ink-3);font-weight:500}
+  .dyn-topic-count{margin-left:auto;font-size:12px;color:var(--ink-3)}
+
+  .cycle-badge{
+    display:inline-flex;align-items:center;gap:4px;
+    font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:12px;letter-spacing:.3px
+  }
+  .cycle-badge.retained{
+    background:var(--gold-soft);color:var(--gold);border:1px solid #E8D4A8
+  }
+  .cycle-badge.expiring{
+    background:var(--orange-soft);color:var(--orange);border:1px solid var(--orange-bd)
+  }
+
+  .dq-card{
+    background:#FAFAFA;border:1px solid var(--line);border-radius:12px;
+    padding:18px 22px;margin-bottom:14px
+  }
+  .dq-card:last-child{margin-bottom:0}
+  .dq-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+  .dq-num{
+    font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:700;
+    color:var(--ink-3);letter-spacing:1px
+  }
+  .dq-en{
+    font-family:'Noto Serif SC',serif;font-size:16.5px;font-weight:600;
+    color:var(--ink);margin-bottom:14px;line-height:1.5
+  }
+  .pill{
+    display:inline-flex;align-items:center;
+    font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;letter-spacing:.3px
+  }
+  .pill.t-zk{background:var(--green-soft);color:var(--green);border:1px solid var(--green-bd)}
+  .pill.t-eg{background:var(--gold-soft);color:var(--gold);border:1px solid #E8D4A8}
+  .pill.t-ct{background:var(--purple-soft);color:var(--purple);border:1px solid var(--purple-bd)}
+  .pill.t-fw{background:var(--blue-soft);color:var(--blue);border:1px solid var(--blue-bd)}
+
+  .dq-tier{margin-bottom:10px}
+  .dq-tier:last-child{margin-bottom:0}
+  .tier-label{
+    display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:1.5px;
+    padding:2px 8px;border-radius:4px;margin-bottom:6px;text-transform:uppercase
+  }
+  .tier-label.tl-chunks{background:#F4F4F6;color:var(--ink-2)}
+  .tier-label.tl-basic{background:var(--beiya-soft);color:var(--beiya)}
+  .tier-label.tl-adv{background:var(--gold-soft);color:var(--gold)}
+  .tier-label.tl-kw{background:var(--green-soft);color:var(--green)}
+  .tier-badge{
+    font-size:10px;color:var(--ink-3);margin-left:5px;font-weight:500;letter-spacing:.2px
+  }
+  .tier-body{
+    font-size:13.5px;color:var(--ink);line-height:1.75;
+    padding:10px 13px;border-radius:8px;background:#fff;border:1px solid var(--line)
+  }
+  .tier-body.basic{background:#FFF8F7;border-color:#F5D6D2}
+  .tier-body.adv{background:#FDF8F0;border-color:#EEDEBE}
+
+  /* ─── RESPONSIVE ─── */
+  @media(max-width:760px){
+    .topbar{padding:10px 12px;gap:8px;flex-wrap:wrap}
+    .brand{font-size:13px}
+    .brand-mark{width:24px;height:24px;font-size:12px}
+    .nav{flex:1 1 100%;order:3;overflow-x:auto;scrollbar-width:none;gap:0;padding:4px 0;border-top:1px solid var(--line);margin:8px 0 0}
+    .nav::-webkit-scrollbar{display:none}
+    .nav a{padding:6px 10px;font-size:12px;flex-shrink:0}
+    .search-wrap{display:none}
+    .part-sw{order:2}
+    .part-sw a{padding:5px 10px;font-size:11.5px}
+    .wrap{padding:20px 14px 60px}
+    .hero{padding:22px 20px}
+    .hero-title{font-size:22px}
+    .egrid,.cardgrid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><div class="brand-mark">雅</div>北雅 · IELTS Speaking</div>
+  <div class="part-sw">
+    <a class="active" href="学生端_P1必考题_v1.html">Part 1</a>
+    <a href="学生端_素材宇宙首页_v1.html">Part 2</a>
+    <a class="disabled" title="敬请期待">Part 3</a>
+  </div>
+  <div class="nav">
+    <a href="学生端_P1必考题_v1.html">🎯 必考题</a>
+    <a class="active" href="学生端_P1选考题_v1.html">📚 选考题</a>
+    <a class="disabled" title="即将上线">⭐ 我的</a>
+  </div>
+  <div class="search-wrap">
+    <span class="search-ico">🔍</span>
+    <input class="search" placeholder="搜选考 / 素材卡..." id="searchBox">
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="hero-eyebrow">PART 1 · 选考题</div>
+    <h1 class="hero-title"><em>68 道</em>稳定选考 · <em id="h-dynamic">26 道</em>动态题（<span style="color:var(--gold)">★ 保留题</span>首批）· <em>18 张</em>素材卡</h1>
+    <p class="hero-sub">
+      选考题就是考试<strong>不一定会问</strong>的题，但问到也别慌——我们用 <strong>18 张素材卡</strong>（8 个人物 + 10 个模块）当原料，
+      任何选考题都能从里面借一部分拼出来。动态题首批聚焦 <strong>5–8 月换季保留题</strong>（跨季不换、复用价值最高），用 <strong>4 个技巧</strong>现场造，每题给 4 层难度。
+    </p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num" id="s-stable">68</div><div class="stat-lbl">稳定选考</div></div>
+      <div class="stat"><div class="stat-num" id="s-dynamic" style="color:var(--green)">26</div><div class="stat-lbl">动态题 · ★ 保留题</div></div>
+      <div class="stat"><div class="stat-num" id="s-cards" style="color:var(--purple)">18</div><div class="stat-lbl">素材卡</div></div>
+    </div>
+  </section>
+
+  <div class="sub-tabs" id="subTabs">
+    <a data-view="stable" class="active"><span class="dot dot-stable"></span>稳定题 <span class="c" id="c-stable">68</span></a>
+    <a data-view="dynamic"><span class="dot dot-dynamic"></span>动态题 <span class="c" id="c-dynamic">26</span></a>
+    <a data-view="cards"><span class="dot dot-card"></span>素材卡 <span class="c" id="c-cards">18</span></a>
+  </div>
+
+  <div id="groups"></div>
+
+</div>
+
+<script src="p1_data.js"></script>
+<script>
+  try{ if(localStorage.getItem('beiya_authed')!=='1') location.href='学生端_登录_v1.html'; }catch(e){}
+
+  const D = window.P1_DATA || {electives:[],cards:[],crossrefs:[]};
+
+  const GROUP_EMOJI = {
+    'Children':'🧒','School':'🏫','Future':'🔮','P3-like':'💭','Places':'📍','Tech':'💻'
+  };
+
+  // ─── URL 状态 ───
+  // #stable | #dynamic | #cards | #card=NPC-1
+  function parseHash(){
+    const h = location.hash||'';
+    if(h==='#dynamic') return {view:'dynamic',focusCard:null};
+    if(h==='#cards') return {view:'cards',focusCard:null};
+    const cm = h.match(/^#card=((?:NPC|MOD)-\d+)$/);
+    if(cm) return {view:'cards',focusCard:cm[1]};
+    return {view:'stable',focusCard:null};
+  }
+
+  function render(){
+    const state = parseHash();
+    const search = (document.getElementById('searchBox').value||'').trim().toLowerCase();
+
+    document.querySelectorAll('#subTabs a').forEach(a=>{
+      a.classList.toggle('active', a.dataset.view===state.view);
+    });
+
+    const box = document.getElementById('groups');
+    if(state.view==='dynamic') box.innerHTML = renderDynamic();
+    else if(state.view==='cards') box.innerHTML = renderCards(search);
+    else box.innerHTML = renderStable(search);
+
+    // 填数
+    const dynCount = (D.dynamic_electives||[]).length;
+    document.getElementById('s-stable').textContent = (D.electives||[]).length;
+    document.getElementById('s-cards').textContent = (D.cards||[]).length;
+    document.getElementById('s-dynamic').textContent = dynCount;
+    document.getElementById('h-dynamic').textContent = dynCount + ' 道';
+    document.getElementById('c-stable').textContent = (D.electives||[]).length;
+    document.getElementById('c-cards').textContent = (D.cards||[]).length;
+    document.getElementById('c-dynamic').textContent = dynCount;
+
+    // 从 chip 跳进素材卡：高亮 + 滚动
+    if(state.focusCard){
+      setTimeout(()=>{
+        const el = document.getElementById('card-'+state.focusCard);
+        if(el){
+          el.classList.add('open','highlight');
+          el.scrollIntoView({behavior:'smooth',block:'center'});
+          setTimeout(()=>el.classList.remove('highlight'),2200);
+        }
+      },80);
+    }
+  }
+
+  function groupByField(list, field){
+    const g={};
+    list.forEach(x=>{const k=x[field]||'Other';(g[k]=g[k]||[]).push(x)});
+    return g;
+  }
+
+  // ─── 稳定题视图 ───
+  function renderStable(search){
+    let list = (D.electives||[]);
+    if(search){
+      list = list.filter(e=>
+        (e.q_en||'').toLowerCase().includes(search)
+        || (e.group||'').toLowerCase().includes(search)
+        || (e.tip||'').toLowerCase().includes(search)
+      );
+    }
+    if(!list.length) return emptyMsg('没有匹配的稳定题。');
+    const grouped = groupByField(list,'group');
+    const order = ['Children','School','Future','P3-like','Places','Tech'];
+    const groups = [...new Set([...order.filter(t=>grouped[t]),...Object.keys(grouped)])];
+
+    return groups.map(t=>{
+      const items = grouped[t];
+      if(!items || !items.length) return '';
+      const cards = items.map(e=>{
+        const chips = [];
+        if(e.main_card) chips.push(`<a class="card-chip" href="#card=${e.main_card}">📦 ${e.main_card}（主）</a>`);
+        if(e.sub_card)  chips.push(`<a class="card-chip sub" href="#card=${e.sub_card}">📦 ${e.sub_card}（辅）</a>`);
+        return `
+          <div class="ecard">
+            <div class="ec-head">
+              <span class="ec-seq">#${e.seq}</span>
+            </div>
+            <div class="ec-q">${e.q_en||''}</div>
+            ${e.tip?`<div class="ec-tip"><b>💡 Tracy 建议：</b>${e.tip}</div>`:''}
+            ${chips.length?`<div class="ec-cards">${chips.join('')}</div>`:''}
+          </div>`;
+      }).join('');
+      return `
+        <section class="grp">
+          <div class="grp-head">
+            <div class="grp-title"><span class="emoji">${GROUP_EMOJI[t]||'📂'}</span>${t}<span class="count">(${items.length} 道)</span></div>
+            <div class="grp-hint">点素材卡 chip → 看能借的原料</div>
+          </div>
+          <div class="egrid">${cards}</div>
+        </section>`;
+    }).join('');
+  }
+
+  // ─── 动态题视图（4 技巧介绍 + 真实数据渲染）───
+  const TECH_MAP = {
+    '主客体':{pill:'t-zk',label:'主客体'},
+    '举例':  {pill:'t-eg',label:'举例'},
+    '对比':  {pill:'t-ct',label:'对比'},
+    '展望未来':{pill:'t-fw',label:'展望未来'}
+  };
+  const CYCLE_MAP = {
+    'retained':    {cls:'retained', text:'★ 保留题'},
+    'jan_apr_only':{cls:'expiring', text:'⏳ 本季限定'},
+    'may_aug_new': {cls:'retained', text:'🆕 5-8 月新题'}
+  };
+
+  function escapeHtml(s){
+    return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function renderDynamic(){
+    const techs = [
+      {id:'技巧 ①',name:'主客体',ex:'Do you like walking? → "Walking is my favorite activity" 后补 who/where/when/what（<b>主体 + 客体</b>）。'},
+      {id:'技巧 ②',name:'举例',ex:'"...for example just yesterday morning, I went to a park nearby my home for half an hour. I walked there with my best friend, Carter." <b>时间+地点+人物</b>让答案落地。'},
+      {id:'技巧 ③',name:'对比',ex:'"Well to be honest walking is not really my favorite — I much prefer playing basketball. <b>In comparison</b>, basketball is a lot more fun, you get to meet new people, it\'s more active." 用对比堆信息量。'},
+      {id:'技巧 ④',name:'展望未来',ex:'"Well in fact I don\'t walk that often, but I understand it\'s not in the best interest of my physical health. So <b>starting from tomorrow</b>, I\'m gonna walk more often." 用未来计划收尾。'}
+    ];
+
+    const intro = `
+      <div class="dyn-intro">
+        <div class="dyn-intro-head">
+          <div class="dyn-intro-title">🎯 动态选考题 · 4 个技巧现场造答案</div>
+          <div class="dyn-intro-sub">
+            不背 sample，用下面 4 个技巧现场造。每道题都给 <strong>CHUNKS / 基础版 / 进阶版 / KEYWORDS</strong> 四层，按你水平挑一层练。
+          </div>
+        </div>
+        <div class="tech-grid">
+          ${techs.map(t=>`
+            <div class="tech-card">
+              <div class="tech-id">${t.id}</div>
+              <div class="tech-name">${t.name}</div>
+              <div class="tech-ex">${t.ex}</div>
+            </div>`).join('')}
+        </div>
+      </div>`;
+
+    const items = (D.dynamic_electives||[]);
+    if(!items.length){
+      return intro + `<div class="dyn-intro" style="text-align:center;color:var(--ink-3)">动态题数据加载中… 请稍后刷新。</div>`;
+    }
+
+    // 按 topic 分组（保持原顺序）
+    const grouped = {};
+    const topicOrder = [];
+    items.forEach(e=>{
+      const k = e.topic || 'Other';
+      if(!grouped[k]){ grouped[k]=[]; topicOrder.push(k); }
+      grouped[k].push(e);
+    });
+
+    const topicsHtml = topicOrder.map(topic=>{
+      const list = grouped[topic];
+      const first = list[0] || {};
+      const cycle = CYCLE_MAP[first.cycle] || {cls:'retained',text:'★ 保留题'};
+
+      const cards = list.map(e=>{
+        const t = TECH_MAP[e.technique] || {pill:'t-zk',label:e.technique||''};
+        const chunks = e.t2_chunks ? `
+          <div class="dq-tier">
+            <div class="tier-label tl-chunks">🧩 Chunks</div>
+            <div class="tier-body">${escapeHtml(e.t2_chunks)}</div>
+          </div>` : '';
+        const basic = e.t3a_basic ? `
+          <div class="dq-tier">
+            <div class="tier-label tl-basic">💬 基础版<span class="tier-badge">band 4-5 · 短句 + 连接词</span></div>
+            <div class="tier-body basic">${escapeHtml(e.t3a_basic)}</div>
+          </div>` : '';
+        const adv = e.t3b_advanced ? `
+          <div class="dq-tier">
+            <div class="tier-label tl-adv">💎 进阶版<span class="tier-badge">band 6 · 加 filler 和连贯度</span></div>
+            <div class="tier-body adv">${escapeHtml(e.t3b_advanced)}</div>
+          </div>` : '';
+        const kw = e.t4_kw ? `
+          <div class="dq-tier">
+            <div class="tier-label tl-kw">🎯 Keywords<span class="tier-badge">考场极简应急</span></div>
+            <div class="tier-body">${escapeHtml(e.t4_kw)}</div>
+          </div>` : '';
+
+        return `
+          <div class="dq-card">
+            <div class="dq-head">
+              <span class="dq-num">Q${e.seq||''}</span>
+              <span class="pill ${t.pill}">${t.label}</span>
+            </div>
+            <div class="dq-en">${escapeHtml(e.q_en||'')}</div>
+            ${chunks}${basic}${adv}${kw}
+          </div>`;
+      }).join('');
+
+      return `
+        <section class="dyn-topic">
+          <div class="dyn-topic-head">
+            <div class="dyn-topic-name">${escapeHtml(topic)}</div>
+            <div class="dyn-topic-zh">${escapeHtml(first.topic_zh||'')}</div>
+            <span class="cycle-badge ${cycle.cls}">${cycle.text}</span>
+            <div class="dyn-topic-count">${list.length} 道</div>
+          </div>
+          ${cards}
+        </section>`;
+    }).join('');
+
+    return intro + topicsHtml;
+  }
+
+  // ─── 素材卡视图 ───
+  function renderCards(search){
+    let list = (D.cards||[]);
+    if(search){
+      list = list.filter(c=>
+        (c.name||'').toLowerCase().includes(search)
+        || (c.persona||'').toLowerCase().includes(search)
+        || (c.id||'').toLowerCase().includes(search)
+        || (c.t4_kw||'').toLowerCase().includes(search)
+      );
+    }
+    if(!list.length) return emptyMsg('没有匹配的素材卡。');
+
+    const npcs = list.filter(c=>c.type==='NPC');
+    const mods = list.filter(c=>c.type==='MOD');
+
+    const renderCard = c=>`
+      <div class="mcard type-${c.type}" id="card-${c.id}">
+        <div class="mc-head">
+          <span class="mc-id">${c.type==='NPC'?'👤':'🎬'} ${c.id}</span>
+          <span class="mc-star">${c.star||''}</span>
+        </div>
+        <div class="mc-name">${c.name||''}</div>
+        <div class="mc-persona">${c.persona||''}</div>
+        ${c.t4_kw?`<div class="mc-kw">🎯 ${c.t4_kw}</div>`:''}
+        <button class="mc-expand" onclick="document.getElementById('card-${c.id}').classList.toggle('open')">
+          <span>展开 chunks + 基础/进阶 sample</span><span>▾</span>
+        </button>
+        <div class="mc-detail">
+          ${c.t2_chunks?`<div><div class="s-title">🧩 CHUNKS</div><div class="chunks">${c.t2_chunks}</div></div>`:''}
+          ${c.t3a?`<div><div class="s-title">💬 基础版</div><div class="sample s-a">${c.t3a}</div></div>`:''}
+          ${c.t3b?`<div><div class="s-title">💎 进阶版</div><div class="sample s-b">${c.t3b}</div></div>`:''}
+        </div>
+      </div>`;
+
+    let out = '';
+    if(npcs.length){
+      out += `
+        <section class="grp">
+          <div class="grp-head">
+            <div class="grp-title"><span class="emoji">👤</span>NPC 人物卡<span class="count">(${npcs.length} 张)</span></div>
+            <div class="grp-hint">考试被问"某个人"系列全靠这 8 个真人</div>
+          </div>
+          <div class="cardgrid">${npcs.map(renderCard).join('')}</div>
+        </section>`;
+    }
+    if(mods.length){
+      out += `
+        <section class="grp">
+          <div class="grp-head">
+            <div class="grp-title"><span class="emoji">🎬</span>MOD 模块卡<span class="count">(${mods.length} 张)</span></div>
+            <div class="grp-hint">场景 / 习惯 / 故事模块，可拼装到不同题</div>
+          </div>
+          <div class="cardgrid">${mods.map(renderCard).join('')}</div>
+        </section>`;
+    }
+    return out;
+  }
+
+  function emptyMsg(t){
+    return `<div style="text-align:center;padding:40px 20px;color:var(--ink-3);background:#fff;border:1px dashed var(--line);border-radius:12px">${t}</div>`;
+  }
+
+  // ─── 事件 ───
+  document.querySelectorAll('#subTabs a').forEach(a=>{
+    a.addEventListener('click', e=>{
+      e.preventDefault();
+      const v = a.dataset.view;
+      if(v==='stable') location.hash='';
+      else location.hash='#'+v;
+    });
+  });
+  window.addEventListener('hashchange', render);
+  document.getElementById('searchBox').addEventListener('input', render);
+
+  render();
+</script>
+
+</body>
+</html>

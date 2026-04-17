@@ -1,0 +1,1710 @@
+// AUTO-GENERATED from P1_数据预览.xlsx — DO NOT EDIT BY HAND
+// 重新生成方式：运行 export_p1_to_json.py
+// 字段：skeletons(9) / variants(34) / cards(18) / electives(68) / newElectives(76) / crossrefs(10)
+
+window.P1_DATA = {
+  "skeletons": [
+    {
+      "id": "SKEL-HM-1",
+      "topic": "Hometown",
+      "q_en": "City vs Countryside benefits",
+      "q_zh": "城市 vs 乡村的好处",
+      "t1_zh": "城市优势：教育（好学校、好老师）+ 工作（大公司、薪水高）。乡村优势：空气干净、节奏慢、睡得好。",
+      "t2_chunks": "City: good schools · better teachers · more support\nCity: more good jobs · bigger place · higher pay\nCountryside: clean air · slow life · less pressure\nCountryside: sleep well · trees · lakes · animals",
+      "t3a": "Hmm, I think cities are better, you know. Like, the schools are way better and the teachers too, so kids can get more support. And there are more good jobs, so the pay is higher. But the countryside is also really nice — clean air, slow life, because there's less pressure, you sleep so well.",
+      "t3b": "Well, you know, I'd say cities are better in two ways. First, the schools are good — like, better teachers and more after-school classes, so kids get a solid education. And second, you can find a good job there, so the pay is much higher. But the countryside is also nice, you know — clean air, slow life, and you sleep so well because there's zero pressure.",
+      "t4_kw": "city = schools + jobs (more support, higher pay) | countryside = air + slow + sleep (less pressure)",
+      "variant_count": 5
+    },
+    {
+      "id": "SKEL-HM-2",
+      "topic": "Hometown",
+      "q_en": "Hometown changes recently",
+      "q_zh": "家乡近年变化",
+      "t1_zh": "新建：地铁、火车站，5 分钟走到 + 新购物中心、餐厅。负面：变得拥挤、更吵。",
+      "t2_chunks": "new subways · new train station · 5 mins from home → easy travel\nnew shopping malls · new restaurants · weekend fun\nBUT: more crowded · more noisy · because population grown\nsometimes can't sleep at night",
+      "t3a": "Yeah, it's changed quite a bit, actually. We've got new subways now, and a new train station — only 5 minutes from my home, so travelling is so easy. There are also new shopping malls and restaurants. But, you know, it's also more crowded and noisy because so many people moved in. Sometimes I really can't sleep at night.",
+      "t3b": "Yeah, it's changed quite a lot, actually. We've got new subway lines now, and a new train station — like, one is only five minutes from my home, which makes travelling so easy. There are also new shopping malls and restaurants. The downside is, you know, it's more crowded and noisier now because the population has grown. Sometimes I really can't sleep.",
+      "t4_kw": "new subways + station (easy travel) | new malls | bad: crowded + noisy (population grew)",
+      "variant_count": 4
+    },
+    {
+      "id": "SKEL-HM-3",
+      "topic": "Hometown",
+      "q_en": "How long lived here",
+      "q_zh": "在这里住了多久",
+      "t1_zh": "我一辈子都在这里，17-18 年。学校、朋友、最爱的餐厅都在这。很快要去外地上大学，会想家。",
+      "t2_chunks": "all my life · 17 or 18 years\nschool · friends · favourite places to eat all here\ngoing to uni soon · will miss home\nmiss mum's food most · because nothing beats home-cooked",
+      "t3a": "Um, well, basically all my life — like 17 or 18 years. You know, my school, my friends, even my favourite places to eat, they're all here. I'm going to uni soon, so I'll really miss home — especially my mum's food, because nothing tastes like home-cooked meals.",
+      "t3b": "Basically my whole life, you know — like 17 or 18 years. My school, my friends, my favourite places to eat — all here. I'll be off to uni soon, so I'll really miss home — especially my mum's food, because nothing beats a home-cooked meal.",
+      "t4_kw": "all my life · 17-18 yrs · uni soon · miss mum's food (nothing beats home-cooked)",
+      "variant_count": 3
+    },
+    {
+      "id": "SKEL-HM-4",
+      "topic": "Hometown",
+      "q_en": "Where to go in that area",
+      "q_zh": "附近喜欢去的地方",
+      "t1_zh": "三个地方：购物中心（吃饭/买衣服/电影院）、公园（跑步/打篮球）、博物馆（看实物、拍照）。",
+      "t2_chunks": "shopping mall · food + clothes + cinema all in one · stay all day\npark · morning · fresh air · run + basketball\nmuseum · see real things · nice photos",
+      "t3a": "Oh, a few places. The shopping mall is fun with friends — you know, food, clothes, cinema, all in one place, so we can stay all day. The park is nice in the morning, like, people running and playing basketball, because the air is fresh. And the museum, I like that too — you can see real things and take some nice photos.",
+      "t3b": "Oh, a few favourite spots, actually. Shopping malls are great with friends, you know — food, clothes, and a cinema all in one place, so we can hang out for hours. Parks are nice in the mornings, like, runners, families having picnics, because the air feels so fresh. And museums, where you see real things and take nice photos.",
+      "t4_kw": "mall = friends (all day) | park = fresh air morning | museum = real + photos",
+      "variant_count": 3
+    },
+    {
+      "id": "SKEL-HM-5",
+      "topic": "Hometown",
+      "q_en": "Know your neighbours",
+      "q_zh": "认识邻居吗",
+      "t1_zh": "认识一个退休老人，60 岁左右。后院小花园种番茄、草莓。在抖音发园艺视频，很多粉丝。常送我们免费蔬菜。",
+      "t2_chunks": "one neighbour · about 60 · retired → lots of free time\nsmall garden · tomatoes · strawberries · because gardening relaxes him\nposts videos on Douyin (Chinese TikTok) · many fans\ngives us free veggies · taste way better than shop",
+      "t3a": "Yeah, one neighbour, actually. He's like, around 60, retired now, so he's got lots of free time. He grows tomatoes, strawberries, you know, all that — because gardening really relaxes him. He even posts videos on Douyin, you know, the Chinese TikTok, and has a lot of fans. He often gives us free veggies — my mum says they taste way better than the shop.",
+      "t3b": "Yeah, one neighbour really well, actually — a retired man, around 60. He has a small garden where he grows tomatoes and strawberries — it kind of keeps him busy after retirement. He even posts gardening videos on Douyin, you know, China's version of TikTok, and has many fans. He often shares fresh veggies with us — my mum says they're way better than supermarket ones.",
+      "t4_kw": "retired neighbour (free time) · garden (relaxes him) · Douyin (Chinese TikTok) fans · free veggies",
+      "variant_count": 4
+    },
+    {
+      "id": "SKEL-AC-1",
+      "topic": "Accommodation",
+      "q_en": "Live alone or with family",
+      "q_zh": "独居还是和家人住",
+      "t1_zh": "和家人住，爸妈 + 我自己房间。家里温馨，总有人聊天。妈妈做饭，爸爸辅导作业。",
+      "t2_chunks": "with parents · my own room\nwarm at home · because always someone to talk to\nmum cooks · dad helps with homework\nuni soon · won't last long",
+      "t3a": "I live with my parents, you know, and I have my own room. It feels really warm at home because there's always someone to talk to. My mum cooks and my dad helps with my homework. But, like, I'm going to uni soon, so it won't be like this for long.",
+      "t3b": "Well, I live with my family — you know, my parents and I, and I've got my own room. It's really cosy and there's always someone to talk to, which I love. Mum does the cooking, Dad helps with homework. But it won't last long — I'm moving away for uni soon.",
+      "t4_kw": "with parents · own room · warm (always someone) · mum cooks · uni soon",
+      "variant_count": 6
+    },
+    {
+      "id": "SKEL-AC-2",
+      "topic": "Accommodation",
+      "q_en": "Favourite room in your home",
+      "q_zh": "家里最喜欢的房间",
+      "t1_zh": "我的卧室，私人空间。窗边书桌，书架放书，墙上贴海报。我在那学习、听音乐、看剧。",
+      "t2_chunks": "my bedroom · my own space\ndesk by window · books · posters on wall\nstudy · music · TV shows\nfeel chill · because nobody bothers me",
+      "t3a": "Hmm, my bedroom for sure. It's like, my own little space. I've got a desk by the window, some books, and posters on the wall. I just study there, listen to music, watch shows. You know, it's where I feel really chill because nobody bothers me.",
+      "t3b": "Hmm, I'd say my bedroom — that's, like, my private space. I've got a desk by the window, books and posters on the wall. I just study, listen to music, watch TV shows there. It's where I feel most like myself, you know, because nobody bothers me.",
+      "t4_kw": "bedroom · desk by window · posters · chill (nobody bothers)",
+      "variant_count": 4
+    },
+    {
+      "id": "SKEL-ST-1",
+      "topic": "Study",
+      "q_en": "Work or student",
+      "q_zh": "工作还是学生",
+      "t1_zh": "学生，高三。主修英语、数学、语文。最爱英语 — 实用又能打开很多机会。",
+      "t2_chunks": "student · grade 12\nmain: English · Maths · Chinese\nfavourite: English · useful · opens more chances (study abroad)\nbit stressful · but worth it",
+      "t3a": "Oh, I'm a student, grade 12. My main subjects are English, Maths, and Chinese. English is my favourite — it's, you know, useful, and it kind of opens up more chances for me, like studying abroad. It's a bit stressful, but yeah, totally worth it.",
+      "t3b": "Oh, I'm a student in grade 12. My main subjects are English, Maths and Chinese. English is my favourite, you know — it's useful and kind of opens many doors, like studying abroad. Pretty stressful, but yeah, I think it's worth it.",
+      "t4_kw": "student · grade 12 · English favourite (useful, opens doors) · stressful but worth it",
+      "variant_count": 7
+    },
+    {
+      "id": "SKEL-ST-2",
+      "topic": "Study",
+      "q_en": "Future plans",
+      "q_zh": "未来计划",
+      "t1_zh": "想出国读书（加拿大/英国）。专业：商科、设计或创意类。毕业后进大公司当经理。希望养活家人。",
+      "t2_chunks": "study abroad · Canada or UK · because see a different world\nstudy business · or design · something creative\nwork in big company · become manager\ntake care of family one day",
+      "t3a": "Hmm, I really want to study abroad — maybe Canada or the UK, because I'd love to see a different world. I'm thinking business or maybe design, you know, something a bit creative. After that, I'd love to work at a big company and become a manager. The dream is to take care of my family one day.",
+      "t3b": "Hmm, I'd love to study abroad — maybe Canada or the UK, because I want to see a different world. I'm thinking of business or design, you know, something a bit creative. Long term, I want to work at a big company and become a manager. The dream is to take care of my family one day.",
+      "t4_kw": "study abroad (different world) · business/design · big company · take care of family",
+      "variant_count": 4
+    }
+  ],
+  "variants": [
+    {
+      "seq": 1,
+      "topic": "Hometown",
+      "q_en": "For you, what benefits are there living in a big city?",
+      "skeleton_id": "SKEL-HM-1",
+      "tip": "只说骨架的 City 部分 (education + work)",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Oh, well, I live in a city, so I'd say there are quite a few benefits. The schools are way better and the teachers too, so kids get more support. And there are more good jobs here, because it's a bigger place, so the pay is higher. Life is also convenient — everything close by.",
+      "t3b": "Oh, a few nice things, actually. I live in a city, so the schools are good, you know — better teachers, more after-school classes. And there are more good jobs here, because it's a bigger place, so the pay is much higher. Everything's close by too, which makes life pretty easy."
+    },
+    {
+      "seq": 2,
+      "topic": "Hometown",
+      "q_en": "Would you be willing to live in the countryside in the future?",
+      "skeleton_id": "SKEL-HM-1",
+      "tip": "只说骨架的 Countryside 部分 + 加一句 'maybe one day'",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Hmm, maybe one day, you know. The countryside is really nice — clean air, slow life, because there's less pressure, you sleep so well. But right now I'd say no, because my school and friends are all here in the city.",
+      "t3b": "Maybe one day, yeah. The countryside is really nice, you know — clean air, slow life, and you sleep so well because there's zero pressure. But for now I'd say no, because my studies and friends are all based here in the city."
+    },
+    {
+      "seq": 3,
+      "topic": "Hometown",
+      "q_en": "Where in your country do you live?",
+      "skeleton_id": "SKEL-HM-3",
+      "tip": "起手报城市 (Jining, Shandong) + 借骨架住多久",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "I live in Jining, a city in Shandong, you know, in the east of China. Basically all my life — like 17 or 18 years. My school, my friends, even my favourite places to eat are all here, so I really love this place.",
+      "t3b": "I live in Jining, you know, a city in Shandong province, in the east of China. Basically my whole life — like 17 or 18 years. My school, my friends, my favourite places to eat — all here. Pretty attached to it, honestly."
+    },
+    {
+      "seq": 4,
+      "topic": "Hometown",
+      "q_en": "Is that a big city or a small place?",
+      "skeleton_id": "SKEL-HM-1",
+      "tip": "答 medium-sized + 借 City 部分 1-2 个 chunks",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Uh, medium-sized, I'd say. Not huge like Beijing or Shanghai, but definitely not a small town. The schools are pretty good and there are enough jobs, so life is convenient. It also feels chill — not too crowded.",
+      "t3b": "I'd say medium-sized, actually — not huge like Beijing or Shanghai, but definitely not a small town, you know. The schools are good and there are enough jobs, so life's pretty convenient. Feels chill too, not overly crowded."
+    },
+    {
+      "seq": 5,
+      "topic": "Hometown",
+      "q_en": "What do you like most about your hometown?",
+      "skeleton_id": "SKEL-HM-4",
+      "tip": "用 mall/park/museum 1 个 + 一句感受",
+      "sub_skeleton_id": "SKEL-HM-1",
+      "note": "",
+      "t3a": "Hmm, the parks, I think. They're nice in the morning, like, people running, playing basketball, because the air is fresh. I really enjoy that slow weekend-morning feeling. And of course the food — my mum's cooking especially.",
+      "t3b": "Oh, probably the parks, actually. They're so nice in the mornings, you know — runners, families having picnics, because the air feels really fresh. That slow weekend-morning vibe is just lovely. And of course the food scene too."
+    },
+    {
+      "seq": 6,
+      "topic": "Hometown",
+      "q_en": "How long have you been living here?",
+      "skeleton_id": "SKEL-HM-3",
+      "tip": "直接套骨架完整答",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Um, well, basically all my life — like 17 or 18 years. You know, my school, my friends, even my favourite places to eat, they're all here. I'm going to uni soon, so I'll really miss home — especially my mum's food.",
+      "t3b": "Basically my whole life, you know — like 17 or 18 years. My school, my friends, my favourite places to eat — all here. I'll be off to uni soon, so I'll really miss home — especially my mum's food, because nothing beats a home-cooked meal."
+    },
+    {
+      "seq": 7,
+      "topic": "Hometown",
+      "q_en": "Has your hometown changed much these years?",
+      "skeleton_id": "SKEL-HM-2",
+      "tip": "直接套骨架完整答",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Yeah, it's changed quite a bit, actually. We've got new subways now, and a new train station — only 5 minutes from my home, so travelling is so easy. There are also new shopping malls, new restaurants, all that stuff. But, you know, it's also more crowded and noisy because so many people moved in.",
+      "t3b": "Yeah, it's changed quite a lot, actually. We've got new subway lines, a new train station — like, one is only five minutes from my home, which makes travelling so easy. New shopping malls and restaurants too. The downside is, you know, it's more crowded and noisier because the population has grown."
+    },
+    {
+      "seq": 8,
+      "topic": "Hometown",
+      "q_en": "What are some changes in the area recently?",
+      "skeleton_id": "SKEL-HM-2",
+      "tip": "聚焦 subway/mall 部分 + 一句感受",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Yeah, quite a few actually. New subways now, and a new train station — only 5 minutes from my home, so weekends are way easier. There are also new malls and restaurants nearby, so there's always somewhere to hang out.",
+      "t3b": "Yeah, quite a few actually. We've got new subway lines, and a new train station — like five minutes from my home, which makes travelling so easy, you know. New shopping malls and restaurants too — it's made weekends way more interesting."
+    },
+    {
+      "seq": 9,
+      "topic": "Hometown",
+      "q_en": "Do you like the area that you live in?",
+      "skeleton_id": "SKEL-HM-4",
+      "tip": "用骨架 + 一句 'I really enjoy it'",
+      "sub_skeleton_id": "SKEL-HM-1",
+      "note": "",
+      "t3a": "Yeah, I really enjoy it, you know. The shopping mall is fun with friends — food, clothes, cinema, all in one place. The park is great for morning walks because the air is fresh. I really don't want to leave, but uni is coming.",
+      "t3b": "Yeah, I really enjoy it, you know. Shopping malls are great with friends, parks are lovely for morning walks because the air feels fresh. Honestly, I'll miss this place once I'm off to uni."
+    },
+    {
+      "seq": 10,
+      "topic": "Hometown",
+      "q_en": "Is there anything you dislike about it?",
+      "skeleton_id": "SKEL-HM-2",
+      "tip": "只说 downside 部分 (crowded + noisy)",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Yeah, one thing actually. It's getting more crowded and noisy, because so many people moved in. Sometimes I really can't sleep at night. Other than that, it's all good.",
+      "t3b": "Yeah, one thing, actually. It's getting more crowded and noisier now, you know, because the population has grown. Sometimes I really can't sleep at night. Other than that, it's pretty great."
+    },
+    {
+      "seq": 11,
+      "topic": "Hometown",
+      "q_en": "Where do you like to go in that area?",
+      "skeleton_id": "SKEL-HM-4",
+      "tip": "直接套骨架完整答",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Oh, a few places. The shopping mall is fun with friends — you know, food, clothes, cinema, all in one place, so we can stay all day. The park is nice in the morning because the air is fresh. And the museum, I like that too — you can see real things and take nice photos.",
+      "t3b": "Oh, a few favourite spots, actually. Shopping malls are great with friends, you know — food, clothes, cinema all in one place, so we can hang out for hours. Parks are nice in the mornings — runners, picnics, fresh air. And museums, where you see real things and take nice photos."
+    },
+    {
+      "seq": 12,
+      "topic": "Hometown",
+      "q_en": "Do you know any famous people in your area?",
+      "skeleton_id": "SKEL-HM-5",
+      "tip": "邻居 = Douyin 网红, 强调粉丝数",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Yeah, actually — my neighbour, a kind old guy, around 60 and retired. He posts gardening videos on Douyin, you know, our Chinese TikTok, and has tons of fans. Like 200,000 followers, which is kind of crazy for his age.",
+      "t3b": "Yeah, actually — my neighbour, a retired man around 60. He posts gardening videos on Douyin, you know, China's version of TikTok, with thousands of fans — like 200k followers, which is pretty crazy for his age. Kind of a local celebrity."
+    },
+    {
+      "seq": 13,
+      "topic": "Hometown",
+      "q_en": "Do you know any of your neighbours?",
+      "skeleton_id": "SKEL-HM-5",
+      "tip": "直接套骨架完整答",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Yeah, one neighbour, actually. He's like, around 60, retired now, so he's got lots of free time. He grows tomatoes, strawberries, because gardening really relaxes him. He even posts videos on Douyin, you know, our Chinese TikTok, and has a lot of fans. He often gives us free veggies.",
+      "t3b": "Yeah, one neighbour really well, actually — a retired man around 60. He has a small garden where he grows tomatoes and strawberries — it keeps him busy after retirement. He even posts gardening videos on Douyin, you know, China's version of TikTok, with thousands of fans."
+    },
+    {
+      "seq": 14,
+      "topic": "Accommodation",
+      "q_en": "Are the transport facilities in your city very good?",
+      "skeleton_id": "SKEL-HM-2",
+      "tip": "借 subway/train 部分 + 一句方便",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Yeah, super convenient actually. We've got new subways, and a train station only 5 minutes from my home, so I can go anywhere fast. Buses are cheap too, like 1 yuan a ride. Honestly, I don't even need a car.",
+      "t3b": "Yeah, super convenient, actually. New subway lines, a train station just 5 minutes from my home — travelling is so easy, you know. Buses are cheap too, like 1 yuan a ride. Honestly, a car feels kind of unnecessary."
+    },
+    {
+      "seq": 15,
+      "topic": "Accommodation",
+      "q_en": "Do you live in a house or a flat?",
+      "skeleton_id": "SKEL-AC-1",
+      "tip": "起手 'a flat' + 借骨架 cosy/family",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Oh, a flat, you know. I live with my parents and I have my own room. It's really cosy because there's always someone to talk to. My mum cooks and my dad helps with homework.",
+      "t3b": "Oh, a flat, actually. I live with my family — my parents and I, and I've got my own room. It's really cosy, you know, because there's always someone to talk to. Mum does the cooking, Dad helps with homework."
+    },
+    {
+      "seq": 16,
+      "topic": "Accommodation",
+      "q_en": "Do you live alone or with your family?",
+      "skeleton_id": "SKEL-AC-1",
+      "tip": "直接套骨架完整答",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "I live with my parents, you know, and I have my own room. It feels really warm at home because there's always someone to talk to. My mum cooks and my dad helps with my homework. But, like, I'm going to uni soon, so it won't be like this for long.",
+      "t3b": "Well, I live with my family — you know, my parents and I, and I've got my own room. It's really cosy and there's always someone to talk to, which I love. Mum does the cooking, Dad helps with homework. But it won't last long — I'm moving away for uni soon."
+    },
+    {
+      "seq": 17,
+      "topic": "Accommodation",
+      "q_en": "Which is your favourite room in your home?",
+      "skeleton_id": "SKEL-AC-2",
+      "tip": "直接套骨架完整答",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Hmm, my bedroom for sure. It's like, my own little space. I've got a desk by the window, some books, and posters on the wall. I just study there, listen to music, watch shows, because nobody bothers me. You know, it's where I feel really chill.",
+      "t3b": "Hmm, I'd say my bedroom — that's, like, my private space. I've got a desk by the window, books and posters on the wall. I just study, listen to music, watch TV shows there. It's where I feel most like myself, you know, because nobody bothers me."
+    },
+    {
+      "seq": 18,
+      "topic": "Accommodation",
+      "q_en": "Which room does your family spend most of the time in?",
+      "skeleton_id": "SKEL-AC-2",
+      "tip": "切到 living room 视角 (家人聚集 → TV)",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Probably the living room, you know. After dinner, everyone just sits there, watches TV, chats, because it's the biggest space. My parents love to watch the news. It feels really warm.",
+      "t3b": "I'd say the living room, actually. After dinner everyone just gathers there, watches TV, chats, you know, because it's the biggest space. My parents love the evening news. Feels really warm and homey."
+    },
+    {
+      "seq": 19,
+      "topic": "Accommodation",
+      "q_en": "What do you usually do in your house/flat/room?",
+      "skeleton_id": "SKEL-AC-2",
+      "tip": "用 study/music/shows 部分 + 一句日常",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Hmm, just daily stuff, you know. I study at the desk by the window, listen to music, watch TV shows. I also have family meals with my parents, because my mum always cooks. Life at home is just chill.",
+      "t3b": "Hmm, just daily stuff, you know. Study at my desk by the window, listen to music, watch TV shows. Family meals with my parents too, because Mum always cooks — life is pretty chill at home."
+    },
+    {
+      "seq": 20,
+      "topic": "Accommodation",
+      "q_en": "What can you see when you look out the window of your room?",
+      "skeleton_id": "SKEL-AC-2",
+      "tip": "起手 'desk by the window' + 一句风景描述 (建筑/树)",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Oh, I've got a desk right by the window. I can see a few tall buildings and some green trees, you know. In the morning, I can even see kids walking to school. It's a nice view, really relaxing.",
+      "t3b": "Oh, I've got a desk right by the window, so the view is quite nice. A few tall buildings, some green trees, you know. In the morning I can see kids walking to school. Honestly, pretty relaxing."
+    },
+    {
+      "seq": 21,
+      "topic": "Accommodation",
+      "q_en": "What's the difference between where you are living now and where you lived in the past?",
+      "skeleton_id": "SKEL-AC-1",
+      "tip": "对比 dorm vs 家 (cosy + mum cooks)",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Hmm, pretty big difference. At home it's really cosy — mum cooks, dad helps, I have my own room. In the dorm, I share with 3 others, so it's noisier, and the food is not as good. I guess home will always feel more warm.",
+      "t3b": "Hmm, quite a big difference, actually. At home it's really cosy, you know — Mum cooks, Dad helps, my own room. In the dorm I share with 3 others, noisier, and the food's nowhere near as good. Home will always feel warmer."
+    },
+    {
+      "seq": 22,
+      "topic": "Accommodation",
+      "q_en": "How long have you lived there?",
+      "skeleton_id": "SKEL-HM-3",
+      "tip": "直接借骨架 (whole life)",
+      "sub_skeleton_id": "SKEL-AC-1",
+      "note": "",
+      "t3a": "All my life, basically — like 17 or 18 years. Always with my parents, in the same flat. My mum's cooking, my own room, everything. I'll really miss it when I go to uni.",
+      "t3b": "Basically my whole life — like 17 or 18 years, you know. Always with my parents, in the same flat. Mum's cooking, my own room, all that. I'll really miss it once I'm off to uni."
+    },
+    {
+      "seq": 23,
+      "topic": "Accommodation",
+      "q_en": "Do you plan to live here for a long time?",
+      "skeleton_id": "SKEL-HM-3",
+      "tip": "借骨架 (uni soon, miss mum's food)",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Hmm, not really. I'm going to uni soon, so I'll move away — maybe abroad, maybe Beijing. But I'll miss home, you know, especially my mum's food. Nothing tastes like home-cooked meals.",
+      "t3b": "Hmm, not really, actually. I'm going to uni soon, so I'll be moving away — maybe abroad, maybe Beijing. I'll miss home though, you know, especially Mum's food. Nothing beats a home-cooked meal."
+    },
+    {
+      "seq": 24,
+      "topic": "Study",
+      "q_en": "Do you work or are you a student?",
+      "skeleton_id": "SKEL-ST-1",
+      "tip": "直接套骨架完整答",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Oh, I'm a student, grade 12. My main subjects are English, Maths, and Chinese. English is my favourite — it's, you know, useful, and it kind of opens up more chances for me, like studying abroad. It's a bit stressful, but yeah, totally worth it.",
+      "t3b": "Oh, I'm a student in grade 12. My main subjects are English, Maths and Chinese. English is my favourite, you know — it's useful and kind of opens many doors, like studying abroad. Pretty stressful, but yeah, I think it's worth it."
+    },
+    {
+      "seq": 25,
+      "topic": "Study",
+      "q_en": "What subject are you studying?",
+      "skeleton_id": "SKEL-ST-1",
+      "tip": "聚焦主修科目 + favourite English",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Oh, grade 12 student here. My main subjects are English, Maths, and Chinese. Honestly, my favourite is English — because it's useful and it opens up more chances for me, like studying abroad.",
+      "t3b": "Oh, I'm in grade 12. My main subjects are English, Maths and Chinese, you know. My favourite is English, actually — it's useful and kind of opens many doors, like studying abroad one day."
+    },
+    {
+      "seq": 26,
+      "topic": "Study",
+      "q_en": "Is your subject interesting to you?",
+      "skeleton_id": "SKEL-ST-1",
+      "tip": "答 yes + favourite English (useful + opens doors)",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Yeah, definitely. English especially — it's useful and kind of opens up more chances for me. For example, I can watch English shows and read English books, which is really fun. A bit stressful, but worth it.",
+      "t3b": "Yeah, definitely. English especially, you know — it's useful and opens many doors, like studying abroad. For example, I can watch English shows and read novels in English, which is so fun. Pretty stressful, but worth it."
+    },
+    {
+      "seq": 27,
+      "topic": "Study",
+      "q_en": "Do you like your subject? (Why? / Why not?)",
+      "skeleton_id": "SKEL-ST-1",
+      "tip": "答 like + 用 favourite English 部分",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Yeah, I like it, you know. English is my favourite — because it's useful, and it opens up more chances for me, like studying abroad. A bit stressful, but yeah, totally worth it.",
+      "t3b": "Yeah, I like it quite a lot, actually. English is my favourite — it's useful and opens many doors, you know, like studying abroad or working at a big company. Pretty stressful, but worth it."
+    },
+    {
+      "seq": 28,
+      "topic": "Study",
+      "q_en": "Why did you choose that subject?",
+      "skeleton_id": "SKEL-ST-1",
+      "tip": "起手 'because it's useful' + opens doors",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Hmm, because it's really useful, you know. English opens up more chances for me — like studying abroad, or working at a big company. I also love watching English shows, so it feels fun to learn.",
+      "t3b": "Hmm, because it's genuinely useful, you know. English opens many doors — like studying abroad, or working at a big company one day. I also love English shows and novels, so learning it feels kind of fun."
+    },
+    {
+      "seq": 29,
+      "topic": "Study",
+      "q_en": "What are the most popular subjects in China?",
+      "skeleton_id": "SKEL-ST-2",
+      "tip": "答 business / AI + 一句 'everyone wants to study these'",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Oh, business and maybe AI, I think. Everyone wants to go into finance or tech now, because the pay is really good. Design is also popular with creative people, like me. But honestly, most parents still push maths and English.",
+      "t3b": "Oh, I'd say business and AI, actually. Everyone wants to go into finance or tech now, you know, because the pay is really good. Design is popular with more creative kids, like me. But most parents still push maths and English."
+    },
+    {
+      "seq": 30,
+      "topic": "Study",
+      "q_en": "Do you think it's important to choose a subject you like?",
+      "skeleton_id": "SKEL-ST-1",
+      "tip": "答 yes + 借 favourite logic (study harder)",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Yeah, definitely. If you like your subject, you study harder, because it feels more like fun than work. For me, English is my favourite — I actually enjoy the homework. I don't think I'd survive grade 12 without that.",
+      "t3b": "Yeah, absolutely. If you like your subject, you study harder, you know, because it feels more like fun than work. For me, English — I actually enjoy the homework. Honestly, I wouldn't survive grade 12 otherwise."
+    },
+    {
+      "seq": 31,
+      "topic": "Study",
+      "q_en": "What would you like to do in the future?",
+      "skeleton_id": "SKEL-ST-2",
+      "tip": "直接套骨架完整答",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Hmm, I really want to study abroad — maybe Canada or the UK, because I'd love to see a different world. I'm thinking business or maybe design, you know, something a bit creative. After that, I'd love to work at a big company and become a manager. The dream is to take care of my family one day.",
+      "t3b": "Hmm, I'd love to study abroad — maybe Canada or the UK, because I want to see a different world. I'm thinking of business or design, you know, something a bit creative. Long term, I want to work at a big company and become a manager. The dream is to take care of my family one day."
+    },
+    {
+      "seq": 32,
+      "topic": "Study",
+      "q_en": "Are you looking forward to working?",
+      "skeleton_id": "SKEL-ST-2",
+      "tip": "答 yes + 借 big company / manager 部分",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Yeah, kind of, you know. I'd love to work at a big company and become a manager one day, because the pay is good and I can take care of my family. But first, I have to finish uni and maybe a master's.",
+      "t3b": "Yeah, kind of excited, actually. I'd love to work at a big company and become a manager one day, you know, because the pay's good and I can finally take care of my family. But first, uni and maybe a master's."
+    },
+    {
+      "seq": 33,
+      "topic": "Study",
+      "q_en": "Is there any kind of technology you can use in study?",
+      "skeleton_id": "SKEL-ST-1",
+      "tip": "答 AI tools (e.g. ChatGPT for English) + 一句 effective",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Oh yeah, I use AI tools, you know, like ChatGPT — it's a chatbot — for English practice. I ask it questions, and it corrects my grammar, which really helps me improve. I also use apps like Duolingo. Tech really makes studying easier.",
+      "t3b": "Yeah, I use AI tools, you know, like ChatGPT — it's basically an AI chatbot — for English practice. I ask it questions, and it corrects my grammar, which makes a huge difference. Duolingo too. Tech really makes studying so much easier."
+    },
+    {
+      "seq": 34,
+      "topic": "Study",
+      "q_en": "Do you prefer to study in the mornings or in the afternoons?",
+      "skeleton_id": "SKEL-ST-1",
+      "tip": "答 mornings (mind clear, remember faster) + 一句 routine",
+      "sub_skeleton_id": "",
+      "note": "",
+      "t3a": "Hmm, mornings for sure, you know. My mind is clear, so I remember things way faster. At night I'm already tired, and I just want to watch shows. Plus, my parents cook breakfast, so I can start the day with energy.",
+      "t3b": "Hmm, mornings for sure, actually. My mind is clear, you know, so I remember things way faster. At night I'm already tired — all I want is to watch shows. Plus, my parents cook breakfast, so I start the day with energy."
+    }
+  ],
+  "cards": [
+    {
+      "id": "NPC-1",
+      "type": "NPC",
+      "name": "Ms. Liu 刘老师",
+      "persona": "我小学语文老师，温柔型 — 'good job' 类好老师题型",
+      "t2_chunks": "Ms. Liu · my Chinese teacher in primary school\nshe was always kind · always said 'good job'\nonce asked me to read in front of the class\nthat made me feel proud",
+      "t3a": "Oh, my Chinese teacher in primary school, Ms. Liu. She was like, super kind, you know. She'd always write 'good job' on my homework, which really motivated me. One time, she even asked me to read in front of the class — that made me feel so proud.",
+      "t3b": "Oh, my primary school Chinese teacher Ms. Liu was, you know, super kind. She'd always write 'good job' on my homework, which made me want to try even harder. And one time she even asked me to read in front of the class — that really boosted my confidence.",
+      "t4_kw": "Ms. Liu · Chinese · 'good job' · proud",
+      "star": "★★★★★",
+      "p2_cross": "—"
+    },
+    {
+      "id": "NPC-2",
+      "type": "NPC",
+      "name": "Mr. Zhang 张老师",
+      "persona": "我高中数学老师，严格 — 校规 / dedicated / strict / routine 全靠他",
+      "t2_chunks": "Mr. Zhang · my high school maths teacher\nstrict · made us do daily exercises\nstayed after class to help us · for free\nno phones in class · he made the rule",
+      "t3a": "My maths teacher Mr. Zhang, you know, he's strict but really nice. He stays after class to help us, like, totally for free — because he really wants us to do well. He makes us do exercises every single day. He kind of taught me that having a good routine really matters.",
+      "t3b": "Yeah, my high school maths teacher Mr. Zhang is strict but really dedicated, you know. He'd stay after class to help us for free, because he genuinely cares about our results. He made us do exercises every single day, which kind of taught me the value of routine.",
+      "t4_kw": "Mr. Zhang · maths · strict · daily exercises · routine",
+      "star": "★★★★★",
+      "p2_cross": "—"
+    },
+    {
+      "id": "NPC-3",
+      "type": "NPC",
+      "name": "邻居老人 Mr. Chen",
+      "persona": "退休邻居，60+，后院园艺 + 抖音 — 'old people' / 种菜 全靠他",
+      "t2_chunks": "my neighbour · about 60 · retired\nsmall garden · grows tomatoes · strawberries\nposts videos on Douyin · many fans\nshares fresh vegetables with us\nold people can be cool too",
+      "t3a": "Yeah, my neighbour, this kind old guy — like, around 60, retired now, so he's got lots of free time. He loves growing tomatoes and strawberries in his small garden, because it really relaxes him. He even posts videos on Douyin, you know, our Chinese TikTok, and has tons of fans. So, old people can be really cool too!",
+      "t3b": "Yeah, there's a kind old man next door, around 60 and retired. He grows tomatoes and strawberries in his back garden, because it keeps him busy after retirement. And he even posts gardening videos on Douyin, you know, China's version of TikTok, with thousands of fans. Old people can be really cool!",
+      "t4_kw": "old neighbour · garden · Douyin · cool old guy",
+      "star": "★★★★★",
+      "p2_cross": "—"
+    },
+    {
+      "id": "NPC-4",
+      "type": "NPC",
+      "name": "Lucy（P2交叉）",
+      "persona": "P2 已重点出现。P1 只用名字 + 一句简介，不展开 P2 故事",
+      "t2_chunks": "Lucy · my best friend\nwe walk together on weekends\nshe likes taking photos\nwe both don't like busy places · we go to small cafés",
+      "t3a": "Lucy is my best friend, you know. We sometimes go for a walk on weekends. She loves taking photos, because she's into design. We both don't really like busy places, so we usually just go to small cafés — quiet and cosy.",
+      "t3b": "Lucy's my best friend, you know. We usually go for walks on weekend mornings — she loves taking photos of buildings, because she's into design. We both kind of hate busy places, so we always pick quiet little cafés — much cosier.",
+      "t4_kw": "Lucy · best friend · walks · photos · small cafés",
+      "star": "★★★★★",
+      "p2_cross": "P2 Story 1 Cooking · Story 2 Scenery"
+    },
+    {
+      "id": "NPC-5",
+      "type": "NPC",
+      "name": "妈妈 The Chef（P2交叉）",
+      "persona": "P2 已重点出现。P1 只借名字 + 1 句，但 mouth-watering 是 P2 招牌词，提前学",
+      "t2_chunks": "my mum · she cooks really well\noften makes noodles · dumplings · fried rice\nmouth-watering ⭐ (P2 招牌词，提前学)\ntaught me to cook easy dishes\nfavourite family photo: cooking together at New Year",
+      "t3a": "Oh, my mum cooks really well, you know. She often makes noodles, dumplings, all that. Honestly, mouth-watering, because she uses fresh stuff from the market. She also taught me to cook some easy Chinese dishes. My favourite family photo is us cooking together at Chinese New Year — you know, our Spring Festival.",
+      "t3b": "Oh, my mum's the chef of the family. Her noodles and dumplings — honestly mouth-watering, you know, because she uses really fresh stuff. She also taught me to cook some basic Chinese dishes, like fried rice. My favourite family photo is us cooking together every Chinese New Year — you know, our Spring Festival.",
+      "t4_kw": "mum · cooks well · noodles · mouth-watering ⭐ · New Year photo",
+      "star": "★★★★★",
+      "p2_cross": "P2 Story 1 Cooking"
+    },
+    {
+      "id": "NPC-6",
+      "type": "NPC",
+      "name": "曲阜孔庙（P2交叉）",
+      "persona": "我家附近的古建筑 — buildings / walks / visit / famous places 全靠它",
+      "t2_chunks": "Confucius Temple in Qufu · near my home\nvery old · more than 2,000 years\nlong stone paths · big old trees\ngreat place for photos · I want to go again",
+      "t3a": "Well, there's the Confucius Temple in Qufu — you know, a really famous old Chinese temple — right near my home. It's super old, over 2,000 years, because Qufu is the hometown of Confucius himself. I love walking there — long stone paths, big old trees, and it's also a great place for photos.",
+      "t3b": "Well, there's the Confucius Temple in Qufu, you know, a super famous old Chinese temple right near my home. The wooden buildings are over 2,000 years old, because Qufu is where Confucius himself was born. I love walking there — long stone paths, ancient trees, and it takes amazing photos.",
+      "t4_kw": "Confucius Temple · 2000 years · stone paths · photo spot",
+      "star": "★★★★★",
+      "p2_cross": "P2 Story 2 Scenery"
+    },
+    {
+      "id": "NPC-7",
+      "type": "NPC",
+      "name": "蜜雪冰城",
+      "persona": "我从小喝到大的奶茶店 — childhood food / crowded / advertisement 全靠它",
+      "t2_chunks": "Mixue Bingcheng · milk tea shop\n4 yuan a cup · very cheap\nafter school · always a long line\ntheir ice cream is a classic\nthe song from the ad is very catchy",
+      "t3a": "Mixue Bingcheng, you know, a super cheap milk tea chain in China. Only 4 yuan a cup, so basically every student can afford it. After school there's always a long line. Their ice cream is a classic. And that song from the ad, oh my god, it's so catchy.",
+      "t3b": "Mixue Bingcheng, you know, a super cheap milk tea chain in China — basically my childhood. Four yuan a cup, so kids can totally afford it. Always a long queue after school. Their ice cream is a classic, and that catchy jingle? Stuck in my head forever.",
+      "t4_kw": "Mixue · 4 yuan · long line · catchy ad",
+      "star": "★★★★",
+      "p2_cross": "P2 Story 1 Cooking (drinks)"
+    },
+    {
+      "id": "NPC-8",
+      "type": "NPC",
+      "name": "iPhone 我的手机（P2交叉）",
+      "persona": "Tech 类核心 anchor — 主线是 CONVENIENCE，必须配 1-2 个具体生活场景 example",
+      "t2_chunks": "my iPhone · about 3 years old\ngot my first phone in grade 7\nuse it for many things\n+ example: text mum · take photos · check the time\n+ example today: check bus time · pay for breakfast\nmakes life much easier · want a new one next year",
+      "t3a": "Yeah, I've had my iPhone for like 3 years. I use it for almost everything, you know — texting my mum, taking photos, checking the time. For example, just this morning I used it to check the bus time and pay for my breakfast. Honestly, it makes life so much easier, because everything is just one tap away.",
+      "t3b": "Yeah, I've had an iPhone for about 3 years. I use it for almost everything, you know — texting my mum, taking photos with friends, even setting alarms. For example, just this morning I used it to check the bus time and pay for my breakfast. So convenient — I can't live without it, because everything is just one tap away.",
+      "t4_kw": "iPhone · 3 yrs · everything | example: bus time + pay breakfast | life easier",
+      "star": "★★★★★",
+      "p2_cross": "P2 Story 3 Tech"
+    },
+    {
+      "id": "MOD-1",
+      "type": "MOD",
+      "name": "童年食物",
+      "persona": "童年喜欢 vs 现在喜欢 — 简单对比",
+      "t2_chunks": "as a kid · loved sweet things · sweets · ice cream\nliked my mum's noodles · dumplings\nnow · prefer coffee · lighter food · salad\nmy taste has changed a lot",
+      "t3a": "Hmm, when I was little, I really loved sweet things, you know — sweets, ice cream, all that, because sugar just makes kids happy. I also loved my mum's noodles and dumplings — they felt warm and cosy. But now I kind of prefer coffee, because it helps me stay focused, and lighter food like salad, since it's healthier and lower calorie. My taste has changed quite a lot.",
+      "t3b": "Hmm, as a kid I loved sugary stuff, you know — sweets, ice cream, anything sweet, because sugar just gives you that happy feeling. And of course Mum's home-cooked dumplings — so warm and comforting. These days I prefer coffee, because it helps me focus, and lighter food like salads, since it's healthier and lower in calories. My taste's changed completely.",
+      "t4_kw": "kid: sweets + dumplings | now: coffee + salad | taste changed",
+      "star": "★★★★",
+      "p2_cross": "P2 Story 1 Cooking"
+    },
+    {
+      "id": "MOD-2",
+      "type": "MOD",
+      "name": "童年活动",
+      "persona": "童年和谁/做什么 — 早晨散步、和表弟玩、帮妈妈做家务",
+      "t2_chunks": "morning walks with grandma · feed birds in the park\nplay hide-and-seek with cousins · weekends\nhelp mum clean the house\nliked cleaning the windows · group games are more fun",
+      "t3a": "Well, in the morning I often walked with my grandma in the park to feed the birds, because it's so peaceful. On weekends I played hide-and-seek with my cousins — group games are way more fun. I also helped my mum clean the house, because she was always busy. Weirdly, I really liked doing the dishes — the running water felt kind of relaxing.",
+      "t3b": "Well, mornings I'd often walk with grandma in the park, feeding the birds, because it's so peaceful. Weekends, hide and seek with my cousins — group play was always more fun. I even helped Mum with cleaning and laundry sometimes, because she was always busy. I actually liked doing the dishes — weirdly relaxing, you know.",
+      "t4_kw": "morning walk + grandma | hide-and-seek cousins | clean windows",
+      "star": "★★★★",
+      "p2_cross": "—"
+    },
+    {
+      "id": "MOD-3",
+      "type": "MOD",
+      "name": "童年爱好",
+      "persona": "从小坚持的爱好 — 画画 / 钢琴 / 看书",
+      "t2_chunks": "started drawing at 5 · still draw today\nlearned the piano for 8 years · then stopped · a bit sorry\nlove reading novels · since primary school · still going",
+      "t3a": "Yeah, I started drawing when I was like 5, and I still draw today, because it helps me relax. I also learned the piano for 8 years and then stopped — I'm a bit sorry about that now. Reading novels though, I've loved that since primary school, because it kind of takes me to a different world.",
+      "t3b": "Yeah, I've loved drawing since I was about 5 — still doodle today, because it helps me relax. Piano I did for 8 years, then gave up — kind of regret it, you know. Reading novels though, that one's stuck with me since primary school, because it takes me to different worlds.",
+      "t4_kw": "drawing since 5 | piano 8yrs · stopped | reading still going",
+      "star": "★★★★",
+      "p2_cross": "P2 Story 4 Arts (drawing)"
+    },
+    {
+      "id": "MOD-4",
+      "type": "MOD",
+      "name": "校规",
+      "persona": "校规 + 利弊 — 不准带手机、穿校服、晚自习",
+      "t2_chunks": "no phones in class · wear uniforms · evening study till 9pm\ngood: helps us focus · everyone is the same\nbad: less freedom · more stress\nschool with no rules · sounds nice but would be a mess",
+      "t3a": "Yeah, we've got a lot of rules, you know. No phones in class, we wear school uniforms, and there's evening study till 9pm. The good thing is, the rules help us focus, and uniforms make everyone the same, so nobody gets judged for clothes. The bad thing is less freedom and more stress. A school with no rules sounds nice, but honestly, it would be a mess.",
+      "t3b": "Quite a lot, actually — no phones in class, wearing uniforms, evening self-study till 9pm. The rules help us focus, you know, and uniforms keep things fair, so nobody gets judged for clothes. The downside is less freedom, more stress. A rule-free school sounds nice, but it would be total chaos.",
+      "t4_kw": "no phones · uniforms · 9pm | help focus | no rules = mess",
+      "star": "★★★★★",
+      "p2_cross": "—"
+    },
+    {
+      "id": "MOD-5",
+      "type": "MOD",
+      "name": "5年计划",
+      "persona": "未来 5 年 — 上大学 → 实习 → 出国 → 工作",
+      "t2_chunks": "next 5 years · I have a clear plan\nfinish high school · uni in Beijing or abroad\ninternship at a big company · finance or tech\nmaybe a master's · then full-time job\nplans help me stay focused",
+      "t3a": "Yeah, I do have a clear plan, you know, because it helps me feel less lost. First, finish high school. Then, uni in Beijing or maybe abroad. After that, I want to do an internship at a big company, maybe finance or tech. Then maybe a master's, and a full-time job. Plans really help me stay focused.",
+      "t3b": "Yeah, the next 5 years feel pretty mapped out, you know, because I hate feeling lost. Finish high school, uni in Beijing or maybe abroad, then intern at a big company. After that, maybe a master's overseas, then full-time. Having a plan keeps me focused.",
+      "t4_kw": "uni · intern · master · full-time | plans = focus",
+      "star": "★★★★★",
+      "p2_cross": "—"
+    },
+    {
+      "id": "MOD-6",
+      "type": "MOD",
+      "name": "未来想要",
+      "persona": "未来想做/买什么 — 新手机、学做饭、新房",
+      "t2_chunks": "new iPhone next year · mine is too slow now\nlearn to cook · take care of myself at uni\nown small flat one day · maybe in Shanghai\nbig dreams · small steps",
+      "t3a": "Hmm, a few things actually. First, a new iPhone next year — mine is so slow now. Second, I want to learn to cook, you know, so I can take care of myself at uni. And one day, I'd love my own little flat, maybe in Shanghai, because it feels like freedom. Big dreams, small steps.",
+      "t3b": "Hmm, a few things actually. A new iPhone next year — mine feels really slow. Learn to cook properly, you know, so I don't starve at uni. And one day, my own little flat, maybe in Shanghai, because it would feel like real freedom. Big dreams, small steps.",
+      "t4_kw": "new iPhone · learn cooking · own flat Shanghai",
+      "star": "★★★★",
+      "p2_cross": "P2 Story 3 Tech (phone)"
+    },
+    {
+      "id": "MOD-7",
+      "type": "MOD",
+      "name": "文化与运动",
+      "persona": "团队 vs 个人运动 + 中国流行的动物/运动",
+      "t2_chunks": "basketball · very popular in China · many people watch the NBA\nrunning · individual · easy · for health\nteam sports · learn to work together\nindividual sports · more freedom\npopular animal: panda · symbol of China",
+      "t3a": "Well, basketball is super popular in China, you know — a lot of people watch the NBA. Team sports kind of help you learn to work together, while running or other individual sports give you more freedom. As for animals, the panda — every kid loves it, because they're cute and lazy, and you see them everywhere in China.",
+      "t3b": "Well, basketball is huge in China, you know — the NBA's been massive here for years. Team sports kind of teach you to work together, while individual ones like running give you freedom. As for animals, the panda — every kid's favourite, because they're cute and adorably lazy, and you see them everywhere here.",
+      "t4_kw": "basketball NBA | team = work together | individual = freedom | panda",
+      "star": "★★★★",
+      "p2_cross": "P2 Story 5 Sports"
+    },
+    {
+      "id": "MOD-8",
+      "type": "MOD",
+      "name": "公共场合",
+      "persona": "公共场合的行为 — 不和陌生人聊、戴耳机、感受拥挤",
+      "t2_chunks": "I almost never talk to strangers in public\nfeels strange in China\nalways wear earphones · listen to music on the bus\nbusy hour subway · really crowded · I don't like it\nprefer quiet places · cafés · libraries",
+      "t3a": "Honestly, I almost never talk to strangers in public — it kind of feels weird in China, because everyone is busy with their phones. I always wear my earphones, you know, listen to music on the bus. Rush hour subway? Oh god, way too crowded, I really don't like it. I prefer quiet places like cafés or libraries, because I can actually think there.",
+      "t3b": "Honestly I almost never talk to strangers in public, you know — feels a bit awkward in China because everyone's glued to their phones. I always wear earphones, usually music on the bus. Rush-hour subway? Oh, I hate it, way too packed. I prefer quiet spots — cafés, libraries, that kind of vibe, because I can actually think there.",
+      "t4_kw": "no chat strangers | earphones + music | hate busy subway | quiet places",
+      "star": "★★★★",
+      "p2_cross": "—"
+    },
+    {
+      "id": "MOD-9",
+      "type": "MOD",
+      "name": "阅读打字",
+      "persona": "Tech 类首选 — 主线 CONVENIENCE，必须配 1 个具体 example/scene",
+      "t2_chunks": "claim: e-books are more convenient\n+ example 1: long trip · 20 books on phone · so light\n+ example 2: see a new word · touch it · see the meaning\ntyping faster than handwriting · easy to fix mistakes",
+      "t3a": "Yeah, I think e-books are way more convenient. For example, last week I went on a long trip — I had like 20 books on my phone, you know, super light, so my bag didn't hurt. Also, when I see a new word, I just touch it and the meaning shows up. Typing's also way faster than handwriting.",
+      "t3b": "Yeah, I think e-books are much more convenient, you know. For example, last week I went on a long train trip — I had like 20 books on my phone, so light to carry, my bag didn't feel heavy at all. Also, when I see a new word, I just tap it and the meaning shows up. Typing's much faster than handwriting too.",
+      "t4_kw": "convenient | example: 20 books on phone · touch word | typing faster",
+      "star": "★★★★★",
+      "p2_cross": "—"
+    },
+    {
+      "id": "MOD-10",
+      "type": "MOD",
+      "name": "种菜",
+      "persona": "种菜在中国流行吗 + 学校该不该教 — 与 NPC-3 邻居老人强联动",
+      "t2_chunks": "growing vegetables · more popular with older people in China\nyounger people · no time · no space\nschools should teach it · hands-on · know where food comes from\nless screen time\nlinks to NPC-3 邻居老人 (he's the proof)",
+      "t3a": "Hmm, growing veggies is more of an older-people thing in China, you know, because they finally have time after retiring. Younger people just don't have the time, or the space. But I think schools should teach it — it's hands-on, kids can see where food actually comes from, and it means less screen time. Honestly, win-win.",
+      "t3b": "Hmm, growing veggies is mostly an older-people thing in China, you know, because they finally have time after retirement. Younger people just don't have the time or space. I think schools should teach it though — it's hands-on, kids understand where food actually comes from, and it's less screen time. Win-win really.",
+      "t4_kw": "veggies = older folks | schools should teach | hands-on · less screen",
+      "star": "★★★",
+      "p2_cross": "—"
+    }
+  ],
+  "electives": [
+    {
+      "seq": 1,
+      "group": "Children",
+      "q_en": "What kind of food did you like when you were young?",
+      "main_card": "MOD-1",
+      "sub_card": "NPC-5",
+      "tip": "起手 sugary · 妈妈 dumplings · 每点给 why（糖让人开心 / 妈妈饺子 warm comforting）",
+      "note": ""
+    },
+    {
+      "seq": 2,
+      "group": "Children",
+      "q_en": "Has your favourite food changed since you were a child?",
+      "main_card": "MOD-1",
+      "sub_card": "",
+      "tip": "直接套对比框架 (kid sugary → now coffee/salad) · 每点给 why（focus / lower calorie）",
+      "note": ""
+    },
+    {
+      "seq": 3,
+      "group": "Children",
+      "q_en": "Did you often go outside to have a walk when you were a child?",
+      "main_card": "MOD-2",
+      "sub_card": "",
+      "tip": "用 morning walks with grandma 部分 · 加 why（peaceful / 有陪伴）",
+      "note": ""
+    },
+    {
+      "seq": 4,
+      "group": "Children",
+      "q_en": "What did you do in the morning when you were little? Why?",
+      "main_card": "MOD-2",
+      "sub_card": "",
+      "tip": "morning walks + 喂鸟 + 因为安静 + why（air fresh）",
+      "note": ""
+    },
+    {
+      "seq": 5,
+      "group": "Children",
+      "q_en": "Did you have any hobbies when you were a child?",
+      "main_card": "MOD-3",
+      "sub_card": "",
+      "tip": "drawing + piano + reading 三选二 · 每点 1 句 why（relax / regret / different world）",
+      "note": ""
+    },
+    {
+      "seq": 6,
+      "group": "Children",
+      "q_en": "Do you have a hobby that you've had since childhood?",
+      "main_card": "MOD-3",
+      "sub_card": "",
+      "tip": "聚焦 drawing 或 reading (still going) + why（helps me relax / takes me elsewhere）",
+      "note": ""
+    },
+    {
+      "seq": 7,
+      "group": "Children",
+      "q_en": "Did you do some house cleaning when you were young?",
+      "main_card": "MOD-2",
+      "sub_card": "",
+      "tip": "聚焦 help mum + 洗碗 (relaxing) + why（mum busy / running water chill）",
+      "note": ""
+    },
+    {
+      "seq": 8,
+      "group": "Children",
+      "q_en": "What did you often do with your friends in your childhood?",
+      "main_card": "MOD-2",
+      "sub_card": "",
+      "tip": "hide & seek with cousins · group play 部分 + why（more fun）",
+      "note": ""
+    },
+    {
+      "seq": 9,
+      "group": "Children",
+      "q_en": "Do you do some cooking or help your family cook at home now?",
+      "main_card": "NPC-5",
+      "sub_card": "",
+      "tip": "起手 'a bit, my mum's the chef' + 我学做饭 + why（uni 怕饿死）",
+      "note": ""
+    },
+    {
+      "seq": 10,
+      "group": "Children",
+      "q_en": "Do you have the same hobbies as your family members?",
+      "main_card": "MOD-3",
+      "sub_card": "NPC-5",
+      "tip": "我画画 / 妈妈做饭 — 不同但都创造性 + why（都能 relax / create）",
+      "note": ""
+    },
+    {
+      "seq": 11,
+      "group": "Children",
+      "q_en": "What is your favorite family photo?",
+      "main_card": "NPC-5",
+      "sub_card": "",
+      "tip": "Spring Festival 一起做饭那张 (mum + me) + why（warm family moment）",
+      "note": ""
+    },
+    {
+      "seq": 12,
+      "group": "Children",
+      "q_en": "Did you prefer to do activities alone or with a group of people when you were a child?",
+      "main_card": "MOD-2",
+      "sub_card": "",
+      "tip": "group play (hide & seek with cousins) — 群体更好玩 + why（laugh 更多）",
+      "note": ""
+    },
+    {
+      "seq": 13,
+      "group": "Children",
+      "q_en": "Is there an advertisement that made an impression on you when you were a child?",
+      "main_card": "NPC-7",
+      "sub_card": "",
+      "tip": "蜜雪冰城 jingle 部分 + 'stuck in my head' + why（catchy · 便宜大家都听过）",
+      "note": ""
+    },
+    {
+      "seq": 14,
+      "group": "Children",
+      "q_en": "When did you learn how to type on a keyboard?",
+      "main_card": "MOD-9",
+      "sub_card": "",
+      "tip": "起手 grade 4 · WeChat 跟妈妈打字 + why（想联系 / 便宜）",
+      "note": ""
+    },
+    {
+      "seq": 15,
+      "group": "Children",
+      "q_en": "Do you remember your first mobile phone?",
+      "main_card": "NPC-8",
+      "sub_card": "",
+      "tip": "起手 grade 7 · iPhone unboxing + why（觉得自己长大了）",
+      "note": ""
+    },
+    {
+      "seq": 16,
+      "group": "Children",
+      "q_en": "Do you often go to bed late or early?",
+      "main_card": "[兜底]",
+      "sub_card": "",
+      "tip": "[兜底] 用 P2 时间感受技巧 — late owl + why（刷手机停不下来）",
+      "note": ""
+    },
+    {
+      "seq": 17,
+      "group": "School",
+      "q_en": "Do you have an experience when your teacher thought you did a good job?",
+      "main_card": "NPC-1",
+      "sub_card": "",
+      "tip": "Ms. Liu 'good job' 便签 + 朗读那次 + why（boosted confidence）",
+      "note": ""
+    },
+    {
+      "seq": 18,
+      "group": "School",
+      "q_en": "What is your daily study routine?",
+      "main_card": "NPC-2",
+      "sub_card": "MOD-4",
+      "tip": "Mr. Zhang 影响 + 晚自习 till 9 + 早起复习 + why（routine helps focus）",
+      "note": ""
+    },
+    {
+      "seq": 19,
+      "group": "School",
+      "q_en": "Do you think it is important to have a daily routine for your study?",
+      "main_card": "NPC-2",
+      "sub_card": "",
+      "tip": "答 yes + Mr. Zhang 教会我 routine 的价值 + why（less lost）",
+      "note": ""
+    },
+    {
+      "seq": 20,
+      "group": "School",
+      "q_en": "Are there any rules for students at your school?",
+      "main_card": "MOD-4",
+      "sub_card": "",
+      "tip": "直接套骨架 (no phones · uniforms · 9pm) + why（focus / fair）",
+      "note": ""
+    },
+    {
+      "seq": 21,
+      "group": "School",
+      "q_en": "Do you think students would benefit more from more rules?",
+      "main_card": "MOD-4",
+      "sub_card": "",
+      "tip": "答 yes 多一点 · 用 focus + fairness 两个理由 + 1 句 'nobody judged for clothes'",
+      "note": ""
+    },
+    {
+      "seq": 22,
+      "group": "School",
+      "q_en": "Have you ever had a really dedicated teacher?",
+      "main_card": "NPC-2",
+      "sub_card": "",
+      "tip": "Mr. Zhang 部分 (stay after class · daily exercises) + why（really cares）",
+      "note": ""
+    },
+    {
+      "seq": 23,
+      "group": "School",
+      "q_en": "Do you prefer to have more or fewer rules at school?",
+      "main_card": "MOD-4",
+      "sub_card": "",
+      "tip": "答 fewer · 用 less freedom + 太累 两个理由 + why（kids need breathing room）",
+      "note": ""
+    },
+    {
+      "seq": 24,
+      "group": "School",
+      "q_en": "Have you ever had a really strict teacher?",
+      "main_card": "NPC-2",
+      "sub_card": "",
+      "tip": "Mr. Zhang strict 部分 + 但我感激 + why（taught me discipline）",
+      "note": ""
+    },
+    {
+      "seq": 25,
+      "group": "School",
+      "q_en": "Should schools teach students how to grow vegetables?",
+      "main_card": "MOD-10",
+      "sub_card": "NPC-3",
+      "tip": "答 yes · 用 hands-on + less screen time · 提一句邻居老人是活例子 + why（kids know where food comes from）",
+      "note": ""
+    },
+    {
+      "seq": 26,
+      "group": "Future",
+      "q_en": "Will you buy a new mobile phone in the future?",
+      "main_card": "NPC-8",
+      "sub_card": "MOD-6",
+      "tip": "起手 yes · next year · current 慢 + why（影响效率）",
+      "note": ""
+    },
+    {
+      "seq": 27,
+      "group": "Future",
+      "q_en": "Would you like to see more public places near where you live?",
+      "main_card": "MOD-6",
+      "sub_card": "MOD-8",
+      "tip": "想要 + 但希望是 quiet ones (公园/图书馆) + why（can think / actually rest）",
+      "note": ""
+    },
+    {
+      "seq": 28,
+      "group": "Future",
+      "q_en": "Do you want to live in a tall building?",
+      "main_card": "NPC-6",
+      "sub_card": "",
+      "tip": "答 not really · 喜欢历史古建筑 + 提孔庙 + why（more character）",
+      "note": ""
+    },
+    {
+      "seq": 29,
+      "group": "Future",
+      "q_en": "Do you want to improve your picture-taking skills?",
+      "main_card": "NPC-4",
+      "sub_card": "",
+      "tip": "答 yes + Lucy 拍古建筑 启发我 + why（I love travel photos）",
+      "note": ""
+    },
+    {
+      "seq": 30,
+      "group": "Future",
+      "q_en": "Do you have any plans for the next five years?",
+      "main_card": "MOD-5",
+      "sub_card": "",
+      "tip": "直接套骨架完整答（含 why: different world / take care of family）",
+      "note": ""
+    },
+    {
+      "seq": 31,
+      "group": "Future",
+      "q_en": "Do you want to learn how to cook well?",
+      "main_card": "MOD-6",
+      "sub_card": "NPC-5",
+      "tip": "yes + 因为 uni 怕饿死 + 妈妈是榜样 + why（want to be independent）",
+      "note": ""
+    },
+    {
+      "seq": 32,
+      "group": "Future",
+      "q_en": "Would you like to work as a teacher in a rule-free school?",
+      "main_card": "MOD-4",
+      "sub_card": "",
+      "tip": "答 not really · 用 less freedom 那条 + 一句 'kids need structure' + why（不然课堂混乱）",
+      "note": ""
+    },
+    {
+      "seq": 33,
+      "group": "P3-like",
+      "q_en": "What is the most popular animal in China?",
+      "main_card": "MOD-7",
+      "sub_card": "",
+      "tip": "panda 大家都爱 · 中国到处都有 · 像中国的国宝 + 1 例（熊猫基地 / 表情包）· why（cute + adorably lazy）",
+      "note": ""
+    },
+    {
+      "seq": 34,
+      "group": "P3-like",
+      "q_en": "Are team sports popular in your culture?",
+      "main_card": "MOD-7",
+      "sub_card": "",
+      "tip": "篮球 NBA · team sports 部分 + why（学会合作）",
+      "note": ""
+    },
+    {
+      "seq": 35,
+      "group": "P3-like",
+      "q_en": "What are the differences between team sports and individual sports?",
+      "main_card": "MOD-7",
+      "sub_card": "",
+      "tip": "team = communication · work together / individual = freedom · 各自 why",
+      "note": ""
+    },
+    {
+      "seq": 36,
+      "group": "P3-like",
+      "q_en": "Why do people like to walk in parks?",
+      "main_card": "MOD-2",
+      "sub_card": "MOD-8",
+      "tip": "morning walks 部分 + 安静 vs 人多公共场合对比 + why（fresh air / can think）",
+      "note": ""
+    },
+    {
+      "seq": 37,
+      "group": "P3-like",
+      "q_en": "What are the benefits of making plans?",
+      "main_card": "MOD-5",
+      "sub_card": "",
+      "tip": "plans 让我 focused · 不会 drift + why（I hate feeling lost）",
+      "note": ""
+    },
+    {
+      "seq": 38,
+      "group": "P3-like",
+      "q_en": "Why is it that some people don't make plans?",
+      "main_card": "MOD-5",
+      "sub_card": "",
+      "tip": "反着说：有些人喜欢「说走就走」自由感 + 1 例（朋友突然约饭）+ why（spontaneous feels exciting）",
+      "note": ""
+    },
+    {
+      "seq": 39,
+      "group": "P3-like",
+      "q_en": "Is growing vegetables popular in your country?",
+      "main_card": "MOD-10",
+      "sub_card": "NPC-3",
+      "tip": "older 人热门 + 邻居老人例子 + why（retirement = free time）",
+      "note": ""
+    },
+    {
+      "seq": 40,
+      "group": "P3-like",
+      "q_en": "Do many people grow vegetables in your city?",
+      "main_card": "MOD-10",
+      "sub_card": "NPC-3",
+      "tip": "答 mostly older · 邻居老人是少数 + why（younger have no space/time）",
+      "note": ""
+    },
+    {
+      "seq": 41,
+      "group": "P3-like",
+      "q_en": "How do people remember each stage of their lives?",
+      "main_card": "NPC-5",
+      "sub_card": "MOD-3",
+      "tip": "family photos · 妈妈做饭那张 / hobbies 也是记忆载体 + why（photos freeze moments）",
+      "note": ""
+    },
+    {
+      "seq": 42,
+      "group": "P3-like",
+      "q_en": "Have you ever worked with old people?",
+      "main_card": "NPC-3",
+      "sub_card": "",
+      "tip": "邻居老人帮我浇水 · 一起看抖音 + why（we bonded）",
+      "note": ""
+    },
+    {
+      "seq": 43,
+      "group": "P3-like",
+      "q_en": "Are you happy to work with people who are older than you?",
+      "main_card": "NPC-3",
+      "sub_card": "",
+      "tip": "yes + 邻居老人 cool 例子 + why（learned patience）",
+      "note": ""
+    },
+    {
+      "seq": 44,
+      "group": "P3-like",
+      "q_en": "What are the benefits of being friends or working with old people?",
+      "main_card": "NPC-3",
+      "sub_card": "",
+      "tip": "wisdom + 学到耐心 + 比如 Mr. Chen 教我种番茄 + why（real life skills）",
+      "note": ""
+    },
+    {
+      "seq": 45,
+      "group": "P3-like",
+      "q_en": "Do you enjoy spending time with old people?",
+      "main_card": "NPC-3",
+      "sub_card": "",
+      "tip": "yes · 直接讲邻居老人 Mr. Chen 的故事 + why（他让我 see old people differently）",
+      "note": ""
+    },
+    {
+      "seq": 46,
+      "group": "Places",
+      "q_en": "Where would you like to take a long walk if you had the chance?",
+      "main_card": "NPC-6",
+      "sub_card": "",
+      "tip": "孔庙 stone paths · 也提 Lucy 一起去 + why（peaceful / historical vibe）",
+      "note": ""
+    },
+    {
+      "seq": 47,
+      "group": "Places",
+      "q_en": "Where did you go for a walk lately?",
+      "main_card": "NPC-4",
+      "sub_card": "MOD-2",
+      "tip": "和 Lucy 周末早晨 · 公园路线 + why（fresh air / catch up with her）",
+      "note": ""
+    },
+    {
+      "seq": 48,
+      "group": "Places",
+      "q_en": "Are there tall buildings near your home?",
+      "main_card": "NPC-6",
+      "sub_card": "",
+      "tip": "答 not many · 因为孔庙保护区 · 城里有 + why（preserve history）",
+      "note": ""
+    },
+    {
+      "seq": 49,
+      "group": "Places",
+      "q_en": "Do you take photos of buildings?",
+      "main_card": "NPC-4",
+      "sub_card": "NPC-6",
+      "tip": "Lucy 爱拍 · 孔庙是首选 · 我跟着拍 + why（they have character）",
+      "note": ""
+    },
+    {
+      "seq": 50,
+      "group": "Places",
+      "q_en": "Is there a building that you would like to visit?",
+      "main_card": "NPC-6",
+      "sub_card": "",
+      "tip": "孔庙 · always want to revisit · 历史2000年 + why（feels timeless）",
+      "note": ""
+    },
+    {
+      "seq": 51,
+      "group": "Places",
+      "q_en": "Have you ever talked with someone you don't know in public places?",
+      "main_card": "MOD-8",
+      "sub_card": "",
+      "tip": "rarely · feels awkward in China + why（everyone busy with phones）",
+      "note": ""
+    },
+    {
+      "seq": 52,
+      "group": "Places",
+      "q_en": "Do you wear headphones in public places?",
+      "main_card": "MOD-8",
+      "sub_card": "",
+      "tip": "always · podcasts on the bus + why（makes travel faster）",
+      "note": ""
+    },
+    {
+      "seq": 53,
+      "group": "Places",
+      "q_en": "Do you often go to public places with your friends?",
+      "main_card": "NPC-4",
+      "sub_card": "MOD-8",
+      "tip": "Lucy + 安静咖啡馆 · 不爱挤地方 + why（can actually talk）",
+      "note": ""
+    },
+    {
+      "seq": 54,
+      "group": "Places",
+      "q_en": "Is the city where you live crowded?",
+      "main_card": "MOD-8",
+      "sub_card": "",
+      "tip": "Mixue + 地铁 rush hour · honestly hate it + why（too packed）",
+      "note": ""
+    },
+    {
+      "seq": 55,
+      "group": "Places",
+      "q_en": "Is there a crowded place near where you live?",
+      "main_card": "NPC-7",
+      "sub_card": "",
+      "tip": "蜜雪冰城 always crowded · 放学后排队 + why（super cheap + popular）",
+      "note": ""
+    },
+    {
+      "seq": 56,
+      "group": "Places",
+      "q_en": "Do you like crowded places?",
+      "main_card": "MOD-8",
+      "sub_card": "",
+      "tip": "no · 用 prefer quiet places 那段 + why（can actually think）",
+      "note": ""
+    },
+    {
+      "seq": 57,
+      "group": "Places",
+      "q_en": "Do most people like crowded places?",
+      "main_card": "MOD-8",
+      "sub_card": "",
+      "tip": "no · 用我自己的例子 + 大家都赶时间 + why（everyone's on a schedule）",
+      "note": ""
+    },
+    {
+      "seq": 58,
+      "group": "Places",
+      "q_en": "When was the last time you were in a crowded place?",
+      "main_card": "NPC-7",
+      "sub_card": "",
+      "tip": "上周末 Mixue 排队 · long queue + why（cheap + 天热大家来买冰淇淋）",
+      "note": ""
+    },
+    {
+      "seq": 59,
+      "group": "Tech",
+      "q_en": "Do you prefer to read on paper or on a screen?",
+      "main_card": "MOD-9",
+      "sub_card": "",
+      "tip": "paper for novels · screen for news 部分 + 1 例 + why（paper = eye-friendly / screen = fast）",
+      "note": ""
+    },
+    {
+      "seq": 60,
+      "group": "Tech",
+      "q_en": "Do you prefer typing or handwriting?",
+      "main_card": "MOD-9",
+      "sub_card": "",
+      "tip": "typing faster · 除考试外 + 1 例 + why（easy to fix mistakes）",
+      "note": ""
+    },
+    {
+      "seq": 61,
+      "group": "Tech",
+      "q_en": "Do you type on a desktop or laptop keyboard every day?",
+      "main_card": "MOD-9",
+      "sub_card": "NPC-8",
+      "tip": "both · laptop + iPhone 键盘 daily + 1 例 + why（each for different tasks）",
+      "note": ""
+    },
+    {
+      "seq": 62,
+      "group": "Tech",
+      "q_en": "How do you improve your typing?",
+      "main_card": "MOD-9",
+      "sub_card": "",
+      "tip": "WeChat 打字多 + 在线打字游戏练手 + 1 例 + why（daily practice）",
+      "note": ""
+    },
+    {
+      "seq": 63,
+      "group": "Tech",
+      "q_en": "Do you often use your mobile phone for texting or making phone calls?",
+      "main_card": "NPC-8",
+      "sub_card": "",
+      "tip": "iPhone everything 部分 (texting · photos · plans) + 1 例 + why（one tap away）",
+      "note": ""
+    },
+    {
+      "seq": 64,
+      "group": "Tech",
+      "q_en": "How has your mobile phone changed your life?",
+      "main_card": "NPC-8",
+      "sub_card": "",
+      "tip": "起手 grade 7 first phone + everything 在上面 + 1 例 + why（life much easier）",
+      "note": ""
+    },
+    {
+      "seq": 65,
+      "group": "Tech",
+      "q_en": "Do you always take your mobile phone with you when going out?",
+      "main_card": "NPC-8",
+      "sub_card": "",
+      "tip": "yes always · 怕错过 family 消息 + 1 例 + why（feel safer）",
+      "note": ""
+    },
+    {
+      "seq": 66,
+      "group": "Tech",
+      "q_en": "Do you often see advertisements when you are on your phone or computer?",
+      "main_card": "NPC-8",
+      "sub_card": "",
+      "tip": "ads everywhere · 烦但 free apps 的代价 + 1 例 + why（how apps make money）",
+      "note": ""
+    },
+    {
+      "seq": 67,
+      "group": "Tech",
+      "q_en": "Do you use paper or your cellphone to make plans?",
+      "main_card": "NPC-8",
+      "sub_card": "MOD-5",
+      "tip": "phone · iPhone 提醒 · 5年计划那种用本子 + 1 例 + why（phone = daily · paper = big stuff）",
+      "note": ""
+    },
+    {
+      "seq": 68,
+      "group": "Tech",
+      "q_en": "Have you ever bought shoes online?",
+      "main_card": "[兜底]",
+      "sub_card": "",
+      "tip": "[兜底] 用 P2 购物技巧 — yes 双十一 + 还行 + 退过 1 次 + why（便宜但 size 不准）",
+      "note": ""
+    }
+  ],
+  "crossrefs": [
+    {
+      "p1_id": "NPC-4",
+      "p1_name": "Lucy",
+      "p2_anchor": "P2 Story 1 Cooking · Story 2 Scenery (Lucy 已是主角)",
+      "how_to_borrow": "P2 Cooking 主角是 Lucy。P1 只借「best friend 名字」+ 一句活动 (walks / photos / cafés)，不要复述 potluck dinner 整段故事。",
+      "instruction": "学生：P1 里说 Lucy 只用 1 句 ≤15 词，比如 'My best friend Lucy and I walk together on weekends.' 然后切回 P1 的真问题。"
+    },
+    {
+      "p1_id": "NPC-5",
+      "p1_name": "妈妈 The Chef",
+      "p2_anchor": "P2 Story 1 Cooking (主厨 = 妈妈)",
+      "how_to_borrow": "P2 The Chef 是妈妈。P1 只借「mum cooks well」+ 1 道家常菜 (noodles / dumplings)，不要展开 P2 的 Spring Festival potluck。",
+      "instruction": "学生：P1 里说妈妈只 ≤15 词，举 1 道菜就够，不要把 P2 的 'finger-licking good' 那套高分词强行套进 P1 (会显假)。"
+    },
+    {
+      "p1_id": "NPC-6",
+      "p1_name": "曲阜孔庙",
+      "p2_anchor": "P2 Story 2 Scenery",
+      "how_to_borrow": "P2 Scenery 已有孔庙。P1 也用同一个地点，但描述更短 (2,000 years · stone paths · photos)，避免和 P2 完整故事重叠。",
+      "instruction": "学生：P1 里孔庙就用 3 个简单卖点 (very old + nice walk + great photos)。P2 才展开「2000 年 + 我和家人去 + 文化感受」。"
+    },
+    {
+      "p1_id": "NPC-8",
+      "p1_name": "iPhone 我的手机",
+      "p2_anchor": "P2 Story 3 Tech",
+      "how_to_borrow": "P2 Tech 道具是 iPhone。P1 同一台手机，但角度走 CONVENIENCE (方便)，不是 P2 的科技变迁感。",
+      "instruction": "学生：P1 一切 Tech 题落点都是 'it's more convenient because...'，避开 P2 的「科技改变生活」长篇感受。"
+    },
+    {
+      "p1_id": "NPC-7",
+      "p1_name": "蜜雪冰城",
+      "p2_anchor": "P2 Story 1 Cooking (drinks/snacks)",
+      "how_to_borrow": "P2 Cooking 可补 Mixue。P1 用作 childhood food / advertisement (jingle) / crowded place — 三个独立短答。",
+      "instruction": "学生：P1 里蜜雪冰城 3 个独立卖点 (4 yuan / long line / catchy ad)，每次只用 1 个，不要一次说全。"
+    },
+    {
+      "p1_id": "MOD-1",
+      "p1_name": "童年食物",
+      "p2_anchor": "P2 Story 1 Cooking",
+      "how_to_borrow": "P2 Cooking 已有大量「家常菜 + mouth-watering」高分词。P1 童年食物只用最基础 (sweets / dumplings / coffee)。",
+      "instruction": "学生：P1 不要套 P2 的 mouth-watering / finger-licking good 这种高级词，老师一听就知道是背的。"
+    },
+    {
+      "p1_id": "MOD-3",
+      "p1_name": "童年爱好",
+      "p2_anchor": "P2 Story 4 Arts (drawing)",
+      "how_to_borrow": "P2 Arts 故事可能展开 drawing。P1 童年爱好里 drawing 只用 'started at 5, still draw today' 1 句。",
+      "instruction": "学生：P1 P2 都用 drawing 时，P1 简短带过，P2 展开有故事。"
+    },
+    {
+      "p1_id": "MOD-6",
+      "p1_name": "未来想要",
+      "p2_anchor": "P2 Story 3 Tech (phone upgrade)",
+      "how_to_borrow": "P2 Tech 升级手机 vs P1 未来想要 — 用同一台 iPhone anchor，但 P1 给「想要」短句即可。",
+      "instruction": "学生：'I want a new iPhone next year, mine is too slow.' 一句话搞定 P1，不展开 P2 的科技对比。"
+    },
+    {
+      "p1_id": "MOD-7",
+      "p1_name": "文化与运动",
+      "p2_anchor": "P2 Story 5 Sports",
+      "how_to_borrow": "P2 Sports 故事可补 basketball。P1 culture/team-vs-individual 只用 NBA + panda 2 个短锚点。",
+      "instruction": "学生：P1 不要讲 P2 的「我打篮球的具体场景」，只点 'basketball is popular, NBA is huge'。"
+    },
+    {
+      "p1_id": "小结",
+      "p1_name": "共 9 处 P1↔P2 素材交叉",
+      "p2_anchor": "",
+      "how_to_borrow": "",
+      "instruction": ""
+    }
+  ],
+  "dynamic_electives": [
+    {
+      "seq": 1,
+      "topic": "Scenery",
+      "topic_zh": "风景",
+      "cycle": "retained",
+      "q_en": "Do you look out the window at the scenery when travelling by bus or car?",
+      "technique": "主客体",
+      "t2_chunks": "always look outside · get sick on the bus · trees and fields · small villages · feel calm",
+      "t3a_basic": "Yes, I always do. First, I get sick if I look at my phone on the bus for too long. So looking outside is much better for me. Second, the view is really nice. I can see trees, fields, and small villages. It makes me feel calm and relaxed.",
+      "t3b_advanced": "Yeah, I pretty much always do. Honestly, I get car-sick quite easily if I stare at my phone, so looking outside is more of a habit. Plus the view — fields, little villages, sometimes random factories — it's actually quite relaxing. Clears my head in a way scrolling just can't.",
+      "t4_kw": "look outside · sick on bus · trees fields · feel calm"
+    },
+    {
+      "seq": 2,
+      "topic": "Scenery",
+      "topic_zh": "风景",
+      "cycle": "retained",
+      "q_en": "Do you prefer the mountains or the sea?",
+      "technique": "对比",
+      "t2_chunks": "prefer mountains · sea for short trip · bored after two days · walk up · cooler air · new view · sea looks the same",
+      "t3a_basic": "I prefer the mountains. The sea is nice for a short weekend trip. I like the sound of the waves. But after two days, I feel bored. Mountains are different. I can walk up, the air is cooler, and every turn has a new view. So for me, mountains are more fun.",
+      "t3b_advanced": "Definitely mountains for me. The sea is nice for a weekend trip — waves, sunsets, good photos for social media. But after two days I get bored. Mountains are different: you can hike up, the air gets cooler, and every turn gives you a new view. The beach kind of looks the same the whole time.",
+      "t4_kw": "mountains win · bored in 2 days · hike · cooler air · new view"
+    },
+    {
+      "seq": 3,
+      "topic": "Scenery",
+      "topic_zh": "风景",
+      "cycle": "retained",
+      "q_en": "Do you like to take scenery pictures?",
+      "technique": "举例",
+      "t2_chunks": "three thousand photos · last October · Mount Tai · four in the morning · sunrise · pink and orange sky · fifty photos · phone ran out of battery",
+      "t3a_basic": "Yes, I love taking photos. I have about three thousand pictures on my phone. For example, last October I went to Mount Tai with my cousin. We got up at four in the morning to see the sunrise. The sky turned pink and orange. I took about fifty photos. My phone ran out of battery on the way down!",
+      "t3b_advanced": "Oh, I love it. My camera roll is a mess — probably three thousand photos, most of them scenery. For example, last October I climbed Mount Tai with my cousin. We reached the top around 4 a.m. to catch the sunrise, and I took maybe fifty shots just of the pink clouds. My phone actually died on the way down, but totally worth it.",
+      "t4_kw": "3000 photos · Mount Tai · 4 a.m. · sunrise · 50 photos · no battery"
+    },
+    {
+      "seq": 4,
+      "topic": "Scenery",
+      "topic_zh": "风景",
+      "cycle": "retained",
+      "q_en": "What are the most beautiful sights you have seen while travelling?",
+      "technique": "展望未来",
+      "t2_chunks": "Li River in Guilin · green water · pointy mountains · small boats · like a painting · Northern Lights · Iceland · green and purple sky",
+      "t3a_basic": "The most beautiful place I've seen is the Li River in Guilin. The water is green. The mountains are pointy and look like a painting. Small boats move on the river. But in the future, I really want to see the Northern Lights. Maybe I'll go to Iceland one day. I've only seen videos, but the sky turns green and purple. I think that will be amazing.",
+      "t3b_advanced": "Probably the Li River in Guilin — green water, those pointy mountains coming out of it, small bamboo rafts floating past. It looked like a painting. But honestly, I'd love to see the Northern Lights one day, maybe in Iceland or Norway. I've only watched videos, but the way the sky turns green and purple at night — I think that would be top of my list.",
+      "t4_kw": "Li River · pointy mountains · Northern Lights · Iceland · green and purple"
+    },
+    {
+      "seq": 1,
+      "topic": "Food",
+      "topic_zh": "食物",
+      "cycle": "retained",
+      "q_en": "What is your favourite food?",
+      "technique": "主客体",
+      "t2_chunks": "dumplings · my grandma's recipe · warm and filling · cheap and quick · never gets old",
+      "t3a_basic": "My favourite food is dumplings. First, [主体] I grew up eating them, so they taste like home. Second, [客体] dumplings are warm and filling. Also, they are cheap and you can cook them in 10 minutes. So I eat them almost every week.",
+      "t3b_advanced": "Well, my absolute favourite has to be dumplings. [主体] To be honest, I grew up eating them, so whenever I have a bowl, it kind of tastes like home — it's not just food, it's a memory. [客体] On top of that, dumplings are super warm and filling, really cheap, and you can cook them in 10 minutes. So yeah, they never get old.",
+      "t4_kw": "dumplings · grandma · home taste · warm · filling · cheap"
+    },
+    {
+      "seq": 2,
+      "topic": "Food",
+      "topic_zh": "食物",
+      "cycle": "retained",
+      "q_en": "Do you eat different foods at different times of the year?",
+      "technique": "对比",
+      "t2_chunks": "totally different · hotpot in winter · cold noodles in summer · warm my stomach · too heavy for hot days",
+      "t3a_basic": "Yes, very different. [A-冬] In winter, I love hotpot. It keeps me warm and I eat it with my family. [B-夏] But in summer, hotpot is too hot. So I eat cold noodles and watermelon. They are fresh and cool.",
+      "t3b_advanced": "Yeah, definitely. [A] In winter, I'm a huge fan of hotpot — it really warms up your stomach and it's something you share with family, so it feels like a gathering. [B] In comparison, in summer hotpot is way too heavy, so I switch to cold noodles and watermelon. They're fresh, light, and honestly perfect for a Jining summer.",
+      "t4_kw": "hotpot in winter · cold noodles in summer · warm · share with family · too heavy"
+    },
+    {
+      "seq": 1,
+      "topic": "Pets and animals",
+      "topic_zh": "宠物和动物",
+      "cycle": "retained",
+      "q_en": "What's your favourite animal? Why?",
+      "technique": "主客体",
+      "t2_chunks": "dogs all the way · feel less lonely · they are loyal · wag their tail · always happy to see me",
+      "t3a_basic": "My favourite is dogs. [主体] First, I live alone, so a dog makes me feel less lonely. [客体] Second, dogs are very loyal and friendly. They wag their tail and they are always happy when I come home. So dogs are my favourite animal.",
+      "t3b_advanced": "Well, dogs are definitely my favourite, hands down. [主体] For me, I live kind of alone in Jining, so having a dog around really makes me feel less lonely — it's like having a little roommate. [客体] And dogs themselves are just so loyal and friendly. Every time I open the door, they're wagging their tail, which honestly makes any bad day ten times better.",
+      "t4_kw": "dogs · less lonely · loyal · wag tail · welcome me home"
+    },
+    {
+      "seq": 2,
+      "topic": "Pets and animals",
+      "topic_zh": "宠物和动物",
+      "cycle": "retained",
+      "q_en": "Have you ever had a pet before?",
+      "technique": "举例",
+      "t2_chunks": "two dogs right now · a French bulldog · and a Pomeranian · got them two years ago · they are like my babies",
+      "t3a_basic": "Yes, I have. [例子] Right now I have two dogs. One is a French bulldog called Dudu. The other is a Pomeranian called Momo. I got them about two years ago. They are like my babies. I play with them every day.",
+      "t3b_advanced": "Oh yeah, for sure. [具体例子] Actually right now I have two dogs at home — one is a French bulldog called Dudu, and the other is a Pomeranian called Momo. I got them about two years ago from a friend in Jining. Honestly, they've become like my babies — I walk them, feed them, and they sleep next to me every night.",
+      "t4_kw": "two dogs · French bulldog · Pomeranian · two years · like my babies"
+    },
+    {
+      "seq": 1,
+      "topic": "Sports team",
+      "topic_zh": "运动队",
+      "cycle": "retained",
+      "q_en": "Have you ever been part of a sports team?",
+      "technique": "举例",
+      "t2_chunks": "once in middle school · the basketball team · played as a point guard · Wednesday practice · one big tournament",
+      "t3a_basic": "Yes, I have. [具体] In middle school, I joined the basketball team. I played as a point guard. We had practice every Wednesday after school. We also joined one tournament. It was a fun time.",
+      "t3b_advanced": "Yeah, actually back in middle school I was part of the basketball team for about a year. I played as a point guard, and we had practice every Wednesday right after school. We even joined one big tournament against other schools in Jining, and although we didn't win, it was honestly one of my favourite memories from that time.",
+      "t4_kw": "middle school · basketball team · point guard · Wednesday practice · tournament"
+    },
+    {
+      "seq": 2,
+      "topic": "Sports team",
+      "topic_zh": "运动队",
+      "cycle": "retained",
+      "q_en": "What are the differences between team sports and individual sports?",
+      "technique": "对比",
+      "t2_chunks": "team sports more social · need teammates · rely on each other · individual more flexible · just you and the goal",
+      "t3a_basic": "[A-team] Team sports like basketball are more social. You need teammates and you rely on each other to win. [B-individual] But individual sports like running are more flexible. You don't need anyone. It's just you and your goal. So team sports are fun, but individual sports are easier to start.",
+      "t3b_advanced": "Well, there are some pretty clear differences. [A] On one hand, team sports like basketball or football are a lot more social — you need teammates, you have to communicate, and you rely on each other to win. [B] In comparison, individual sports like running or swimming are way more flexible. You don't really need anyone; it's just you, your shoes, and your goal. So team sports build friendships, while individual sports build discipline.",
+      "t4_kw": "team more social · rely on each other · individual flexible · build friendships vs discipline"
+    },
+    {
+      "seq": 1,
+      "topic": "Walking",
+      "topic_zh": "散步",
+      "cycle": "retained",
+      "q_en": "Do you walk a lot?",
+      "technique": "主客体",
+      "t2_chunks": "I walk almost every day · after dinner · about 30 minutes · sit at desk all day · free exercise",
+      "t3a_basic": "Yes, I walk a lot. [主体] First, I sit at my desk all day, so after dinner I need some exercise. [客体] Second, walking is free and easy. I don't need a gym card. I just go outside for 30 minutes. It clears my head.",
+      "t3b_advanced": "Yeah, honestly I walk almost every day. [主体] For me, I sit at my desk the whole day at work, so after dinner I really need to move my body or I'd feel stiff. [客体] Also, walking is basically free exercise — no gym card, no equipment, you just throw on some shoes and go. It clears my head too.",
+      "t4_kw": "walk every day · after dinner · 30 minutes · free exercise · clears head"
+    },
+    {
+      "seq": 2,
+      "topic": "Walking",
+      "topic_zh": "散步",
+      "cycle": "retained",
+      "q_en": "Where would you like to take a long walk if you had the chance?",
+      "technique": "展望未来",
+      "t2_chunks": "Kyoto in Japan · cherry blossom season · old streets and temples · next spring · save up for it",
+      "t3a_basic": "[未来] In the future, I want to walk in Kyoto, Japan. I want to go during the cherry blossom season. The old streets and temples look very beautiful in photos. So I plan to save some money this year. Then I hope to go next spring.",
+      "t3b_advanced": "If I had the chance, I'd love to take a long walk in Kyoto, Japan someday. [未来计划] I've always wanted to go during cherry blossom season because the old streets and temples look stunning in photos. Actually, I'm planning to save up a bit this year, so hopefully by next spring I can finally make it happen.",
+      "t4_kw": "Kyoto Japan · cherry blossom · old streets · next spring · save money"
+    },
+    {
+      "seq": 1,
+      "topic": "Reading",
+      "topic_zh": "阅读",
+      "cycle": "retained",
+      "q_en": "Do you like reading?",
+      "technique": "主客体",
+      "t2_chunks": "yes I love it · read before bed · helps me relax · books teach new things · little mind trips",
+      "t3a_basic": "Yes, I love reading. [主体] First, I read before bed every night. It helps me relax and fall asleep. [客体] Second, books teach me new things I can't learn from my phone. So reading is both relaxing and useful for me.",
+      "t3b_advanced": "Yeah, I really love reading, actually. [主体] For me, it's become a kind of bedtime ritual — I read for about 20 minutes before bed, and it really helps me wind down after a long day. [客体] On top of that, books teach me things I can't pick up from scrolling my phone — new ideas, new perspectives. They're kind of like little mind trips.",
+      "t4_kw": "love reading · before bed · helps me relax · teaches new things · mind trip"
+    },
+    {
+      "seq": 2,
+      "topic": "Reading",
+      "topic_zh": "阅读",
+      "cycle": "retained",
+      "q_en": "Do you prefer to read on paper or on a screen?",
+      "technique": "对比",
+      "t2_chunks": "prefer paper · easier on my eyes · flip pages quickly · screen good for work · can search words",
+      "t3a_basic": "I prefer paper books. [A] Paper is easier on my eyes. I can read for one hour and not feel tired. I also like to flip the pages. [B] But for work or school, screens are better. I can search a word fast. So for fun, paper. For work, screen.",
+      "t3b_advanced": "Honestly, I prefer paper books. [A] For me, paper is just so much easier on the eyes — I can read for an hour without feeling tired, and I love the feeling of flipping pages. [B] In comparison, screens are better for work or studying because you can search a word in a second and copy notes quickly. So basically, paper for fun, screen for work.",
+      "t4_kw": "prefer paper · easier on eyes · flip pages · screen for work · search words"
+    },
+    {
+      "seq": 1,
+      "topic": "Morning time",
+      "topic_zh": "早晨",
+      "cycle": "retained",
+      "q_en": "What do you usually do in the morning?",
+      "technique": "举例",
+      "t2_chunks": "a pretty fixed routine · wake up at seven · quick breakfast · egg and milk · walk the dogs · head to work",
+      "t3a_basic": "[具体] I have a pretty fixed routine. First, I wake up at 7 o'clock. Then I brush my teeth and wash my face. I eat a quick breakfast, like an egg and some milk. After that, I walk my dogs for 15 minutes. Then I go to work.",
+      "t3b_advanced": "Well, my mornings are actually pretty fixed. [具体例子] Usually I wake up around 7, brush my teeth, wash my face, and have a quick breakfast — normally just a boiled egg and some milk. After that, I walk my two dogs around the neighbourhood for about 15 minutes, and then I head to work. It's not exciting, but it keeps me sane.",
+      "t4_kw": "fixed routine · wake at 7 · quick breakfast · walk dogs · head to work"
+    },
+    {
+      "seq": 2,
+      "topic": "Morning time",
+      "topic_zh": "早晨",
+      "cycle": "retained",
+      "q_en": "Are there any differences between what you do in the morning now and what you did in the past?",
+      "technique": "对比",
+      "t2_chunks": "very different · used to sleep until noon · now early riser · messy and rushed then · more organized now",
+      "t3a_basic": "Yes, very different. [A-过去] In the past, I was a student. I used to sleep until noon and skip breakfast. My mornings were messy and rushed. [B-现在] Now I am working, so I get up at 7 every day. I eat breakfast and walk my dogs. My mornings are more organized now.",
+      "t3b_advanced": "Honestly, very different. [A] Back when I was a student, I'd usually sleep until noon, skip breakfast, and rush out the door — my mornings were basically chaos. [B] In comparison, now that I'm working, I've become an early riser. I wake up at 7, eat a proper breakfast, walk my dogs, and it feels way more organized. I guess growing up forces you to have a better routine.",
+      "t4_kw": "very different · slept until noon · now wake at 7 · messy then · organized now"
+    },
+    {
+      "seq": 1,
+      "topic": "Hobby",
+      "topic_zh": "爱好",
+      "cycle": "retained",
+      "q_en": "Do you have any hobbies?",
+      "technique": "主客体",
+      "t2_chunks": "yes quite a few · sketching is my main one · relaxes my brain · anyone can start · just need paper and pencil",
+      "t3a_basic": "Yes, I have a few hobbies. My main one is sketching. [主体] First, after work my brain is very tired, and sketching helps me relax. [客体] Second, sketching is easy to start. You only need a pencil and paper. So it's a cheap and calm hobby.",
+      "t3b_advanced": "Yeah, I've got quite a few, but my main one is sketching. [主体] For me, after a long day at work my brain is basically fried, and sketching is the one thing that really helps me switch off. [客体] Plus, sketching is super easy to start — all you need is a pencil and a notebook. It's kind of a cheap, quiet hobby, which I really like.",
+      "t4_kw": "sketching · main hobby · relaxes brain · cheap to start · pencil and paper"
+    },
+    {
+      "seq": 2,
+      "topic": "Hobby",
+      "topic_zh": "爱好",
+      "cycle": "retained",
+      "q_en": "Do you have a hobby that you've had since childhood?",
+      "technique": "举例",
+      "t2_chunks": "yes drawing · started around age 6 · my dad taught me · had a sketchbook · still do it today",
+      "t3a_basic": "Yes, I do. [具体] Drawing. I started when I was about 6 years old. My dad was the one who taught me. He bought me my first sketchbook. I still draw today, mostly on weekends. So this hobby has been with me for almost 20 years.",
+      "t3b_advanced": "Yeah, actually. [具体例子] Drawing — I've been doing it since I was around six. My dad was the one who got me into it; he bought me my first sketchbook and we used to doodle together on Sundays. Even today I still draw, mostly on weekends, so in a way it's kind of grown up with me.",
+      "t4_kw": "drawing · since age 6 · dad taught me · sketchbook · still do it"
+    },
+    {
+      "seq": 1,
+      "topic": "Typing",
+      "topic_zh": "打字",
+      "cycle": "retained",
+      "q_en": "Do you prefer typing or handwriting?",
+      "technique": "对比",
+      "t2_chunks": "depends on the task · typing way faster · good for long reports · handwriting for notes · helps me remember",
+      "t3a_basic": "[选择] It depends. For long reports, I prefer typing. [A] Typing is way faster. I can also fix mistakes easily. [B] But for study notes, I like handwriting. When I write by hand, I remember things better. So both are useful, just for different things.",
+      "t3b_advanced": "Honestly, it really depends on the task. [A] For long reports or emails, I definitely prefer typing — it's much faster, and you can edit on the fly. [B] But for study notes, I actually prefer handwriting, because for some reason, when I write something by hand, it sticks in my head way better. So I switch between the two depending on what I need.",
+      "t4_kw": "depends · typing for reports · faster · handwriting for notes · helps memory"
+    },
+    {
+      "seq": 2,
+      "topic": "Typing",
+      "topic_zh": "打字",
+      "cycle": "retained",
+      "q_en": "How do you improve your typing?",
+      "technique": "展望未来",
+      "t2_chunks": "not super fast yet · around 50 wpm · free website 10FastFingers · 10 minutes a day · aim for 80 wpm",
+      "t3a_basic": "[现状+计划] Right now, I'm not super fast. I type about 50 words a minute. [未来] So I plan to practice every day. There is a free website called 10FastFingers. I will spend 10 minutes a day on it. I hope I can reach 80 words a minute in 3 months.",
+      "t3b_advanced": "Well, honestly I'm not super fast yet — maybe around 50 words a minute. [未来计划] So starting this month, I've been practising on a free website called 10FastFingers for about 10 minutes a day. The goal is to hit 80 words a minute within three months, which would make my work life a lot easier.",
+      "t4_kw": "not fast yet · 50 wpm · 10FastFingers · 10 min a day · aim for 80 wpm"
+    },
+    {
+      "seq": 1,
+      "topic": "Building",
+      "topic_zh": "建筑",
+      "cycle": "retained",
+      "q_en": "Are there tall buildings near your home?",
+      "technique": "主客体",
+      "t2_chunks": "quite a few · live in a city area · one is 30 floors · shopping mall below · busy but convenient",
+      "t3a_basic": "Yes, quite a few. [主体] I live in a city area, so there are many tall buildings around. [客体] One building near my home has 30 floors. It also has a shopping mall below. It makes the neighborhood busy but very convenient.",
+      "t3b_advanced": "Yeah, there are quite a few actually. [主体] I live in a city area of Jining, so tall buildings are everywhere. [客体] The one closest to my home is about 30 floors high, and there's a big shopping mall on the ground floors. It does make the neighbourhood pretty busy, but honestly, it's super convenient for buying groceries or grabbing a coffee.",
+      "t4_kw": "quite a few · city area · 30 floors · mall below · busy but convenient"
+    },
+    {
+      "seq": 2,
+      "topic": "Building",
+      "topic_zh": "建筑",
+      "cycle": "retained",
+      "q_en": "Is there a building that you would like to visit?",
+      "technique": "展望未来",
+      "t2_chunks": "the Louvre in Paris · design student's dream · not just the art · building itself is art · hope to go in two years",
+      "t3a_basic": "[未来] Yes, the Louvre in Paris. [原因] I studied design, so the Louvre is a dream for me. It's not only about the art inside. The building itself is also like art. [未来] I hope I can save enough money and visit it in two years.",
+      "t3b_advanced": "Yeah, for me that would definitely be the Louvre in Paris. [未来计划] As a former design student, the Louvre has been on my bucket list forever, because it's not just about the art inside — the building itself is basically a piece of art. I'm hoping in the next two years, once I save up a bit, I can finally make the trip.",
+      "t4_kw": "Louvre · Paris · design dream · building is art · visit in two years"
+    },
+    {
+      "seq": 1,
+      "topic": "Childhood activities",
+      "topic_zh": "童年活动",
+      "cycle": "retained",
+      "q_en": "What are your favorite activities?",
+      "technique": "主客体",
+      "t2_chunks": "walking my dogs · sketching on weekends · need to move after sitting · sketching calms my mind · simple but mine",
+      "t3a_basic": "[主体+客体] My favourites are walking my dogs and sketching on weekends. [主体] I sit at work all day, so I need to move. Walking the dogs is perfect. [客体] And sketching is quiet and calm. It's cheap too. These activities are simple, but they are mine.",
+      "t3b_advanced": "Well, my top two are walking my dogs and sketching on weekends. [主体] For me, I sit at my desk all day for work, so I really need to move in the evening, and walking the dogs is just the perfect fit. [客体] On top of that, sketching is really calm and cheap — the kind of thing that resets my brain. Simple, but they're mine.",
+      "t4_kw": "walk dogs · sketch on weekends · need to move · calm my mind · simple but mine"
+    },
+    {
+      "seq": 2,
+      "topic": "Childhood activities",
+      "topic_zh": "童年活动",
+      "cycle": "retained",
+      "q_en": "What were your favourite activities when you were a child?",
+      "technique": "对比",
+      "t2_chunks": "very different from now · used to play outside · hide and seek with neighbors · now mostly phone · miss those days",
+      "t3a_basic": "[A-过去] When I was a child, I loved playing outside. My favourite was hide and seek with my neighbors. We played every day after school. [B-现在] But now, I mostly sit at home with my phone. I miss those old days. I think kids today also play less outside.",
+      "t3b_advanced": "Yeah, looking back, my favourite thing was playing outside — especially hide and seek with the kids in my neighbourhood. We'd run around until it got dark. [对比] In comparison, these days I mostly sit at home scrolling my phone. Honestly, I kind of miss those old days, and I think kids today are missing out on that.",
+      "t4_kw": "outdoor play · hide and seek · with neighbors · now with phone · miss old days"
+    },
+    {
+      "seq": 1,
+      "topic": "Life stages",
+      "topic_zh": "人生阶段",
+      "cycle": "retained",
+      "q_en": "Do you have any plans for the next five years?",
+      "technique": "展望未来",
+      "t2_chunks": "yes a few · keep teaching and growing · maybe a master's · buy a small apartment · travel twice a year",
+      "t3a_basic": "[未来] Yes, I have a few plans. First, I want to keep teaching and become better at my job. Second, maybe I will do a master's degree. Third, I hope to buy a small apartment in Jining. I also want to travel at least twice a year.",
+      "t3b_advanced": "Yeah, I've got a few goals actually. [未来计划] First of all, I want to keep growing in my current teaching career — maybe take on more responsibility. Second, I'm thinking about doing a part-time master's in the next two years. And on a personal level, I'd love to buy a small apartment here in Jining and travel abroad at least twice a year. It's a lot, but we'll see.",
+      "t4_kw": "keep teaching · master's degree · buy apartment · travel twice a year"
+    },
+    {
+      "seq": 2,
+      "topic": "Life stages",
+      "topic_zh": "人生阶段",
+      "cycle": "retained",
+      "q_en": "Do you enjoy being the age you are now?",
+      "technique": "主客体",
+      "t2_chunks": "yes pretty much · in my late 20s · stable job · old enough to know myself · still young enough to change",
+      "t3a_basic": "Yes, I do enjoy it. [主体] I am in my late 20s now. I have a stable job and I know what I like and don't like. [客体] This age is a sweet spot. I am old enough to be independent, but still young enough to try new things. So I'm happy with this age.",
+      "t3b_advanced": "Yeah, honestly I do. [主体] I'm in my late 20s now, and for the first time I've got a stable job and a clearer idea of who I am. [客体] This age feels like a real sweet spot — I'm old enough to be financially independent, but still young enough to try new things or change direction if I want. So yeah, I'm pretty happy where I am.",
+      "t4_kw": "late 20s · stable job · know myself · sweet spot · independent but young"
+    }
+  ]
+};

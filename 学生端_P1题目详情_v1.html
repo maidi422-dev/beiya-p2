@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>北雅国际教育 · 雅思口语 Part 1 · 题目详情</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --beiya:#C0392B;--beiya-dark:#9B2C20;--beiya-soft:#FDECEA;
+    --gold:#B8894A;--gold-soft:#FBF4EA;
+    --ink:#1E1E22;--ink-2:#4A4A52;--ink-3:#8A8A92;
+    --line:#E8E8EC;--bg:#FAFAFA;--white:#FFFFFF;
+    --green:#2E7D32;--green-soft:#E8F5E9;--green-bd:#A5D6A7;
+    --orange:#E8834A;--orange-soft:#FFF3E0;--orange-bd:#FFCC80;
+    --blue:#2E3B6B;--blue-soft:#EDF4FF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;cursor:pointer}
+
+  /* ─── TOP BAR (同 P1必考题页) ─── */
+  .topbar{
+    position:sticky;top:0;z-index:40;background:var(--white);
+    border-bottom:1px solid var(--line);
+    padding:14px 24px;display:flex;align-items:center;gap:14px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:var(--beiya);white-space:nowrap}
+  .brand-mark{width:28px;height:28px;background:var(--beiya);color:#fff;
+    display:flex;align-items:center;justify-content:center;border-radius:4px;
+    font-family:'Noto Serif SC',serif;font-size:14px}
+  .part-sw{
+    display:flex;gap:2px;background:#F4F4F6;padding:3px;border-radius:22px;
+    margin-left:4px;flex-shrink:0
+  }
+  .part-sw a{
+    padding:6px 14px;border-radius:18px;font-size:12.5px;color:var(--ink-3);
+    font-weight:600;transition:all .15s;white-space:nowrap
+  }
+  .part-sw a:hover:not(.disabled):not(.active){color:var(--beiya)}
+  .part-sw a.active{background:var(--beiya);color:#fff;box-shadow:0 2px 6px rgba(192,57,43,.2)}
+  .part-sw a.disabled{color:#C5C5CD;cursor:not-allowed;pointer-events:none}
+  .nav{display:flex;gap:2px;margin-left:6px;flex:1}
+  .nav a{padding:7px 12px;border-radius:6px;font-size:13px;color:var(--ink-2);font-weight:500;white-space:nowrap}
+  .nav a:hover:not(.disabled){background:var(--beiya-soft);color:var(--beiya)}
+  .nav a.active{background:var(--beiya);color:#fff}
+  .nav a.disabled{color:#C5C5CD;cursor:not-allowed;pointer-events:none}
+  .back-btn{
+    font-size:12.5px;color:var(--ink-3);padding:7px 12px;border-radius:6px;
+    display:flex;align-items:center;gap:4px;white-space:nowrap
+  }
+  .back-btn:hover{background:var(--beiya-soft);color:var(--beiya)}
+
+  /* ─── LAYOUT ─── */
+  .wrap{max-width:1120px;margin:0 auto;padding:24px 24px 80px}
+  .crumb{font-size:12px;color:var(--ink-3);margin-bottom:14px;letter-spacing:.3px}
+  .crumb a{color:var(--ink-3)}
+  .crumb a:hover{color:var(--beiya)}
+  .crumb .sep{margin:0 6px;color:#CFCFD4}
+
+  .cols{display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:start}
+
+  /* ─── QUESTION HEADER ─── */
+  .q-head{
+    background:var(--white);border:1px solid var(--line);border-radius:12px;
+    padding:24px 28px;margin-bottom:18px;position:relative;overflow:hidden
+  }
+  .q-head::before{
+    content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--beiya)
+  }
+  .q-tags{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+  .tag{
+    display:inline-flex;align-items:center;gap:4px;
+    padding:3px 10px;border-radius:20px;font-size:11.5px;font-weight:600
+  }
+  .tag-seq{background:var(--beiya);color:#fff}
+  .tag-topic{background:var(--beiya-soft);color:var(--beiya)}
+  .tag-skel{background:var(--gold-soft);color:var(--gold)}
+  .q-title{
+    font-family:'Noto Serif SC','Inter',serif;font-size:22px;font-weight:700;
+    line-height:1.4;color:var(--ink);font-style:italic
+  }
+  .q-tip{
+    margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);
+    display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--ink-2)
+  }
+  .q-tip .tip-ico{
+    background:var(--gold-soft);color:var(--gold);font-size:14px;
+    width:26px;height:26px;border-radius:50%;display:flex;align-items:center;
+    justify-content:center;flex-shrink:0;font-weight:700
+  }
+  .q-tip .tip-txt{flex:1;line-height:1.65}
+  .q-tip .tip-txt b{color:var(--gold)}
+
+  /* ─── TIER CARD ─── */
+  .tier{
+    background:var(--white);border:1px solid var(--line);border-radius:12px;
+    margin-bottom:14px;overflow:hidden;transition:all .18s
+  }
+  .tier-head{
+    padding:14px 20px;display:flex;align-items:center;gap:10px;cursor:pointer;
+    border-bottom:1px solid transparent;user-select:none
+  }
+  .tier.open .tier-head{border-bottom-color:var(--line)}
+  .tier-icon{
+    width:30px;height:30px;border-radius:8px;display:flex;align-items:center;
+    justify-content:center;font-size:14px;flex-shrink:0
+  }
+  .tier-title{
+    font-family:'Noto Serif SC',serif;font-size:15px;font-weight:700;color:var(--ink);flex:1
+  }
+  .tier-lbl{
+    font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;
+    letter-spacing:.3px
+  }
+  .tier-toggle{
+    color:var(--ink-3);font-size:14px;transition:transform .2s;
+    width:22px;height:22px;display:flex;align-items:center;justify-content:center
+  }
+  .tier.open .tier-toggle{transform:rotate(180deg)}
+  .tier-body{
+    padding:0 20px;max-height:0;overflow:hidden;transition:max-height .25s,padding .25s
+  }
+  .tier.open .tier-body{padding:16px 20px 20px;max-height:1500px}
+
+  /* 各 Tier 配色 */
+  .tier-t1 .tier-icon{background:#F3EFE0;color:#8A6A10}
+  .tier-t2 .tier-icon{background:var(--blue-soft);color:var(--blue)}
+  .tier-t3a .tier-icon{background:var(--green-soft);color:var(--green)}
+  .tier-t3a .tier-lbl{background:var(--green-soft);color:var(--green)}
+  .tier-t3a{border-color:var(--green-bd)}
+  .tier-t3b .tier-icon{background:var(--orange-soft);color:var(--orange)}
+  .tier-t3b .tier-lbl{background:var(--orange-soft);color:var(--orange)}
+  .tier-t3b{border-color:var(--orange-bd)}
+  .tier-t4 .tier-icon{background:var(--beiya-soft);color:var(--beiya)}
+
+  /* Tier 内容文字 */
+  .t1-txt{font-size:14.5px;color:var(--ink-2);line-height:1.85;background:#FFFBF0;padding:14px 16px;border-radius:8px;border-left:3px solid var(--gold)}
+  .t2-chunks{display:flex;flex-direction:column;gap:8px}
+  .chunk{
+    background:#F8FAFD;border:1px solid #DDE4F0;border-radius:8px;
+    padding:10px 14px;font-size:13.5px;color:var(--ink);line-height:1.65;
+    font-family:'Inter','Courier New',monospace
+  }
+  .sample{
+    font-size:15px;line-height:1.95;color:var(--ink);
+    padding:16px 18px;border-radius:8px
+  }
+  .sample.s-3a{background:var(--green-soft);border-left:3px solid var(--green)}
+  .sample.s-3b{background:var(--orange-soft);border-left:3px solid var(--orange)}
+  .sample-meta{
+    display:flex;gap:10px;margin-top:12px;padding-top:10px;border-top:1px dashed rgba(0,0,0,.08);
+    font-size:11.5px;color:var(--ink-3)
+  }
+  .sample-meta span b{color:var(--ink-2)}
+  .t4-kw{
+    background:var(--beiya-soft);border:1px dashed #E5B3AE;border-radius:8px;
+    padding:14px 16px;font-size:14px;color:var(--beiya-dark);line-height:1.75;font-weight:600
+  }
+
+  /* ─── SIDEBAR ─── */
+  .side{display:flex;flex-direction:column;gap:14px;position:sticky;top:88px}
+  .side-card{
+    background:var(--white);border:1px solid var(--line);border-radius:12px;
+    padding:16px 18px
+  }
+  .side-h{
+    font-family:'Noto Serif SC',serif;font-size:13px;font-weight:700;
+    color:var(--ink);margin-bottom:12px;display:flex;align-items:center;gap:6px;
+    padding-bottom:10px;border-bottom:1px dashed var(--line)
+  }
+  .side-h .em{font-size:14px}
+
+  /* 骨架卡片 */
+  .skel-link{
+    display:block;padding:12px 14px;background:var(--gold-soft);
+    border:1px solid #EAD9B8;border-radius:10px;transition:all .15s
+  }
+  .skel-link:hover{background:#F6E8D0;transform:translateY(-1px)}
+  .skel-id{font-size:11px;color:var(--gold);font-weight:700;letter-spacing:.5px;margin-bottom:4px}
+  .skel-name{font-size:13.5px;color:var(--ink);font-weight:600;line-height:1.45}
+  .skel-sub{font-size:11.5px;color:var(--ink-3);margin-top:4px}
+
+  /* 同骨架其他变体 */
+  .sib-list{display:flex;flex-direction:column;gap:6px}
+  .sib{
+    display:flex;gap:8px;padding:8px 10px;border-radius:6px;
+    font-size:12.5px;color:var(--ink-2);line-height:1.45;transition:all .12s
+  }
+  .sib:hover{background:var(--beiya-soft);color:var(--beiya)}
+  .sib .n{font-weight:700;color:var(--beiya);flex-shrink:0;font-family:'Noto Serif SC',serif;font-size:11.5px;padding-top:1px}
+  .sib-empty{font-size:12px;color:var(--ink-3);font-style:italic;text-align:center;padding:6px 0}
+
+  /* 素材卡建议 */
+  .card-sugg{
+    background:#F5F7FA;border:1px solid #E0E4EA;border-radius:8px;
+    padding:10px 12px;font-size:12px;color:var(--ink-2);line-height:1.6
+  }
+  .card-sugg b{color:var(--beiya)}
+
+  /* ─── BOTTOM NAV ─── */
+  .pager{
+    display:flex;justify-content:space-between;gap:14px;margin-top:24px;
+    padding-top:20px;border-top:1px solid var(--line)
+  }
+  .pager-btn{
+    display:flex;align-items:center;gap:10px;padding:12px 18px;
+    background:var(--white);border:1px solid var(--line);border-radius:10px;
+    font-size:13px;color:var(--ink-2);transition:all .15s;flex:1;max-width:340px
+  }
+  .pager-btn:hover:not(.disabled){border-color:var(--beiya);color:var(--beiya);transform:translateY(-1px)}
+  .pager-btn.disabled{opacity:.4;cursor:not-allowed;pointer-events:none}
+  .pager-btn .dir{font-size:11px;color:var(--ink-3);font-weight:600;letter-spacing:.5px}
+  .pager-btn .ttl{font-weight:600;color:var(--ink);margin-top:2px;line-height:1.4}
+  .pager-btn.next{text-align:right;flex-direction:row-reverse}
+
+  /* ─── RESPONSIVE ─── */
+  @media(max-width:900px){
+    .cols{grid-template-columns:1fr}
+    .side{position:static}
+  }
+  @media(max-width:760px){
+    .topbar{padding:10px 12px;gap:8px;flex-wrap:wrap}
+    .brand{font-size:13px}
+    .brand-mark{width:24px;height:24px;font-size:12px}
+    .nav{flex:1 1 100%;order:3;overflow-x:auto;scrollbar-width:none;gap:0;padding:4px 0;border-top:1px solid var(--line);margin:8px 0 0}
+    .nav::-webkit-scrollbar{display:none}
+    .nav a{padding:6px 10px;font-size:12px;flex-shrink:0}
+    .back-btn{display:none}
+    .part-sw{order:2}
+    .part-sw a{padding:5px 10px;font-size:11.5px}
+    .wrap{padding:16px 14px 60px}
+    .q-head{padding:20px}
+    .q-title{font-size:18px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><div class="brand-mark">雅</div>北雅 · IELTS Speaking</div>
+  <div class="part-sw">
+    <a class="active" href="学生端_P1必考题_v1.html">Part 1</a>
+    <a href="学生端_素材宇宙首页_v1.html">Part 2</a>
+    <a class="disabled" title="敬请期待">Part 3</a>
+  </div>
+  <div class="nav">
+    <a href="学生端_P1必考题_v1.html">🎯 必考题</a>
+    <a href="学生端_P1选考题_v1.html">📚 选考题</a>
+    <a class="disabled" title="即将上线">⭐ 我的</a>
+  </div>
+  <a class="back-btn" href="学生端_P1必考题_v1.html">← 返回题库</a>
+</div>
+
+<div class="wrap">
+
+  <div class="crumb" id="crumb">
+    <a href="学生端_P1必考题_v1.html">Part 1</a><span class="sep">/</span>
+    <a href="学生端_P1必考题_v1.html">必考题</a><span class="sep">/</span>
+    <span id="crumb-topic">—</span><span class="sep">/</span>
+    <span id="crumb-seq">#—</span>
+  </div>
+
+  <div class="cols">
+    <main>
+
+      <div class="q-head">
+        <div class="q-tags" id="q-tags"></div>
+        <div class="q-title" id="q-title">Loading...</div>
+        <div class="q-tip" id="q-tip" style="display:none">
+          <div class="tip-ico">💡</div>
+          <div class="tip-txt"><b>Tracy 的建议：</b><span id="q-tip-txt"></span></div>
+        </div>
+      </div>
+
+      <!-- Tier 3a 基础版 -->
+      <section class="tier tier-t3a open">
+        <div class="tier-head" onclick="toggleTier(this)">
+          <div class="tier-icon">💬</div>
+          <div class="tier-title">基础版 Sample</div>
+          <div class="tier-lbl">BASIC · band 5</div>
+          <div class="tier-toggle">▾</div>
+        </div>
+        <div class="tier-body">
+          <div class="sample s-3a" id="t3a-txt">—</div>
+          <div class="sample-meta">
+            <span>💡 <b>怎么用：</b>先能一字不差说下来，目标是流畅。</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tier 3b 进阶版 -->
+      <section class="tier tier-t3b open">
+        <div class="tier-head" onclick="toggleTier(this)">
+          <div class="tier-icon">💎</div>
+          <div class="tier-title">进阶版 Sample</div>
+          <div class="tier-lbl">PLUS · 5.5–6</div>
+          <div class="tier-toggle">▾</div>
+        </div>
+        <div class="tier-body">
+          <div class="sample s-3b" id="t3b-txt">—</div>
+          <div class="sample-meta">
+            <span>💎 <b>怎么用：</b>加 1–2 个招牌词/连接词（nothing beats… / the downside is…）就够了。</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tier 2 Chunks -->
+      <section class="tier tier-t2 open">
+        <div class="tier-head" onclick="toggleTier(this)">
+          <div class="tier-icon">🧩</div>
+          <div class="tier-title">骨架 Chunks（短语串）</div>
+          <div class="tier-toggle">▾</div>
+        </div>
+        <div class="tier-body">
+          <div class="t2-chunks" id="t2-chunks"></div>
+        </div>
+      </section>
+
+      <!-- Tier 4 关键词 -->
+      <section class="tier tier-t4 open">
+        <div class="tier-head" onclick="toggleTier(this)">
+          <div class="tier-icon">🎯</div>
+          <div class="tier-title">考前 30 秒 · 关键词</div>
+          <div class="tier-toggle">▾</div>
+        </div>
+        <div class="tier-body">
+          <div class="t4-kw" id="t4-kw">—</div>
+        </div>
+      </section>
+
+      <!-- Tier 1 中文 -->
+      <section class="tier tier-t1">
+        <div class="tier-head" onclick="toggleTier(this)">
+          <div class="tier-icon">🀄</div>
+          <div class="tier-title">中文理解（弱基础先看这个）</div>
+          <div class="tier-toggle">▾</div>
+        </div>
+        <div class="tier-body">
+          <div class="t1-txt" id="t1-txt">—</div>
+        </div>
+      </section>
+
+      <!-- 上一题 / 下一题 -->
+      <div class="pager">
+        <a class="pager-btn" id="prev-btn">
+          <span style="font-size:18px">←</span>
+          <div>
+            <div class="dir">上一题</div>
+            <div class="ttl" id="prev-ttl">—</div>
+          </div>
+        </a>
+        <a class="pager-btn next" id="next-btn">
+          <span style="font-size:18px">→</span>
+          <div>
+            <div class="dir">下一题</div>
+            <div class="ttl" id="next-ttl">—</div>
+          </div>
+        </a>
+      </div>
+
+    </main>
+
+    <!-- ─── SIDEBAR ─── -->
+    <aside class="side">
+
+      <div class="side-card">
+        <div class="side-h"><span class="em">📐</span>所属骨架</div>
+        <a class="skel-link" id="skel-link" href="#">
+          <div class="skel-id" id="skel-id">—</div>
+          <div class="skel-name" id="skel-name">—</div>
+          <div class="skel-sub" id="skel-sub">—</div>
+        </a>
+      </div>
+
+      <div class="side-card">
+        <div class="side-h"><span class="em">🔗</span>同骨架其他题</div>
+        <div class="sib-list" id="sib-list"></div>
+      </div>
+
+      <div class="side-card" id="card-sugg-box" style="display:none">
+        <div class="side-h"><span class="em">📦</span>可借的素材卡</div>
+        <div class="card-sugg" id="card-sugg">—</div>
+      </div>
+
+    </aside>
+  </div>
+
+</div>
+
+<script src="p1_data.js"></script>
+<script>
+  try{ if(localStorage.getItem('beiya_authed')!=='1') location.href='学生端_登录_v1.html'; }catch(e){}
+
+  const D = window.P1_DATA || {skeletons:[],variants:[],cards:[]};
+  const TOPIC_EMOJI = {
+    'Hometown':'🏠','Accommodation':'🛋','Study':'📖','Work':'💼',
+    'Study/Work':'📖','Study / Work':'📖'
+  };
+
+  function toggleTier(h){ h.parentElement.classList.toggle('open') }
+
+  function getSeq(){
+    const m = (location.hash||'').match(/^#v(\d+)$/);
+    return m ? parseInt(m[1],10) : 1;
+  }
+
+  function render(){
+    const seq = getSeq();
+    const variants = D.variants||[];
+    const v = variants.find(x=>x.seq===seq) || variants[0];
+    if(!v){ document.getElementById('q-title').textContent='题目未找到'; return }
+
+    const skel = (D.skeletons||[]).find(s=>s.id===v.skeleton_id) || {};
+
+    // 顶部
+    document.title = `#${v.seq} · ${v.q_en} — 北雅 P1`;
+    document.getElementById('crumb-topic').textContent = (TOPIC_EMOJI[v.topic]||'📂')+' '+(v.topic||'');
+    document.getElementById('crumb-seq').textContent = `#${v.seq}`;
+
+    const tags = [
+      `<span class="tag tag-seq">#${v.seq}</span>`,
+      `<span class="tag tag-topic">${TOPIC_EMOJI[v.topic]||'📂'} ${v.topic||''}</span>`,
+      skel.id ? `<span class="tag tag-skel">📐 ${skel.id}</span>` : ''
+    ].join('');
+    document.getElementById('q-tags').innerHTML = tags;
+    document.getElementById('q-title').textContent = v.q_en||'';
+
+    if(v.tip){
+      document.getElementById('q-tip').style.display='flex';
+      document.getElementById('q-tip-txt').textContent = v.tip;
+    }
+
+    // Tier 3a/3b — 优先用 variant 自己的 sample，没有就退回 skeleton 的
+    document.getElementById('t3a-txt').textContent = v.t3a || skel.t3a || '（暂无 sample）';
+    document.getElementById('t3b-txt').textContent = v.t3b || skel.t3b || '（暂无 sample）';
+
+    // Tier 2 Chunks（来自骨架）
+    const chunks = (skel.t2_chunks||'').split('\n').filter(x=>x.trim());
+    document.getElementById('t2-chunks').innerHTML = chunks.length
+      ? chunks.map(c=>`<div class="chunk">${c.trim()}</div>`).join('')
+      : '<div class="sib-empty">（骨架未提供 chunks）</div>';
+
+    // Tier 4 / 1
+    document.getElementById('t4-kw').textContent = skel.t4_kw || '（暂无关键词）';
+    document.getElementById('t1-txt').textContent = skel.t1_zh || '（暂无中文版）';
+
+    // 侧栏：骨架卡 → 回题库筛选本骨架下所有变体
+    document.getElementById('skel-id').textContent = skel.id || '—';
+    document.getElementById('skel-name').textContent = skel.q_en || '';
+    document.getElementById('skel-sub').textContent = skel.q_zh || '';
+    document.getElementById('skel-link').href =
+      skel.id ? `学生端_P1必考题_v1.html#filter=${skel.id}` : '学生端_P1必考题_v1.html';
+
+    // 侧栏：同骨架其他题
+    const sibs = variants.filter(x=>x.skeleton_id===v.skeleton_id && x.seq!==v.seq);
+    const sibBox = document.getElementById('sib-list');
+    if(sibs.length){
+      sibBox.innerHTML = sibs.map(x=>`
+        <a class="sib" href="#v${x.seq}" onclick="setTimeout(()=>location.reload(),0)">
+          <span class="n">#${x.seq}</span><span>${x.q_en}</span>
+        </a>`).join('');
+    }else{
+      sibBox.innerHTML = '<div class="sib-empty">这一题是骨架独苗</div>';
+    }
+
+    // 侧栏：素材卡提示（若 note 里有建议）
+    if(v.note && v.note.trim()){
+      document.getElementById('card-sugg-box').style.display='block';
+      document.getElementById('card-sugg').innerHTML = v.note;
+    }
+
+    // 上/下一题
+    const prev = variants.find(x=>x.seq===v.seq-1);
+    const next = variants.find(x=>x.seq===v.seq+1);
+    const pb = document.getElementById('prev-btn');
+    const nb = document.getElementById('next-btn');
+    if(prev){ pb.href=`#v${prev.seq}`; pb.onclick=()=>setTimeout(()=>location.reload(),0); document.getElementById('prev-ttl').textContent = `#${prev.seq} · ${prev.q_en}`; }
+    else{ pb.classList.add('disabled'); document.getElementById('prev-ttl').textContent='已是第一题'; }
+    if(next){ nb.href=`#v${next.seq}`; nb.onclick=()=>setTimeout(()=>location.reload(),0); document.getElementById('next-ttl').textContent = `#${next.seq} · ${next.q_en}`; }
+    else{ nb.classList.add('disabled'); document.getElementById('next-ttl').textContent='已是最后一题'; }
+
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+
+  render();
+  window.addEventListener('hashchange', render);
+</script>
+
+</body>
+</html>

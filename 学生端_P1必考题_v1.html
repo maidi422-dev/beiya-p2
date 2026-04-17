@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>北雅国际教育 · 雅思口语 Part 1 · 必考题</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --beiya:#C0392B;--beiya-dark:#9B2C20;--beiya-soft:#FDECEA;
+    --gold:#B8894A;--gold-soft:#FBF4EA;
+    --ink:#1E1E22;--ink-2:#4A4A52;--ink-3:#8A8A92;
+    --line:#E8E8EC;--bg:#FAFAFA;--white:#FFFFFF;
+    --green:#2E7D32;--green-soft:#E8F5E9;
+    --orange:#E8834A;--orange-soft:#FFF3E0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;cursor:pointer}
+
+  /* ─── TOP BAR ─── */
+  .topbar{
+    position:sticky;top:0;z-index:40;background:var(--white);
+    border-bottom:1px solid var(--line);
+    padding:14px 24px;display:flex;align-items:center;gap:14px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:var(--beiya);white-space:nowrap}
+  .brand-mark{width:28px;height:28px;background:var(--beiya);color:#fff;
+    display:flex;align-items:center;justify-content:center;border-radius:4px;
+    font-family:'Noto Serif SC',serif;font-size:14px}
+
+  /* Part 1/2/3 胶囊 */
+  .part-sw{
+    display:flex;gap:2px;background:#F4F4F6;padding:3px;border-radius:22px;
+    margin-left:4px;flex-shrink:0
+  }
+  .part-sw a{
+    padding:6px 14px;border-radius:18px;font-size:12.5px;color:var(--ink-3);
+    font-weight:600;transition:all .15s;white-space:nowrap
+  }
+  .part-sw a:hover:not(.disabled):not(.active){color:var(--beiya)}
+  .part-sw a.active{background:var(--beiya);color:#fff;box-shadow:0 2px 6px rgba(192,57,43,.2)}
+  .part-sw a.disabled{color:#C5C5CD;cursor:not-allowed;pointer-events:none}
+
+  /* 一级主导航：必考 / 选考 / 我的 */
+  .nav{display:flex;gap:4px;margin-left:10px;flex:1}
+  .nav a{padding:7px 14px;border-radius:6px;font-size:13px;color:var(--ink-2);font-weight:500;white-space:nowrap}
+  .nav a:hover:not(.disabled){background:var(--beiya-soft);color:var(--beiya)}
+  .nav a.active{background:var(--beiya);color:#fff}
+  .nav a.disabled{color:#C5C5CD;cursor:not-allowed;pointer-events:none}
+
+  .search-wrap{position:relative}
+  .search{
+    background:#F4F4F6;border:1px solid transparent;border-radius:20px;
+    padding:7px 14px 7px 36px;font-size:12.5px;width:200px;
+    color:var(--ink);font-family:inherit;outline:none;transition:all .2s
+  }
+  .search:focus{background:#fff;border-color:var(--beiya);width:240px}
+  .search-ico{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--ink-3);font-size:13px;pointer-events:none}
+
+  /* ─── LAYOUT ─── */
+  .wrap{max-width:1120px;margin:0 auto;padding:32px 24px 80px}
+
+  /* ─── HERO ─── */
+  .hero{
+    background:linear-gradient(135deg,#fff 0%,#FFF5F3 100%);
+    border:1px solid var(--line);border-radius:16px;
+    padding:32px 36px;margin-bottom:22px;position:relative;overflow:hidden
+  }
+  .hero::before{
+    content:'';position:absolute;top:-40px;right:-40px;width:220px;height:220px;
+    background:radial-gradient(circle,var(--beiya-soft) 0%,transparent 70%);opacity:.6
+  }
+  .hero-eyebrow{
+    font-size:12px;letter-spacing:2px;color:var(--beiya);font-weight:600;
+    text-transform:uppercase;margin-bottom:10px
+  }
+  .hero-title{
+    font-family:'Noto Serif SC',serif;font-size:28px;font-weight:700;
+    line-height:1.3;color:var(--ink);margin-bottom:10px;position:relative;z-index:2
+  }
+  .hero-title em{color:var(--beiya);font-style:normal}
+  .hero-sub{font-size:14px;color:var(--ink-2);max-width:720px;line-height:1.8;position:relative;z-index:2}
+  .hero-stats{
+    display:flex;gap:28px;margin-top:20px;padding-top:20px;
+    border-top:1px dashed var(--line);position:relative;z-index:2;flex-wrap:wrap
+  }
+  .stat{display:flex;flex-direction:column;gap:2px}
+  .stat-num{font-family:'Noto Serif SC',serif;font-size:22px;font-weight:700;color:var(--beiya);line-height:1}
+  .stat-lbl{font-size:11.5px;color:var(--ink-3);margin-top:3px;letter-spacing:.5px}
+
+  /* ─── 页内二级切换：题库 / 骨架 ─── */
+  .sub-tabs{
+    display:flex;gap:4px;background:#F4F4F6;padding:4px;border-radius:14px;
+    margin-bottom:18px;width:fit-content
+  }
+  .sub-tabs a{
+    padding:9px 18px;border-radius:10px;font-size:13px;font-weight:600;
+    color:var(--ink-2);display:flex;align-items:center;gap:6px;transition:all .15s;
+    border:1px solid transparent
+  }
+  .sub-tabs a:hover:not(.active){color:var(--beiya)}
+  .sub-tabs a.active{background:#fff;color:var(--beiya);box-shadow:0 2px 6px rgba(0,0,0,.05);border-color:var(--beiya-soft)}
+  .sub-tabs .c{
+    background:#E8E8EC;color:var(--ink-3);padding:1px 7px;border-radius:10px;
+    font-size:11px;font-weight:600
+  }
+  .sub-tabs a.active .c{background:var(--beiya-soft);color:var(--beiya)}
+
+  /* ─── 筛选 chip ─── */
+  .filter-chip{
+    display:none;align-items:center;gap:10px;margin-bottom:16px;
+    background:var(--gold-soft);border:1px solid #EAD9B8;border-radius:10px;
+    padding:10px 14px;font-size:13px;color:var(--ink-2)
+  }
+  .filter-chip.show{display:flex}
+  .filter-chip .fc-label{color:var(--gold);font-weight:700;font-size:11.5px;letter-spacing:.5px}
+  .filter-chip .fc-val{color:var(--ink);font-weight:600}
+  .filter-chip .fc-clear{
+    margin-left:auto;background:transparent;border:1px solid var(--gold);color:var(--gold);
+    padding:4px 12px;border-radius:14px;font-size:11.5px;cursor:pointer;font-weight:600
+  }
+  .filter-chip .fc-clear:hover{background:var(--gold);color:#fff}
+
+  /* ─── TOPIC GROUP ─── */
+  .grp{margin-bottom:32px}
+  .grp-head{
+    display:flex;align-items:baseline;justify-content:space-between;
+    margin-bottom:12px;gap:10px;flex-wrap:wrap
+  }
+  .grp-title{
+    font-family:'Noto Serif SC',serif;font-size:19px;font-weight:700;color:var(--ink)
+  }
+  .grp-title .emoji{margin-right:8px}
+  .grp-title .count{color:var(--ink-3);font-weight:500;font-size:14px;margin-left:8px}
+  .grp-hint{font-size:12.5px;color:var(--ink-3)}
+
+  /* ─── QUESTION CARD GRID (题库视图) ─── */
+  .qgrid{
+    display:grid;gap:12px;
+    grid-template-columns:repeat(auto-fill,minmax(320px,1fr))
+  }
+  .qcard{
+    background:var(--white);border:1px solid var(--line);border-radius:12px;
+    padding:16px 18px;cursor:pointer;transition:all .18s;position:relative;overflow:hidden;
+    display:flex;flex-direction:column;gap:10px
+  }
+  .qcard::before{
+    content:'';position:absolute;top:0;left:0;width:3px;height:100%;
+    background:var(--beiya);transform:scaleY(0);transform-origin:top;transition:transform .22s
+  }
+  .qcard:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(192,57,43,.08);border-color:var(--beiya-soft)}
+  .qcard:hover::before{transform:scaleY(1)}
+  .qc-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+  .qc-seq{
+    font-family:'Noto Serif SC',serif;font-size:12px;font-weight:600;color:var(--beiya);
+    background:var(--beiya-soft);padding:2px 8px;border-radius:10px;flex-shrink:0
+  }
+  .qc-skel{
+    font-size:10.5px;color:var(--gold);background:var(--gold-soft);
+    padding:2px 8px;border-radius:10px;font-weight:600;flex-shrink:0
+  }
+  .qc-q{font-size:14px;color:var(--ink);font-weight:500;line-height:1.55}
+  .qc-foot{
+    display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink-3);
+    margin-top:2px;padding-top:8px;border-top:1px dashed var(--line)
+  }
+  .qc-foot .tip{flex:1;line-height:1.5;color:var(--ink-2)}
+
+  /* ─── SKELETON CARD GRID (骨架视图) ─── */
+  .skgrid{
+    display:grid;gap:14px;
+    grid-template-columns:repeat(auto-fill,minmax(360px,1fr))
+  }
+  .skcard{
+    background:var(--white);border:1px solid var(--line);border-radius:14px;
+    padding:18px 20px;cursor:pointer;transition:all .18s;position:relative;overflow:hidden;
+    display:flex;flex-direction:column;gap:12px
+  }
+  .skcard::before{
+    content:'';position:absolute;top:0;left:0;width:4px;height:100%;
+    background:var(--gold);transform:scaleY(0);transform-origin:top;transition:transform .22s
+  }
+  .skcard:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(184,137,74,.15);border-color:#EAD9B8}
+  .skcard:hover::before{transform:scaleY(1)}
+  .sk-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .sk-id{
+    font-family:'Noto Serif SC',serif;font-size:11.5px;font-weight:700;color:var(--gold);
+    background:var(--gold-soft);padding:3px 10px;border-radius:12px;letter-spacing:.5px
+  }
+  .sk-count{
+    font-size:11px;color:var(--beiya);background:var(--beiya-soft);
+    padding:3px 10px;border-radius:12px;font-weight:600
+  }
+  .sk-q{
+    font-family:'Noto Serif SC',serif;font-size:17px;font-weight:700;color:var(--ink);
+    line-height:1.4
+  }
+  .sk-qzh{font-size:12.5px;color:var(--ink-3);margin-top:-4px}
+  .sk-kw{
+    background:#FFFBF0;border:1px dashed #EAD9B8;border-radius:8px;
+    padding:10px 12px;font-size:12.5px;color:var(--ink-2);line-height:1.6;font-weight:500
+  }
+  .sk-foot{
+    display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:11.5px;color:var(--ink-3);
+    padding-top:10px;border-top:1px dashed var(--line)
+  }
+  .sk-foot .cta{color:var(--gold);font-weight:600}
+
+  /* ─── RESPONSIVE ─── */
+  @media(max-width:760px){
+    .topbar{padding:10px 12px;gap:8px;flex-wrap:wrap}
+    .brand{font-size:13px}
+    .brand-mark{width:24px;height:24px;font-size:12px}
+    .nav{flex:1 1 100%;order:3;overflow-x:auto;scrollbar-width:none;gap:0;padding:4px 0;border-top:1px solid var(--line);margin:8px 0 0}
+    .nav::-webkit-scrollbar{display:none}
+    .nav a{padding:6px 10px;font-size:12px;flex-shrink:0}
+    .search-wrap{display:none}
+    .part-sw{order:2}
+    .part-sw a{padding:5px 10px;font-size:11.5px}
+    .wrap{padding:20px 14px 60px}
+    .hero{padding:22px 20px}
+    .hero-title{font-size:22px}
+    .qgrid,.skgrid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><div class="brand-mark">雅</div>北雅 · IELTS Speaking</div>
+  <div class="part-sw">
+    <a class="active" href="学生端_P1必考题_v1.html">Part 1</a>
+    <a href="学生端_素材宇宙首页_v1.html">Part 2</a>
+    <a class="disabled" title="敬请期待">Part 3</a>
+  </div>
+  <div class="nav">
+    <a class="active" href="学生端_P1必考题_v1.html">🎯 必考题</a>
+    <a href="学生端_P1选考题_v1.html">📚 选考题</a>
+    <a class="disabled" title="即将上线">⭐ 我的</a>
+  </div>
+  <div class="search-wrap">
+    <span class="search-ico">🔍</span>
+    <input class="search" placeholder="搜 P1 题目或骨架..." id="searchBox">
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="hero-eyebrow">PART 1 · 必考题</div>
+    <h1 class="hero-title"><em>34 道</em>考试一定会问到的题 · <em>9 套</em>骨架 hold 住全部</h1>
+    <p class="hero-sub">
+      这 34 道是 2026 年 1-4 月季度的 Part 1 真考题库。每道题给你 <strong>基础版</strong>（听起来像聊天、容易记）+ <strong>进阶版</strong>（5.5-6 分 · 加 1-2 个招牌词）两个样本。
+      其实 34 道题就是 <strong>9 套骨架</strong>的变体——背好 9 套骨架，就能 hold 住所有必考。
+    </p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num" id="s-variants">34</div><div class="stat-lbl">必考真题</div></div>
+      <div class="stat"><div class="stat-num" id="s-skeletons">9</div><div class="stat-lbl">解题骨架</div></div>
+      <div class="stat"><div class="stat-num">4</div><div class="stat-lbl">覆盖话题</div></div>
+    </div>
+  </section>
+
+  <!-- 页内二级切换：题库 / 骨架 -->
+  <div class="sub-tabs" id="subTabs">
+    <a data-view="variants" class="active">📋 题库 <span class="c" id="c-variants">34</span></a>
+    <a data-view="skeletons">📐 骨架 <span class="c" id="c-skeletons">9</span></a>
+  </div>
+
+  <!-- 筛选 chip（从骨架跳进来时显示） -->
+  <div class="filter-chip" id="filterChip">
+    <span class="fc-label">🔎 骨架筛选</span>
+    <span class="fc-val" id="fc-val">—</span>
+    <button class="fc-clear" onclick="clearFilter()">× 清除筛选</button>
+  </div>
+
+  <!-- 主内容区 -->
+  <div id="groups"></div>
+
+</div>
+
+<script src="p1_data.js"></script>
+<script>
+  try{ if(localStorage.getItem('beiya_authed')!=='1') location.href='学生端_登录_v1.html'; }catch(e){}
+
+  const D = window.P1_DATA || {skeletons:[],variants:[]};
+  const TOPIC_EMOJI = {
+    'Hometown':'🏠','Accommodation':'🛋','Study':'📖','Work':'💼',
+    'Study/Work':'📖','Study / Work':'📖'
+  };
+
+  function groupByTopic(list){
+    const g = {};
+    list.forEach(v=>{
+      const t = v.topic || 'Other';
+      if(!g[t]) g[t] = [];
+      g[t].push(v);
+    });
+    return g;
+  }
+
+  // ─── URL 状态：
+  //   (empty)                    → 题库视图
+  //   #skel                      → 骨架视图
+  //   #filter=SKEL-HM-1          → 题库视图 + 筛选
+  function parseHash(){
+    const h = location.hash||'';
+    if(h==='#skel') return {view:'skeletons',filter:null};
+    const fm = h.match(/^#filter=(SKEL-[A-Z]+-\d+)$/);
+    if(fm) return {view:'variants',filter:fm[1]};
+    return {view:'variants',filter:null};
+  }
+  function clearFilter(){ location.hash=''; }
+
+  function render(){
+    const state = parseHash();
+    const search = (document.getElementById('searchBox').value||'').trim().toLowerCase();
+
+    document.querySelectorAll('#subTabs a').forEach(a=>{
+      a.classList.toggle('active', a.dataset.view===state.view);
+    });
+
+    const chip = document.getElementById('filterChip');
+    if(state.filter){
+      const skel = (D.skeletons||[]).find(s=>s.id===state.filter);
+      document.getElementById('fc-val').textContent =
+        skel ? `${skel.id} · ${skel.q_en}（${skel.q_zh}）` : state.filter;
+      chip.classList.add('show');
+    }else{
+      chip.classList.remove('show');
+    }
+
+    const box = document.getElementById('groups');
+    box.innerHTML = state.view==='skeletons'
+      ? renderSkeletonsView(search)
+      : renderVariantsView(search, state.filter);
+
+    document.getElementById('s-variants').textContent = (D.variants||[]).length;
+    document.getElementById('s-skeletons').textContent = (D.skeletons||[]).length;
+    document.getElementById('c-variants').textContent = (D.variants||[]).length;
+    document.getElementById('c-skeletons').textContent = (D.skeletons||[]).length;
+  }
+
+  function renderVariantsView(search, filter){
+    let list = (D.variants||[]);
+    if(filter) list = list.filter(v=>v.skeleton_id===filter);
+    if(search){
+      list = list.filter(v=>
+        (v.q_en||'').toLowerCase().includes(search)
+        || (v.topic||'').toLowerCase().includes(search)
+        || (v.skeleton_id||'').toLowerCase().includes(search)
+      );
+    }
+    if(!list.length){
+      return `<div style="text-align:center;padding:40px 20px;color:var(--ink-3);background:#fff;border:1px dashed var(--line);border-radius:12px">没有匹配的题目。</div>`;
+    }
+    const grouped = groupByTopic(list);
+    const order = ['Hometown','Accommodation','Study','Work','Study/Work'];
+    const topics = [...new Set([...order.filter(t=>grouped[t]), ...Object.keys(grouped)])];
+    return topics.map(t=>{
+      const items = grouped[t];
+      if(!items || !items.length) return '';
+      const cards = items.map(v=>{
+        const tip = v.tip ? `<span class="tip">💡 ${v.tip}</span>` : '';
+        return `
+          <div class="qcard" onclick="location.href='学生端_P1题目详情_v1.html#v${v.seq}'">
+            <div class="qc-head">
+              <span class="qc-seq">#${v.seq}</span>
+              <span class="qc-skel" title="所属骨架">${v.skeleton_id||''}</span>
+            </div>
+            <div class="qc-q">${v.q_en||''}</div>
+            ${tip?`<div class="qc-foot">${tip}</div>`:''}
+          </div>`;
+      }).join('');
+      const emoji = TOPIC_EMOJI[t]||'📂';
+      return `
+        <section class="grp">
+          <div class="grp-head">
+            <div class="grp-title"><span class="emoji">${emoji}</span>${t}<span class="count">(${items.length} 道)</span></div>
+            <div class="grp-hint">点任意一题 → 基础/进阶两个 sample + Tracy 建议</div>
+          </div>
+          <div class="qgrid">${cards}</div>
+        </section>`;
+    }).join('');
+  }
+
+  function renderSkeletonsView(search){
+    let list = (D.skeletons||[]);
+    if(search){
+      list = list.filter(s=>
+        (s.q_en||'').toLowerCase().includes(search)
+        || (s.q_zh||'').toLowerCase().includes(search)
+        || (s.topic||'').toLowerCase().includes(search)
+        || (s.id||'').toLowerCase().includes(search)
+      );
+    }
+    if(!list.length){
+      return `<div style="text-align:center;padding:40px 20px;color:var(--ink-3);background:#fff;border:1px dashed var(--line);border-radius:12px">没有匹配的骨架。</div>`;
+    }
+    const grouped = groupByTopic(list);
+    const order = ['Hometown','Accommodation','Study','Work','Study/Work'];
+    const topics = [...new Set([...order.filter(t=>grouped[t]), ...Object.keys(grouped)])];
+    return topics.map(t=>{
+      const items = grouped[t];
+      if(!items || !items.length) return '';
+      const cards = items.map(s=>{
+        const variantCount = (D.variants||[]).filter(v=>v.skeleton_id===s.id).length;
+        const kw = (s.t4_kw||'').slice(0,90);
+        return `
+          <div class="skcard" onclick="location.hash='#filter=${s.id}'">
+            <div class="sk-head">
+              <span class="sk-id">📐 ${s.id}</span>
+              <span class="sk-count">${variantCount} 道变体</span>
+            </div>
+            <div>
+              <div class="sk-q">${s.q_en||''}</div>
+              <div class="sk-qzh">${s.q_zh||''}</div>
+            </div>
+            ${kw?`<div class="sk-kw">🎯 ${kw}${(s.t4_kw||'').length>90?'...':''}</div>`:''}
+            <div class="sk-foot">
+              <span>话题：${TOPIC_EMOJI[s.topic]||'📂'} ${s.topic||''}</span>
+              <span class="cta">看这个骨架下的题 →</span>
+            </div>
+          </div>`;
+      }).join('');
+      const emoji = TOPIC_EMOJI[t]||'📂';
+      return `
+        <section class="grp">
+          <div class="grp-head">
+            <div class="grp-title"><span class="emoji">${emoji}</span>${t}<span class="count">(${items.length} 套骨架)</span></div>
+            <div class="grp-hint">点骨架 → 回到题库看它旗下的必考变体</div>
+          </div>
+          <div class="skgrid">${cards}</div>
+        </section>`;
+    }).join('');
+  }
+
+  document.querySelectorAll('#subTabs a').forEach(a=>{
+    a.addEventListener('click', e=>{
+      e.preventDefault();
+      const v = a.dataset.view;
+      if(v==='skeletons') location.hash='#skel';
+      else location.hash='';
+    });
+  });
+  window.addEventListener('hashchange', render);
+  document.getElementById('searchBox').addEventListener('input', render);
+
+  render();
+</script>
+
+</body>
+</html>
