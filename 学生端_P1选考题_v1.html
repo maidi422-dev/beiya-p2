@@ -157,6 +157,50 @@
   .card-chip:hover{background:var(--purple);color:#fff}
   .card-chip.sub{background:#F8F6FB;opacity:.85}
 
+  /* ─── 选考题 inline 展开（B 方案：复用素材卡 sample） ─── */
+  .ec-expand{
+    background:#F4F4F6;border:none;border-radius:8px;padding:9px 12px;
+    font-size:12.5px;color:var(--ink-2);cursor:pointer;font-weight:600;
+    display:flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;
+    transition:all .15s;width:100%;
+  }
+  .ec-expand:hover{background:var(--gold-soft);color:var(--gold)}
+  .ec-expand .ex-arrow{transition:transform .2s;display:inline-block}
+  .ecard.open .ec-expand .ex-arrow{transform:rotate(180deg)}
+  .ec-expand .ex-pill{
+    background:var(--purple-soft);color:var(--purple);
+    padding:2px 8px;border-radius:8px;font-size:10.5px;font-weight:700
+  }
+
+  .ec-detail{
+    display:none;padding-top:12px;margin-top:6px;border-top:1px dashed var(--line);
+    flex-direction:column;gap:10px
+  }
+  .ecard.open .ec-detail{display:flex}
+  .ec-detail .s-title{
+    font-size:11px;font-weight:700;color:var(--ink-3);letter-spacing:.5px;
+    display:flex;align-items:center;gap:6px;margin-bottom:4px
+  }
+  .ec-detail .s-title .src{
+    background:var(--purple-soft);color:var(--purple);font-weight:700;
+    padding:1px 7px;border-radius:8px;font-size:10px;letter-spacing:.3px
+  }
+  .ec-detail .chunks{
+    font-size:12.5px;color:var(--ink-2);line-height:1.65;white-space:pre-line;
+    background:#F8FAFD;padding:10px 12px;border-radius:6px;border:1px solid #DDE4F0
+  }
+  .ec-detail .sample{
+    font-size:13px;line-height:1.8;color:var(--ink);
+    padding:10px 12px;border-radius:6px
+  }
+  .ec-detail .sample.s-a{background:var(--green-soft);border-left:3px solid var(--green)}
+  .ec-detail .sample.s-b{background:var(--orange-soft);border-left:3px solid var(--orange)}
+  .ec-detail .sub-card{
+    margin-top:4px;padding:10px 12px;background:#F8F7FB;border-left:3px solid var(--purple);
+    border-radius:6px;font-size:12px;color:var(--ink-2);line-height:1.6
+  }
+  .ec-detail .sub-card b{color:var(--purple);font-weight:700}
+
   /* ─── 动态题占位 ─── */
   .dyn-placeholder{
     background:var(--white);border:1px solid var(--line);border-radius:14px;
@@ -490,6 +534,10 @@
 
   const D = window.P1_DATA || {electives:[],cards:[],crossrefs:[]};
 
+  // card-id → card 对象，供选考题就地展开 sample 用
+  const CARD_BY_ID = {};
+  (D.cards||[]).forEach(c=>{ CARD_BY_ID[c.id] = c; });
+
   const GROUP_EMOJI = {
     'Children':'🧒','School':'🏫','Future':'🔮','P3-like':'💭','Places':'📍','Tech':'💻'
   };
@@ -529,6 +577,11 @@
     // 仅稳定题视图有效
     if(newCyc==='all') location.hash = '';
     else location.hash = '#cyc='+newCyc;
+  }
+
+  // 全局 escapeHtml（renderDynamic / renderStable 共用）
+  function escHtml(s){
+    return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
 
   function render(){
@@ -618,6 +671,43 @@
         const chips = [];
         if(e.main_card) chips.push(`<a class="card-chip" href="#card=${e.main_card}">📦 ${e.main_card}（主）</a>`);
         if(e.sub_card)  chips.push(`<a class="card-chip sub" href="#card=${e.sub_card}">📦 ${e.sub_card}（辅）</a>`);
+
+        // B 方案：就地展开 main_card 的 chunks/基础/进阶 sample
+        const main = CARD_BY_ID[e.main_card];
+        const sub  = CARD_BY_ID[e.sub_card];
+        let detail = '';
+        let expandBtn = '';
+        if(main){
+          const chunksHtml = main.t2_chunks ? `
+            <div>
+              <div class="s-title">🧩 Chunks <span class="src">${main.id} · ${escHtml(main.name||'')}</span></div>
+              <div class="chunks">${escHtml(main.t2_chunks)}</div>
+            </div>` : '';
+          const basicHtml = main.t3a ? `
+            <div>
+              <div class="s-title">💬 基础版 sample</div>
+              <div class="sample s-a">${escHtml(main.t3a)}</div>
+            </div>` : '';
+          const advHtml = main.t3b ? `
+            <div>
+              <div class="s-title">💎 进阶版 sample</div>
+              <div class="sample s-b">${escHtml(main.t3b)}</div>
+            </div>` : '';
+          const subHtml = sub ? `
+            <div class="sub-card">
+              <b>🔗 辅素材 · ${sub.id} ${escHtml(sub.name||'')}</b><br>
+              ${escHtml(sub.persona||'')}${sub.t4_kw?` · 🎯 <i>${escHtml(sub.t4_kw)}</i>`:''}
+              <br><a href="#card=${sub.id}" style="color:var(--purple);font-weight:600">看完整辅素材卡 →</a>
+            </div>` : '';
+          detail = `<div class="ec-detail">${chunksHtml}${basicHtml}${advHtml}${subHtml}</div>`;
+          expandBtn = `
+            <button class="ec-expand" onclick="this.closest('.ecard').classList.toggle('open')">
+              <span>📖 展开 sample</span>
+              <span class="ex-pill">借用 ${main.id}</span>
+              <span class="ex-arrow">▾</span>
+            </button>`;
+        }
+
         return `
           <div class="ecard">
             <div class="ec-head">
@@ -627,6 +717,8 @@
             <div class="ec-q">${e.q_en||''}</div>
             ${e.tip?`<div class="ec-tip"><b>💡 Tracy 建议：</b>${e.tip}</div>`:''}
             ${chips.length?`<div class="ec-cards">${chips.join('')}</div>`:''}
+            ${expandBtn}
+            ${detail}
           </div>`;
       }).join('');
       return `
