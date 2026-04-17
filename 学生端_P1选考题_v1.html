@@ -341,8 +341,71 @@
   .tier-body.basic{background:#FFF8F7;border-color:#F5D6D2}
   .tier-body.adv{background:#FDF8F0;border-color:#EEDEBE}
 
+  /* ─── 换季 banner ─── */
+  .season-banner{
+    background:linear-gradient(90deg,#FFF7E6 0%,#FFECCC 100%);
+    border:1px solid #EAD9B8;border-radius:12px;
+    padding:12px 18px;margin-bottom:18px;
+    display:flex;align-items:center;gap:14px;font-size:13px;color:var(--ink-2);
+    position:relative;overflow:hidden
+  }
+  .season-banner::before{
+    content:'';position:absolute;left:0;top:0;width:4px;height:100%;background:var(--gold)
+  }
+  .season-banner .sb-ico{font-size:20px;flex-shrink:0}
+  .season-banner .sb-main{flex:1;line-height:1.55}
+  .season-banner .sb-main b{color:var(--gold);font-weight:700}
+  .season-banner .sb-days{
+    background:var(--gold);color:#fff;padding:3px 10px;border-radius:10px;
+    font-weight:700;font-size:13px;font-family:'Noto Serif SC',serif;margin:0 2px
+  }
+  .season-banner .sb-legend{
+    display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-left:auto;flex-shrink:0
+  }
+  .season-banner .lg-chip{
+    display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:600;
+    padding:2px 8px;border-radius:10px
+  }
+  .lg-chip.lg-retained{background:var(--gold-soft);color:var(--gold);border:1px solid #E8D4A8}
+  .lg-chip.lg-expiring{background:var(--orange-soft);color:var(--orange);border:1px solid var(--orange-bd)}
+  .lg-chip.lg-new{background:var(--green-soft);color:var(--green);border:1px solid var(--green-bd)}
+
+  /* ─── cycle 徽章（卡片右上角） ─── */
+  .cyc-badge{
+    font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:10px;
+    letter-spacing:.2px;white-space:nowrap;flex-shrink:0
+  }
+  .cyc-badge.cyc-retained{background:var(--gold-soft);color:var(--gold);border:1px solid #E8D4A8}
+  .cyc-badge.cyc-expiring{background:var(--orange-soft);color:var(--orange);border:1px solid var(--orange-bd)}
+  .cyc-badge.cyc-new{background:var(--green-soft);color:var(--green);border:1px solid var(--green-bd)}
+
+  /* ─── cycle filter pills（稳定题视图） ─── */
+  .cyc-filter{
+    display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+    padding:10px 14px;background:#fff;border:1px solid var(--line);
+    border-radius:12px;margin-bottom:16px
+  }
+  .cyc-filter .cf-label{
+    font-size:11.5px;color:var(--ink-3);font-weight:600;letter-spacing:.5px
+  }
+  .cyc-filter .cf-pill{
+    display:inline-flex;align-items:center;gap:4px;
+    padding:5px 12px;border-radius:14px;font-size:12px;font-weight:600;
+    border:1px solid var(--line);color:var(--ink-2);background:#fff;cursor:pointer;
+    transition:all .15s
+  }
+  .cyc-filter .cf-pill:hover{border-color:var(--gold);color:var(--gold)}
+  .cyc-filter .cf-pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .cyc-filter .cf-pill .cf-c{
+    background:rgba(0,0,0,.08);padding:1px 7px;border-radius:8px;
+    font-size:10.5px;font-weight:700;margin-left:2px
+  }
+  .cyc-filter .cf-pill.active .cf-c{background:rgba(255,255,255,.2)}
+
   /* ─── RESPONSIVE ─── */
   @media(max-width:760px){
+    .season-banner{flex-wrap:wrap;padding:10px 14px;font-size:12.5px}
+    .season-banner .sb-legend{margin-left:0;width:100%;padding-top:6px;border-top:1px dashed #EAD9B8}
     .topbar{padding:10px 12px;gap:8px;flex-wrap:wrap}
     .brand{font-size:13px}
     .brand-mark{width:24px;height:24px;font-size:12px}
@@ -382,6 +445,21 @@
 
 <div class="wrap">
 
+  <!-- 换季倒计时 banner -->
+  <div class="season-banner" id="seasonBanner">
+    <span class="sb-ico">⏳</span>
+    <div class="sb-main">
+      <b>雅思口语换季倒计时</b> · 距 <b>2026-05-01</b> 新题季还有
+      <span class="sb-days" id="sbDays">—</span> 天 ·
+      <b>★ 保留题</b>跨季不换、复用价值最高，优先背；<b>⏳ 限定题</b>仅本季出现，5/1 后退役。
+    </div>
+    <div class="sb-legend">
+      <span class="lg-chip lg-retained">★ 保留</span>
+      <span class="lg-chip lg-expiring">⏳ 限定</span>
+      <span class="lg-chip lg-new">🆕 新题</span>
+    </div>
+  </div>
+
   <section class="hero">
     <div class="hero-eyebrow">PART 1 · 选考题</div>
     <h1 class="hero-title"><em>68 道</em>稳定选考 · <em id="h-dynamic">26 道</em>动态题（<span style="color:var(--gold)">★ 保留题</span>首批）· <em>18 张</em>素材卡</h1>
@@ -415,16 +493,42 @@
   const GROUP_EMOJI = {
     'Children':'🧒','School':'🏫','Future':'🔮','P3-like':'💭','Places':'📍','Tech':'💻'
   };
+  const CYC_BADGE_MAP = {
+    'retained':    {cls:'cyc-retained', text:'★ 保留'},
+    'jan_apr_only':{cls:'cyc-expiring', text:'⏳ 限定'},
+    'may_aug_new': {cls:'cyc-new',      text:'🆕 新题'}
+  };
+  function cycleBadge(c){
+    const m = CYC_BADGE_MAP[c]; if(!m) return '';
+    return `<span class="cyc-badge ${m.cls}">${m.text}</span>`;
+  }
+  // 换季倒计时（目标：2026-05-01，Tracy 教学口径）
+  (function(){
+    const target = new Date('2026-05-01T00:00:00+08:00');
+    const now = new Date();
+    const days = Math.max(0, Math.ceil((target - now)/(1000*60*60*24)));
+    const el = document.getElementById('sbDays');
+    if(el) el.textContent = days;
+  })();
 
   // ─── URL 状态 ───
-  // #stable | #dynamic | #cards | #card=NPC-1
+  // #stable | #stable&cyc=retained | #dynamic | #cards | #card=NPC-1
   function parseHash(){
     const h = location.hash||'';
-    if(h==='#dynamic') return {view:'dynamic',focusCard:null};
-    if(h==='#cards') return {view:'cards',focusCard:null};
+    // 支持 #stable&cyc=retained 或 #cyc=retained
+    const cyMatch = h.match(/cyc=(retained|jan_apr_only|may_aug_new|all)/);
+    const cyc = cyMatch ? cyMatch[1] : 'all';
+
+    if(h.startsWith('#dynamic')) return {view:'dynamic',focusCard:null,cyc};
+    if(h.startsWith('#cards'))   return {view:'cards',focusCard:null,cyc};
     const cm = h.match(/^#card=((?:NPC|MOD)-\d+)$/);
-    if(cm) return {view:'cards',focusCard:cm[1]};
-    return {view:'stable',focusCard:null};
+    if(cm) return {view:'cards',focusCard:cm[1],cyc:'all'};
+    return {view:'stable',focusCard:null,cyc};
+  }
+  function setCycFilter(newCyc){
+    // 仅稳定题视图有效
+    if(newCyc==='all') location.hash = '';
+    else location.hash = '#cyc='+newCyc;
   }
 
   function render(){
@@ -438,7 +542,15 @@
     const box = document.getElementById('groups');
     if(state.view==='dynamic') box.innerHTML = renderDynamic();
     else if(state.view==='cards') box.innerHTML = renderCards(search);
-    else box.innerHTML = renderStable(search);
+    else box.innerHTML = renderStable(search, state.cyc);
+
+    // pill 点击 → 切换 cycle 筛选（事件委托）
+    box.querySelectorAll('.cf-pill').forEach(a=>{
+      a.addEventListener('click', ev=>{
+        ev.preventDefault();
+        setCycFilter(a.dataset.cyc);
+      });
+    });
 
     // 填数
     const dynCount = (D.dynamic_electives||[]).length;
@@ -470,8 +582,23 @@
   }
 
   // ─── 稳定题视图 ───
-  function renderStable(search){
-    let list = (D.electives||[]);
+  function renderStable(search, cyc){
+    const all = (D.electives||[]);
+    // 先算各 cycle 下的总数（供 pills 显示计数）
+    const cnt = {all:all.length, retained:0, jan_apr_only:0, may_aug_new:0};
+    all.forEach(e=>{ if(cnt[e.cycle]!=null) cnt[e.cycle]++; });
+
+    const pills = `
+      <div class="cyc-filter">
+        <span class="cf-label">换季筛选</span>
+        <a class="cf-pill ${cyc==='all'?'active':''}"         href="#" data-cyc="all">全部 <span class="cf-c">${cnt.all}</span></a>
+        <a class="cf-pill ${cyc==='retained'?'active':''}"    href="#cyc=retained" data-cyc="retained">★ 保留 <span class="cf-c">${cnt.retained}</span></a>
+        <a class="cf-pill ${cyc==='jan_apr_only'?'active':''}" href="#cyc=jan_apr_only" data-cyc="jan_apr_only">⏳ 限定 <span class="cf-c">${cnt.jan_apr_only}</span></a>
+        <a class="cf-pill ${cyc==='may_aug_new'?'active':''}"  href="#cyc=may_aug_new" data-cyc="may_aug_new">🆕 新题 <span class="cf-c">${cnt.may_aug_new}</span></a>
+      </div>`;
+
+    let list = all;
+    if(cyc && cyc!=='all') list = list.filter(e=>e.cycle===cyc);
     if(search){
       list = list.filter(e=>
         (e.q_en||'').toLowerCase().includes(search)
@@ -479,12 +606,12 @@
         || (e.tip||'').toLowerCase().includes(search)
       );
     }
-    if(!list.length) return emptyMsg('没有匹配的稳定题。');
+    if(!list.length) return pills + emptyMsg('当前筛选下没有稳定题。试试换个 cycle 筛选？');
     const grouped = groupByField(list,'group');
     const order = ['Children','School','Future','P3-like','Places','Tech'];
     const groups = [...new Set([...order.filter(t=>grouped[t]),...Object.keys(grouped)])];
 
-    return groups.map(t=>{
+    const body = groups.map(t=>{
       const items = grouped[t];
       if(!items || !items.length) return '';
       const cards = items.map(e=>{
@@ -495,6 +622,7 @@
           <div class="ecard">
             <div class="ec-head">
               <span class="ec-seq">#${e.seq}</span>
+              ${cycleBadge(e.cycle)}
             </div>
             <div class="ec-q">${e.q_en||''}</div>
             ${e.tip?`<div class="ec-tip"><b>💡 Tracy 建议：</b>${e.tip}</div>`:''}
@@ -510,6 +638,7 @@
           <div class="egrid">${cards}</div>
         </section>`;
     }).join('');
+    return pills + body;
   }
 
   // ─── 动态题视图（4 技巧介绍 + 真实数据渲染）───

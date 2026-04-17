@@ -11,8 +11,8 @@
     --gold:#B8894A;--gold-soft:#FBF4EA;
     --ink:#1E1E22;--ink-2:#4A4A52;--ink-3:#8A8A92;
     --line:#E8E8EC;--bg:#FAFAFA;--white:#FFFFFF;
-    --green:#2E7D32;--green-soft:#E8F5E9;
-    --orange:#E8834A;--orange-soft:#FFF3E0;
+    --green:#2E7D32;--green-soft:#E8F5E9;--green-bd:#A5D6A7;
+    --orange:#E8834A;--orange-soft:#FFF3E0;--orange-bd:#FFCC80;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -212,8 +212,48 @@
   }
   .sk-foot .cta{color:var(--gold);font-weight:600}
 
+  /* ─── 换季 banner ─── */
+  .season-banner{
+    background:linear-gradient(90deg,#FFF7E6 0%,#FFECCC 100%);
+    border:1px solid #EAD9B8;border-radius:12px;
+    padding:12px 18px;margin-bottom:18px;
+    display:flex;align-items:center;gap:14px;font-size:13px;color:var(--ink-2);
+    position:relative;overflow:hidden
+  }
+  .season-banner::before{
+    content:'';position:absolute;left:0;top:0;width:4px;height:100%;background:var(--gold)
+  }
+  .season-banner .sb-ico{font-size:20px;flex-shrink:0}
+  .season-banner .sb-main{flex:1;line-height:1.55}
+  .season-banner .sb-main b{color:var(--gold);font-weight:700}
+  .season-banner .sb-days{
+    background:var(--gold);color:#fff;padding:3px 10px;border-radius:10px;
+    font-weight:700;font-size:13px;font-family:'Noto Serif SC',serif;margin:0 2px
+  }
+  .season-banner .sb-legend{
+    display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-left:auto;flex-shrink:0
+  }
+  .season-banner .lg-chip{
+    display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:600;
+    padding:2px 8px;border-radius:10px
+  }
+  .lg-chip.lg-retained{background:var(--gold-soft);color:var(--gold);border:1px solid #E8D4A8}
+  .lg-chip.lg-expiring{background:var(--orange-soft);color:var(--orange);border:1px solid var(--orange-bd)}
+  .lg-chip.lg-new{background:var(--green-soft);color:var(--green);border:1px solid var(--green-bd)}
+
+  /* ─── cycle 徽章（右上角） ─── */
+  .cyc-badge{
+    font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:10px;
+    letter-spacing:.2px;white-space:nowrap;flex-shrink:0
+  }
+  .cyc-badge.cyc-retained{background:var(--gold-soft);color:var(--gold);border:1px solid #E8D4A8}
+  .cyc-badge.cyc-expiring{background:var(--orange-soft);color:var(--orange);border:1px solid var(--orange-bd)}
+  .cyc-badge.cyc-new{background:var(--green-soft);color:var(--green);border:1px solid var(--green-bd)}
+
   /* ─── RESPONSIVE ─── */
   @media(max-width:760px){
+    .season-banner{flex-wrap:wrap;padding:10px 14px;font-size:12.5px}
+    .season-banner .sb-legend{margin-left:0;width:100%;padding-top:6px;border-top:1px dashed #EAD9B8}
     .topbar{padding:10px 12px;gap:8px;flex-wrap:wrap}
     .brand{font-size:13px}
     .brand-mark{width:24px;height:24px;font-size:12px}
@@ -252,6 +292,21 @@
 </div>
 
 <div class="wrap">
+
+  <!-- 换季倒计时 banner -->
+  <div class="season-banner" id="seasonBanner">
+    <span class="sb-ico">⏳</span>
+    <div class="sb-main">
+      <b>雅思口语换季倒计时</b> · 距 <b>2026-05-01</b> 新题季还有
+      <span class="sb-days" id="sbDays">—</span> 天 ·
+      P1 必考骨架与变体<b>全部跨季保留</b>，放心背。
+    </div>
+    <div class="sb-legend">
+      <span class="lg-chip lg-retained">★ 保留</span>
+      <span class="lg-chip lg-expiring">⏳ 限定</span>
+      <span class="lg-chip lg-new">🆕 新题</span>
+    </div>
+  </div>
 
   <section class="hero">
     <div class="hero-eyebrow">PART 1 · 必考题</div>
@@ -294,6 +349,23 @@
     'Hometown':'🏠','Accommodation':'🛋','Study':'📖','Work':'💼',
     'Study/Work':'📖','Study / Work':'📖'
   };
+  const CYCLE_MAP = {
+    'retained':    {cls:'cyc-retained', text:'★ 保留'},
+    'jan_apr_only':{cls:'cyc-expiring', text:'⏳ 限定'},
+    'may_aug_new': {cls:'cyc-new',      text:'🆕 新题'}
+  };
+  function cycleBadge(c){
+    const m = CYCLE_MAP[c]; if(!m) return '';
+    return `<span class="cyc-badge ${m.cls}">${m.text}</span>`;
+  }
+  // 换季倒计时（目标：2026-05-01，Tracy 教学口径）
+  (function(){
+    const target = new Date('2026-05-01T00:00:00+08:00');
+    const now = new Date();
+    const days = Math.max(0, Math.ceil((target - now)/(1000*60*60*24)));
+    const el = document.getElementById('sbDays');
+    if(el) el.textContent = days;
+  })();
 
   function groupByTopic(list){
     const g = {};
@@ -372,7 +444,10 @@
           <div class="qcard" onclick="location.href='学生端_P1题目详情_v1.html#v${v.seq}'">
             <div class="qc-head">
               <span class="qc-seq">#${v.seq}</span>
-              <span class="qc-skel" title="所属骨架">${v.skeleton_id||''}</span>
+              <div style="display:flex;gap:6px;align-items:center">
+                ${cycleBadge(v.cycle)}
+                <span class="qc-skel" title="所属骨架">${v.skeleton_id||''}</span>
+              </div>
             </div>
             <div class="qc-q">${v.q_en||''}</div>
             ${tip?`<div class="qc-foot">${tip}</div>`:''}
@@ -416,7 +491,10 @@
           <div class="skcard" onclick="location.hash='#filter=${s.id}'">
             <div class="sk-head">
               <span class="sk-id">📐 ${s.id}</span>
-              <span class="sk-count">${variantCount} 道变体</span>
+              <div style="display:flex;gap:6px;align-items:center">
+                ${cycleBadge(s.cycle)}
+                <span class="sk-count">${variantCount} 道变体</span>
+              </div>
             </div>
             <div>
               <div class="sk-q">${s.q_en||''}</div>
