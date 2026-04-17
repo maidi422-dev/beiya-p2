@@ -1,6 +1,7 @@
 // AUTO-GENERATED from P1_数据预览.xlsx — DO NOT EDIT BY HAND
 // 重新生成方式：运行 export_p1_to_json.py
-// 字段：skeletons(9) / variants(34) / cards(18) / electives(68) / newElectives(76) / crossrefs(10)
+// 字段：skeletons(9) / variants(34) / cards(18) / electives(68) / dynamic_electives(26) / crossrefs(10)
+// 2026-04-18 加入 cycle 字段：retained / jan_apr_only / may_aug_new (cards/crossrefs 无 cycle)
 
 window.P1_DATA = {
   "skeletons": [
@@ -14,7 +15,8 @@ window.P1_DATA = {
       "t3a": "Hmm, I think cities are better, you know. Like, the schools are way better and the teachers too, so kids can get more support. And there are more good jobs, so the pay is higher. But the countryside is also really nice — clean air, slow life, because there's less pressure, you sleep so well.",
       "t3b": "Well, you know, I'd say cities are better in two ways. First, the schools are good — like, better teachers and more after-school classes, so kids get a solid education. And second, you can find a good job there, so the pay is much higher. But the countryside is also nice, you know — clean air, slow life, and you sleep so well because there's zero pressure.",
       "t4_kw": "city = schools + jobs (more support, higher pay) | countryside = air + slow + sleep (less pressure)",
-      "variant_count": 5
+      "variant_count": 5,
+      "cycle": "retained"
     },
     {
       "id": "SKEL-HM-2",
@@ -26,7 +28,8 @@ window.P1_DATA = {
       "t3a": "Yeah, it's changed quite a bit, actually. We've got new subways now, and a new train station — only 5 minutes from my home, so travelling is so easy. There are also new shopping malls and restaurants. But, you know, it's also more crowded and noisy because so many people moved in. Sometimes I really can't sleep at night.",
       "t3b": "Yeah, it's changed quite a lot, actually. We've got new subway lines now, and a new train station — like, one is only five minutes from my home, which makes travelling so easy. There are also new shopping malls and restaurants. The downside is, you know, it's more crowded and noisier now because the population has grown. Sometimes I really can't sleep.",
       "t4_kw": "new subways + station (easy travel) | new malls | bad: crowded + noisy (population grew)",
-      "variant_count": 4
+      "variant_count": 4,
+      "cycle": "retained"
     },
     {
       "id": "SKEL-HM-3",
@@ -38,7 +41,8 @@ window.P1_DATA = {
       "t3a": "Um, well, basically all my life — like 17 or 18 years. You know, my school, my friends, even my favourite places to eat, they're all here. I'm going to uni soon, so I'll really miss home — especially my mum's food, because nothing tastes like home-cooked meals.",
       "t3b": "Basically my whole life, you know — like 17 or 18 years. My school, my friends, my favourite places to eat — all here. I'll be off to uni soon, so I'll really miss home — especially my mum's food, because nothing beats a home-cooked meal.",
       "t4_kw": "all my life · 17-18 yrs · uni soon · miss mum's food (nothing beats home-cooked)",
-      "variant_count": 3
+      "variant_count": 3,
+      "cycle": "retained"
     },
     {
       "id": "SKEL-HM-4",
@@ -50,7 +54,8 @@ window.P1_DATA = {
       "t3a": "Oh, a few places. The shopping mall is fun with friends — you know, food, clothes, cinema, all in one place, so we can stay all day. The park is nice in the morning, like, people running and playing basketball, because the air is fresh. And the museum, I like that too — you can see real things and take some nice photos.",
       "t3b": "Oh, a few favourite spots, actually. Shopping malls are great with friends, you know — food, clothes, and a cinema all in one place, so we can hang out for hours. Parks are nice in the mornings, like, runners, families having picnics, because the air feels so fresh. And museums, where you see real things and take nice photos.",
       "t4_kw": "mall = friends (all day) | park = fresh air morning | museum = real + photos",
-      "variant_count": 3
+      "variant_count": 3,
+      "cycle": "retained"
     },
     {
       "id": "SKEL-HM-5",
@@ -62,7 +67,8 @@ window.P1_DATA = {
       "t3a": "Yeah, one neighbour, actually. He's like, around 60, retired now, so he's got lots of free time. He grows tomatoes, strawberries, you know, all that — because gardening really relaxes him. He even posts videos on Douyin, you know, the Chinese TikTok, and has a lot of fans. He often gives us free veggies — my mum says they taste way better than the shop.",
       "t3b": "Yeah, one neighbour really well, actually — a retired man, around 60. He has a small garden where he grows tomatoes and strawberries — it kind of keeps him busy after retirement. He even posts gardening videos on Douyin, you know, China's version of TikTok, and has many fans. He often shares fresh veggies with us — my mum says they're way better than supermarket ones.",
       "t4_kw": "retired neighbour (free time) · garden (relaxes him) · Douyin (Chinese TikTok) fans · free veggies",
-      "variant_count": 4
+      "variant_count": 4,
+      "cycle": "retained"
     },
     {
       "id": "SKEL-AC-1",
@@ -74,7 +80,8 @@ window.P1_DATA = {
       "t3a": "I live with my parents, you know, and I have my own room. It feels really warm at home because there's always someone to talk to. My mum cooks and my dad helps with my homework. But, like, I'm going to uni soon, so it won't be like this for long.",
       "t3b": "Well, I live with my family — you know, my parents and I, and I've got my own room. It's really cosy and there's always someone to talk to, which I love. Mum does the cooking, Dad helps with homework. But it won't last long — I'm moving away for uni soon.",
       "t4_kw": "with parents · own room · warm (always someone) · mum cooks · uni soon",
-      "variant_count": 6
+      "variant_count": 6,
+      "cycle": "retained"
     },
     {
       "id": "SKEL-AC-2",
@@ -86,7 +93,8 @@ window.P1_DATA = {
       "t3a": "Hmm, my bedroom for sure. It's like, my own little space. I've got a desk by the window, some books, and posters on the wall. I just study there, listen to music, watch shows. You know, it's where I feel really chill because nobody bothers me.",
       "t3b": "Hmm, I'd say my bedroom — that's, like, my private space. I've got a desk by the window, books and posters on the wall. I just study, listen to music, watch TV shows there. It's where I feel most like myself, you know, because nobody bothers me.",
       "t4_kw": "bedroom · desk by window · posters · chill (nobody bothers)",
-      "variant_count": 4
+      "variant_count": 4,
+      "cycle": "retained"
     },
     {
       "id": "SKEL-ST-1",
@@ -98,7 +106,8 @@ window.P1_DATA = {
       "t3a": "Oh, I'm a student, grade 12. My main subjects are English, Maths, and Chinese. English is my favourite — it's, you know, useful, and it kind of opens up more chances for me, like studying abroad. It's a bit stressful, but yeah, totally worth it.",
       "t3b": "Oh, I'm a student in grade 12. My main subjects are English, Maths and Chinese. English is my favourite, you know — it's useful and kind of opens many doors, like studying abroad. Pretty stressful, but yeah, I think it's worth it.",
       "t4_kw": "student · grade 12 · English favourite (useful, opens doors) · stressful but worth it",
-      "variant_count": 7
+      "variant_count": 7,
+      "cycle": "retained"
     },
     {
       "id": "SKEL-ST-2",
@@ -110,7 +119,8 @@ window.P1_DATA = {
       "t3a": "Hmm, I really want to study abroad — maybe Canada or the UK, because I'd love to see a different world. I'm thinking business or maybe design, you know, something a bit creative. After that, I'd love to work at a big company and become a manager. The dream is to take care of my family one day.",
       "t3b": "Hmm, I'd love to study abroad — maybe Canada or the UK, because I want to see a different world. I'm thinking of business or design, you know, something a bit creative. Long term, I want to work at a big company and become a manager. The dream is to take care of my family one day.",
       "t4_kw": "study abroad (different world) · business/design · big company · take care of family",
-      "variant_count": 4
+      "variant_count": 4,
+      "cycle": "retained"
     }
   ],
   "variants": [
@@ -123,7 +133,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Oh, well, I live in a city, so I'd say there are quite a few benefits. The schools are way better and the teachers too, so kids get more support. And there are more good jobs here, because it's a bigger place, so the pay is higher. Life is also convenient — everything close by.",
-      "t3b": "Oh, a few nice things, actually. I live in a city, so the schools are good, you know — better teachers, more after-school classes. And there are more good jobs here, because it's a bigger place, so the pay is much higher. Everything's close by too, which makes life pretty easy."
+      "t3b": "Oh, a few nice things, actually. I live in a city, so the schools are good, you know — better teachers, more after-school classes. And there are more good jobs here, because it's a bigger place, so the pay is much higher. Everything's close by too, which makes life pretty easy.",
+      "cycle": "retained"
     },
     {
       "seq": 2,
@@ -134,7 +145,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Hmm, maybe one day, you know. The countryside is really nice — clean air, slow life, because there's less pressure, you sleep so well. But right now I'd say no, because my school and friends are all here in the city.",
-      "t3b": "Maybe one day, yeah. The countryside is really nice, you know — clean air, slow life, and you sleep so well because there's zero pressure. But for now I'd say no, because my studies and friends are all based here in the city."
+      "t3b": "Maybe one day, yeah. The countryside is really nice, you know — clean air, slow life, and you sleep so well because there's zero pressure. But for now I'd say no, because my studies and friends are all based here in the city.",
+      "cycle": "retained"
     },
     {
       "seq": 3,
@@ -145,7 +157,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "I live in Jining, a city in Shandong, you know, in the east of China. Basically all my life — like 17 or 18 years. My school, my friends, even my favourite places to eat are all here, so I really love this place.",
-      "t3b": "I live in Jining, you know, a city in Shandong province, in the east of China. Basically my whole life — like 17 or 18 years. My school, my friends, my favourite places to eat — all here. Pretty attached to it, honestly."
+      "t3b": "I live in Jining, you know, a city in Shandong province, in the east of China. Basically my whole life — like 17 or 18 years. My school, my friends, my favourite places to eat — all here. Pretty attached to it, honestly.",
+      "cycle": "retained"
     },
     {
       "seq": 4,
@@ -156,7 +169,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Uh, medium-sized, I'd say. Not huge like Beijing or Shanghai, but definitely not a small town. The schools are pretty good and there are enough jobs, so life is convenient. It also feels chill — not too crowded.",
-      "t3b": "I'd say medium-sized, actually — not huge like Beijing or Shanghai, but definitely not a small town, you know. The schools are good and there are enough jobs, so life's pretty convenient. Feels chill too, not overly crowded."
+      "t3b": "I'd say medium-sized, actually — not huge like Beijing or Shanghai, but definitely not a small town, you know. The schools are good and there are enough jobs, so life's pretty convenient. Feels chill too, not overly crowded.",
+      "cycle": "retained"
     },
     {
       "seq": 5,
@@ -167,7 +181,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "SKEL-HM-1",
       "note": "",
       "t3a": "Hmm, the parks, I think. They're nice in the morning, like, people running, playing basketball, because the air is fresh. I really enjoy that slow weekend-morning feeling. And of course the food — my mum's cooking especially.",
-      "t3b": "Oh, probably the parks, actually. They're so nice in the mornings, you know — runners, families having picnics, because the air feels really fresh. That slow weekend-morning vibe is just lovely. And of course the food scene too."
+      "t3b": "Oh, probably the parks, actually. They're so nice in the mornings, you know — runners, families having picnics, because the air feels really fresh. That slow weekend-morning vibe is just lovely. And of course the food scene too.",
+      "cycle": "retained"
     },
     {
       "seq": 6,
@@ -178,7 +193,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Um, well, basically all my life — like 17 or 18 years. You know, my school, my friends, even my favourite places to eat, they're all here. I'm going to uni soon, so I'll really miss home — especially my mum's food.",
-      "t3b": "Basically my whole life, you know — like 17 or 18 years. My school, my friends, my favourite places to eat — all here. I'll be off to uni soon, so I'll really miss home — especially my mum's food, because nothing beats a home-cooked meal."
+      "t3b": "Basically my whole life, you know — like 17 or 18 years. My school, my friends, my favourite places to eat — all here. I'll be off to uni soon, so I'll really miss home — especially my mum's food, because nothing beats a home-cooked meal.",
+      "cycle": "retained"
     },
     {
       "seq": 7,
@@ -189,7 +205,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Yeah, it's changed quite a bit, actually. We've got new subways now, and a new train station — only 5 minutes from my home, so travelling is so easy. There are also new shopping malls, new restaurants, all that stuff. But, you know, it's also more crowded and noisy because so many people moved in.",
-      "t3b": "Yeah, it's changed quite a lot, actually. We've got new subway lines, a new train station — like, one is only five minutes from my home, which makes travelling so easy. New shopping malls and restaurants too. The downside is, you know, it's more crowded and noisier because the population has grown."
+      "t3b": "Yeah, it's changed quite a lot, actually. We've got new subway lines, a new train station — like, one is only five minutes from my home, which makes travelling so easy. New shopping malls and restaurants too. The downside is, you know, it's more crowded and noisier because the population has grown.",
+      "cycle": "retained"
     },
     {
       "seq": 8,
@@ -200,7 +217,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Yeah, quite a few actually. New subways now, and a new train station — only 5 minutes from my home, so weekends are way easier. There are also new malls and restaurants nearby, so there's always somewhere to hang out.",
-      "t3b": "Yeah, quite a few actually. We've got new subway lines, and a new train station — like five minutes from my home, which makes travelling so easy, you know. New shopping malls and restaurants too — it's made weekends way more interesting."
+      "t3b": "Yeah, quite a few actually. We've got new subway lines, and a new train station — like five minutes from my home, which makes travelling so easy, you know. New shopping malls and restaurants too — it's made weekends way more interesting.",
+      "cycle": "retained"
     },
     {
       "seq": 9,
@@ -211,7 +229,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "SKEL-HM-1",
       "note": "",
       "t3a": "Yeah, I really enjoy it, you know. The shopping mall is fun with friends — food, clothes, cinema, all in one place. The park is great for morning walks because the air is fresh. I really don't want to leave, but uni is coming.",
-      "t3b": "Yeah, I really enjoy it, you know. Shopping malls are great with friends, parks are lovely for morning walks because the air feels fresh. Honestly, I'll miss this place once I'm off to uni."
+      "t3b": "Yeah, I really enjoy it, you know. Shopping malls are great with friends, parks are lovely for morning walks because the air feels fresh. Honestly, I'll miss this place once I'm off to uni.",
+      "cycle": "retained"
     },
     {
       "seq": 10,
@@ -222,7 +241,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Yeah, one thing actually. It's getting more crowded and noisy, because so many people moved in. Sometimes I really can't sleep at night. Other than that, it's all good.",
-      "t3b": "Yeah, one thing, actually. It's getting more crowded and noisier now, you know, because the population has grown. Sometimes I really can't sleep at night. Other than that, it's pretty great."
+      "t3b": "Yeah, one thing, actually. It's getting more crowded and noisier now, you know, because the population has grown. Sometimes I really can't sleep at night. Other than that, it's pretty great.",
+      "cycle": "retained"
     },
     {
       "seq": 11,
@@ -233,7 +253,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Oh, a few places. The shopping mall is fun with friends — you know, food, clothes, cinema, all in one place, so we can stay all day. The park is nice in the morning because the air is fresh. And the museum, I like that too — you can see real things and take nice photos.",
-      "t3b": "Oh, a few favourite spots, actually. Shopping malls are great with friends, you know — food, clothes, cinema all in one place, so we can hang out for hours. Parks are nice in the mornings — runners, picnics, fresh air. And museums, where you see real things and take nice photos."
+      "t3b": "Oh, a few favourite spots, actually. Shopping malls are great with friends, you know — food, clothes, cinema all in one place, so we can hang out for hours. Parks are nice in the mornings — runners, picnics, fresh air. And museums, where you see real things and take nice photos.",
+      "cycle": "retained"
     },
     {
       "seq": 12,
@@ -244,7 +265,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Yeah, actually — my neighbour, a kind old guy, around 60 and retired. He posts gardening videos on Douyin, you know, our Chinese TikTok, and has tons of fans. Like 200,000 followers, which is kind of crazy for his age.",
-      "t3b": "Yeah, actually — my neighbour, a retired man around 60. He posts gardening videos on Douyin, you know, China's version of TikTok, with thousands of fans — like 200k followers, which is pretty crazy for his age. Kind of a local celebrity."
+      "t3b": "Yeah, actually — my neighbour, a retired man around 60. He posts gardening videos on Douyin, you know, China's version of TikTok, with thousands of fans — like 200k followers, which is pretty crazy for his age. Kind of a local celebrity.",
+      "cycle": "retained"
     },
     {
       "seq": 13,
@@ -255,7 +277,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Yeah, one neighbour, actually. He's like, around 60, retired now, so he's got lots of free time. He grows tomatoes, strawberries, because gardening really relaxes him. He even posts videos on Douyin, you know, our Chinese TikTok, and has a lot of fans. He often gives us free veggies.",
-      "t3b": "Yeah, one neighbour really well, actually — a retired man around 60. He has a small garden where he grows tomatoes and strawberries — it keeps him busy after retirement. He even posts gardening videos on Douyin, you know, China's version of TikTok, with thousands of fans."
+      "t3b": "Yeah, one neighbour really well, actually — a retired man around 60. He has a small garden where he grows tomatoes and strawberries — it keeps him busy after retirement. He even posts gardening videos on Douyin, you know, China's version of TikTok, with thousands of fans.",
+      "cycle": "retained"
     },
     {
       "seq": 14,
@@ -266,7 +289,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Yeah, super convenient actually. We've got new subways, and a train station only 5 minutes from my home, so I can go anywhere fast. Buses are cheap too, like 1 yuan a ride. Honestly, I don't even need a car.",
-      "t3b": "Yeah, super convenient, actually. New subway lines, a train station just 5 minutes from my home — travelling is so easy, you know. Buses are cheap too, like 1 yuan a ride. Honestly, a car feels kind of unnecessary."
+      "t3b": "Yeah, super convenient, actually. New subway lines, a train station just 5 minutes from my home — travelling is so easy, you know. Buses are cheap too, like 1 yuan a ride. Honestly, a car feels kind of unnecessary.",
+      "cycle": "retained"
     },
     {
       "seq": 15,
@@ -277,7 +301,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Oh, a flat, you know. I live with my parents and I have my own room. It's really cosy because there's always someone to talk to. My mum cooks and my dad helps with homework.",
-      "t3b": "Oh, a flat, actually. I live with my family — my parents and I, and I've got my own room. It's really cosy, you know, because there's always someone to talk to. Mum does the cooking, Dad helps with homework."
+      "t3b": "Oh, a flat, actually. I live with my family — my parents and I, and I've got my own room. It's really cosy, you know, because there's always someone to talk to. Mum does the cooking, Dad helps with homework.",
+      "cycle": "retained"
     },
     {
       "seq": 16,
@@ -288,7 +313,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "I live with my parents, you know, and I have my own room. It feels really warm at home because there's always someone to talk to. My mum cooks and my dad helps with my homework. But, like, I'm going to uni soon, so it won't be like this for long.",
-      "t3b": "Well, I live with my family — you know, my parents and I, and I've got my own room. It's really cosy and there's always someone to talk to, which I love. Mum does the cooking, Dad helps with homework. But it won't last long — I'm moving away for uni soon."
+      "t3b": "Well, I live with my family — you know, my parents and I, and I've got my own room. It's really cosy and there's always someone to talk to, which I love. Mum does the cooking, Dad helps with homework. But it won't last long — I'm moving away for uni soon.",
+      "cycle": "retained"
     },
     {
       "seq": 17,
@@ -299,7 +325,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Hmm, my bedroom for sure. It's like, my own little space. I've got a desk by the window, some books, and posters on the wall. I just study there, listen to music, watch shows, because nobody bothers me. You know, it's where I feel really chill.",
-      "t3b": "Hmm, I'd say my bedroom — that's, like, my private space. I've got a desk by the window, books and posters on the wall. I just study, listen to music, watch TV shows there. It's where I feel most like myself, you know, because nobody bothers me."
+      "t3b": "Hmm, I'd say my bedroom — that's, like, my private space. I've got a desk by the window, books and posters on the wall. I just study, listen to music, watch TV shows there. It's where I feel most like myself, you know, because nobody bothers me.",
+      "cycle": "retained"
     },
     {
       "seq": 18,
@@ -310,7 +337,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Probably the living room, you know. After dinner, everyone just sits there, watches TV, chats, because it's the biggest space. My parents love to watch the news. It feels really warm.",
-      "t3b": "I'd say the living room, actually. After dinner everyone just gathers there, watches TV, chats, you know, because it's the biggest space. My parents love the evening news. Feels really warm and homey."
+      "t3b": "I'd say the living room, actually. After dinner everyone just gathers there, watches TV, chats, you know, because it's the biggest space. My parents love the evening news. Feels really warm and homey.",
+      "cycle": "retained"
     },
     {
       "seq": 19,
@@ -321,7 +349,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Hmm, just daily stuff, you know. I study at the desk by the window, listen to music, watch TV shows. I also have family meals with my parents, because my mum always cooks. Life at home is just chill.",
-      "t3b": "Hmm, just daily stuff, you know. Study at my desk by the window, listen to music, watch TV shows. Family meals with my parents too, because Mum always cooks — life is pretty chill at home."
+      "t3b": "Hmm, just daily stuff, you know. Study at my desk by the window, listen to music, watch TV shows. Family meals with my parents too, because Mum always cooks — life is pretty chill at home.",
+      "cycle": "retained"
     },
     {
       "seq": 20,
@@ -332,7 +361,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Oh, I've got a desk right by the window. I can see a few tall buildings and some green trees, you know. In the morning, I can even see kids walking to school. It's a nice view, really relaxing.",
-      "t3b": "Oh, I've got a desk right by the window, so the view is quite nice. A few tall buildings, some green trees, you know. In the morning I can see kids walking to school. Honestly, pretty relaxing."
+      "t3b": "Oh, I've got a desk right by the window, so the view is quite nice. A few tall buildings, some green trees, you know. In the morning I can see kids walking to school. Honestly, pretty relaxing.",
+      "cycle": "retained"
     },
     {
       "seq": 21,
@@ -343,7 +373,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Hmm, pretty big difference. At home it's really cosy — mum cooks, dad helps, I have my own room. In the dorm, I share with 3 others, so it's noisier, and the food is not as good. I guess home will always feel more warm.",
-      "t3b": "Hmm, quite a big difference, actually. At home it's really cosy, you know — Mum cooks, Dad helps, my own room. In the dorm I share with 3 others, noisier, and the food's nowhere near as good. Home will always feel warmer."
+      "t3b": "Hmm, quite a big difference, actually. At home it's really cosy, you know — Mum cooks, Dad helps, my own room. In the dorm I share with 3 others, noisier, and the food's nowhere near as good. Home will always feel warmer.",
+      "cycle": "retained"
     },
     {
       "seq": 22,
@@ -354,7 +385,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "SKEL-AC-1",
       "note": "",
       "t3a": "All my life, basically — like 17 or 18 years. Always with my parents, in the same flat. My mum's cooking, my own room, everything. I'll really miss it when I go to uni.",
-      "t3b": "Basically my whole life — like 17 or 18 years, you know. Always with my parents, in the same flat. Mum's cooking, my own room, all that. I'll really miss it once I'm off to uni."
+      "t3b": "Basically my whole life — like 17 or 18 years, you know. Always with my parents, in the same flat. Mum's cooking, my own room, all that. I'll really miss it once I'm off to uni.",
+      "cycle": "retained"
     },
     {
       "seq": 23,
@@ -365,7 +397,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Hmm, not really. I'm going to uni soon, so I'll move away — maybe abroad, maybe Beijing. But I'll miss home, you know, especially my mum's food. Nothing tastes like home-cooked meals.",
-      "t3b": "Hmm, not really, actually. I'm going to uni soon, so I'll be moving away — maybe abroad, maybe Beijing. I'll miss home though, you know, especially Mum's food. Nothing beats a home-cooked meal."
+      "t3b": "Hmm, not really, actually. I'm going to uni soon, so I'll be moving away — maybe abroad, maybe Beijing. I'll miss home though, you know, especially Mum's food. Nothing beats a home-cooked meal.",
+      "cycle": "retained"
     },
     {
       "seq": 24,
@@ -376,7 +409,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Oh, I'm a student, grade 12. My main subjects are English, Maths, and Chinese. English is my favourite — it's, you know, useful, and it kind of opens up more chances for me, like studying abroad. It's a bit stressful, but yeah, totally worth it.",
-      "t3b": "Oh, I'm a student in grade 12. My main subjects are English, Maths and Chinese. English is my favourite, you know — it's useful and kind of opens many doors, like studying abroad. Pretty stressful, but yeah, I think it's worth it."
+      "t3b": "Oh, I'm a student in grade 12. My main subjects are English, Maths and Chinese. English is my favourite, you know — it's useful and kind of opens many doors, like studying abroad. Pretty stressful, but yeah, I think it's worth it.",
+      "cycle": "retained"
     },
     {
       "seq": 25,
@@ -387,7 +421,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Oh, grade 12 student here. My main subjects are English, Maths, and Chinese. Honestly, my favourite is English — because it's useful and it opens up more chances for me, like studying abroad.",
-      "t3b": "Oh, I'm in grade 12. My main subjects are English, Maths and Chinese, you know. My favourite is English, actually — it's useful and kind of opens many doors, like studying abroad one day."
+      "t3b": "Oh, I'm in grade 12. My main subjects are English, Maths and Chinese, you know. My favourite is English, actually — it's useful and kind of opens many doors, like studying abroad one day.",
+      "cycle": "retained"
     },
     {
       "seq": 26,
@@ -398,7 +433,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Yeah, definitely. English especially — it's useful and kind of opens up more chances for me. For example, I can watch English shows and read English books, which is really fun. A bit stressful, but worth it.",
-      "t3b": "Yeah, definitely. English especially, you know — it's useful and opens many doors, like studying abroad. For example, I can watch English shows and read novels in English, which is so fun. Pretty stressful, but worth it."
+      "t3b": "Yeah, definitely. English especially, you know — it's useful and opens many doors, like studying abroad. For example, I can watch English shows and read novels in English, which is so fun. Pretty stressful, but worth it.",
+      "cycle": "retained"
     },
     {
       "seq": 27,
@@ -409,7 +445,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Yeah, I like it, you know. English is my favourite — because it's useful, and it opens up more chances for me, like studying abroad. A bit stressful, but yeah, totally worth it.",
-      "t3b": "Yeah, I like it quite a lot, actually. English is my favourite — it's useful and opens many doors, you know, like studying abroad or working at a big company. Pretty stressful, but worth it."
+      "t3b": "Yeah, I like it quite a lot, actually. English is my favourite — it's useful and opens many doors, you know, like studying abroad or working at a big company. Pretty stressful, but worth it.",
+      "cycle": "retained"
     },
     {
       "seq": 28,
@@ -420,7 +457,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Hmm, because it's really useful, you know. English opens up more chances for me — like studying abroad, or working at a big company. I also love watching English shows, so it feels fun to learn.",
-      "t3b": "Hmm, because it's genuinely useful, you know. English opens many doors — like studying abroad, or working at a big company one day. I also love English shows and novels, so learning it feels kind of fun."
+      "t3b": "Hmm, because it's genuinely useful, you know. English opens many doors — like studying abroad, or working at a big company one day. I also love English shows and novels, so learning it feels kind of fun.",
+      "cycle": "retained"
     },
     {
       "seq": 29,
@@ -431,7 +469,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Oh, business and maybe AI, I think. Everyone wants to go into finance or tech now, because the pay is really good. Design is also popular with creative people, like me. But honestly, most parents still push maths and English.",
-      "t3b": "Oh, I'd say business and AI, actually. Everyone wants to go into finance or tech now, you know, because the pay is really good. Design is popular with more creative kids, like me. But most parents still push maths and English."
+      "t3b": "Oh, I'd say business and AI, actually. Everyone wants to go into finance or tech now, you know, because the pay is really good. Design is popular with more creative kids, like me. But most parents still push maths and English.",
+      "cycle": "retained"
     },
     {
       "seq": 30,
@@ -442,7 +481,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Yeah, definitely. If you like your subject, you study harder, because it feels more like fun than work. For me, English is my favourite — I actually enjoy the homework. I don't think I'd survive grade 12 without that.",
-      "t3b": "Yeah, absolutely. If you like your subject, you study harder, you know, because it feels more like fun than work. For me, English — I actually enjoy the homework. Honestly, I wouldn't survive grade 12 otherwise."
+      "t3b": "Yeah, absolutely. If you like your subject, you study harder, you know, because it feels more like fun than work. For me, English — I actually enjoy the homework. Honestly, I wouldn't survive grade 12 otherwise.",
+      "cycle": "retained"
     },
     {
       "seq": 31,
@@ -453,7 +493,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Hmm, I really want to study abroad — maybe Canada or the UK, because I'd love to see a different world. I'm thinking business or maybe design, you know, something a bit creative. After that, I'd love to work at a big company and become a manager. The dream is to take care of my family one day.",
-      "t3b": "Hmm, I'd love to study abroad — maybe Canada or the UK, because I want to see a different world. I'm thinking of business or design, you know, something a bit creative. Long term, I want to work at a big company and become a manager. The dream is to take care of my family one day."
+      "t3b": "Hmm, I'd love to study abroad — maybe Canada or the UK, because I want to see a different world. I'm thinking of business or design, you know, something a bit creative. Long term, I want to work at a big company and become a manager. The dream is to take care of my family one day.",
+      "cycle": "retained"
     },
     {
       "seq": 32,
@@ -464,7 +505,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Yeah, kind of, you know. I'd love to work at a big company and become a manager one day, because the pay is good and I can take care of my family. But first, I have to finish uni and maybe a master's.",
-      "t3b": "Yeah, kind of excited, actually. I'd love to work at a big company and become a manager one day, you know, because the pay's good and I can finally take care of my family. But first, uni and maybe a master's."
+      "t3b": "Yeah, kind of excited, actually. I'd love to work at a big company and become a manager one day, you know, because the pay's good and I can finally take care of my family. But first, uni and maybe a master's.",
+      "cycle": "retained"
     },
     {
       "seq": 33,
@@ -475,7 +517,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Oh yeah, I use AI tools, you know, like ChatGPT — it's a chatbot — for English practice. I ask it questions, and it corrects my grammar, which really helps me improve. I also use apps like Duolingo. Tech really makes studying easier.",
-      "t3b": "Yeah, I use AI tools, you know, like ChatGPT — it's basically an AI chatbot — for English practice. I ask it questions, and it corrects my grammar, which makes a huge difference. Duolingo too. Tech really makes studying so much easier."
+      "t3b": "Yeah, I use AI tools, you know, like ChatGPT — it's basically an AI chatbot — for English practice. I ask it questions, and it corrects my grammar, which makes a huge difference. Duolingo too. Tech really makes studying so much easier.",
+      "cycle": "retained"
     },
     {
       "seq": 34,
@@ -486,7 +529,8 @@ window.P1_DATA = {
       "sub_skeleton_id": "",
       "note": "",
       "t3a": "Hmm, mornings for sure, you know. My mind is clear, so I remember things way faster. At night I'm already tired, and I just want to watch shows. Plus, my parents cook breakfast, so I can start the day with energy.",
-      "t3b": "Hmm, mornings for sure, actually. My mind is clear, you know, so I remember things way faster. At night I'm already tired — all I want is to watch shows. Plus, my parents cook breakfast, so I start the day with energy."
+      "t3b": "Hmm, mornings for sure, actually. My mind is clear, you know, so I remember things way faster. At night I'm already tired — all I want is to watch shows. Plus, my parents cook breakfast, so I start the day with energy.",
+      "cycle": "retained"
     }
   ],
   "cards": [
@@ -715,7 +759,8 @@ window.P1_DATA = {
       "main_card": "MOD-1",
       "sub_card": "NPC-5",
       "tip": "起手 sugary · 妈妈 dumplings · 每点给 why（糖让人开心 / 妈妈饺子 warm comforting）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 2,
@@ -724,7 +769,8 @@ window.P1_DATA = {
       "main_card": "MOD-1",
       "sub_card": "",
       "tip": "直接套对比框架 (kid sugary → now coffee/salad) · 每点给 why（focus / lower calorie）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 3,
@@ -733,7 +779,8 @@ window.P1_DATA = {
       "main_card": "MOD-2",
       "sub_card": "",
       "tip": "用 morning walks with grandma 部分 · 加 why（peaceful / 有陪伴）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 4,
@@ -742,7 +789,8 @@ window.P1_DATA = {
       "main_card": "MOD-2",
       "sub_card": "",
       "tip": "morning walks + 喂鸟 + 因为安静 + why（air fresh）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 5,
@@ -751,7 +799,8 @@ window.P1_DATA = {
       "main_card": "MOD-3",
       "sub_card": "",
       "tip": "drawing + piano + reading 三选二 · 每点 1 句 why（relax / regret / different world）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 6,
@@ -760,7 +809,8 @@ window.P1_DATA = {
       "main_card": "MOD-3",
       "sub_card": "",
       "tip": "聚焦 drawing 或 reading (still going) + why（helps me relax / takes me elsewhere）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 7,
@@ -769,7 +819,8 @@ window.P1_DATA = {
       "main_card": "MOD-2",
       "sub_card": "",
       "tip": "聚焦 help mum + 洗碗 (relaxing) + why（mum busy / running water chill）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 8,
@@ -778,7 +829,8 @@ window.P1_DATA = {
       "main_card": "MOD-2",
       "sub_card": "",
       "tip": "hide & seek with cousins · group play 部分 + why（more fun）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 9,
@@ -787,7 +839,8 @@ window.P1_DATA = {
       "main_card": "NPC-5",
       "sub_card": "",
       "tip": "起手 'a bit, my mum's the chef' + 我学做饭 + why（uni 怕饿死）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 10,
@@ -796,7 +849,8 @@ window.P1_DATA = {
       "main_card": "MOD-3",
       "sub_card": "NPC-5",
       "tip": "我画画 / 妈妈做饭 — 不同但都创造性 + why（都能 relax / create）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 11,
@@ -805,7 +859,8 @@ window.P1_DATA = {
       "main_card": "NPC-5",
       "sub_card": "",
       "tip": "Spring Festival 一起做饭那张 (mum + me) + why（warm family moment）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 12,
@@ -814,7 +869,8 @@ window.P1_DATA = {
       "main_card": "MOD-2",
       "sub_card": "",
       "tip": "group play (hide & seek with cousins) — 群体更好玩 + why（laugh 更多）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 13,
@@ -823,7 +879,8 @@ window.P1_DATA = {
       "main_card": "NPC-7",
       "sub_card": "",
       "tip": "蜜雪冰城 jingle 部分 + 'stuck in my head' + why（catchy · 便宜大家都听过）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 14,
@@ -832,7 +889,8 @@ window.P1_DATA = {
       "main_card": "MOD-9",
       "sub_card": "",
       "tip": "起手 grade 4 · WeChat 跟妈妈打字 + why（想联系 / 便宜）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 15,
@@ -841,7 +899,8 @@ window.P1_DATA = {
       "main_card": "NPC-8",
       "sub_card": "",
       "tip": "起手 grade 7 · iPhone unboxing + why（觉得自己长大了）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 16,
@@ -850,7 +909,8 @@ window.P1_DATA = {
       "main_card": "[兜底]",
       "sub_card": "",
       "tip": "[兜底] 用 P2 时间感受技巧 — late owl + why（刷手机停不下来）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 17,
@@ -859,7 +919,8 @@ window.P1_DATA = {
       "main_card": "NPC-1",
       "sub_card": "",
       "tip": "Ms. Liu 'good job' 便签 + 朗读那次 + why（boosted confidence）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 18,
@@ -868,7 +929,8 @@ window.P1_DATA = {
       "main_card": "NPC-2",
       "sub_card": "MOD-4",
       "tip": "Mr. Zhang 影响 + 晚自习 till 9 + 早起复习 + why（routine helps focus）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 19,
@@ -877,7 +939,8 @@ window.P1_DATA = {
       "main_card": "NPC-2",
       "sub_card": "",
       "tip": "答 yes + Mr. Zhang 教会我 routine 的价值 + why（less lost）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 20,
@@ -886,7 +949,8 @@ window.P1_DATA = {
       "main_card": "MOD-4",
       "sub_card": "",
       "tip": "直接套骨架 (no phones · uniforms · 9pm) + why（focus / fair）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 21,
@@ -895,7 +959,8 @@ window.P1_DATA = {
       "main_card": "MOD-4",
       "sub_card": "",
       "tip": "答 yes 多一点 · 用 focus + fairness 两个理由 + 1 句 'nobody judged for clothes'",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 22,
@@ -904,7 +969,8 @@ window.P1_DATA = {
       "main_card": "NPC-2",
       "sub_card": "",
       "tip": "Mr. Zhang 部分 (stay after class · daily exercises) + why（really cares）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 23,
@@ -913,7 +979,8 @@ window.P1_DATA = {
       "main_card": "MOD-4",
       "sub_card": "",
       "tip": "答 fewer · 用 less freedom + 太累 两个理由 + why（kids need breathing room）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 24,
@@ -922,7 +989,8 @@ window.P1_DATA = {
       "main_card": "NPC-2",
       "sub_card": "",
       "tip": "Mr. Zhang strict 部分 + 但我感激 + why（taught me discipline）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 25,
@@ -931,7 +999,8 @@ window.P1_DATA = {
       "main_card": "MOD-10",
       "sub_card": "NPC-3",
       "tip": "答 yes · 用 hands-on + less screen time · 提一句邻居老人是活例子 + why（kids know where food comes from）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 26,
@@ -940,7 +1009,8 @@ window.P1_DATA = {
       "main_card": "NPC-8",
       "sub_card": "MOD-6",
       "tip": "起手 yes · next year · current 慢 + why（影响效率）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 27,
@@ -949,7 +1019,8 @@ window.P1_DATA = {
       "main_card": "MOD-6",
       "sub_card": "MOD-8",
       "tip": "想要 + 但希望是 quiet ones (公园/图书馆) + why（can think / actually rest）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 28,
@@ -958,7 +1029,8 @@ window.P1_DATA = {
       "main_card": "NPC-6",
       "sub_card": "",
       "tip": "答 not really · 喜欢历史古建筑 + 提孔庙 + why（more character）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 29,
@@ -967,7 +1039,8 @@ window.P1_DATA = {
       "main_card": "NPC-4",
       "sub_card": "",
       "tip": "答 yes + Lucy 拍古建筑 启发我 + why（I love travel photos）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 30,
@@ -976,7 +1049,8 @@ window.P1_DATA = {
       "main_card": "MOD-5",
       "sub_card": "",
       "tip": "直接套骨架完整答（含 why: different world / take care of family）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 31,
@@ -985,7 +1059,8 @@ window.P1_DATA = {
       "main_card": "MOD-6",
       "sub_card": "NPC-5",
       "tip": "yes + 因为 uni 怕饿死 + 妈妈是榜样 + why（want to be independent）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 32,
@@ -994,7 +1069,8 @@ window.P1_DATA = {
       "main_card": "MOD-4",
       "sub_card": "",
       "tip": "答 not really · 用 less freedom 那条 + 一句 'kids need structure' + why（不然课堂混乱）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 33,
@@ -1003,7 +1079,8 @@ window.P1_DATA = {
       "main_card": "MOD-7",
       "sub_card": "",
       "tip": "panda 大家都爱 · 中国到处都有 · 像中国的国宝 + 1 例（熊猫基地 / 表情包）· why（cute + adorably lazy）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 34,
@@ -1012,7 +1089,8 @@ window.P1_DATA = {
       "main_card": "MOD-7",
       "sub_card": "",
       "tip": "篮球 NBA · team sports 部分 + why（学会合作）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 35,
@@ -1021,7 +1099,8 @@ window.P1_DATA = {
       "main_card": "MOD-7",
       "sub_card": "",
       "tip": "team = communication · work together / individual = freedom · 各自 why",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 36,
@@ -1030,7 +1109,8 @@ window.P1_DATA = {
       "main_card": "MOD-2",
       "sub_card": "MOD-8",
       "tip": "morning walks 部分 + 安静 vs 人多公共场合对比 + why（fresh air / can think）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 37,
@@ -1039,7 +1119,8 @@ window.P1_DATA = {
       "main_card": "MOD-5",
       "sub_card": "",
       "tip": "plans 让我 focused · 不会 drift + why（I hate feeling lost）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 38,
@@ -1048,7 +1129,8 @@ window.P1_DATA = {
       "main_card": "MOD-5",
       "sub_card": "",
       "tip": "反着说：有些人喜欢「说走就走」自由感 + 1 例（朋友突然约饭）+ why（spontaneous feels exciting）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 39,
@@ -1057,7 +1139,8 @@ window.P1_DATA = {
       "main_card": "MOD-10",
       "sub_card": "NPC-3",
       "tip": "older 人热门 + 邻居老人例子 + why（retirement = free time）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 40,
@@ -1066,7 +1149,8 @@ window.P1_DATA = {
       "main_card": "MOD-10",
       "sub_card": "NPC-3",
       "tip": "答 mostly older · 邻居老人是少数 + why（younger have no space/time）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 41,
@@ -1075,7 +1159,8 @@ window.P1_DATA = {
       "main_card": "NPC-5",
       "sub_card": "MOD-3",
       "tip": "family photos · 妈妈做饭那张 / hobbies 也是记忆载体 + why（photos freeze moments）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 42,
@@ -1084,7 +1169,8 @@ window.P1_DATA = {
       "main_card": "NPC-3",
       "sub_card": "",
       "tip": "邻居老人帮我浇水 · 一起看抖音 + why（we bonded）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 43,
@@ -1093,7 +1179,8 @@ window.P1_DATA = {
       "main_card": "NPC-3",
       "sub_card": "",
       "tip": "yes + 邻居老人 cool 例子 + why（learned patience）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 44,
@@ -1102,7 +1189,8 @@ window.P1_DATA = {
       "main_card": "NPC-3",
       "sub_card": "",
       "tip": "wisdom + 学到耐心 + 比如 Mr. Chen 教我种番茄 + why（real life skills）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 45,
@@ -1111,7 +1199,8 @@ window.P1_DATA = {
       "main_card": "NPC-3",
       "sub_card": "",
       "tip": "yes · 直接讲邻居老人 Mr. Chen 的故事 + why（他让我 see old people differently）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 46,
@@ -1120,7 +1209,8 @@ window.P1_DATA = {
       "main_card": "NPC-6",
       "sub_card": "",
       "tip": "孔庙 stone paths · 也提 Lucy 一起去 + why（peaceful / historical vibe）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 47,
@@ -1129,7 +1219,8 @@ window.P1_DATA = {
       "main_card": "NPC-4",
       "sub_card": "MOD-2",
       "tip": "和 Lucy 周末早晨 · 公园路线 + why（fresh air / catch up with her）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 48,
@@ -1138,7 +1229,8 @@ window.P1_DATA = {
       "main_card": "NPC-6",
       "sub_card": "",
       "tip": "答 not many · 因为孔庙保护区 · 城里有 + why（preserve history）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 49,
@@ -1147,7 +1239,8 @@ window.P1_DATA = {
       "main_card": "NPC-4",
       "sub_card": "NPC-6",
       "tip": "Lucy 爱拍 · 孔庙是首选 · 我跟着拍 + why（they have character）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 50,
@@ -1156,7 +1249,8 @@ window.P1_DATA = {
       "main_card": "NPC-6",
       "sub_card": "",
       "tip": "孔庙 · always want to revisit · 历史2000年 + why（feels timeless）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 51,
@@ -1165,7 +1259,8 @@ window.P1_DATA = {
       "main_card": "MOD-8",
       "sub_card": "",
       "tip": "rarely · feels awkward in China + why（everyone busy with phones）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 52,
@@ -1174,7 +1269,8 @@ window.P1_DATA = {
       "main_card": "MOD-8",
       "sub_card": "",
       "tip": "always · podcasts on the bus + why（makes travel faster）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 53,
@@ -1183,7 +1279,8 @@ window.P1_DATA = {
       "main_card": "NPC-4",
       "sub_card": "MOD-8",
       "tip": "Lucy + 安静咖啡馆 · 不爱挤地方 + why（can actually talk）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 54,
@@ -1192,7 +1289,8 @@ window.P1_DATA = {
       "main_card": "MOD-8",
       "sub_card": "",
       "tip": "Mixue + 地铁 rush hour · honestly hate it + why（too packed）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 55,
@@ -1201,7 +1299,8 @@ window.P1_DATA = {
       "main_card": "NPC-7",
       "sub_card": "",
       "tip": "蜜雪冰城 always crowded · 放学后排队 + why（super cheap + popular）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 56,
@@ -1210,7 +1309,8 @@ window.P1_DATA = {
       "main_card": "MOD-8",
       "sub_card": "",
       "tip": "no · 用 prefer quiet places 那段 + why（can actually think）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 57,
@@ -1219,7 +1319,8 @@ window.P1_DATA = {
       "main_card": "MOD-8",
       "sub_card": "",
       "tip": "no · 用我自己的例子 + 大家都赶时间 + why（everyone's on a schedule）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 58,
@@ -1228,7 +1329,8 @@ window.P1_DATA = {
       "main_card": "NPC-7",
       "sub_card": "",
       "tip": "上周末 Mixue 排队 · long queue + why（cheap + 天热大家来买冰淇淋）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 59,
@@ -1237,7 +1339,8 @@ window.P1_DATA = {
       "main_card": "MOD-9",
       "sub_card": "",
       "tip": "paper for novels · screen for news 部分 + 1 例 + why（paper = eye-friendly / screen = fast）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 60,
@@ -1246,7 +1349,8 @@ window.P1_DATA = {
       "main_card": "MOD-9",
       "sub_card": "",
       "tip": "typing faster · 除考试外 + 1 例 + why（easy to fix mistakes）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 61,
@@ -1255,7 +1359,8 @@ window.P1_DATA = {
       "main_card": "MOD-9",
       "sub_card": "NPC-8",
       "tip": "both · laptop + iPhone 键盘 daily + 1 例 + why（each for different tasks）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 62,
@@ -1264,7 +1369,8 @@ window.P1_DATA = {
       "main_card": "MOD-9",
       "sub_card": "",
       "tip": "WeChat 打字多 + 在线打字游戏练手 + 1 例 + why（daily practice）",
-      "note": ""
+      "note": "",
+      "cycle": "retained"
     },
     {
       "seq": 63,
@@ -1273,7 +1379,8 @@ window.P1_DATA = {
       "main_card": "NPC-8",
       "sub_card": "",
       "tip": "iPhone everything 部分 (texting · photos · plans) + 1 例 + why（one tap away）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 64,
@@ -1282,7 +1389,8 @@ window.P1_DATA = {
       "main_card": "NPC-8",
       "sub_card": "",
       "tip": "起手 grade 7 first phone + everything 在上面 + 1 例 + why（life much easier）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 65,
@@ -1291,7 +1399,8 @@ window.P1_DATA = {
       "main_card": "NPC-8",
       "sub_card": "",
       "tip": "yes always · 怕错过 family 消息 + 1 例 + why（feel safer）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 66,
@@ -1300,7 +1409,8 @@ window.P1_DATA = {
       "main_card": "NPC-8",
       "sub_card": "",
       "tip": "ads everywhere · 烦但 free apps 的代价 + 1 例 + why（how apps make money）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 67,
@@ -1309,7 +1419,8 @@ window.P1_DATA = {
       "main_card": "NPC-8",
       "sub_card": "MOD-5",
       "tip": "phone · iPhone 提醒 · 5年计划那种用本子 + 1 例 + why（phone = daily · paper = big stuff）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     },
     {
       "seq": 68,
@@ -1318,7 +1429,8 @@ window.P1_DATA = {
       "main_card": "[兜底]",
       "sub_card": "",
       "tip": "[兜底] 用 P2 购物技巧 — yes 双十一 + 还行 + 退过 1 次 + why（便宜但 size 不准）",
-      "note": ""
+      "note": "",
+      "cycle": "jan_apr_only"
     }
   ],
   "crossrefs": [
