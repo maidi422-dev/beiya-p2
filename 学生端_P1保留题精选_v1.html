@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>北雅国际教育 · 雅思口语 Part 1 · 保留题精选</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --beiya:#C0392B;--beiya-dark:#9B2C20;--beiya-soft:#FDECEA;
+    --gold:#B8894A;--gold-dark:#8C6632;--gold-soft:#FBF4EA;--gold-bd:#EAD9B8;
+    --ink:#1E1E22;--ink-2:#4A4A52;--ink-3:#8A8A92;
+    --line:#E8E8EC;--bg:#FAFAFA;--white:#FFFFFF;
+    --green:#2E7D32;--green-soft:#E8F5E9;--green-bd:#A5D6A7;
+    --orange:#E8834A;--orange-soft:#FFF3E0;--orange-bd:#FFCC80;
+    --blue:#2E3B6B;--blue-soft:#EDF4FF;--blue-bd:#C9D4EA;
+    --purple:#6B4E9C;--purple-soft:#F3EEFB;--purple-bd:#D8CBEA;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;cursor:pointer}
+
+  /* ─── TOP BAR ─── */
+  .topbar{
+    position:sticky;top:0;z-index:40;background:var(--white);
+    border-bottom:1px solid var(--line);
+    padding:14px 24px;display:flex;align-items:center;gap:14px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:var(--beiya);white-space:nowrap}
+  .brand-mark{width:28px;height:28px;background:var(--beiya);color:#fff;
+    display:flex;align-items:center;justify-content:center;border-radius:4px;
+    font-family:'Noto Serif SC',serif;font-size:14px}
+  .part-sw{
+    display:flex;gap:2px;background:#F4F4F6;padding:3px;border-radius:22px;
+    margin-left:4px;flex-shrink:0
+  }
+  .part-sw a{
+    padding:6px 14px;border-radius:18px;font-size:12.5px;color:var(--ink-3);
+    font-weight:600;transition:all .15s;white-space:nowrap
+  }
+  .part-sw a:hover:not(.disabled):not(.active){color:var(--beiya)}
+  .part-sw a.active{background:var(--beiya);color:#fff;box-shadow:0 2px 6px rgba(192,57,43,.2)}
+  .part-sw a.disabled{color:#C5C5CD;cursor:not-allowed;pointer-events:none}
+  .nav{display:flex;gap:4px;margin-left:10px;flex:1;flex-wrap:wrap}
+  .nav a{padding:7px 14px;border-radius:6px;font-size:13px;color:var(--ink-2);font-weight:500;white-space:nowrap}
+  .nav a:hover:not(.disabled){background:var(--beiya-soft);color:var(--beiya)}
+  .nav a.active{background:var(--gold);color:#fff}
+  .nav a.disabled{color:#C5C5CD;cursor:not-allowed;pointer-events:none}
+
+  /* ─── LAYOUT ─── */
+  .wrap{max-width:1120px;margin:0 auto;padding:32px 24px 80px}
+
+  /* ─── HERO（金色保留主题）─── */
+  .hero{
+    background:linear-gradient(135deg,#fff 0%,var(--gold-soft) 100%);
+    border:1px solid var(--gold-bd);border-radius:16px;
+    padding:32px 36px;margin-bottom:22px;position:relative;overflow:hidden
+  }
+  .hero::before{
+    content:'★';position:absolute;top:-20px;right:-10px;font-size:220px;
+    color:var(--gold);opacity:.06;font-family:'Noto Serif SC',serif;line-height:1
+  }
+  .hero-eyebrow{
+    font-size:12px;letter-spacing:2px;color:var(--gold-dark);font-weight:700;
+    text-transform:uppercase;margin-bottom:10px
+  }
+  .hero-title{
+    font-family:'Noto Serif SC',serif;font-size:28px;font-weight:700;
+    line-height:1.35;color:var(--ink);margin-bottom:12px;position:relative;z-index:2
+  }
+  .hero-title em{color:var(--gold-dark);font-style:normal}
+  .hero-sub{font-size:14px;color:var(--ink-2);max-width:760px;line-height:1.8;position:relative;z-index:2}
+  .hero-sub strong{color:var(--gold-dark)}
+  .hero-stats{
+    display:flex;gap:28px;margin-top:20px;padding-top:20px;
+    border-top:1px dashed var(--gold-bd);position:relative;z-index:2;flex-wrap:wrap
+  }
+  .stat{display:flex;flex-direction:column;gap:2px}
+  .stat-num{font-family:'Noto Serif SC',serif;font-size:22px;font-weight:700;color:var(--gold-dark);line-height:1}
+  .stat-lbl{font-size:11.5px;color:var(--ink-3);margin-top:3px;letter-spacing:.5px}
+
+  /* ─── 倒计时条 ─── */
+  .countdown-bar{
+    background:var(--gold);color:#fff;border-radius:10px;padding:12px 18px;
+    margin-bottom:22px;display:flex;align-items:center;gap:14px;
+    box-shadow:0 2px 10px rgba(184,137,74,.22);flex-wrap:wrap
+  }
+  .cd-icon{font-size:22px}
+  .cd-text{font-size:13.5px;line-height:1.6;font-weight:500;flex:1;min-width:220px}
+  .cd-text strong{font-weight:700;font-size:15px;margin:0 2px}
+  .cd-hint{font-size:12px;opacity:.92;border-left:1px solid rgba(255,255,255,.4);padding-left:14px;margin-left:4px}
+
+  /* ─── 技法筛选 ─── */
+  .filter-bar{
+    display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;align-items:center
+  }
+  .filter-lbl{font-size:12.5px;color:var(--ink-3);font-weight:500;margin-right:4px}
+  .fpill{
+    padding:7px 14px;border-radius:16px;font-size:12.5px;font-weight:600;
+    color:var(--ink-2);background:#fff;border:1px solid var(--line);cursor:pointer;
+    transition:all .15s;display:inline-flex;align-items:center;gap:5px
+  }
+  .fpill:hover{border-color:var(--gold);color:var(--gold-dark)}
+  .fpill.active{background:var(--gold);color:#fff;border-color:var(--gold);box-shadow:0 2px 6px rgba(184,137,74,.25)}
+  .fpill .c{font-size:11px;background:rgba(0,0,0,.08);padding:1px 7px;border-radius:10px;font-weight:700}
+  .fpill.active .c{background:rgba(255,255,255,.22)}
+
+  /* ─── 话题分组卡 ─── */
+  .dyn-topic{
+    background:var(--white);border:1px solid var(--line);border-radius:14px;
+    padding:22px 26px;margin-bottom:18px;scroll-margin-top:80px
+  }
+  .dyn-topic-head{
+    display:flex;align-items:center;gap:10px;padding-bottom:14px;margin-bottom:16px;
+    border-bottom:2px solid var(--ink);flex-wrap:wrap
+  }
+  .dyn-topic-name{
+    font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--ink)
+  }
+  .dyn-topic-zh{font-size:13px;color:var(--ink-3);font-weight:500}
+  .dyn-topic-count{margin-left:auto;font-size:12px;color:var(--ink-3)}
+
+  .cycle-badge{
+    display:inline-flex;align-items:center;gap:4px;
+    font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:12px;letter-spacing:.3px
+  }
+  .cycle-badge.retained{
+    background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold-bd)
+  }
+
+  /* ─── 题卡 + 4-tier ─── */
+  .dq-card{
+    background:#FAFAFA;border:1px solid var(--line);border-radius:12px;
+    padding:18px 22px;margin-bottom:14px;transition:opacity .2s
+  }
+  .dq-card:last-child{margin-bottom:0}
+  .dq-card.hidden{display:none}
+  .dq-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+  .dq-num{
+    font-family:'Noto Serif SC',serif;font-size:12.5px;font-weight:700;
+    color:var(--ink-3);letter-spacing:1px
+  }
+  .dq-en{
+    font-family:'Noto Serif SC',serif;font-size:16.5px;font-weight:600;
+    color:var(--ink);margin-bottom:14px;line-height:1.5
+  }
+  .pill{
+    display:inline-flex;align-items:center;
+    font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;letter-spacing:.3px
+  }
+  .pill.t-zk{background:var(--green-soft);color:var(--green);border:1px solid var(--green-bd)}
+  .pill.t-eg{background:var(--gold-soft);color:var(--gold);border:1px solid #E8D4A8}
+  .pill.t-ct{background:var(--purple-soft);color:var(--purple);border:1px solid var(--purple-bd)}
+  .pill.t-fw{background:var(--blue-soft);color:var(--blue);border:1px solid var(--blue-bd)}
+
+  .dq-tier{margin-bottom:10px}
+  .dq-tier:last-child{margin-bottom:0}
+  .tier-label{
+    display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:1.5px;
+    padding:2px 8px;border-radius:4px;margin-bottom:6px;text-transform:uppercase
+  }
+  .tier-label.tl-chunks{background:#F4F4F6;color:var(--ink-2)}
+  .tier-label.tl-basic{background:var(--beiya-soft);color:var(--beiya)}
+  .tier-label.tl-adv{background:var(--gold-soft);color:var(--gold)}
+  .tier-label.tl-kw{background:var(--green-soft);color:var(--green)}
+  .tier-badge{
+    font-size:10px;color:var(--ink-3);margin-left:5px;font-weight:500;letter-spacing:.2px
+  }
+  .tier-body{
+    font-size:13.5px;color:var(--ink);line-height:1.75;
+    padding:10px 13px;border-radius:8px;background:#fff;border:1px solid var(--line)
+  }
+  .tier-body.basic{background:#FFF8F7;border-color:#F5D6D2}
+  .tier-body.adv{background:#FDF8F0;border-color:#EEDEBE}
+
+  /* ─── 导航锚点条 ─── */
+  .toc{
+    background:var(--white);border:1px solid var(--line);border-radius:12px;
+    padding:14px 18px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap;align-items:center
+  }
+  .toc-lbl{font-size:12.5px;color:var(--ink-3);font-weight:500;margin-right:4px}
+  .toc a{
+    padding:5px 11px;border-radius:14px;font-size:12px;font-weight:600;
+    color:var(--ink-2);background:#F4F4F6;transition:all .15s
+  }
+  .toc a:hover{background:var(--gold-soft);color:var(--gold-dark)}
+  .toc a .zh{font-size:10.5px;color:var(--ink-3);margin-left:3px;font-weight:500}
+
+  /* ─── 空态 ─── */
+  .empty{
+    text-align:center;padding:40px 20px;color:var(--ink-3);
+    background:#fff;border:1px dashed var(--line);border-radius:12px
+  }
+
+  /* ─── 底部返回条 ─── */
+  .footnav{
+    margin-top:36px;padding-top:20px;border-top:1px solid var(--line);
+    display:flex;gap:10px;flex-wrap:wrap;justify-content:center
+  }
+  .footnav a{
+    padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;
+    background:#fff;border:1px solid var(--line);color:var(--ink-2);transition:all .15s
+  }
+  .footnav a:hover{border-color:var(--beiya);color:var(--beiya);background:var(--beiya-soft)}
+
+  /* ─── RESPONSIVE ─── */
+  @media(max-width:760px){
+    .topbar{padding:10px 12px;gap:8px;flex-wrap:wrap}
+    .brand{font-size:13px}
+    .brand-mark{width:24px;height:24px;font-size:12px}
+    .nav{flex:1 1 100%;order:3;overflow-x:auto;scrollbar-width:none;gap:0;padding:4px 0;border-top:1px solid var(--line);margin:8px 0 0}
+    .nav::-webkit-scrollbar{display:none}
+    .nav a{padding:6px 10px;font-size:12px;flex-shrink:0}
+    .part-sw{order:2}
+    .part-sw a{padding:5px 10px;font-size:11.5px}
+    .wrap{padding:20px 14px 60px}
+    .hero{padding:22px 20px}
+    .hero-title{font-size:22px}
+    .dyn-topic{padding:18px 18px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><div class="brand-mark">雅</div>北雅 · IELTS Speaking</div>
+  <div class="part-sw">
+    <a class="active" href="学生端_P1必考题_v1.html">Part 1</a>
+    <a href="学生端_素材宇宙首页_v1.html">Part 2</a>
+    <a class="disabled" title="敬请期待">Part 3</a>
+  </div>
+  <div class="nav">
+    <a href="学生端_P1必考题_v1.html">🎯 必考题</a>
+    <a href="学生端_P1选考题_v1.html">📚 选考题</a>
+    <a class="active" href="学生端_P1保留题精选_v1.html">💎 保留题精选</a>
+    <a class="disabled" title="即将上线">⭐ 我的</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="hero-eyebrow">PART 1 · 保留题精选 · 跨季不换</div>
+    <h1 class="hero-title">距 5 月换题还有 <em id="cd-days">—</em> 天 · <em id="h-count">26 道</em>跨季不换保留题</h1>
+    <p class="hero-sub">
+      <strong>"保留题"</strong>是跨越 Jan-Apr → May-Aug 换季、<strong>题目原样保留</strong>的那一批。
+      这一批的复习性价比<strong>最高</strong> —— 5 月考能用，8 月考也能用，一份准备吃两个季度。
+      下面 <strong id="h-count-2">26</strong> 道按 <strong id="h-topics">12</strong> 个话题分组，每题配 <strong>4 层内容</strong>（Chunks / 基础版 / 进阶版 / Keywords），按你水平挑一层练。
+    </p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num" id="s-total">26</div><div class="stat-lbl">保留题</div></div>
+      <div class="stat"><div class="stat-num" id="s-topics">12</div><div class="stat-lbl">覆盖话题</div></div>
+      <div class="stat"><div class="stat-num">4</div><div class="stat-lbl">技法</div></div>
+      <div class="stat"><div class="stat-num">★</div><div class="stat-lbl">跨季保留</div></div>
+    </div>
+  </section>
+
+  <div class="countdown-bar" id="cdbar">
+    <span class="cd-icon">⏳</span>
+    <div class="cd-text">
+      <strong id="cd-days-2">—</strong>天后雅思口语进入 <strong>5–8 月新题季</strong>，<strong>jan-apr 限定题</strong>将被替换 —— 这 26 道<strong>不会换</strong>。
+    </div>
+    <div class="cd-hint">目标日：<span id="cd-date">2026-05-01</span></div>
+  </div>
+
+  <!-- 技法筛选 -->
+  <div class="filter-bar" id="filterBar">
+    <span class="filter-lbl">按技法筛选：</span>
+    <a class="fpill active" data-tech="all">全部 <span class="c" id="f-all">26</span></a>
+    <a class="fpill" data-tech="主客体"><span class="pill t-zk" style="padding:0;background:none;border:none;color:inherit">●</span> 主客体 <span class="c" id="f-zk">0</span></a>
+    <a class="fpill" data-tech="举例"><span class="pill t-eg" style="padding:0;background:none;border:none;color:inherit">●</span> 举例 <span class="c" id="f-eg">0</span></a>
+    <a class="fpill" data-tech="对比"><span class="pill t-ct" style="padding:0;background:none;border:none;color:inherit">●</span> 对比 <span class="c" id="f-ct">0</span></a>
+    <a class="fpill" data-tech="展望未来"><span class="pill t-fw" style="padding:0;background:none;border:none;color:inherit">●</span> 展望未来 <span class="c" id="f-fw">0</span></a>
+  </div>
+
+  <!-- 话题目录 -->
+  <nav class="toc" id="toc">
+    <span class="toc-lbl">跳到话题：</span>
+  </nav>
+
+  <div id="groups"></div>
+
+  <div class="footnav">
+    <a href="学生端_P1必考题_v1.html">← 返回必考题</a>
+    <a href="学生端_P1选考题_v1.html">返回选考题全量 →</a>
+  </div>
+
+</div>
+
+<script src="p1_data.js"></script>
+<script>
+  try{ if(localStorage.getItem('beiya_authed')!=='1') location.href='学生端_登录_v1.html'; }catch(e){}
+
+  const D = window.P1_DATA || {dynamic_electives:[]};
+
+  const TECH_MAP = {
+    '主客体':  {pill:'t-zk', label:'主客体',  fid:'f-zk'},
+    '举例':    {pill:'t-eg', label:'举例',    fid:'f-eg'},
+    '对比':    {pill:'t-ct', label:'对比',    fid:'f-ct'},
+    '展望未来':{pill:'t-fw', label:'展望未来',fid:'f-fw'}
+  };
+
+  function escapeHtml(s){
+    return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  // ─── 倒计时 ───
+  function renderCountdown(){
+    const target = new Date('2026-05-01T00:00:00+08:00');
+    const now = new Date();
+    const ms = target - now;
+    const days = Math.max(0, Math.ceil(ms/(1000*60*60*24)));
+    document.getElementById('cd-days').textContent = days;
+    document.getElementById('cd-days-2').textContent = days;
+    document.getElementById('cd-date').textContent = '2026-05-01';
+    if(days === 0){
+      document.getElementById('cdbar').innerHTML =
+        '<span class="cd-icon">🎉</span><div class="cd-text"><strong>5–8 月新题季已开始。</strong>这 26 道<strong>仍然有效</strong>，继续刷即可。</div>';
+    }
+  }
+
+  // ─── 只保留 retained ───
+  function getRetained(){
+    return (D.dynamic_electives||[]).filter(e => e.cycle === 'retained');
+  }
+
+  // ─── 主渲染 ───
+  let currentTech = 'all';
+
+  function render(){
+    const all = getRetained();
+    const box = document.getElementById('groups');
+    if(!all.length){
+      box.innerHTML = '<div class="empty">保留题数据加载中… 如持续看到该提示，请刷新页面。</div>';
+      return;
+    }
+
+    // 填 filter 计数
+    const techCount = {'主客体':0,'举例':0,'对比':0,'展望未来':0};
+    all.forEach(e => { if(techCount[e.technique] !== undefined) techCount[e.technique]++; });
+    document.getElementById('f-all').textContent = all.length;
+    Object.entries(techCount).forEach(([k,v]) => {
+      const fid = TECH_MAP[k] && TECH_MAP[k].fid;
+      if(fid) document.getElementById(fid).textContent = v;
+    });
+
+    // 应用筛选
+    const filtered = (currentTech === 'all')
+      ? all
+      : all.filter(e => e.technique === currentTech);
+
+    // 按 topic 分组（保持源数据顺序）
+    const grouped = {};
+    const topicOrder = [];
+    all.forEach(e => {
+      const k = e.topic || 'Other';
+      if(!grouped[k]){ grouped[k]=[]; topicOrder.push(k); }
+      grouped[k].push(e);
+    });
+
+    // hero 统计
+    document.getElementById('h-count').textContent = all.length + ' 道';
+    document.getElementById('h-count-2').textContent = all.length;
+    document.getElementById('h-topics').textContent = topicOrder.length;
+    document.getElementById('s-total').textContent = all.length;
+    document.getElementById('s-topics').textContent = topicOrder.length;
+
+    // 目录条
+    const tocEl = document.getElementById('toc');
+    tocEl.innerHTML = '<span class="toc-lbl">跳到话题：</span>' + topicOrder.map((t,i) => {
+      const first = grouped[t][0] || {};
+      return `<a href="#topic-${i}">${escapeHtml(t)}<span class="zh">${escapeHtml(first.topic_zh||'')}</span></a>`;
+    }).join('');
+
+    // 话题组
+    const html = topicOrder.map((topic, i) => {
+      const list = grouped[topic];
+      const first = list[0] || {};
+
+      const cards = list.map(e => {
+        const t = TECH_MAP[e.technique] || {pill:'t-zk', label:e.technique||''};
+        const hidden = (currentTech !== 'all' && e.technique !== currentTech) ? ' hidden' : '';
+        const chunks = e.t2_chunks ? `
+          <div class="dq-tier">
+            <div class="tier-label tl-chunks">🧩 Chunks</div>
+            <div class="tier-body">${escapeHtml(e.t2_chunks)}</div>
+          </div>` : '';
+        const basic = e.t3a_basic ? `
+          <div class="dq-tier">
+            <div class="tier-label tl-basic">💬 基础版<span class="tier-badge">band 4-5 · 短句 + 连接词</span></div>
+            <div class="tier-body basic">${escapeHtml(e.t3a_basic)}</div>
+          </div>` : '';
+        const adv = e.t3b_advanced ? `
+          <div class="dq-tier">
+            <div class="tier-label tl-adv">💎 进阶版<span class="tier-badge">band 6 · 加 filler 和连贯度</span></div>
+            <div class="tier-body adv">${escapeHtml(e.t3b_advanced)}</div>
+          </div>` : '';
+        const kw = e.t4_kw ? `
+          <div class="dq-tier">
+            <div class="tier-label tl-kw">🎯 Keywords<span class="tier-badge">考场极简应急</span></div>
+            <div class="tier-body">${escapeHtml(e.t4_kw)}</div>
+          </div>` : '';
+
+        return `
+          <div class="dq-card${hidden}" data-tech="${escapeHtml(e.technique||'')}">
+            <div class="dq-head">
+              <span class="dq-num">Q${e.seq||''}</span>
+              <span class="pill ${t.pill}">${t.label}</span>
+            </div>
+            <div class="dq-en">${escapeHtml(e.q_en||'')}</div>
+            ${chunks}${basic}${adv}${kw}
+          </div>`;
+      }).join('');
+
+      // 如果该话题当前筛选后全部隐藏，话题本身也隐藏
+      const visibleCount = (currentTech === 'all')
+        ? list.length
+        : list.filter(e => e.technique === currentTech).length;
+      const topicHiddenStyle = visibleCount === 0 ? ' style="display:none"' : '';
+
+      return `
+        <section class="dyn-topic" id="topic-${i}"${topicHiddenStyle}>
+          <div class="dyn-topic-head">
+            <div class="dyn-topic-name">${escapeHtml(topic)}</div>
+            <div class="dyn-topic-zh">${escapeHtml(first.topic_zh||'')}</div>
+            <span class="cycle-badge retained">★ 保留题</span>
+            <div class="dyn-topic-count">${visibleCount} / ${list.length} 道</div>
+          </div>
+          ${cards}
+        </section>`;
+    }).join('');
+
+    box.innerHTML = html;
+  }
+
+  // ─── Filter 切换 ───
+  document.getElementById('filterBar').addEventListener('click', e => {
+    const t = e.target.closest('.fpill');
+    if(!t) return;
+    e.preventDefault();
+    currentTech = t.dataset.tech;
+    document.querySelectorAll('.fpill').forEach(p => {
+      p.classList.toggle('active', p.dataset.tech === currentTech);
+    });
+    render();
+  });
+
+  renderCountdown();
+  render();
+</script>
+
+</body>
+</html>
