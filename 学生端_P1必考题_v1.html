@@ -277,6 +277,7 @@
   .chunk-row.universal{background:#F6F6F8;color:var(--ink-2)}
   .chunk-row.personal{background:#FFF8F0;border:1px solid #FFD8A8;color:#7C4A00}
   .chunk-row.personal.auto-filled{background:#FFF8F0;border-color:#FFB347}
+  .chunk-row.personal.prof-ready{background:var(--green-soft);border:1px solid var(--green-bd);color:var(--green)}
   .chunk-icon{font-size:13px;flex-shrink:0;margin-top:1px}
   .chunk-text{flex:1}
   .chunk-fill{
@@ -299,6 +300,9 @@
   .sk-prof-field .pf-val{color:#C05B00;font-weight:600}
   .sk-prof-field .pf-hint{color:var(--ink-3);font-size:11px;margin-top:1px}
   .sk-prof-zone.no-profile{opacity:.7}
+  .sk-prof-zone.prof-ready{background:#F1F8E9;border-color:var(--green-bd)}
+  .sk-prof-zone.prof-ready .sk-prof-zone-title{color:var(--green)}
+  .sk-prof-zone.prof-ready .pf-val{color:var(--green)}
 
   /* ─── RESPONSIVE ─── */
   @media(max-width:760px){
@@ -410,7 +414,7 @@
     if(!prof || !prof.basic_name){
       el.innerHTML = `<div class="prof-banner empty">👤 <span>还没填 <b>My Profile</b>？<a href="学生端_P1我的_v1.html" class="prof-btn-link">去「⭐ 我的」完成 9 步填写 →</a> 填完后骨架里的个人位置会自动高亮提示。</span></div>`;
     } else {
-      el.innerHTML = `<div class="prof-banner filled">✅ <span><b>${escHtml(prof.basic_name)}</b> 的 Profile 已就位 — 骨架视图中橙色高亮部分已标出你的个人素材。<a href="学生端_P1我的_v1.html" class="prof-btn-link" style="margin-left:8px">修改 Profile →</a></span></div>`;
+      el.innerHTML = `<div class="prof-banner filled">✅ <span><b>${escHtml(prof.basic_name)}</b> 的 Profile 已就位 — 骨架视图中绿色高亮部分已标出你的个人素材（Profile 已就绪）。<a href="学生端_P1我的_v1.html" class="prof-btn-link" style="margin-left:8px">修改 Profile →</a></span></div>`;
     }
   }
 
@@ -478,10 +482,20 @@
   function renderChunksPanel(skel, prof){
     const cfg = SKEL_CHUNKS_CONFIG[skel.id] || {personal_lines:[], profile_fields:[]};
     const rawChunks = (skel.t2_chunks||'').split('\n').filter(Boolean);
+
+    // Check how many profile fields are filled
+    const filledFields = cfg.profile_fields.filter(pf => prof && prof[pf.field]);
+    const anyFilled = filledFields.length > 0;
+
     const chunkRows = rawChunks.map((line, idx) => {
       const isPersonal = cfg.personal_lines.includes(idx);
-      const icon = isPersonal ? '✏️' : '✅';
-      const cls = isPersonal ? 'personal' : 'universal';
+      let icon, cls;
+      if(isPersonal){
+        icon = anyFilled ? '✅' : '✏️';
+        cls  = anyFilled ? 'personal prof-ready' : 'personal';
+      } else {
+        icon = '✅'; cls = 'universal';
+      }
       return `<div class="chunk-row ${cls}"><span class="chunk-icon">${icon}</span><span class="chunk-text">${escHtml(line)}</span></div>`;
     }).join('');
 
@@ -497,7 +511,13 @@
       }).join('');
       if(fieldRows){
         const noProf = !prof || !prof.basic_name ? ' no-profile' : '';
-        profZone = `<div class="sk-prof-zone${noProf}"><div class="sk-prof-zone-title">📌 你的个人素材（替换橙色位置）</div>${fieldRows}</div>`;
+        const readyCls = anyFilled ? ' prof-ready' : '';
+        const zoneTitle = anyFilled
+          ? (filledFields.length === cfg.profile_fields.length
+              ? '✅ 你的个人素材已就位'
+              : `✅ 你的个人素材已就位（${filledFields.length}/${cfg.profile_fields.length}）`)
+          : '📌 你的个人素材（填好 Profile 后自动高亮）';
+        profZone = `<div class="sk-prof-zone${noProf}${readyCls}"><div class="sk-prof-zone-title">${zoneTitle}</div>${fieldRows}</div>`;
       }
     }
 
