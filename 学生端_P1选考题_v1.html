@@ -522,6 +522,10 @@
   .pm-context-tip li{margin-bottom:3px}
   .pm-field label{display:block;font-size:12.5px;font-weight:600;margin-bottom:2px;color:#333}
   .pm-field-hint{font-size:11.5px;color:#888;margin-bottom:5px;line-height:1.5}
+  .field-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+  .field-chip{font-size:11px;background:#FBF4EA;border:1px solid #E8D4B0;color:#8B6A35;border-radius:16px;padding:2px 10px;cursor:pointer;transition:all .15s;user-select:none;line-height:1.6}
+  .field-chip:hover{background:var(--gold);color:#fff;border-color:var(--gold)}
+  .field-chip.inserted{background:var(--green-soft);color:var(--green);border-color:var(--green-bd)}
 </style>
 </head>
 <body>
@@ -1069,6 +1073,17 @@
     closeProfModal();
     render();
   }
+  function insertFieldChip(chip, targetId){
+    const input=document.getElementById(targetId);
+    if(!input) return;
+    const val=input.value.trim();
+    const text=chip.textContent.trim();
+    input.value=val ? val+' · '+text : text;
+    chip.classList.add('inserted');
+    setTimeout(()=>chip.classList.remove('inserted'),900);
+    input.focus();
+    pmSave();
+  }
   document.getElementById('profModal').addEventListener('click',function(e){
     if(e.target===this) closeProfModal();
   });
@@ -1147,83 +1162,345 @@
         <div class="pm-step-hd"><span class="pm-step-icon">👤</span><div><div class="pm-step-title">Your Identity</div><div class="pm-step-sub">Where you live · Where you're from · What you do</div></div></div>
         <div class="pm-fields">
           <div class="pm-field"><label>Your English name</label><input id="pm_basic_name" placeholder="e.g. Tracy / Amy / Jason" oninput="pmSave()"></div>
-          <div class="pm-field"><label>City you live in</label><input id="pm_basic_current_city" placeholder="e.g. Jining, Shandong" oninput="pmSave()"></div>
-          <div class="pm-field"><label>How long have you lived here?</label><input id="pm_basic_years_here" placeholder="e.g. my whole life / about 3 years" oninput="pmSave()"></div>
-          <div class="pm-field"><label>Hometown (if different)</label><input id="pm_basic_hometown" placeholder="e.g. a small town in Henan" oninput="pmSave()"></div>
-          <div class="pm-field"><label>Student or working?</label><input id="pm_basic_study_work" placeholder="e.g. I'm a university student" oninput="pmSave()"></div>
-          <div class="pm-field"><label>Grade / Major / Job</label><input id="pm_basic_major_job" placeholder="e.g. Grade 12 / Business Admin" oninput="pmSave()"></div>
+          <div class="pm-field"><label>City you live in</label><input id="pm_basic_current_city" placeholder="e.g. Jining, Shandong · a mid-sized city in Shandong · a small city in central China" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_basic_current_city')">a mid-sized city in Shandong</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_basic_current_city')">a small city in Henan</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_basic_current_city')">a fairly large city in the north</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_basic_current_city')">a city known for its history</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>How long have you lived here?</label><input id="pm_basic_years_here" placeholder="e.g. my whole life · about three years · since I started university" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_basic_years_here')">my whole life</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_basic_years_here')">about three years</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_basic_years_here')">since I started university</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_basic_years_here')">just over a year</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_basic_years_here')">almost five years now</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>Hometown (if different)</label><input id="pm_basic_hometown" placeholder="e.g. a small town in Henan · a rural village · a coastal city" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_basic_hometown')">a small town in Henan</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_basic_hometown')">a quiet village in the countryside</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_basic_hometown')">a coastal city in Shandong</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_basic_hometown')">a bigger city up north</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>Student or working?</label><input id="pm_basic_study_work" placeholder="e.g. I'm a university student · I'm in my final year of high school" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_basic_study_work')">I'm a university student</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_basic_study_work')">I'm in my final year of high school</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_basic_study_work')">I'm currently working full-time</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_basic_study_work')">I'm preparing for my postgraduate exams</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>Grade / Major / Job</label><input id="pm_basic_major_job" placeholder="e.g. second-year Business student · Grade 12 · English teacher" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_basic_major_job')">second-year Business student</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_basic_major_job')">Grade 12, science stream</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_basic_major_job')">majoring in English Education</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_basic_major_job')">working in sales and marketing</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="pm-step" id="pms-1">
         <div class="pm-step-hd"><span class="pm-step-icon">🏘️</span><div><div class="pm-step-title">Your Home &amp; Neighbourhood</div><div class="pm-step-sub">Home · Who you live with · Area vibe</div></div></div>
         <div class="pm-fields">
-          <div class="pm-field"><label>Type of home</label><input id="pm_home_home_type" placeholder="e.g. apartment / house in a quiet area / dorm" oninput="pmSave()"></div>
-          <div class="pm-field"><label>Who do you live with?</label><input id="pm_home_live_with" placeholder="e.g. my parents / alone / two roommates" oninput="pmSave()"></div>
-          <div class="pm-field"><label>Favourite spot at home</label><input id="pm_home_home_fav" placeholder="e.g. my bedroom / the balcony / living room sofa" oninput="pmSave()"></div>
-          <div class="pm-field"><label>Places nearby you often go</label><input id="pm_home_home_nearby" placeholder="e.g. local gym / night market / a café" oninput="pmSave()"></div>
-          <div class="pm-field"><label>Area vibe (1-2 words)</label><input id="pm_home_home_vibe" placeholder="e.g. lively and modern / quiet and residential" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Type of home</label><input id="pm_home_home_type" placeholder="e.g. a two-storey house · a cosy flat on the 5th floor · a student dorm" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_home_home_type')">a two-storey house</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_home_home_type')">a cosy flat</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_home_home_type')">a student dorm</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_home_home_type')">newly-built apartment</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_home_home_type')">a rented room</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>Who do you live with?</label><input id="pm_home_live_with" placeholder="e.g. my parents and younger sister · three roommates · by myself" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_home_live_with')">my parents and younger sister</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_home_live_with')">three roommates</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_home_live_with')">by myself</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_home_live_with')">just my mum and me</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_home_live_with')">my whole extended family</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>Favourite spot at home</label><input id="pm_home_home_fav" placeholder="e.g. my bedroom · the sunny balcony · the living room sofa" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_home_home_fav')">my cosy bedroom</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_home_home_fav')">the sunny balcony</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_home_home_fav')">the living room sofa</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_home_home_fav')">the kitchen — I love cooking</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>Places nearby you often go</label><input id="pm_home_home_nearby" placeholder="e.g. a local park · a night market · a gym round the corner" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_home_home_nearby')">a local park</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_home_home_nearby')">a night market</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_home_home_nearby')">a gym round the corner</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_home_home_nearby')">a few good cafés nearby</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_home_home_nearby')">a big shopping mall</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>Area vibe (1-2 words)</label><input id="pm_home_home_vibe" placeholder="e.g. lively and modern · quiet and residential · a bit noisy but convenient" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_home_home_vibe')">lively and modern</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_home_home_vibe')">quiet and residential</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_home_home_vibe')">a bit noisy but convenient</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_home_home_vibe')">pretty suburban and peaceful</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="pm-step" id="pms-2">
         <div class="pm-step-hd"><span class="pm-step-icon">📚</span><div><div class="pm-step-title">Studies &amp; Future</div><div class="pm-step-sub">Subjects · Study habits · Plans after graduation</div></div></div>
         <div class="pm-fields">
-          <div class="pm-field"><label>Favourite subject, and why</label><input id="pm_school_s_subject" placeholder="e.g. English — loved reading / Art — a break from exams" oninput="pmSave()"></div>
-          <div class="pm-field"><label>Your study habits</label><input id="pm_school_s_habit" placeholder="e.g. study at night / make detailed notes" oninput="pmSave()"></div>
-          <div class="pm-field"><label>Plans after graduation</label><input id="pm_school_s_future" placeholder="e.g. study abroad / find a job / take a gap year" oninput="pmSave()"></div>
-          <div class="pm-field"><label>A memorable school experience</label><input id="pm_school_s_memory" placeholder="e.g. school trip / class performance / a proud project" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Favourite subject, and why</label><input id="pm_school_s_subject" placeholder="e.g. English — loved the reading · Art — a break from exams · Maths — satisfying to solve" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_school_s_subject')">English — loved the reading</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_school_s_subject')">Art — a break from exams</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_school_s_subject')">Maths — satisfying to solve</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_school_s_subject')">History — the stories fascinated me</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_school_s_subject')">PE — the only class I looked forward to</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>Your study habits</label><input id="pm_school_s_habit" placeholder="e.g. study late at night · make detailed notes · do past papers · study in short bursts" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_school_s_habit')">study late at night</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_school_s_habit')">make detailed colour-coded notes</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_school_s_habit')">do past papers to prepare</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_school_s_habit')">study in short focused bursts</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_school_s_habit')">listen to music while studying</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>Plans after graduation</label><input id="pm_school_s_future" placeholder="e.g. study abroad in the UK · find a job in marketing · take a gap year" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_school_s_future')">study abroad in the UK</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_school_s_future')">find a job in marketing</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_school_s_future')">take a gap year and travel</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_school_s_future')">do a postgraduate degree</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_school_s_future')">start my own small business</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>A memorable school experience</label><input id="pm_school_s_memory" placeholder="e.g. a school trip to Beijing · winning a class competition · a proud group project" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_school_s_memory')">a school trip to Beijing</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_school_s_memory')">winning a class competition</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_school_s_memory')">a proud group project</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_school_s_memory')">performing in the school play</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="pm-step" id="pms-3">
         <div class="pm-step-hd"><span class="pm-step-icon">👨‍👩‍👧</span><div><div class="pm-step-title">Family</div><div class="pm-step-sub">Family size · Parents · Siblings</div></div></div>
         <div class="pm-fields">
-          <div class="pm-field"><label>How many people in your family?</label><input id="pm_family_family_size" placeholder="e.g. 4 — my parents, my sister and me" oninput="pmSave()"></div>
-          <div class="pm-field"><label>What do your parents do?</label><input id="pm_family_parent_jobs" placeholder="e.g. dad is a teacher, mum runs a small business" oninput="pmSave()"></div>
-          <div class="pm-field"><label>Any siblings?</label><input id="pm_family_siblings" placeholder="e.g. older sister who just had a baby / only child" oninput="pmSave()"></div>
-          <div class="pm-field"><label>Family atmosphere</label><input id="pm_family_family_vibe" placeholder="e.g. warm and supportive / a bit chaotic but fun" oninput="pmSave()"></div>
+          <div class="pm-field"><label>How many people in your family?</label><input id="pm_family_family_size" placeholder="e.g. just the three of us · a family of four · quite a big extended family" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_family_family_size')">just the three of us</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_family_family_size')">a family of four</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_family_family_size')">quite a big extended family</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_family_family_size')">five of us including my grandparents</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>What do your parents do?</label><input id="pm_family_parent_jobs" placeholder="e.g. dad is a civil servant · mum runs a small shop · both work in education" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_family_parent_jobs')">dad is a civil servant</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_family_parent_jobs')">mum runs a small shop</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_family_parent_jobs')">both work in education</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_family_parent_jobs')">dad's in construction, mum's a nurse</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>Any siblings?</label><input id="pm_family_siblings" placeholder="e.g. an older sister who just had a baby · a younger brother still in school · only child" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_family_siblings')">an older sister who just had a baby</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_family_siblings')">a younger brother still in school</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_family_siblings')">only child</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_family_siblings')">two older brothers</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>Family atmosphere</label><input id="pm_family_family_vibe" placeholder="e.g. warm and supportive · a bit chaotic but fun · quite close-knit" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_family_family_vibe')">warm and supportive</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_family_family_vibe')">a bit chaotic but fun</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_family_family_vibe')">quite close-knit</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_family_family_vibe')">fairly independent — everyone does their own thing</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="pm-step" id="pms-4">
         <div class="pm-step-hd"><span class="pm-step-icon">🍎</span><div><div class="pm-step-title">A Memorable Teacher</div><div class="pm-step-sub">Teacher · Someone who influenced you</div></div></div>
         <div class="pm-fields">
           <div class="pm-field"><label>Teacher's name</label><input id="pm_teacher_t_name" placeholder="e.g. Ms. Liu / Mr. Zhang" oninput="pmSave()"></div>
-          <div class="pm-field"><label>Subject they taught</label><input id="pm_teacher_t_subject" placeholder="e.g. English / Maths / Chinese literature" oninput="pmSave()"></div>
-          <div class="pm-field"><label>Teaching style</label><input id="pm_teacher_t_style" placeholder="e.g. strict but fair / very encouraging" oninput="pmSave()"></div>
-          <div class="pm-field"><label>Why they made an impression</label><input id="pm_teacher_t_why" placeholder="e.g. she believed in me / he made it enjoyable" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Subject they taught</label><input id="pm_teacher_t_subject" placeholder="e.g. English · Maths · Chinese literature · PE" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_teacher_t_subject')">English</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_teacher_t_subject')">Maths</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_teacher_t_subject')">Chinese literature</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_teacher_t_subject')">Physics</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_teacher_t_subject')">Art</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>Teaching style</label><input id="pm_teacher_t_style" placeholder="e.g. strict but fair · very encouraging · patient and clear · full of energy" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_teacher_t_style')">strict but fair</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_teacher_t_style')">very encouraging</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_teacher_t_style')">patient and clear</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_teacher_t_style')">full of energy and humour</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_teacher_t_style')">demanding but inspiring</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>Why they made an impression</label><input id="pm_teacher_t_why" placeholder="e.g. she believed in me · he made it genuinely enjoyable · she pushed me to aim higher" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_teacher_t_why')">she believed in me</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_teacher_t_why')">he made it genuinely enjoyable</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_teacher_t_why')">she pushed me to aim higher</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_teacher_t_why')">he gave really useful feedback</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="pm-step" id="pms-5">
         <div class="pm-step-hd"><span class="pm-step-icon">👫</span><div><div class="pm-step-title">A Close Friend</div><div class="pm-step-sub">Close friend · Social life</div></div></div>
         <div class="pm-fields">
           <div class="pm-field"><label>Friend's name</label><input id="pm_friend_f_name" placeholder="e.g. Lucy / Mike / Sarah" oninput="pmSave()"></div>
-          <div class="pm-field"><label>How did you meet?</label><input id="pm_friend_f_met" placeholder="e.g. classmates in high school" oninput="pmSave()"></div>
-          <div class="pm-field"><label>What do you do together?</label><input id="pm_friend_f_activities" placeholder="e.g. go to cafés / watch movies / work out" oninput="pmSave()"></div>
-          <div class="pm-field"><label>Their personality</label><input id="pm_friend_f_personality" placeholder="e.g. outgoing and adventurous" oninput="pmSave()"></div>
+          <div class="pm-field"><label>How did you meet?</label><input id="pm_friend_f_met" placeholder="e.g. classmates in high school · met at university orientation · grew up on the same street" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_friend_f_met')">classmates in high school</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_friend_f_met')">met at university orientation</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_friend_f_met')">grew up on the same street</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_friend_f_met')">worked at the same part-time job</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>What do you do together?</label><input id="pm_friend_f_activities" placeholder="e.g. go to cafés · watch movies · work out together · go on road trips" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_friend_f_activities')">go to cafés</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_friend_f_activities')">watch movies together</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_friend_f_activities')">work out together</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_friend_f_activities')">go hiking or exploring</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_friend_f_activities')">just hang out and chat for hours</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>Their personality</label><input id="pm_friend_f_personality" placeholder="e.g. outgoing and adventurous · calm and reliable · funny and easy-going" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_friend_f_personality')">outgoing and adventurous</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_friend_f_personality')">calm and reliable</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_friend_f_personality')">funny and easy-going</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_friend_f_personality')">ambitious and hard-working</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="pm-step" id="pms-6">
         <div class="pm-step-hd"><span class="pm-step-icon">🧒</span><div><div class="pm-step-title">Childhood</div><div class="pm-step-sub">Childhood memories</div></div></div>
         <div class="pm-fields">
-          <div class="pm-field"><label>Where you grew up, and what it was like</label><input id="pm_childhood_c_place" placeholder="e.g. quiet residential area / small town" oninput="pmSave()"></div>
-          <div class="pm-field"><label>Favourite activity as a child</label><input id="pm_childhood_c_activity" placeholder="e.g. riding bikes / drawing / playing outside" oninput="pmSave()"></div>
-          <div class="pm-field"><label>Favourite toy or game</label><input id="pm_childhood_c_toy" placeholder="e.g. LEGO / badminton / card games" oninput="pmSave()"></div>
-          <div class="pm-field"><label>A special childhood memory</label><input id="pm_childhood_c_memory" placeholder="e.g. summers at grandparents' / winning a competition" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Where you grew up, and what it was like</label><input id="pm_childhood_c_place" placeholder="e.g. a quiet residential area · a small town in the countryside · a busy city neighbourhood" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_childhood_c_place')">a quiet residential area</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_childhood_c_place')">a small town in the countryside</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_childhood_c_place')">a busy city neighbourhood</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_childhood_c_place')">a rural village with lots of open space</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>Favourite activity as a child</label><input id="pm_childhood_c_activity" placeholder="e.g. riding bikes with friends · drawing and painting · playing outside till dark" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_childhood_c_activity')">riding bikes with friends</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_childhood_c_activity')">drawing and painting</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_childhood_c_activity')">playing outside till dark</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_childhood_c_activity')">reading comics and picture books</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_childhood_c_activity')">playing video games all day</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>Favourite toy or game</label><input id="pm_childhood_c_toy" placeholder="e.g. LEGO sets · badminton in the yard · card games with cousins" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_childhood_c_toy')">LEGO sets</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_childhood_c_toy')">badminton in the yard</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_childhood_c_toy')">card games with cousins</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_childhood_c_toy')">a stuffed animal I took everywhere</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>A special childhood memory</label><input id="pm_childhood_c_memory" placeholder="e.g. summers at my grandparents' · a family road trip · winning a school competition" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_childhood_c_memory')">summers at my grandparents'</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_childhood_c_memory')">a memorable family road trip</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_childhood_c_memory')">winning a school competition</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_childhood_c_memory')">learning to ride a bike with my dad</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="pm-step" id="pms-7">
         <div class="pm-step-hd"><span class="pm-step-icon">🎯</span><div><div class="pm-step-title">Hobbies &amp; Lifestyle</div><div class="pm-step-sub">Hobbies · Sports · Food · Free time</div></div></div>
         <div class="pm-fields">
-          <div class="pm-field"><label>Main hobby</label><input id="pm_hobbies_h_main" placeholder="e.g. photography / cooking / reading / gym" oninput="pmSave()"></div>
-          <div class="pm-field"><label>Any sports or exercise habits?</label><input id="pm_hobbies_h_sport" placeholder="e.g. run 3x a week / badminton with friends" oninput="pmSave()"></div>
-          <div class="pm-field"><label>Favourite food or eating habits</label><input id="pm_hobbies_h_food" placeholder="e.g. love spicy food / big fan of hot pot" oninput="pmSave()"></div>
-          <div class="pm-field"><label>How you typically spend your evenings</label><input id="pm_hobbies_h_evening" placeholder="e.g. scroll Douyin / read / cook / call family" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Main hobby</label><input id="pm_hobbies_h_main" placeholder="e.g. photography · cooking · reading · going to the gym" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_hobbies_h_main')">photography</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_hobbies_h_main')">cooking and trying new recipes</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_hobbies_h_main')">reading — mostly fiction</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_hobbies_h_main')">going to the gym</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_hobbies_h_main')">playing guitar</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>Any sports or exercise habits?</label><input id="pm_hobbies_h_sport" placeholder="e.g. run 3 times a week · play badminton with friends · do yoga at home" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_hobbies_h_sport')">run 3 times a week</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_hobbies_h_sport')">play badminton with friends</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_hobbies_h_sport')">do yoga at home</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_hobbies_h_sport')">swim at the weekends</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_hobbies_h_sport')">not really — I'm more of a homebody</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>Favourite food or eating habits</label><input id="pm_hobbies_h_food" placeholder="e.g. love spicy food · a big fan of hot pot · prefer home-cooked meals" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_hobbies_h_food')">love spicy food</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_hobbies_h_food')">a big fan of hot pot</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_hobbies_h_food')">prefer home-cooked meals</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_hobbies_h_food')">obsessed with street food</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_hobbies_h_food')">try to eat healthily</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>How you typically spend your evenings</label><input id="pm_hobbies_h_evening" placeholder="e.g. scroll Douyin · read before bed · cook and watch a drama · call family" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_hobbies_h_evening')">scroll Douyin or Xiaohongshu</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_hobbies_h_evening')">read before bed</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_hobbies_h_evening')">cook and watch a drama</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_hobbies_h_evening')">call family and catch up</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_hobbies_h_evening')">study or review for upcoming exams</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="pm-step" id="pms-8">
         <div class="pm-step-hd"><span class="pm-step-icon">📱</span><div><div class="pm-step-title">Technology &amp; Phones</div><div class="pm-step-sub">Technology habits</div></div></div>
         <div class="pm-fields">
-          <div class="pm-field"><label>Main uses for your phone</label><input id="pm_tech_tech_phone" placeholder="e.g. work emails / short videos / stay in touch" oninput="pmSave()"></div>
-          <div class="pm-field"><label>Most-used app or platform</label><input id="pm_tech_tech_platform" placeholder="e.g. WeChat / Douyin / Xiaohongshu" oninput="pmSave()"></div>
-          <div class="pm-field"><label>How you feel about your screen time</label><input id="pm_tech_tech_view" placeholder="e.g. probably too much / I try to limit it" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Main uses for your phone</label><input id="pm_tech_tech_phone" placeholder="e.g. watching short videos · stay in touch with friends · online shopping · work emails" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_tech_tech_phone')">watching short videos</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_tech_tech_phone')">stay in touch with friends</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_tech_tech_phone')">online shopping</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_tech_tech_phone')">checking work emails</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_tech_tech_phone')">listening to music or podcasts</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>Most-used app or platform</label><input id="pm_tech_tech_platform" placeholder="e.g. WeChat · Douyin · Xiaohongshu · Bilibili" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_tech_tech_platform')">WeChat</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_tech_tech_platform')">Douyin</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_tech_tech_platform')">Xiaohongshu</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_tech_tech_platform')">Bilibili</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_tech_tech_platform')">YouTube</span>
+            </div>
+          </div>
+          <div class="pm-field"><label>How you feel about your screen time</label><input id="pm_tech_tech_view" placeholder="e.g. probably too much · I try to limit it · I'm fairly disciplined · it's hard to put down" oninput="pmSave()">
+            <div class="field-chips">
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_tech_tech_view')">probably too much, honestly</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_tech_tech_view')">I try to limit it after 10pm</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_tech_tech_view')">fairly disciplined about it</span>
+              <span class="field-chip" onclick="insertFieldChip(this,'pm_tech_tech_view')">it's hard to put down</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
