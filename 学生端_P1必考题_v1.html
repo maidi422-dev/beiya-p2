@@ -250,6 +250,56 @@
   .cyc-badge.cyc-expiring{background:var(--orange-soft);color:var(--orange);border:1px solid var(--orange-bd)}
   .cyc-badge.cyc-new{background:var(--green-soft);color:var(--green);border:1px solid var(--green-bd)}
 
+  /* ── Profile Banner ── */
+  .prof-banner{display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:10px;margin-bottom:16px;font-size:13px;line-height:1.5}
+  .prof-banner.empty{background:#FFF3E0;border:1px solid #FFB74D40;color:#B45309}
+  .prof-banner.filled{background:#E8F5E9;border:1px solid #66BB6A40;color:#2E7D32}
+  .prof-btn-link{font-weight:600;color:inherit;text-decoration:underline;cursor:pointer;background:none;border:none;font-family:inherit;font-size:inherit;padding:0}
+  .prof-btn-link:hover{opacity:.8}
+
+  /* ── Chunks Panel inside skeleton card ── */
+  .sk-expand-btn{
+    font-size:12px;color:var(--gold);background:var(--gold-soft);border:1px solid #E8D4A8;
+    padding:4px 12px;border-radius:10px;cursor:pointer;font-weight:600;transition:all .15s;
+    display:inline-flex;align-items:center;gap:4px;margin-top:2px
+  }
+  .sk-expand-btn:hover{background:#F5E5C0}
+  .sk-chunks-panel{
+    display:none;border-top:1px dashed var(--line);
+    padding-top:12px;margin-top:4px
+  }
+  .sk-chunks-panel.open{display:block}
+  .chunks-label{font-size:11px;color:var(--ink-3);font-weight:600;letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px}
+  .chunk-row{
+    display:flex;align-items:flex-start;gap:8px;padding:6px 10px;border-radius:7px;
+    margin-bottom:5px;font-size:12.5px;line-height:1.55
+  }
+  .chunk-row.universal{background:#F6F6F8;color:var(--ink-2)}
+  .chunk-row.personal{background:#FFF8F0;border:1px solid #FFD8A8;color:#7C4A00}
+  .chunk-row.personal.auto-filled{background:#FFF8F0;border-color:#FFB347}
+  .chunk-icon{font-size:13px;flex-shrink:0;margin-top:1px}
+  .chunk-text{flex:1}
+  .chunk-fill{
+    font-size:11.5px;font-weight:700;color:#E07A00;
+    background:#FFE8C0;border-radius:4px;padding:1px 6px;
+    display:inline-block;margin-top:3px
+  }
+  /* Profile fills zone */
+  .sk-prof-zone{
+    margin-top:10px;padding:10px 12px;border-radius:8px;
+    background:#FFF3E0;border:1px dashed #FFB74D;
+  }
+  .sk-prof-zone-title{font-size:11.5px;font-weight:700;color:#B45309;margin-bottom:6px}
+  .sk-prof-field{
+    display:flex;align-items:flex-start;gap:6px;font-size:12px;color:var(--ink-2);
+    padding:4px 0;border-bottom:1px dashed #FFD8A8
+  }
+  .sk-prof-field:last-child{border-bottom:none}
+  .sk-prof-field .pf-label{color:var(--ink-3);flex-shrink:0;min-width:88px}
+  .sk-prof-field .pf-val{color:#C05B00;font-weight:600}
+  .sk-prof-field .pf-hint{color:var(--ink-3);font-size:11px;margin-top:1px}
+  .sk-prof-zone.no-profile{opacity:.7}
+
   /* ─── RESPONSIVE ─── */
   @media(max-width:760px){
     .season-banner{flex-wrap:wrap;padding:10px 14px;font-size:12.5px}
@@ -322,6 +372,9 @@
     </div>
   </section>
 
+  <!-- Profile Banner -->
+  <div id="profBanner"></div>
+
   <!-- 页内二级切换：题库 / 骨架 -->
   <div class="sub-tabs" id="subTabs">
     <a data-view="variants" class="active">📋 题库 <span class="c" id="c-variants">34</span></a>
@@ -345,6 +398,116 @@
   try{ if(localStorage.getItem('beiya_authed')!=='1') location.href='学生端_登录_v1.html'; }catch(e){}
 
   const D = window.P1_DATA || {skeletons:[],variants:[]};
+
+  // ── Profile integration ──
+  function loadProfile(){
+    try{return JSON.parse(localStorage.getItem('beiya_profile_v1')||'null');}catch(e){return null;}
+  }
+  function escHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function renderProfileBanner(prof){
+    const el = document.getElementById('profBanner');
+    if(!el) return;
+    if(!prof || !prof.basic_name){
+      el.innerHTML = `<div class="prof-banner empty">👤 <span>还没填 <b>My Profile</b>？<a href="学生端_P1我的_v1.html" class="prof-btn-link">去「⭐ 我的」完成 9 步填写 →</a> 填完后骨架里的个人位置会自动高亮提示。</span></div>`;
+    } else {
+      el.innerHTML = `<div class="prof-banner filled">✅ <span><b>${escHtml(prof.basic_name)}</b> 的 Profile 已就位 — 骨架视图中橙色高亮部分已标出你的个人素材。<a href="学生端_P1我的_v1.html" class="prof-btn-link" style="margin-left:8px">修改 Profile →</a></span></div>`;
+    }
+  }
+
+  // ── 骨架 Chunks 个性化配置：每个骨架里哪些行是"个人信息"，对应 profile 哪些字段 ──
+  const SKEL_CHUNKS_CONFIG = {
+    'SKEL-HM-1': {
+      personal_lines: [],
+      profile_fields: []
+    },
+    'SKEL-HM-2': {
+      personal_lines: [0],
+      profile_fields: [
+        {label: '你住的城市', field: 'basic_current_city', hint: '城市名 → 替换地铁/车站描述中的地点'}
+      ]
+    },
+    'SKEL-HM-3': {
+      personal_lines: [0],
+      profile_fields: [
+        {label: '你现在住在', field: 'basic_current_city', hint: '可加 "in [城市]" 让答案更具体'},
+        {label: '家乡（如不同）', field: 'basic_hometown', hint: '如与现居地不同，可对比使用'}
+      ]
+    },
+    'SKEL-HM-4': {
+      personal_lines: [],
+      profile_fields: [
+        {label: '你附近有什么', field: 'home_home_nearby', hint: '替换 mall/park/museum → 改成你家附近真实的地方'}
+      ]
+    },
+    'SKEL-HM-5': {
+      personal_lines: [],
+      profile_fields: []
+    },
+    'SKEL-AC-1': {
+      personal_lines: [0],
+      profile_fields: [
+        {label: '你的住所类型', field: 'home_home_type', hint: '替换 "with parents · my own room"'}
+      ]
+    },
+    'SKEL-AC-2': {
+      personal_lines: [0],
+      profile_fields: [
+        {label: '你最喜欢的房间/地方', field: 'home_home_fav', hint: '如果最爱的不是卧室，替换 "bedroom"'}
+      ]
+    },
+    'SKEL-ST-1': {
+      personal_lines: [0, 2],
+      profile_fields: [
+        {label: '你现在', field: 'basic_study_work', hint: '替换 "student · grade 12"'},
+        {label: '最喜欢的科目', field: 'school_s_subject', hint: '替换 "English"'},
+        {label: '专业/职业方向', field: 'basic_major_job', hint: '可补充你的具体方向'}
+      ]
+    },
+    'SKEL-ST-2': {
+      personal_lines: [0, 1],
+      profile_fields: [
+        {label: '你现在/目标', field: 'basic_study_work', hint: '替换出国/升学计划'},
+        {label: '专业/方向', field: 'basic_major_job', hint: '替换 "business or design"'}
+      ]
+    }
+  };
+
+  function renderChunksPanel(skel, prof){
+    const cfg = SKEL_CHUNKS_CONFIG[skel.id] || {personal_lines:[], profile_fields:[]};
+    const rawChunks = (skel.t2_chunks||'').split('\n').filter(Boolean);
+    const chunkRows = rawChunks.map((line, idx) => {
+      const isPersonal = cfg.personal_lines.includes(idx);
+      const icon = isPersonal ? '✏️' : '✅';
+      const cls = isPersonal ? 'personal' : 'universal';
+      return `<div class="chunk-row ${cls}"><span class="chunk-icon">${icon}</span><span class="chunk-text">${escHtml(line)}</span></div>`;
+    }).join('');
+
+    const hasPersonalLines = cfg.personal_lines.length > 0 || cfg.profile_fields.length > 0;
+    let profZone = '';
+    if(hasPersonalLines || cfg.profile_fields.length > 0){
+      const fieldRows = cfg.profile_fields.map(pf => {
+        const val = prof && prof[pf.field] ? prof[pf.field] : null;
+        const valHtml = val
+          ? `<span class="pf-val">→ ${escHtml(val)}</span>`
+          : `<span class="pf-hint">（填完 Profile 后自动显示）</span>`;
+        return `<div class="sk-prof-field"><span class="pf-label">${escHtml(pf.label)}</span>${valHtml}</div>`;
+      }).join('');
+      if(fieldRows){
+        const noProf = !prof || !prof.basic_name ? ' no-profile' : '';
+        profZone = `<div class="sk-prof-zone${noProf}"><div class="sk-prof-zone-title">📌 你的个人素材（替换橙色位置）</div>${fieldRows}</div>`;
+      }
+    }
+
+    const uid = 'cp_' + skel.id.replace(/[^a-z0-9]/gi,'_');
+    return `
+      <button class="sk-expand-btn" onclick="event.stopPropagation();var p=document.getElementById('${uid}');p.classList.toggle('open');this.textContent=p.classList.contains('open')?'收起 ↑':'📐 展开骨架 ↓'">📐 展开骨架 ↓</button>
+      <div class="sk-chunks-panel" id="${uid}">
+        <div class="chunks-label">✅ 直接用 &nbsp;|&nbsp; ✏️ 填自己的</div>
+        ${chunkRows}
+        ${profZone}
+      </div>`;
+  }
+
   const TOPIC_EMOJI = {
     'Hometown':'🏠','Accommodation':'🛋','Study':'📖','Work':'💼',
     'Study/Work':'📖','Study / Work':'📖'
@@ -393,6 +556,9 @@
   function render(){
     const state = parseHash();
     const search = (document.getElementById('searchBox').value||'').trim().toLowerCase();
+
+    // render profile banner every time (profile may be freshly set)
+    renderProfileBanner(loadProfile());
 
     document.querySelectorAll('#subTabs a').forEach(a=>{
       a.classList.toggle('active', a.dataset.view===state.view);
@@ -466,6 +632,7 @@
   }
 
   function renderSkeletonsView(search){
+    const prof = loadProfile();
     let list = (D.skeletons||[]);
     if(search){
       list = list.filter(s=>
@@ -487,23 +654,25 @@
       const cards = items.map(s=>{
         const variantCount = (D.variants||[]).filter(v=>v.skeleton_id===s.id).length;
         const kw = (s.t4_kw||'').slice(0,90);
+        const chunksPanel = renderChunksPanel(s, prof);
         return `
-          <div class="skcard" onclick="location.hash='#filter=${s.id}'">
-            <div class="sk-head">
+          <div class="skcard">
+            <div class="sk-head" style="cursor:pointer" onclick="location.hash='#filter=${s.id}'">
               <span class="sk-id">📐 ${s.id}</span>
               <div style="display:flex;gap:6px;align-items:center">
                 ${cycleBadge(s.cycle)}
                 <span class="sk-count">${variantCount} 道变体</span>
               </div>
             </div>
-            <div>
+            <div style="cursor:pointer" onclick="location.hash='#filter=${s.id}'">
               <div class="sk-q">${s.q_en||''}</div>
               <div class="sk-qzh">${s.q_zh||''}</div>
             </div>
             ${kw?`<div class="sk-kw">🎯 ${kw}${(s.t4_kw||'').length>90?'...':''}</div>`:''}
+            ${chunksPanel}
             <div class="sk-foot">
               <span>话题：${TOPIC_EMOJI[s.topic]||'📂'} ${s.topic||''}</span>
-              <span class="cta">看这个骨架下的题 →</span>
+              <span class="cta" style="cursor:pointer" onclick="location.hash='#filter=${s.id}'">看这个骨架下的题 →</span>
             </div>
           </div>`;
       }).join('');
@@ -512,7 +681,7 @@
         <section class="grp">
           <div class="grp-head">
             <div class="grp-title"><span class="emoji">${emoji}</span>${t}<span class="count">(${items.length} 套骨架)</span></div>
-            <div class="grp-hint">点骨架 → 回到题库看它旗下的必考变体</div>
+            <div class="grp-hint">点标题 / CTA → 看变体 &nbsp;|&nbsp; 点「展开骨架」→ 查看 chunks 和个人素材</div>
           </div>
           <div class="skgrid">${cards}</div>
         </section>`;
