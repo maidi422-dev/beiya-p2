@@ -248,6 +248,7 @@ window.P2_DATA = [
     ],
     "q_num_in_group": 5,
     "title": "Describe a perfect job you would like to have in the future",
+    "drift_warning": "⚠️ 这道题要说“想做但还没做”的工作，不要变成回忆已有的实习/冈职！全程用 I'd love to... / It would be... / I imagine...",
     "prep_words": [
       "artist",
       "talent"
@@ -304,6 +305,7 @@ window.P2_DATA = [
     ],
     "q_num_in_group": 6,
     "title": "Describe a time when you encouraged someone to do something he/she didn't want to do",
+    "drift_warning": "⚠️ 核心是“对方有抗拒/不情愿”——不能说成普通鼓励！要有对方的犁豫、推拒，以及你如何一步步说服他/她。",
     "prep_words": [
       "trust"
     ],
@@ -411,6 +413,7 @@ window.P2_DATA = [
     ],
     "q_num_in_group": 8,
     "title": "Describe an exciting activity you have tried for the first time",
+    "drift_warning": "⚠️ “first time”是核心！要有第一次的紧张感、心理变化——不能说成你常做的活动。",
     "prep_words": [
       "creative",
       "variety"
@@ -797,6 +800,7 @@ window.P2_DATA = [
     ],
     "q_num_in_group": 15,
     "title": "Describe a good habit your friend has and you want to develop",
+    "drift_warning": "⚠️ 主角是你的朋友，不是你自己！先描述朋友的好习惯，再说你为什么被启发想学。",
     "prep_words": [
       "healthy"
     ],
@@ -850,6 +854,7 @@ window.P2_DATA = [
     ],
     "q_num_in_group": 16,
     "title": "Describe one of your friends who learned something new without a teacher",
+    "drift_warning": "⚠️ 说的是朋友自学，不是你自学！",
     "prep_words": [
       "social media",
       "step by step",
@@ -1186,6 +1191,7 @@ window.P2_DATA = [
     ],
     "q_num_in_group": 22,
     "title": "Describe a time when you felt proud of a family member",
+    "drift_warning": "⚠️ 是你为家人感到骄傲，不是家人为你骄傲，也不是你自己做了什么厉害的事。",
     "prep_words": [
       "proud"
     ],
@@ -1269,6 +1275,8 @@ window.P2_DATA = [
       "the front gate of the temple is the best part",
       "it's covered in beautiful drawings — dragons, flowers, clouds",
       "the details are so fine — it must have taken years to make",
+      "I'm a huge fan of photography, so I immediately took out my camera",
+      "I must have taken a hundred photos of that gate — every detail deserved its own shot",
       "nothing like buildings in big cities — just tall glass boxes, cold and boring *(对比)*",
       "TP2 — the library at the back *(主体+客体)*",
       "at the back of the temple, there's a small library",
@@ -1311,6 +1319,7 @@ window.P2_DATA = [
     ],
     "q_num_in_group": 2,
     "title": "Describe an unusual but interesting building you would like to visit",
+    "drift_warning": "⚠️ 要说“还没去过、想去的建筑”，不要把它说成你已经参观过的地方（那是 GID 23 的内容）！",
     "prep_words": [
       "Thailand"
     ],
@@ -1435,6 +1444,7 @@ window.P2_DATA = [
     ],
     "q_num_in_group": 4,
     "title": "Describe a short-term job you want to have in a foreign country",
+    "drift_warning": "⚠️ 双重限定——①短期冈职 ②国外。两个条件都不能丢！不要说成国内经历。",
     "prep_words": [
       "photographer",
       "history"
@@ -1518,6 +1528,7 @@ window.P2_DATA = [
       "ducklings following their mom on the surface of the water",
       "fish swimming around at the bottom of the lake",
       "eagles flying through the clouds high above",
+      "I'm an amateur photographer — wildlife like this is exactly what I dream of shooting",
       "TP2 — around the lake *(对比)*",
       "old people playing chess under the trees / kids playing hide and seek behind the trees",
       "young people having picnics on the grass — fruits, snacks, drinks",
@@ -1618,6 +1629,7 @@ window.P2_DATA = [
     ],
     "q_num_in_group": 7,
     "title": "Describe a person who likes to look after the natural world",
+    "drift_warning": "⚠️ 主角是某个人（不是你自己），要描述他/她具体做了什么环保行为，你是见证者。",
     "prep_words": [
       "rubbish",
       "wild animals",
@@ -1681,6 +1693,7 @@ window.P2_DATA = [
     ],
     "q_num_in_group": 8,
     "title": "Describe a long journey you had and would like to take again",
+    "drift_warning": "⚠️ 题目里 again 是核心——说明你已经经历过，想再去一次。不能说成你从没去过但很想去的地方！",
     "prep_words": [
       "road trip",
       "singing contest",
@@ -1699,6 +1712,7 @@ window.P2_DATA = [
       "TP1 — the drive",
       "the drive itself was amazing — the route passed through lakes and rivers",
       "we stopped a few times along the way to watch the scenery",
+      "I couldn't stop taking photos of the lakes and rivers — every view was worth capturing",
       "saw the sunset over a lake / ducklings on the water / eagles in the sky",
       "TP2 — at the park",
       "when we arrived, we had a picnic on the grass",
@@ -1742,6 +1756,7 @@ window.P2_DATA = [
     ],
     "q_num_in_group": 9,
     "title": "Describe a city that you have been to and would like to visit again",
+    "drift_warning": "⚠️ 题目里 have been to 是核心——说明你去过这座城市。不能说成你从没去过的城市！",
     "prep_words": [
       "(上题词汇继续适用)"
     ],
@@ -1949,7 +1964,8 @@ window.P2_DATA = [
       "we ate and talked for a while / then someone said: let's have a singing contest",
       "we all took turns singing in front of the group",
       "some people had really beautiful voices — I was honestly a little jealous",
-      "the whole afternoon was so relaxed and happy"
+      "the whole afternoon was so relaxed and happy",
+      "I actually spent half the afternoon photographing the ducklings and eagles instead of singing"
     ],
     "S4": [
       "Anyway, it was one of the best days I’ve had in a long time",
@@ -2050,6 +2066,7 @@ window.P2_DATA = [
     ],
     "q_num_in_group": 14,
     "title": "Describe a wild animal that you want to learn more about",
+    "drift_warning": "⚠️ 核心不是“描述动物”，而是“我想深入了解它”——要说清楚你现在还不够了解，想学什么、怎么学。",
     "prep_words": [
       "duckling",
       "eagle",
@@ -2070,6 +2087,7 @@ window.P2_DATA = [
       "TP1 — why I like ducklings *(两小儿辩日)*",
       "Lucy and I started talking about which animal we liked more",
       "I said I liked ducklings — they look so peaceful and happy and free",
+      "as a photographer, the duckling is my favourite subject — peaceful, natural, easy to get close to",
       "they just float on the water, follow their mom, enjoy the sunshine — a simple, happy life",
       "TP2 — Lucy's view",
       "but Lucy completely disagreed",
@@ -2233,6 +2251,7 @@ window.P2_DATA = [
     ],
     "q_num_in_group": 2,
     "title": "Describe a piece of technology (not a phone) that you would like to own",
+    "drift_warning": "⚠️ 双重限定——①不是手机 ②还没拥有。别说手机，别说已经在用的设备！",
     "prep_words": [
       "charge",
       "distracted"
@@ -2286,6 +2305,7 @@ window.P2_DATA = [
     ],
     "q_num_in_group": 3,
     "title": "Describe a shop/store you enjoy visiting  /  Describe a time when you received good service in a shop/store",
+    "drift_warning": "⚠️ 两道题合一，选其中一道回答就好，不要混着说。建议选“received good service”更容易展开。",
     "prep_words": [
       "electronics shop",
       "patient",
@@ -2628,6 +2648,7 @@ window.P2_DATA = [
     ],
     "q_num_in_group": 3,
     "title": "Describe a natural talent (sports, music, etc.) you want to improve",
+    "drift_warning": "⚠️ ①把 natural talent 说成后天技能；②说完天赋忘了 want to improve 部分——两个坑都要绕开！",
     "prep_words": [
       "singing",
       "plan",
@@ -2683,6 +2704,7 @@ window.P2_DATA = [
     ],
     "q_num_in_group": 4,
     "title": "Describe an event you attended in which you didn't enjoy the music played",
+    "drift_warning": "⚠️ “didn't enjoy”是核心！不能说成你喜欢的音乐或好听的演出。",
     "prep_words": [
       "music festival",
       "romance",
@@ -2741,6 +2763,7 @@ window.P2_DATA = [
     ],
     "q_num_in_group": 5,
     "title": "Describe an occasion when you were not allowed to use your mobile phone",
+    "drift_warning": "⚠️ 重点是“被禁止用手机”的那段时间——要说清楚在哪、为什么不让用、你当时的感受。",
     "prep_words": [
       "rule",
       "collected",
@@ -2799,6 +2822,7 @@ window.P2_DATA = [
     ],
     "q_num_in_group": 1,
     "title": "Describe a famous person you would like to meet",
+    "drift_warning": "⚠️ 重点是“想见到这个人”——要设计见面场景（在哪见、说什么、为什么想见），不能只说“我很崇拜他/她”。",
     "prep_words": [
       "volleyball",
       "national team",
@@ -3048,6 +3072,7 @@ window.P2_DATA = [
     ],
     "q_num_in_group": 1,
     "title": "Describe an area/subject of science that you are interested in and would like to learn more about",
+    "drift_warning": "⚠️ 要说“我现在知道的不够多，我想学更多”，不是展示你已有的知识。重点是学习动机和方向。",
     "prep_words": [
       "nutrition science",
       "diet plan",
@@ -3095,6 +3120,138 @@ window.P2_DATA = [
     "story_slug": "WeightLoss",
     "story_file": "学生端_故事页_WeightLoss_v1.html",
     "cycle": "jan_apr_only"
+  },
+  {
+    "group": "Scenery",
+    "group_keywords": [
+      "White Cloud Temple（gate drawings",
+      "library ancient books）",
+      "White Cloud Park（lake",
+      "ducklings",
+      "eagles",
+      "fish",
+      "picnic",
+      "singing contest",
+      "old people chess",
+      "kids hide and seek）",
+      "Thailand temple",
+      "Lucy",
+      "cold and boring vs warm and special"
+    ],
+    "q_num_in_group": 16,
+    "title": "Describe a city that you think is very interesting/famous",
+    "prep_words": [
+      "temple",
+      "gate",
+      "drawings",
+      "ancient",
+      "history books",
+      "historical",
+      "character",
+      "photographer"
+    ],
+    "S1": [
+      "a city about 300 km from where I live — well-known for its historical buildings and ancient temples"
+    ],
+    "S2": [
+      "my friend Lucy had visited it before and said I absolutely had to go",
+      "she said: \"the temple alone is worth the trip\"",
+      "I didn't really believe her at first — but she was completely right"
+    ],
+    "S3": [
+      "Now let me tell you what makes this city so interesting",
+      "TP1 — White Cloud Temple *(主客体)*",
+      "the front gate is the first thing you notice — covered in drawings of dragons, flowers, and clouds",
+      "I'm a huge fan of photography, so I immediately took out my camera",
+      "I must have taken a hundred photos of that gate — every detail deserved its own shot",
+      "at the back of the temple, there's a small library full of ancient history books — very rare to find",
+      "I love history, so that part was honestly the most exciting thing I've ever seen",
+      "TP2 — compare with other famous cities *(对比)*",
+      "compare this with most famous cities I've been to — just tall glass towers and shopping malls",
+      "no history, no character — they all look exactly the same",
+      "but this city feels completely different — every corner has a story"
+    ],
+    "S4": [
+      "Anyway, I'd recommend this city to anyone who loves history and culture",
+      "it doesn't look fancy — but it has more character than most places I've ever been to"
+    ],
+    "S1_marker": "Answer directly",
+    "S2_marker": "Background",
+    "S3_marker": "Details",
+    "S4_marker": "Prospect",
+    "category": "地点",
+    "global_id": 54,
+    "story_emoji": "🏖",
+    "story_cn": "风景",
+    "story_slug": "Scenery",
+    "story_file": "学生端_故事页_Scenery_v1.html",
+    "cycle": "may_aug_new"
+  },
+  {
+    "group": "Scenery",
+    "group_keywords": [
+      "White Cloud Temple（gate drawings",
+      "library ancient books）",
+      "White Cloud Park（lake",
+      "ducklings",
+      "eagles",
+      "fish",
+      "picnic",
+      "singing contest",
+      "old people chess",
+      "kids hide and seek）",
+      "Thailand temple",
+      "Lucy",
+      "cold and boring vs warm and special"
+    ],
+    "q_num_in_group": 17,
+    "title": "Describe a bicycle/motorcycle/car trip you would like to go on",
+    "drift_warning": "⚠️ 问的是 would like to go（想去但还没去/想再去），不要说成你已经完成的旅行！用 I'm planning to... / I can't wait to...",
+    "prep_words": [
+      "road trip",
+      "nature reserve",
+      "wildlife",
+      "ducklings",
+      "eagles",
+      "picnic",
+      "guitar",
+      "photographer"
+    ],
+    "S1": [
+      "a car trip to White Cloud Park — a nature reserve about 300 km from where I live",
+      "I've been planning this trip for months and I really can't wait"
+    ],
+    "S2": [
+      "my friend Lucy told me about this place a while ago",
+      "she said it was unlike any park she'd ever been to — full of wildlife and completely peaceful",
+      "since then, I've been dying to go"
+    ],
+    "S3": [
+      "Now let me tell you about the trip I'm planning",
+      "TP1 — the drive *(举例)*",
+      "the route passes through beautiful countryside — lakes, rivers, open fields",
+      "I want to stop a few times along the way and just watch the scenery / maybe take some photos",
+      "TP2 — what we'd do at the park *(主客体)*",
+      "the park has a huge lake in the middle — ducklings on the water, eagles in the sky, fish below",
+      "I'm an amateur photographer, and this kind of wildlife is exactly what I dream of shooting",
+      "we'd have a picnic on the grass near the lake — fruits, snacks, drinks, the whole thing",
+      "Lucy says she'll bring a guitar too, so we might even have a singing contest"
+    ],
+    "S4": [
+      "I'm hoping to do this trip during the next school holiday",
+      "I have a feeling it'll be one of those trips you remember for a long time"
+    ],
+    "S1_marker": "Answer directly",
+    "S2_marker": "Background",
+    "S3_marker": "Details",
+    "S4_marker": "Prospect",
+    "category": "事件",
+    "global_id": 55,
+    "story_emoji": "🏖",
+    "story_cn": "风景",
+    "story_slug": "Scenery",
+    "story_file": "学生端_故事页_Scenery_v1.html",
+    "cycle": "may_aug_new"
   }
 ];
 window.ASSETS = {

@@ -357,6 +357,9 @@
     .panel, .panel-section, .cta-bar{padding:14px 16px !important}
   }
 
+
+  /* drift_warning banner */
+  .drift-banner{background:#FFF3E0;border:1.5px solid #FF9800;border-radius:8px;padding:7px 12px;font-size:12px;color:#BF360C;font-weight:500;line-height:1.55;margin-bottom:8px;display:flex;gap:6px;align-items:flex-start}
 </style>
 </head>
 <body>
@@ -535,6 +538,23 @@
 <a class="fab" href="学生端_方法论页_v1.html">🎯 方法论</a>
 
 <script src="data.js"></script>
+<script>
+  /* drift_warning banner injection */
+  (function(){
+    if(!window.P2_DATA) return;
+    var driftMap = {};
+    window.P2_DATA.forEach(function(d){ if(d.drift_warning) driftMap[d.global_id]=d.drift_warning; });
+    document.querySelectorAll('.q-card[data-q]').forEach(function(card){
+      var gid = parseInt(card.dataset.q);
+      if(driftMap[gid]){
+        var b = document.createElement('div');
+        b.className = 'drift-banner';
+        b.textContent = driftMap[gid];
+        card.insertBefore(b, card.firstChild);
+      }
+    });
+  })();
+</script>
 <script>
   function setRole(g){
     try{ localStorage.setItem('beiya_gender',g); }catch(e){}
