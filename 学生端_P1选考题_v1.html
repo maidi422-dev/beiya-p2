@@ -476,6 +476,45 @@
   .prof-scaffold ul li{margin-bottom:3px}
   .prof-btn{display:inline-flex;align-items:center;gap:5px;margin-top:8px;padding:5px 11px;border-radius:6px;border:1.5px solid var(--beiya);background:#fff;color:var(--beiya);font-size:12px;font-weight:600;cursor:pointer;transition:background .15s}
   .prof-btn:hover{background:var(--beiya-soft)}
+  .prof-open-btn{border:1.5px solid var(--beiya);background:#fff;color:var(--beiya);border-radius:6px;padding:3px 10px;font-size:12.5px;font-weight:600;cursor:pointer;transition:background .15s}
+  .prof-open-btn:hover{background:var(--beiya-soft)}
+  .prof-open-btn.secondary{border-color:var(--beiya);color:var(--beiya);background:transparent}
+  /* ── Profile Modal ── */
+  .pm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:900;align-items:center;justify-content:center;padding:16px}
+  .pm-overlay.open{display:flex}
+  .pm-box{background:#fff;border-radius:16px;width:100%;max-width:560px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.25)}
+  .pm-top{background:var(--beiya);color:#fff;padding:18px 20px 14px;flex-shrink:0}
+  .pm-top h2{font-size:17px;font-weight:700;margin-bottom:4px}
+  .pm-top p{font-size:12.5px;opacity:.85}
+  .pm-dots{display:flex;gap:6px;margin-top:10px}
+  .pm-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);transition:all .25s}
+  .pm-dot.active{background:#fff;transform:scale(1.3)}
+  .pm-dot.done{background:rgba(255,255,255,.65)}
+  .pm-body{overflow-y:auto;flex:1}
+  .pm-step{display:none;padding:20px}
+  .pm-step.active{display:block}
+  .pm-step-hd{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #f0f0f0}
+  .pm-step-icon{font-size:26px}
+  .pm-step-title{font-size:16px;font-weight:700;color:#1a1a1a}
+  .pm-step-sub{font-size:12px;color:#888;margin-top:2px}
+  .pm-fields{display:flex;flex-direction:column;gap:12px}
+  .pm-field label{display:block;font-size:12.5px;font-weight:600;margin-bottom:4px;color:#333}
+  .pm-field input{width:100%;border:1.5px solid #e5e7eb;border-radius:8px;padding:8px 11px;font-size:13.5px;font-family:inherit;outline:none;transition:border-color .2s}
+  .pm-field input:focus{border-color:var(--beiya)}
+  .pm-field input::placeholder{color:#c0c0c0}
+  .pm-nav{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-top:1px solid #f0f0f0;flex-shrink:0}
+  .pm-nav-info{font-size:12px;color:#888}
+  .pm-btn-row{display:flex;gap:8px}
+  .pm-btn{padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+  .pm-btn-back{background:#f5f5f5;color:#555}
+  .pm-btn-back:hover{background:#eee}
+  .pm-btn-next{background:var(--beiya);color:#fff}
+  .pm-btn-next:hover{background:var(--beiya-dark)}
+  .pm-btn-save{background:#2E7D32;color:#fff}
+  .pm-btn-save:hover{background:#1B5E20}
+  .pm-close{position:absolute;top:14px;right:16px;background:rgba(255,255,255,.2);border:none;color:#fff;width:28px;height:28px;border-radius:50%;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .pm-close:hover{background:rgba(255,255,255,.35)}
+  .pm-top{position:relative}
 </style>
 </head>
 <body>
@@ -933,15 +972,79 @@
   window.addEventListener('hashchange', render);
   document.getElementById('searchBox').addEventListener('input', render);
 
+  // ── Profile Modal logic ──
+  const PM_TOTAL = 9;
+  let pmStep = 0;
+  const PM_FIELDS = [
+    ['pm_basic_name','pm_basic_current_city','pm_basic_hometown','pm_basic_study_work','pm_basic_major_job'],
+    ['pm_family_family_size','pm_family_parent_jobs','pm_family_siblings','pm_family_family_vibe'],
+    ['pm_teacher_t_name','pm_teacher_t_subject','pm_teacher_t_style','pm_teacher_t_why'],
+    ['pm_friend_f_name','pm_friend_f_met','pm_friend_f_activities','pm_friend_f_personality'],
+    ['pm_childhood_c_place','pm_childhood_c_activity','pm_childhood_c_toy','pm_childhood_c_memory'],
+    ['pm_school_s_subject','pm_school_s_memory','pm_school_s_habit'],
+    ['pm_hobbies_h_main','pm_hobbies_h_sport','pm_hobbies_h_food','pm_hobbies_h_evening'],
+    ['pm_tech_tech_phone','pm_tech_tech_platform','pm_tech_tech_view'],
+    ['pm_home_home_type','pm_home_home_fav','pm_home_home_nearby','pm_home_home_vibe']
+  ];
+  function pmGetData(){
+    const d={};
+    PM_FIELDS.flat().forEach(id=>{
+      const el=document.getElementById(id); if(el) d[id.replace('pm_','')]=el.value.trim();
+    });
+    return d;
+  }
+  function pmLoadIntoFields(){
+    const p=loadProfile(); if(!p) return;
+    PM_FIELDS.flat().forEach(id=>{
+      const el=document.getElementById(id);
+      const key=id.replace('pm_','');
+      if(el && p[key]) el.value=p[key];
+    });
+  }
+  function pmSave(){
+    try{ localStorage.setItem('beiya_profile_v1', JSON.stringify(pmGetData())); }catch(e){}
+  }
+  function pmUpdateUI(){
+    document.querySelectorAll('.pm-step').forEach((s,i)=>s.classList.toggle('active',i===pmStep));
+    const dots=document.getElementById('pmDots');
+    dots.innerHTML=Array.from({length:PM_TOTAL},(_,i)=>`<div class="pm-dot${i===pmStep?' active':i<pmStep?' done':''}"></div>`).join('');
+    document.getElementById('pmNavInfo').textContent=`第 ${pmStep+1} 步 / 共 ${PM_TOTAL} 步`;
+    document.getElementById('pmBack').style.display=pmStep>0?'':'none';
+    document.getElementById('pmNext').style.display=pmStep<PM_TOTAL-1?'':'none';
+    document.getElementById('pmSaveBtn').style.display=pmStep===PM_TOTAL-1?'':'none';
+  }
+  function pmNav(dir){
+    pmSave();
+    pmStep=Math.max(0,Math.min(PM_TOTAL-1,pmStep+dir));
+    pmUpdateUI();
+  }
+  function openProfModal(){
+    pmStep=0; pmLoadIntoFields(); pmUpdateUI();
+    document.getElementById('profModal').classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+  function closeProfModal(){
+    document.getElementById('profModal').classList.remove('open');
+    document.body.style.overflow='';
+  }
+  function pmFinish(){
+    pmSave();
+    closeProfModal();
+    render();
+  }
+  document.getElementById('profModal').addEventListener('click',function(e){
+    if(e.target===this) closeProfModal();
+  });
+
   // ── Profile integration ──
   function loadProfile(){
     try{return JSON.parse(localStorage.getItem('beiya_profile_v1')||'null');}catch(e){return null;}
   }
   function renderProfileBanner(prof){
     if(!prof||!prof.basic_name){
-      return `<div class="prof-banner empty">👤 <span>还没填 <b>My Profile</b>？<a href="学生Profile_v1.html">点这里 9 步完成</a>，填完后绝大多数稳定题都能用你自己的素材直接作答。</span></div>`;
+      return `<div class="prof-banner empty">👤 <span>还没填 <b>My Profile</b>？<button class="prof-open-btn" onclick="openProfModal()">点这里 9 步完成 →</button> 填完后绝大多数稳定题都能用你自己的素材直接作答。</span></div>`;
     }
-    return `<div class="prof-banner filled">✅ <span><b>${escHtml(prof.basic_name)}</b> 的 Profile 已就位 — 每道题点「👤 用我的素材」即可生成个性化答题骨架。<a href="学生Profile_v1.html">修改 Profile →</a></span></div>`;
+    return `<div class="prof-banner filled">✅ <span><b>${escHtml(prof.basic_name)}</b> 的 Profile 已就位 — 每道题点「👤 用我的素材」即可生成个性化答题骨架。<button class="prof-open-btn secondary" onclick="openProfModal()">修改 Profile →</button></span></div>`;
   }
   const GROUP_FIELDS={
     'School':p=>[
@@ -993,5 +1096,106 @@
   render();
 </script>
 
+<!-- ── Profile Modal ── -->
+<div class="pm-overlay" id="profModal">
+  <div class="pm-box">
+    <div class="pm-top">
+      <button class="pm-close" onclick="closeProfModal()">✕</button>
+      <h2>📋 My Profile — Part 1 备考卡</h2>
+      <p>9 步完成个人画像，一次性覆盖绝大多数稳定题素材</p>
+      <div class="pm-dots" id="pmDots"></div>
+    </div>
+    <div class="pm-body" id="pmBody">
+      <div class="pm-step active" id="pms-0">
+        <div class="pm-step-hd"><span class="pm-step-icon">👤</span><div><div class="pm-step-title">基本信息</div><div class="pm-step-sub">Work / Study · Hometown · Where you live</div></div></div>
+        <div class="pm-fields">
+          <div class="pm-field"><label>你的英文名</label><input id="pm_basic_name" placeholder="e.g. Tracy / Amy / Jason" oninput="pmSave()"></div>
+          <div class="pm-field"><label>现在住在哪个城市</label><input id="pm_basic_current_city" placeholder="e.g. Jining, Shandong" oninput="pmSave()"></div>
+          <div class="pm-field"><label>家乡（如与现居地不同）</label><input id="pm_basic_hometown" placeholder="e.g. a small town in Henan" oninput="pmSave()"></div>
+          <div class="pm-field"><label>现在是学生还是工作</label><input id="pm_basic_study_work" placeholder="e.g. I'm a university student" oninput="pmSave()"></div>
+          <div class="pm-field"><label>专业 / 职业</label><input id="pm_basic_major_job" placeholder="e.g. Business Administration" oninput="pmSave()"></div>
+        </div>
+      </div>
+      <div class="pm-step" id="pms-1">
+        <div class="pm-step-hd"><span class="pm-step-icon">👨‍👩‍👧</span><div><div class="pm-step-title">家庭</div><div class="pm-step-sub">Family size · Parents · Siblings</div></div></div>
+        <div class="pm-fields">
+          <div class="pm-field"><label>家里有几口人</label><input id="pm_family_family_size" placeholder="e.g. 4 — my parents, my sister and me" oninput="pmSave()"></div>
+          <div class="pm-field"><label>父母的职业</label><input id="pm_family_parent_jobs" placeholder="e.g. dad is a teacher, mum runs a small business" oninput="pmSave()"></div>
+          <div class="pm-field"><label>兄弟姐妹情况</label><input id="pm_family_siblings" placeholder="e.g. older sister who just had a baby / only child" oninput="pmSave()"></div>
+          <div class="pm-field"><label>家庭氛围</label><input id="pm_family_family_vibe" placeholder="e.g. warm and supportive / a bit chaotic but fun" oninput="pmSave()"></div>
+        </div>
+      </div>
+      <div class="pm-step" id="pms-2">
+        <div class="pm-step-hd"><span class="pm-step-icon">🍎</span><div><div class="pm-step-title">印象深刻的老师</div><div class="pm-step-sub">Memorable teacher</div></div></div>
+        <div class="pm-fields">
+          <div class="pm-field"><label>老师的名字</label><input id="pm_teacher_t_name" placeholder="e.g. Ms. Liu / Mr. Zhang" oninput="pmSave()"></div>
+          <div class="pm-field"><label>教什么科目</label><input id="pm_teacher_t_subject" placeholder="e.g. English / Maths / Chinese literature" oninput="pmSave()"></div>
+          <div class="pm-field"><label>教学风格</label><input id="pm_teacher_t_style" placeholder="e.g. strict but fair / very encouraging" oninput="pmSave()"></div>
+          <div class="pm-field"><label>为什么印象深刻</label><input id="pm_teacher_t_why" placeholder="e.g. she believed in me / he made it enjoyable" oninput="pmSave()"></div>
+        </div>
+      </div>
+      <div class="pm-step" id="pms-3">
+        <div class="pm-step-hd"><span class="pm-step-icon">👫</span><div><div class="pm-step-title">好朋友</div><div class="pm-step-sub">Close friend</div></div></div>
+        <div class="pm-fields">
+          <div class="pm-field"><label>朋友的名字</label><input id="pm_friend_f_name" placeholder="e.g. Lucy / Mike / Sarah" oninput="pmSave()"></div>
+          <div class="pm-field"><label>怎么认识的</label><input id="pm_friend_f_met" placeholder="e.g. classmates in high school" oninput="pmSave()"></div>
+          <div class="pm-field"><label>一起做什么</label><input id="pm_friend_f_activities" placeholder="e.g. go to cafés / watch movies / work out" oninput="pmSave()"></div>
+          <div class="pm-field"><label>朋友的性格</label><input id="pm_friend_f_personality" placeholder="e.g. outgoing and adventurous" oninput="pmSave()"></div>
+        </div>
+      </div>
+      <div class="pm-step" id="pms-4">
+        <div class="pm-step-hd"><span class="pm-step-icon">🧒</span><div><div class="pm-step-title">童年</div><div class="pm-step-sub">Childhood memories</div></div></div>
+        <div class="pm-fields">
+          <div class="pm-field"><label>小时候住在哪种地方</label><input id="pm_childhood_c_place" placeholder="e.g. quiet residential area / small town" oninput="pmSave()"></div>
+          <div class="pm-field"><label>小时候常做的事</label><input id="pm_childhood_c_activity" placeholder="e.g. riding bikes / drawing / playing outside" oninput="pmSave()"></div>
+          <div class="pm-field"><label>最喜欢的玩具/游戏</label><input id="pm_childhood_c_toy" placeholder="e.g. LEGO / badminton / card games" oninput="pmSave()"></div>
+          <div class="pm-field"><label>最难忘的童年记忆</label><input id="pm_childhood_c_memory" placeholder="e.g. summers at grandparents' / winning a competition" oninput="pmSave()"></div>
+        </div>
+      </div>
+      <div class="pm-step" id="pms-5">
+        <div class="pm-step-hd"><span class="pm-step-icon">🏫</span><div><div class="pm-step-title">学校经历</div><div class="pm-step-sub">School life</div></div></div>
+        <div class="pm-fields">
+          <div class="pm-field"><label>最喜欢的科目及原因</label><input id="pm_school_s_subject" placeholder="e.g. English — loved reading / Art — a break from exams" oninput="pmSave()"></div>
+          <div class="pm-field"><label>印象深刻的学校经历</label><input id="pm_school_s_memory" placeholder="e.g. school trip / class performance / a proud project" oninput="pmSave()"></div>
+          <div class="pm-field"><label>学习习惯</label><input id="pm_school_s_habit" placeholder="e.g. study at night / make detailed notes" oninput="pmSave()"></div>
+        </div>
+      </div>
+      <div class="pm-step" id="pms-6">
+        <div class="pm-step-hd"><span class="pm-step-icon">🎯</span><div><div class="pm-step-title">日常爱好</div><div class="pm-step-sub">Hobbies & lifestyle</div></div></div>
+        <div class="pm-fields">
+          <div class="pm-field"><label>主要爱好</label><input id="pm_hobbies_h_main" placeholder="e.g. photography / cooking / reading / gym" oninput="pmSave()"></div>
+          <div class="pm-field"><label>运动习惯</label><input id="pm_hobbies_h_sport" placeholder="e.g. run 3x a week / badminton with friends" oninput="pmSave()"></div>
+          <div class="pm-field"><label>饮食偏好</label><input id="pm_hobbies_h_food" placeholder="e.g. love spicy food / big fan of hot pot" oninput="pmSave()"></div>
+          <div class="pm-field"><label>下班/下课后通常做什么</label><input id="pm_hobbies_h_evening" placeholder="e.g. scroll Douyin / read / cook / call family" oninput="pmSave()"></div>
+        </div>
+      </div>
+      <div class="pm-step" id="pms-7">
+        <div class="pm-step-hd"><span class="pm-step-icon">📱</span><div><div class="pm-step-title">科技使用</div><div class="pm-step-sub">Technology habits</div></div></div>
+        <div class="pm-fields">
+          <div class="pm-field"><label>用手机主要做什么</label><input id="pm_tech_tech_phone" placeholder="e.g. work emails / short videos / stay in touch" oninput="pmSave()"></div>
+          <div class="pm-field"><label>最常用的平台/APP</label><input id="pm_tech_tech_platform" placeholder="e.g. WeChat / Douyin / Xiaohongshu" oninput="pmSave()"></div>
+          <div class="pm-field"><label>你对手机使用的看法</label><input id="pm_tech_tech_view" placeholder="e.g. probably too much / I try to limit it" oninput="pmSave()"></div>
+        </div>
+      </div>
+      <div class="pm-step" id="pms-8">
+        <div class="pm-step-hd"><span class="pm-step-icon">🏠</span><div><div class="pm-step-title">居住环境</div><div class="pm-step-sub">Home & neighbourhood</div></div></div>
+        <div class="pm-fields">
+          <div class="pm-field"><label>住公寓还是房子</label><input id="pm_home_home_type" placeholder="e.g. apartment in the city / house in a quiet area" oninput="pmSave()"></div>
+          <div class="pm-field"><label>你喜欢住这里的原因</label><input id="pm_home_home_fav" placeholder="e.g. there's a park / super convenient" oninput="pmSave()"></div>
+          <div class="pm-field"><label>附近有什么</label><input id="pm_home_home_nearby" placeholder="e.g. local gym / night market / a café I really like" oninput="pmSave()"></div>
+          <div class="pm-field"><label>整体氛围</label><input id="pm_home_home_vibe" placeholder="e.g. lively and modern / quiet and residential" oninput="pmSave()"></div>
+        </div>
+      </div>
+    </div>
+    <div class="pm-nav">
+      <div class="pm-nav-info" id="pmNavInfo">第 1 步 / 共 9 步</div>
+      <div class="pm-btn-row">
+        <button class="pm-btn pm-btn-back" id="pmBack" onclick="pmNav(-1)" style="display:none">← 上一步</button>
+        <button class="pm-btn pm-btn-next" id="pmNext" onclick="pmNav(1)">下一步 →</button>
+        <button class="pm-btn pm-btn-save" id="pmSaveBtn" style="display:none" onclick="pmFinish()">✅ 保存完成</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
