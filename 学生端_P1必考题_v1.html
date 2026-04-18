@@ -430,6 +430,7 @@
       personal_lines: [0],
       profile_fields: [
         {label: '你现在住在', field: 'basic_current_city', hint: '可加 "in [城市]" 让答案更具体'},
+        {label: '住了多久', field: 'basic_years_here', hint: '替换 "my whole life / X years" — 回答 how long 类问题'},
         {label: '家乡（如不同）', field: 'basic_hometown', hint: '如与现居地不同，可对比使用'}
       ]
     },
@@ -446,7 +447,8 @@
     'SKEL-AC-1': {
       personal_lines: [0],
       profile_fields: [
-        {label: '你的住所类型', field: 'home_home_type', hint: '替换 "with parents · my own room"'}
+        {label: '你的住所类型', field: 'home_home_type', hint: '替换 "apartment / house / dorm"'},
+        {label: '你跟谁住', field: 'home_live_with', hint: '替换 "with parents · alone · with roommates"'}
       ]
     },
     'SKEL-AC-2': {
@@ -467,7 +469,8 @@
       personal_lines: [0, 1],
       profile_fields: [
         {label: '你现在/目标', field: 'basic_study_work', hint: '替换出国/升学计划'},
-        {label: '专业/方向', field: 'basic_major_job', hint: '替换 "business or design"'}
+        {label: '专业/方向', field: 'basic_major_job', hint: '替换 "business or design"'},
+        {label: '毕业后的计划', field: 'school_s_future', hint: '直接替换 "I\'m hoping to..." 后面的内容'}
       ]
     }
   };
