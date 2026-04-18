@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北雅 · My Profile 生成器 — Part 1 备考卡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --beiya: #C0392B;
+  --beiya-dark: #96281B;
+  --beiya-bg: #fdf2f1;
+  --ink: #1a1a1a;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --radius: 12px;
+  --shadow: 0 2px 12px rgba(0,0,0,.08);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', 'Noto Serif SC', sans-serif; background: #f8f9fa; color: var(--ink); min-height: 100vh; }
+
+/* ── Topbar ── */
+.topbar { background: var(--beiya); color: #fff; padding: 0 24px; height: 52px; display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 100; }
+.topbar-logo { font-weight: 700; font-size: 16px; letter-spacing: .5px; }
+.topbar-sub { font-size: 13px; opacity: .8; }
+.topbar-back { margin-left: auto; font-size: 13px; opacity: .8; text-decoration: none; color: #fff; }
+.topbar-back:hover { opacity: 1; }
+
+/* ── Hero ── */
+.hero { background: linear-gradient(135deg, var(--beiya) 0%, var(--beiya-dark) 100%); color: #fff; padding: 36px 24px 28px; text-align: center; }
+.hero h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+.hero p { font-size: 14px; opacity: .85; max-width: 480px; margin: 0 auto 20px; line-height: 1.6; }
+.progress-wrap { display: flex; align-items: center; justify-content: center; gap: 6px; }
+.step-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.3); transition: all .3s; }
+.step-dot.active { background: #fff; transform: scale(1.3); }
+.step-dot.done { background: rgba(255,255,255,.7); }
+
+/* ── Main container ── */
+.container { max-width: 680px; margin: 28px auto; padding: 0 16px 60px; }
+
+/* ── Step panel ── */
+.step-panel { display: none; background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+.step-panel.active { display: block; animation: fadeIn .25s ease; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px) } to { opacity:1; transform:translateY(0) } }
+
+.step-header { display: flex; align-items: center; gap: 14px; padding: 22px 24px 14px; border-bottom: 1px solid var(--border); }
+.step-icon { font-size: 28px; }
+.step-title { font-size: 18px; font-weight: 700; }
+.step-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+.covers-row { padding: 12px 24px; background: var(--beiya-bg); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.covers-label { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+.cover-tag { font-size: 11px; background: #fff; border: 1px solid #fca5a5; color: var(--beiya); border-radius: 20px; padding: 2px 10px; font-weight: 500; }
+
+.fields-block { padding: 20px 24px 8px; display: flex; flex-direction: column; gap: 14px; }
+.field-group { display: flex; flex-direction: column; gap: 5px; }
+.field-label { font-size: 13px; font-weight: 600; color: var(--ink); }
+.field-input { border: 1.5px solid var(--border); border-radius: 8px; padding: 9px 12px; font-size: 14px; font-family: inherit; transition: border-color .2s; outline: none; }
+.field-input:focus { border-color: var(--beiya); }
+.field-input::placeholder { color: #c0c0c0; }
+
+.vocab-block { padding: 14px 24px 18px; }
+.vocab-label { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
+.vocab-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.vocab-chip { font-size: 12px; background: #f0f4ff; border: 1px solid #c7d2fe; color: #4338ca; border-radius: 20px; padding: 3px 12px; cursor: pointer; transition: all .15s; user-select: none; }
+.vocab-chip:hover { background: #4338ca; color: #fff; border-color: #4338ca; }
+.vocab-chip.copied { background: #16a34a; color: #fff; border-color: #16a34a; }
+
+.step-nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-top: 1px solid var(--border); }
+.step-counter { font-size: 12px; color: var(--muted); }
+.btn { border: none; border-radius: 8px; padding: 9px 20px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all .2s; }
+.btn-primary { background: var(--beiya); color: #fff; }
+.btn-primary:hover { background: var(--beiya-dark); }
+.btn-ghost { background: transparent; color: var(--muted); border: 1.5px solid var(--border); }
+.btn-ghost:hover { border-color: var(--beiya); color: var(--beiya); }
+
+/* ── Output / Profile card ── */
+.output-panel { display: none; }
+.output-panel.active { display: block; animation: fadeIn .3s ease; }
+.output-top { background: linear-gradient(135deg, var(--beiya) 0%, var(--beiya-dark) 100%); color: #fff; padding: 24px; border-radius: var(--radius) var(--radius) 0 0; text-align: center; }
+.output-top h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+.output-top p { font-size: 13px; opacity: .8; }
+.out-cards { background: #fff; border-radius: 0 0 var(--radius) var(--radius); box-shadow: var(--shadow); }
+.out-card { padding: 16px 24px; border-bottom: 1px solid var(--border); }
+.out-card:last-child { border-bottom: none; }
+.out-card-title { font-size: 14px; font-weight: 700; margin-bottom: 10px; color: var(--beiya); }
+.out-row { display: flex; gap: 8px; margin-bottom: 6px; font-size: 13px; line-height: 1.5; }
+.out-key { color: var(--muted); min-width: 140px; flex-shrink: 0; font-size: 12px; padding-top: 1px; }
+.out-val { color: var(--ink); font-weight: 500; }
+.out-actions { display: flex; gap: 10px; padding: 20px 24px; justify-content: center; flex-wrap: wrap; }
+.btn-outline { background: #fff; color: var(--beiya); border: 2px solid var(--beiya); border-radius: 8px; padding: 9px 20px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
+.btn-outline:hover { background: var(--beiya-bg); }
+
+/* ── Print ── */
+@media print {
+  .topbar, .hero, .step-panel, .out-actions, .vocab-block { display: none !important; }
+  .output-panel.active { display: block !important; }
+  .out-cards { box-shadow: none; border-radius: 0; }
+  .out-card { page-break-inside: avoid; }
+  body { background: #fff; }
+  .output-top { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="topbar-logo">雅 北雅 · IELTS Speaking</span>
+  <span class="topbar-sub">My Profile 生成器</span>
+  <a class="topbar-back" href="/">← 返回主页</a>
+</div>
+
+<div class="hero">
+  <h1>📋 My Profile — Part 1 备考卡</h1>
+  <p>9 步完成你的个人画像，一次性覆盖 Part 1 绝大多数稳定话题。填完可直接打印带去考场。</p>
+  <div class="progress-wrap">
+<div class="step-dot" id="dot-0"></div>
+<div class="step-dot" id="dot-1"></div>
+<div class="step-dot" id="dot-2"></div>
+<div class="step-dot" id="dot-3"></div>
+<div class="step-dot" id="dot-4"></div>
+<div class="step-dot" id="dot-5"></div>
+<div class="step-dot" id="dot-6"></div>
+<div class="step-dot" id="dot-7"></div>
+<div class="step-dot" id="dot-8"></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="step-panel" id="step-0">
+    <div class="step-header">
+      <span class="step-icon">👤</span>
+      <div>
+        <div class="step-title">基本信息</div>
+        <div class="step-sub">Work / Study · Hometown · Where you live</div>
+      </div>
+    </div>
+    <div class="covers-row">
+      <span class="covers-label">覆盖话题：</span><span class="cover-tag">Work / Study</span><span class="cover-tag">Hometown</span><span class="cover-tag">Where you live now</span>
+    </div>
+    <div class="fields-block">
+      <div class="field-group">
+        <label class="field-label">你的英文名</label>
+        <input class="field-input" id="basic_name" type="text" placeholder="e.g. Tracy / Amy / Jason" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">现在住在哪个城市</label>
+        <input class="field-input" id="basic_current_city" type="text" placeholder="e.g. Jining, Shandong" oninput="autoSave()">
+      </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">家乡在哪里（如与现居地不同）</label>
+        <input class="field-input" id="basic_hometown" type="text" placeholder="e.g. a small town in Henan / same city" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">现在是学生还是工作</label>
+        <input class="field-input" id="basic_study_work" type="text" placeholder="e.g. I'm a university student / I work full-time" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">专业 / 职业</label>
+        <input class="field-input" id="basic_major_job" type="text" placeholder="e.g. Business Administration / English teacher" oninput="autoSave()">
+      </div>
+    </div>
+    <div class="vocab-block">
+      <div class="vocab-label">💡 Part 2 高频词参考（点击复制）</div>
+      <div class="vocab-row"><span class="vocab-chip" onclick="insertVocab(this)">fast-paced</span><span class="vocab-chip" onclick="insertVocab(this)">laid-back</span><span class="vocab-chip" onclick="insertVocab(this)">traditional</span><span class="vocab-chip" onclick="insertVocab(this)">lively</span><span class="vocab-chip" onclick="insertVocab(this)">modern</span><span class="vocab-chip" onclick="insertVocab(this)">hometown vibes</span><span class="vocab-chip" onclick="insertVocab(this)">grew up in</span></div>
+    </div>
+    <div class="step-nav">
+      <div></div>
+      <div class="step-counter">1 / 9</div>
+      <button class="btn btn-primary" onclick="goStep(1)">下一步 →</button>
+    </div>
+  </div>
+
+  <div class="step-panel" id="step-1">
+    <div class="step-header">
+      <span class="step-icon">🏠</span>
+      <div>
+        <div class="step-title">家庭</div>
+        <div class="step-sub">Family · Parents · Home life</div>
+      </div>
+    </div>
+    <div class="covers-row">
+      <span class="covers-label">覆盖话题：</span><span class="cover-tag">Family</span><span class="cover-tag">Parents</span><span class="cover-tag">Home life</span>
+    </div>
+    <div class="fields-block">
+      <div class="field-group">
+        <label class="field-label">家里有几口人</label>
+        <input class="field-input" id="family_family_size" type="text" placeholder="e.g. 4 — my parents, my sister and me" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">父母是做什么工作的</label>
+        <input class="field-input" id="family_parent_jobs" type="text" placeholder="e.g. dad is a teacher, mum runs a small business" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">有兄弟姐妹吗，简单描述</label>
+        <input class="field-input" id="family_siblings" type="text" placeholder="e.g. older sister who just had a baby / only child" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">用1-2个词描述家庭氛围</label>
+        <input class="field-input" id="family_family_vibe" type="text" placeholder="e.g. warm and supportive / a bit chaotic but fun" oninput="autoSave()">
+      </div>
+    </div>
+    <div class="vocab-block">
+      <div class="vocab-label">💡 Part 2 高频词参考（点击复制）</div>
+      <div class="vocab-row"><span class="vocab-chip" onclick="insertVocab(this)">supportive</span><span class="vocab-chip" onclick="insertVocab(this)">close-knit</span><span class="vocab-chip" onclick="insertVocab(this)">hardworking</span><span class="vocab-chip" onclick="insertVocab(this)">retired</span><span class="vocab-chip" onclick="insertVocab(this)">family-oriented</span><span class="vocab-chip" onclick="insertVocab(this)">warm</span><span class="vocab-chip" onclick="insertVocab(this)">tight bond</span></div>
+    </div>
+    <div class="step-nav">
+      <button class="btn btn-ghost" onclick="goStep(0)">← 上一步</button>
+      <div class="step-counter">2 / 9</div>
+      <button class="btn btn-primary" onclick="goStep(2)">下一步 →</button>
+    </div>
+  </div>
+
+  <div class="step-panel" id="step-2">
+    <div class="step-header">
+      <span class="step-icon">🎓</span>
+      <div>
+        <div class="step-title">印象深刻的老师</div>
+        <div class="step-sub">Teachers · People who influenced you</div>
+      </div>
+    </div>
+    <div class="covers-row">
+      <span class="covers-label">覆盖话题：</span><span class="cover-tag">Describe a teacher</span><span class="cover-tag">Someone who influenced you</span><span class="cover-tag">School experiences</span>
+    </div>
+    <div class="fields-block">
+      <div class="field-group">
+        <label class="field-label">这位老师的名字（英文）</label>
+        <input class="field-input" id="teacher_t_name" type="text" placeholder="e.g. Ms. Liu / Mr. Zhang" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">教什么科目</label>
+        <input class="field-input" id="teacher_t_subject" type="text" placeholder="e.g. English / Maths / Chinese literature" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">他/她的教学风格</label>
+        <input class="field-input" id="teacher_t_style" type="text" placeholder="e.g. strict but fair / very encouraging / always told stories" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">为什么让你印象深刻</label>
+        <input class="field-input" id="teacher_t_why" type="text" placeholder="e.g. she believed in me / he made the subject actually enjoyable" oninput="autoSave()">
+      </div>
+    </div>
+    <div class="vocab-block">
+      <div class="vocab-label">💡 Part 2 高频词参考（点击复制）</div>
+      <div class="vocab-row"><span class="vocab-chip" onclick="insertVocab(this)">dedicated</span><span class="vocab-chip" onclick="insertVocab(this)">strict</span><span class="vocab-chip" onclick="insertVocab(this)">inspiring</span><span class="vocab-chip" onclick="insertVocab(this)">patient</span><span class="vocab-chip" onclick="insertVocab(this)">knowledgeable</span><span class="vocab-chip" onclick="insertVocab(this)">made an impact</span><span class="vocab-chip" onclick="insertVocab(this)">passionate about teaching</span></div>
+    </div>
+    <div class="step-nav">
+      <button class="btn btn-ghost" onclick="goStep(1)">← 上一步</button>
+      <div class="step-counter">3 / 9</div>
+      <button class="btn btn-primary" onclick="goStep(3)">下一步 →</button>
+    </div>
+  </div>
+
+  <div class="step-panel" id="step-3">
+    <div class="step-header">
+      <span class="step-icon">👫</span>
+      <div>
+        <div class="step-title">好朋友</div>
+        <div class="step-sub">Friends · People you spend time with</div>
+      </div>
+    </div>
+    <div class="covers-row">
+      <span class="covers-label">覆盖话题：</span><span class="cover-tag">Describe a friend</span><span class="cover-tag">Someone you enjoy spending time with</span><span class="cover-tag">Social life</span>
+    </div>
+    <div class="fields-block">
+      <div class="field-group">
+        <label class="field-label">好朋友的英文名</label>
+        <input class="field-input" id="friend_f_name" type="text" placeholder="e.g. Lucy / Mike / Sarah" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">你们怎么认识的</label>
+        <input class="field-input" id="friend_f_met" type="text" placeholder="e.g. classmates in high school / met through a mutual friend" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">平时一起做什么</label>
+        <input class="field-input" id="friend_f_activities" type="text" placeholder="e.g. walk dogs / go to cafés / watch movies / work out" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">他/她是个什么样的人</label>
+        <input class="field-input" id="friend_f_personality" type="text" placeholder="e.g. outgoing and adventurous / calm and reliable" oninput="autoSave()">
+      </div>
+    </div>
+    <div class="vocab-block">
+      <div class="vocab-label">💡 Part 2 高频词参考（点击复制）</div>
+      <div class="vocab-row"><span class="vocab-chip" onclick="insertVocab(this)">outgoing</span><span class="vocab-chip" onclick="insertVocab(this)">reliable</span><span class="vocab-chip" onclick="insertVocab(this)">share interests</span><span class="vocab-chip" onclick="insertVocab(this)">good listener</span><span class="vocab-chip" onclick="insertVocab(this)">spontaneous</span><span class="vocab-chip" onclick="insertVocab(this)">adventurous</span><span class="vocab-chip" onclick="insertVocab(this)">genuine</span></div>
+    </div>
+    <div class="step-nav">
+      <button class="btn btn-ghost" onclick="goStep(2)">← 上一步</button>
+      <div class="step-counter">4 / 9</div>
+      <button class="btn btn-primary" onclick="goStep(4)">下一步 →</button>
+    </div>
+  </div>
+
+  <div class="step-panel" id="step-4">
+    <div class="step-header">
+      <span class="step-icon">🧸</span>
+      <div>
+        <div class="step-title">童年</div>
+        <div class="step-sub">Childhood · Toys · Activities when young</div>
+      </div>
+    </div>
+    <div class="covers-row">
+      <span class="covers-label">覆盖话题：</span><span class="cover-tag">Childhood experience</span><span class="cover-tag">Favourite toy</span><span class="cover-tag">Activity when young</span><span class="cover-tag">Growing up</span>
+    </div>
+    <div class="fields-block">
+      <div class="field-group">
+        <label class="field-label">在哪里长大，那个地方什么感觉</label>
+        <input class="field-input" id="childhood_c_place" type="text" placeholder="e.g. quiet residential area / busy city / small town" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">小时候最喜欢做什么</label>
+        <input class="field-input" id="childhood_c_activity" type="text" placeholder="e.g. riding bikes / drawing / playing outside with neighbours" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">最喜欢的玩具或游戏</label>
+        <input class="field-input" id="childhood_c_toy" type="text" placeholder="e.g. LEGO / badminton / a toy robot / card games" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">一个特别的童年记忆</label>
+        <input class="field-input" id="childhood_c_memory" type="text" placeholder="e.g. summers at grandparents' / winning a school competition" oninput="autoSave()">
+      </div>
+    </div>
+    <div class="vocab-block">
+      <div class="vocab-label">💡 Part 2 高频词参考（点击复制）</div>
+      <div class="vocab-row"><span class="vocab-chip" onclick="insertVocab(this)">nostalgic</span><span class="vocab-chip" onclick="insertVocab(this)">carefree</span><span class="vocab-chip" onclick="insertVocab(this)">imaginative</span><span class="vocab-chip" onclick="insertVocab(this)">outdoor</span><span class="vocab-chip" onclick="insertVocab(this)">memorable</span><span class="vocab-chip" onclick="insertVocab(this)">simpler times</span><span class="vocab-chip" onclick="insertVocab(this)">grew up</span></div>
+    </div>
+    <div class="step-nav">
+      <button class="btn btn-ghost" onclick="goStep(3)">← 上一步</button>
+      <div class="step-counter">5 / 9</div>
+      <button class="btn btn-primary" onclick="goStep(5)">下一步 →</button>
+    </div>
+  </div>
+
+  <div class="step-panel" id="step-5">
+    <div class="step-header">
+      <span class="step-icon">📚</span>
+      <div>
+        <div class="step-title">学校经历</div>
+        <div class="step-sub">School · Courses · Study habits</div>
+      </div>
+    </div>
+    <div class="covers-row">
+      <span class="covers-label">覆盖话题：</span><span class="cover-tag">School memories</span><span class="cover-tag">Favourite course</span><span class="cover-tag">Study habits</span><span class="cover-tag">Academic experience</span>
+    </div>
+    <div class="fields-block">
+      <div class="field-group">
+        <label class="field-label">最喜欢的科目，为什么</label>
+        <input class="field-input" id="school_s_subject" type="text" placeholder="e.g. English — loved reading / Art — a break from exams" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">一个难忘的学校经历</label>
+        <input class="field-input" id="school_s_memory" type="text" placeholder="e.g. school trip / class performance / a project I was proud of" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">你的学习习惯</label>
+        <input class="field-input" id="school_s_habit" type="text" placeholder="e.g. study at night / make detailed notes / need background music" oninput="autoSave()">
+      </div>
+    </div>
+    <div class="vocab-block">
+      <div class="vocab-label">💡 Part 2 高频词参考（点击复制）</div>
+      <div class="vocab-row"><span class="vocab-chip" onclick="insertVocab(this)">challenging</span><span class="vocab-chip" onclick="insertVocab(this)">rewarding</span><span class="vocab-chip" onclick="insertVocab(this)">passionate about</span><span class="vocab-chip" onclick="insertVocab(this)">memorable</span><span class="vocab-chip" onclick="insertVocab(this)">academic</span><span class="vocab-chip" onclick="insertVocab(this)">put in the effort</span><span class="vocab-chip" onclick="insertVocab(this)">stand out</span></div>
+    </div>
+    <div class="step-nav">
+      <button class="btn btn-ghost" onclick="goStep(4)">← 上一步</button>
+      <div class="step-counter">6 / 9</div>
+      <button class="btn btn-primary" onclick="goStep(6)">下一步 →</button>
+    </div>
+  </div>
+
+  <div class="step-panel" id="step-6">
+    <div class="step-header">
+      <span class="step-icon">🎵</span>
+      <div>
+        <div class="step-title">日常爱好</div>
+        <div class="step-sub">Hobbies · Sports · Music · Food · Free time</div>
+      </div>
+    </div>
+    <div class="covers-row">
+      <span class="covers-label">覆盖话题：</span><span class="cover-tag">Hobbies</span><span class="cover-tag">Sports</span><span class="cover-tag">Music</span><span class="cover-tag">Food preferences</span><span class="cover-tag">Free time activities</span>
+    </div>
+    <div class="fields-block">
+      <div class="field-group">
+        <label class="field-label">最主要的爱好</label>
+        <input class="field-input" id="hobbies_h_main" type="text" placeholder="e.g. going to the gym / photography / cooking / reading" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">有没有运动习惯</label>
+        <input class="field-input" id="hobbies_h_sport" type="text" placeholder="e.g. run 3x a week / badminton with friends / yoga" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">喜欢什么食物或饮食习惯</label>
+        <input class="field-input" id="hobbies_h_food" type="text" placeholder="e.g. love spicy food / try to eat healthily / big fan of hot pot" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">典型的晚上怎么过</label>
+        <input class="field-input" id="hobbies_h_evening" type="text" placeholder="e.g. scroll Douyin / read / work out / cook / call family" oninput="autoSave()">
+      </div>
+    </div>
+    <div class="vocab-block">
+      <div class="vocab-label">💡 Part 2 高频词参考（点击复制）</div>
+      <div class="vocab-row"><span class="vocab-chip" onclick="insertVocab(this)">unwind</span><span class="vocab-chip" onclick="insertVocab(this)">refresh</span><span class="vocab-chip" onclick="insertVocab(this)">energetic</span><span class="vocab-chip" onclick="insertVocab(this)">keep fit</span><span class="vocab-chip" onclick="insertVocab(this)">de-stress</span><span class="vocab-chip" onclick="insertVocab(this)">balanced lifestyle</span><span class="vocab-chip" onclick="insertVocab(this)">indulge</span><span class="vocab-chip" onclick="insertVocab(this)">passion</span></div>
+    </div>
+    <div class="step-nav">
+      <button class="btn btn-ghost" onclick="goStep(5)">← 上一步</button>
+      <div class="step-counter">7 / 9</div>
+      <button class="btn btn-primary" onclick="goStep(7)">下一步 →</button>
+    </div>
+  </div>
+
+  <div class="step-panel" id="step-7">
+    <div class="step-header">
+      <span class="step-icon">📱</span>
+      <div>
+        <div class="step-title">科技使用</div>
+        <div class="step-sub">Technology · Internet · Social media · Phones</div>
+      </div>
+    </div>
+    <div class="covers-row">
+      <span class="covers-label">覆盖话题：</span><span class="cover-tag">Technology habits</span><span class="cover-tag">Internet use</span><span class="cover-tag">Social media</span><span class="cover-tag">Mobile phones</span>
+    </div>
+    <div class="fields-block">
+      <div class="field-group">
+        <label class="field-label">手机主要用来做什么</label>
+        <input class="field-input" id="tech_tech_phone" type="text" placeholder="e.g. work emails / short videos / stay in touch with family" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">最常用的 app 或平台</label>
+        <input class="field-input" id="tech_tech_platform" type="text" placeholder="e.g. WeChat / Douyin / Xiaohongshu / YouTube" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">你怎么看自己的屏幕时间</label>
+        <input class="field-input" id="tech_tech_view" type="text" placeholder="e.g. probably too much / I try to limit it / helps me stay informed" oninput="autoSave()">
+      </div>
+    </div>
+    <div class="vocab-block">
+      <div class="vocab-label">💡 Part 2 高频词参考（点击复制）</div>
+      <div class="vocab-row"><span class="vocab-chip" onclick="insertVocab(this)">efficient</span><span class="vocab-chip" onclick="insertVocab(this)">connected</span><span class="vocab-chip" onclick="insertVocab(this)">distracted</span><span class="vocab-chip" onclick="insertVocab(this)">scroll</span><span class="vocab-chip" onclick="insertVocab(this)">content</span><span class="vocab-chip" onclick="insertVocab(this)">platform</span><span class="vocab-chip" onclick="insertVocab(this)">handy</span><span class="vocab-chip" onclick="insertVocab(this)">overwhelmed</span></div>
+    </div>
+    <div class="step-nav">
+      <button class="btn btn-ghost" onclick="goStep(6)">← 上一步</button>
+      <div class="step-counter">8 / 9</div>
+      <button class="btn btn-primary" onclick="goStep(8)">下一步 →</button>
+    </div>
+  </div>
+
+  <div class="step-panel" id="step-8">
+    <div class="step-header">
+      <span class="step-icon">🏘️</span>
+      <div>
+        <div class="step-title">居住环境</div>
+        <div class="step-sub">Home · Neighbourhood · Places nearby</div>
+      </div>
+    </div>
+    <div class="covers-row">
+      <span class="covers-label">覆盖话题：</span><span class="cover-tag">Home</span><span class="cover-tag">Neighbourhood</span><span class="cover-tag">Places nearby</span><span class="cover-tag">Local area</span>
+    </div>
+    <div class="fields-block">
+      <div class="field-group">
+        <label class="field-label">你住在什么类型的地方</label>
+        <input class="field-input" id="home_home_type" type="text" placeholder="e.g. apartment in the city / house in a quiet area" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">最喜欢住所附近的什么</label>
+        <input class="field-input" id="home_home_fav" type="text" placeholder="e.g. there's a park / super convenient / peaceful and quiet" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">附近常去的地方</label>
+        <input class="field-input" id="home_home_nearby" type="text" placeholder="e.g. local gym / night market / a café I really like" oninput="autoSave()">
+      </div>
+      <div class="field-group">
+        <label class="field-label">用1-2个词形容你住的区域</label>
+        <input class="field-input" id="home_home_vibe" type="text" placeholder="e.g. lively and modern / quiet and residential / up-and-coming" oninput="autoSave()">
+      </div>
+    </div>
+    <div class="vocab-block">
+      <div class="vocab-label">💡 Part 2 高频词参考（点击复制）</div>
+      <div class="vocab-row"><span class="vocab-chip" onclick="insertVocab(this)">convenient</span><span class="vocab-chip" onclick="insertVocab(this)">vibrant</span><span class="vocab-chip" onclick="insertVocab(this)">peaceful</span><span class="vocab-chip" onclick="insertVocab(this)">residential</span><span class="vocab-chip" onclick="insertVocab(this)">local community</span><span class="vocab-chip" onclick="insertVocab(this)">surroundings</span><span class="vocab-chip" onclick="insertVocab(this)">commute</span></div>
+    </div>
+    <div class="step-nav">
+      <button class="btn btn-ghost" onclick="goStep(7)">← 上一步</button>
+      <div class="step-counter">9 / 9</div>
+      <button class="btn btn-primary" onclick="generateProfile()">生成我的 Profile →</button>
+    </div>
+  </div>
+
+  <div class="output-panel" id="output-panel">
+    <div class="output-top">
+      <h2 id="out-name-title">My IELTS Profile</h2>
+      <p>Part 1 备考卡 · 打印后随时复习</p>
+    </div>
+    <div class="out-cards">
+  <div class="out-card">
+    <div class="out-card-title">👤 基本信息</div>
+      <div class="out-row"><span class="out-key">你的英文名</span><span class="out-val" id="out_basic_name"></span></div>
+      <div class="out-row"><span class="out-key">现在住在哪个城市</span><span class="out-val" id="out_basic_current_city"></span></div>
+      <div class="out-row"><span class="out-key">家乡在哪里（如与现居地不同）</span><span class="out-val" id="out_basic_hometown"></span></div>
+      <div class="out-row"><span class="out-key">现在是学生还是工作</span><span class="out-val" id="out_basic_study_work"></span></div>
+      <div class="out-row"><span class="out-key">专业 / 职业</span><span class="out-val" id="out_basic_major_job"></span></div>
+  </div>
+  <div class="out-card">
+    <div class="out-card-title">🏠 家庭</div>
+      <div class="out-row"><span class="out-key">家里有几口人</span><span class="out-val" id="out_family_family_size"></span></div>
+      <div class="out-row"><span class="out-key">父母是做什么工作的</span><span class="out-val" id="out_family_parent_jobs"></span></div>
+      <div class="out-row"><span class="out-key">有兄弟姐妹吗，简单描述</span><span class="out-val" id="out_family_siblings"></span></div>
+      <div class="out-row"><span class="out-key">用1-2个词描述家庭氛围</span><span class="out-val" id="out_family_family_vibe"></span></div>
+  </div>
+  <div class="out-card">
+    <div class="out-card-title">🎓 印象深刻的老师</div>
+      <div class="out-row"><span class="out-key">这位老师的名字（英文）</span><span class="out-val" id="out_teacher_t_name"></span></div>
+      <div class="out-row"><span class="out-key">教什么科目</span><span class="out-val" id="out_teacher_t_subject"></span></div>
+      <div class="out-row"><span class="out-key">他/她的教学风格</span><span class="out-val" id="out_teacher_t_style"></span></div>
+      <div class="out-row"><span class="out-key">为什么让你印象深刻</span><span class="out-val" id="out_teacher_t_why"></span></div>
+  </div>
+  <div class="out-card">
+    <div class="out-card-title">👫 好朋友</div>
+      <div class="out-row"><span class="out-key">好朋友的英文名</span><span class="out-val" id="out_friend_f_name"></span></div>
+      <div class="out-row"><span class="out-key">你们怎么认识的</span><span class="out-val" id="out_friend_f_met"></span></div>
+      <div class="out-row"><span class="out-key">平时一起做什么</span><span class="out-val" id="out_friend_f_activities"></span></div>
+      <div class="out-row"><span class="out-key">他/她是个什么样的人</span><span class="out-val" id="out_friend_f_personality"></span></div>
+  </div>
+  <div class="out-card">
+    <div class="out-card-title">🧸 童年</div>
+      <div class="out-row"><span class="out-key">在哪里长大，那个地方什么感觉</span><span class="out-val" id="out_childhood_c_place"></span></div>
+      <div class="out-row"><span class="out-key">小时候最喜欢做什么</span><span class="out-val" id="out_childhood_c_activity"></span></div>
+      <div class="out-row"><span class="out-key">最喜欢的玩具或游戏</span><span class="out-val" id="out_childhood_c_toy"></span></div>
+      <div class="out-row"><span class="out-key">一个特别的童年记忆</span><span class="out-val" id="out_childhood_c_memory"></span></div>
+  </div>
+  <div class="out-card">
+    <div class="out-card-title">📚 学校经历</div>
+      <div class="out-row"><span class="out-key">最喜欢的科目，为什么</span><span class="out-val" id="out_school_s_subject"></span></div>
+      <div class="out-row"><span class="out-key">一个难忘的学校经历</span><span class="out-val" id="out_school_s_memory"></span></div>
+      <div class="out-row"><span class="out-key">你的学习习惯</span><span class="out-val" id="out_school_s_habit"></span></div>
+  </div>
+  <div class="out-card">
+    <div class="out-card-title">🎵 日常爱好</div>
+      <div class="out-row"><span class="out-key">最主要的爱好</span><span class="out-val" id="out_hobbies_h_main"></span></div>
+      <div class="out-row"><span class="out-key">有没有运动习惯</span><span class="out-val" id="out_hobbies_h_sport"></span></div>
+      <div class="out-row"><span class="out-key">喜欢什么食物或饮食习惯</span><span class="out-val" id="out_hobbies_h_food"></span></div>
+      <div class="out-row"><span class="out-key">典型的晚上怎么过</span><span class="out-val" id="out_hobbies_h_evening"></span></div>
+  </div>
+  <div class="out-card">
+    <div class="out-card-title">📱 科技使用</div>
+      <div class="out-row"><span class="out-key">手机主要用来做什么</span><span class="out-val" id="out_tech_tech_phone"></span></div>
+      <div class="out-row"><span class="out-key">最常用的 app 或平台</span><span class="out-val" id="out_tech_tech_platform"></span></div>
+      <div class="out-row"><span class="out-key">你怎么看自己的屏幕时间</span><span class="out-val" id="out_tech_tech_view"></span></div>
+  </div>
+  <div class="out-card">
+    <div class="out-card-title">🏘️ 居住环境</div>
+      <div class="out-row"><span class="out-key">你住在什么类型的地方</span><span class="out-val" id="out_home_home_type"></span></div>
+      <div class="out-row"><span class="out-key">最喜欢住所附近的什么</span><span class="out-val" id="out_home_home_fav"></span></div>
+      <div class="out-row"><span class="out-key">附近常去的地方</span><span class="out-val" id="out_home_home_nearby"></span></div>
+      <div class="out-row"><span class="out-key">用1-2个词形容你住的区域</span><span class="out-val" id="out_home_home_vibe"></span></div>
+  </div>
+    </div>
+    <div class="out-actions">
+      <button class="btn-outline" onclick="goStep(0)">← 重新编辑</button>
+      <button class="btn btn-primary" onclick="window.print()">🖨️ 打印 / 保存 PDF</button>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+const STORAGE_KEY = 'beiya_profile_v1';
+let currentStep = 0;
+const totalSteps = 9;
+
+function goStep(n) {
+  document.getElementById('step-' + currentStep).classList.remove('active');
+  document.getElementById('output-panel').classList.remove('active');
+  currentStep = n;
+  const panel = document.getElementById('step-' + n);
+  panel.classList.add('active');
+  updateDots();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function updateDots() {
+  for (let i = 0; i < totalSteps; i++) {
+    const d = document.getElementById('dot-' + i);
+    d.classList.remove('active', 'done');
+    if (i === currentStep) d.classList.add('active');
+    else if (i < currentStep) d.classList.add('done');
+  }
+}
+
+function autoSave() {
+  const data = {};
+  document.querySelectorAll('.field-input').forEach(el => { data[el.id] = el.value; });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function loadSaved() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) return;
+  const data = JSON.parse(raw);
+  Object.keys(data).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = data[id];
+  });
+}
+
+function generateProfile() {
+  autoSave();
+  function set(fid) {
+    const el = document.getElementById(fid);
+    const outEl = document.getElementById('out_' + fid);
+    if (outEl) outEl.textContent = (el && el.value.trim()) ? el.value.trim() : '—';
+  }
+    set("basic_name");
+    set("basic_current_city");
+    set("basic_hometown");
+    set("basic_study_work");
+    set("basic_major_job");
+    set("family_family_size");
+    set("family_parent_jobs");
+    set("family_siblings");
+    set("family_family_vibe");
+    set("teacher_t_name");
+    set("teacher_t_subject");
+    set("teacher_t_style");
+    set("teacher_t_why");
+    set("friend_f_name");
+    set("friend_f_met");
+    set("friend_f_activities");
+    set("friend_f_personality");
+    set("childhood_c_place");
+    set("childhood_c_activity");
+    set("childhood_c_toy");
+    set("childhood_c_memory");
+    set("school_s_subject");
+    set("school_s_memory");
+    set("school_s_habit");
+    set("hobbies_h_main");
+    set("hobbies_h_sport");
+    set("hobbies_h_food");
+    set("hobbies_h_evening");
+    set("tech_tech_phone");
+    set("tech_tech_platform");
+    set("tech_tech_view");
+    set("home_home_type");
+    set("home_home_fav");
+    set("home_home_nearby");
+    set("home_home_vibe");
+  // Update name in title
+  const nameEl = document.getElementById('basic_name');
+  if (nameEl && nameEl.value.trim()) {
+    document.getElementById('out-name-title').textContent = nameEl.value.trim() + "'s IELTS Profile";
+  }
+  document.getElementById('step-' + currentStep).classList.remove('active');
+  document.getElementById('output-panel').classList.add('active');
+  updateDots();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function insertVocab(chip) {
+  navigator.clipboard.writeText(chip.textContent).catch(() => {});
+  chip.classList.add('copied');
+  const orig = chip.textContent;
+  chip.textContent = '✓ copied';
+  setTimeout(() => { chip.classList.remove('copied'); chip.textContent = orig; }, 1200);
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+  loadSaved();
+  goStep(0);
+});
+</script>
+</body>
+</html>
