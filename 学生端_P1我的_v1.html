@@ -45,6 +45,12 @@ a{color:inherit;text-decoration:none;cursor:pointer}
 .progress-wrap{display:flex;align-items:center;gap:6px;margin-top:18px;padding-top:18px;border-top:1px dashed var(--line)}
 .prog-lbl{font-size:11px;color:var(--ink-3);margin-right:4px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
 .step-dot{width:8px;height:8px;border-radius:50%;background:var(--line);transition:all .25s}
+  /* Sample Profile notice & Toast */
+  .sample-notice{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:#FFF8F0;border:1px dashed #FFB74D;border-radius:8px;padding:10px 16px;margin-bottom:12px;font-size:13px;color:var(--ink-2)}
+  .sample-btn{background:var(--beiya);color:#fff;border:none;border-radius:6px;padding:5px 13px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .2s}
+  .sample-btn:hover{background:var(--beiya-dark)}
+  .sample-tip{font-size:11.5px;color:var(--ink-3)}
+  #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#2E7D32;color:#fff;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;z-index:999;box-shadow:0 4px 16px rgba(0,0,0,.18);opacity:0;transition:opacity .4s;pointer-events:none}
 .step-dot.active{background:var(--beiya);transform:scale(1.35)}
 .step-dot.done{background:#A5D6A7}
 /* ── Step panel ── */
@@ -147,6 +153,13 @@ a{color:inherit;text-decoration:none;cursor:pointer}
 <div class="step-dot" id="dot-8"></div>
     </div>
   </div>
+
+<div class="sample-notice" id="sampleNotice">
+  <span>🆕 第一次使用？</span>
+  <button class="sample-btn" onclick="loadSample()">加载示例 Profile →</button>
+  <span class="sample-tip">（虚构学生 Amy 的信息作参考，随时可改成自己的内容）</span>
+</div>
+<div id="toast"></div>
 
 <div class="step-panel" id="step-0">
   <div class="step-hd"><span class="step-icon">👤</span><div><div class="step-title">Your Identity</div><div class="step-sub">Where you live · Where you're from · What you do</div></div></div>
@@ -395,6 +408,69 @@ function insertVocab(chip) {
   const orig = chip.textContent;
   chip.textContent = '✓ copied';
   setTimeout(() => { chip.classList.remove('copied'); chip.textContent = orig; }, 1200);
+}
+
+function loadSample() {
+  const existing = localStorage.getItem(KEY);
+  if (existing && JSON.parse(existing).basic_name) {
+    if (!confirm('加载示例会覆盖你现在已填的内容，确定吗？')) return;
+  }
+  const sample = {
+    basic_name: 'Amy',
+    basic_current_city: 'Jining, a city in Shandong Province',
+    basic_years_here: 'my whole life — born and raised here',
+    basic_hometown: 'same city',
+    basic_study_work: "I'm in high school",
+    basic_major_job: 'Grade 12',
+    home_home_type: 'a newly-built apartment',
+    home_live_with: 'my parents',
+    home_home_fav: 'my bedroom',
+    home_home_nearby: 'a park nearby and a big shopping mall',
+    home_home_vibe: 'quiet and residential',
+    school_s_subject: 'English',
+    school_s_habit: 'study at night · review every day',
+    school_s_future: 'study abroad — maybe the UK or Canada',
+    school_s_memory: 'won an English speech competition in Grade 10',
+    family_family_size: 'just the three of us',
+    family_parent_jobs: 'dad is a civil servant · mum runs a small business',
+    family_siblings: 'only child',
+    family_family_vibe: 'warm and supportive',
+    teacher_t_name: 'Ms. Wang',
+    teacher_t_subject: 'English',
+    teacher_t_style: 'very encouraging',
+    teacher_t_why: 'she believed in me · always had time for us',
+    friend_f_name: 'Lucy',
+    friend_f_met: 'classmates in high school',
+    friend_f_activities: 'go to cafés · walk and talk',
+    friend_f_personality: 'outgoing and fun',
+    childhood_c_place: 'a quiet residential area',
+    childhood_c_activity: 'drawing and painting',
+    childhood_c_toy: 'colouring books',
+    childhood_c_memory: "summers at grandparents'",
+    hobbies_h_main: 'going to the gym',
+    hobbies_h_sport: 'run 3x a week',
+    hobbies_h_food: 'love spicy food · big fan of hot pot',
+    hobbies_h_evening: 'scroll Douyin · watch dramas',
+    tech_tech_phone: 'stay in touch with family · watch short videos',
+    tech_tech_platform: 'WeChat',
+    tech_tech_view: 'probably too much'
+  };
+  Object.keys(sample).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = sample[id];
+  });
+  localStorage.setItem(KEY, JSON.stringify(sample));
+  goStep(0);
+  showToast('示例 Profile 已加载 🎉 — 感受一下填好之后的效果，再改成你自己的内容！');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.style.opacity = '1';
+  clearTimeout(t._to);
+  t._to = setTimeout(() => { t.style.opacity = '0'; }, 4000);
 }
 
 document.addEventListener('DOMContentLoaded', () => { loadSaved(); goStep(0); });
