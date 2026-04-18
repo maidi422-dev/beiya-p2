@@ -515,6 +515,13 @@
   .pm-close{position:absolute;top:14px;right:16px;background:rgba(255,255,255,.2);border:none;color:#fff;width:28px;height:28px;border-radius:50%;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center}
   .pm-close:hover{background:rgba(255,255,255,.35)}
   .pm-top{position:relative}
+  .pm-context{background:#fff8f0;border:1px solid #FFD08040;border-radius:9px;padding:11px 14px;margin-bottom:14px;font-size:12.5px;line-height:1.6}
+  .pm-context-qs{color:#B45309;font-weight:600;margin-bottom:6px;font-size:12px}
+  .pm-context-qs span{background:#FFF3E0;border:1px solid #FFB74D50;border-radius:4px;padding:1px 7px;margin:2px 2px 2px 0;display:inline-block;white-space:nowrap}
+  .pm-context-tip{color:#555;font-size:12px}
+  .pm-context-tip li{margin-bottom:3px}
+  .pm-field label{display:block;font-size:12.5px;font-weight:600;margin-bottom:2px;color:#333}
+  .pm-field-hint{font-size:11.5px;color:#888;margin-bottom:5px;line-height:1.5}
 </style>
 </head>
 <body>
@@ -974,6 +981,26 @@
 
   // ── Profile Modal logic ──
   const PM_TOTAL = 9;
+  const PM_STEPS_META = [
+    { qs:['Where do you live?','Are you a student or working?','What do you study?','Do you like your hometown?'],
+      tips:['给自己取一个英文名，考试时直接用，不用实时翻译中文名','城市不用精确，说 "a city in Shandong" 完全可以','学生/工作状态决定你回答很多题的基本角色定位——先想清楚'] },
+    { qs:['Do you have brothers or sisters?','Do you live with your family?',"What's your family like?"],
+      tips:['家庭氛围是万能素材，童年、假期、习惯等很多题都能用','父母职业用来回答 "What do your parents do?"——记一个就够','具体细节（如"姐姐刚生了孩子"）让回答比"家里四口人"生动很多'] },
+    { qs:['Did you have a favourite teacher?','Has a teacher influenced you?','What subject did you like most?'],
+      tips:['只需要一位老师——真实记忆的细节比编造的更自然流畅','不要只说"她很好"，说一件具体的事：比如"她从不照本宣科"','这个老师的故事在 Part 2 "someone who influenced you" 也直接能用'] },
+    { qs:['Do you have a close friend?','How did you meet your best friend?','What do you do together?'],
+      tips:['给朋友取个英文名（不用是真实英文名），考试时直接说听起来更流畅','"我们怎么认识的"是必考细节——一个具体场景比"我们是同学"生动多了','你们一起做的事可以复用在 "free time / hobbies / weekends" 等题'] },
+    { qs:['What did you do as a child?','Did you have a happy childhood?','What toys did you play with?'],
+      tips:['童年素材用途极广——玩具、游戏、地方可以串起很多道不同的题','不用说"最快乐的童年"——说一个具体的、记得清楚的片段就够','住的地方（城市 vs 农村 / 楼房 vs 院子）决定很多后续描述的细节'] },
+    { qs:['What was your favourite subject?','How do you usually study?','Did you enjoy school?'],
+      tips:['最喜欢的科目一定要说出"为什么"——考官必然追问，现在想好','学习习惯是 Part 1 高频话题，有个固定答案省很多临场反应时间','把具体的老师或同学搭进去，回答立刻从"背诵"变成"讲故事"'] },
+    { qs:['What do you do in your free time?','Do you play sports?','What kind of food do you like?','What do you do in the evenings?'],
+      tips:['爱好是 Part 1 出现频率最高的话题——一定要有 1-2 个能说出细节的','运动不用很厉害，"I try to run twice a week" 已经非常自然','食物偏好经常出现在节日、家庭聚餐、周末活动等场景描述里'] },
+    { qs:['How often do you use your phone?','What apps do you use?','Do you think people rely too much on phones?'],
+      tips:['手机/科技是近年超高频题，必须有稳定立场 + 至少一个具体例子','"用得太多但在改"是最真实的答案，但要说出"怎么改、改了什么"','常用平台要说出"用来做什么"，不能只说名字'] },
+    { qs:['Do you live in a house or apartment?','Do you like your neighbourhood?','Is there a park near you?','What do you like about where you live?'],
+      tips:['住所类型决定很多细节——有没有阳台、院子、电梯，考官会追问','附近有什么地方是考官最常追问的细节，现在想好 2-3 个具体场所','整体氛围（热闹/安静/新开发）可以直接用来比较城市和乡村的题'] }
+  ];
   let pmStep = 0;
   const PM_FIELDS = [
     ['pm_basic_name','pm_basic_current_city','pm_basic_hometown','pm_basic_study_work','pm_basic_major_job'],
@@ -1012,6 +1039,16 @@
     document.getElementById('pmBack').style.display=pmStep>0?'':'none';
     document.getElementById('pmNext').style.display=pmStep<PM_TOTAL-1?'':'none';
     document.getElementById('pmSaveBtn').style.display=pmStep===PM_TOTAL-1?'':'none';
+    // Inject step guidance
+    const meta=PM_STEPS_META[pmStep];
+    const stepEl=document.getElementById('pms-'+pmStep);
+    let ctxEl=stepEl.querySelector('.pm-context');
+    if(!ctxEl){
+      ctxEl=document.createElement('div');
+      ctxEl.className='pm-context';
+      stepEl.insertBefore(ctxEl,stepEl.querySelector('.pm-fields'));
+    }
+    ctxEl.innerHTML=`<div class="pm-context-qs">📌 这一步帮你准备的考题：${meta.qs.map(q=>`<span>${q}</span>`).join('')}</div><ul class="pm-context-tip">${meta.tips.map(t=>`<li>💡 ${t}</li>`).join('')}</ul>`;
   }
   function pmNav(dir){
     pmSave();
