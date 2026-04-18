@@ -1035,7 +1035,7 @@
     document.querySelectorAll('.pm-step').forEach((s,i)=>s.classList.toggle('active',i===pmStep));
     const dots=document.getElementById('pmDots');
     dots.innerHTML=Array.from({length:PM_TOTAL},(_,i)=>`<div class="pm-dot${i===pmStep?' active':i<pmStep?' done':''}"></div>`).join('');
-    document.getElementById('pmNavInfo').textContent=`第 ${pmStep+1} 步 / 共 ${PM_TOTAL} 步`;
+    document.getElementById('pmNavInfo').textContent=`Step ${pmStep+1} of ${PM_TOTAL}`;
     document.getElementById('pmBack').style.display=pmStep>0?'':'none';
     document.getElementById('pmNext').style.display=pmStep<PM_TOTAL-1?'':'none';
     document.getElementById('pmSaveBtn').style.display=pmStep===PM_TOTAL-1?'':'none';
@@ -1138,98 +1138,98 @@
   <div class="pm-box">
     <div class="pm-top">
       <button class="pm-close" onclick="closeProfModal()">✕</button>
-      <h2>📋 My Profile — Part 1 备考卡</h2>
-      <p>9 步完成个人画像，一次性覆盖绝大多数稳定题素材</p>
+      <h2>📋 My Profile — Build Your Story in 9 Steps</h2>
+      <p>Fill this in once — covers almost all Part 1 stable topics</p>
       <div class="pm-dots" id="pmDots"></div>
     </div>
     <div class="pm-body" id="pmBody">
       <div class="pm-step active" id="pms-0">
-        <div class="pm-step-hd"><span class="pm-step-icon">👤</span><div><div class="pm-step-title">基本信息</div><div class="pm-step-sub">Work / Study · Hometown · Where you live</div></div></div>
+        <div class="pm-step-hd"><span class="pm-step-icon">👤</span><div><div class="pm-step-title">Basic Info</div><div class="pm-step-sub">Work / Study · Hometown · Where you live</div></div></div>
         <div class="pm-fields">
-          <div class="pm-field"><label>你的英文名</label><input id="pm_basic_name" placeholder="e.g. Tracy / Amy / Jason" oninput="pmSave()"></div>
-          <div class="pm-field"><label>现在住在哪个城市</label><input id="pm_basic_current_city" placeholder="e.g. Jining, Shandong" oninput="pmSave()"></div>
-          <div class="pm-field"><label>家乡（如与现居地不同）</label><input id="pm_basic_hometown" placeholder="e.g. a small town in Henan" oninput="pmSave()"></div>
-          <div class="pm-field"><label>现在是学生还是工作</label><input id="pm_basic_study_work" placeholder="e.g. I'm a university student" oninput="pmSave()"></div>
-          <div class="pm-field"><label>专业 / 职业</label><input id="pm_basic_major_job" placeholder="e.g. Business Administration" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Your English name</label><input id="pm_basic_name" placeholder="e.g. Tracy / Amy / Jason" oninput="pmSave()"></div>
+          <div class="pm-field"><label>City you currently live in</label><input id="pm_basic_current_city" placeholder="e.g. Jining, Shandong" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Hometown (if different)</label><input id="pm_basic_hometown" placeholder="e.g. a small town in Henan" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Student or working?</label><input id="pm_basic_study_work" placeholder="e.g. I'm a university student" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Major / Job</label><input id="pm_basic_major_job" placeholder="e.g. Business Administration" oninput="pmSave()"></div>
         </div>
       </div>
       <div class="pm-step" id="pms-1">
-        <div class="pm-step-hd"><span class="pm-step-icon">👨‍👩‍👧</span><div><div class="pm-step-title">家庭</div><div class="pm-step-sub">Family size · Parents · Siblings</div></div></div>
+        <div class="pm-step-hd"><span class="pm-step-icon">👨‍👩‍👧</span><div><div class="pm-step-title">Family</div><div class="pm-step-sub">Family size · Parents · Siblings</div></div></div>
         <div class="pm-fields">
-          <div class="pm-field"><label>家里有几口人</label><input id="pm_family_family_size" placeholder="e.g. 4 — my parents, my sister and me" oninput="pmSave()"></div>
-          <div class="pm-field"><label>父母的职业</label><input id="pm_family_parent_jobs" placeholder="e.g. dad is a teacher, mum runs a small business" oninput="pmSave()"></div>
-          <div class="pm-field"><label>兄弟姐妹情况</label><input id="pm_family_siblings" placeholder="e.g. older sister who just had a baby / only child" oninput="pmSave()"></div>
-          <div class="pm-field"><label>家庭氛围</label><input id="pm_family_family_vibe" placeholder="e.g. warm and supportive / a bit chaotic but fun" oninput="pmSave()"></div>
+          <div class="pm-field"><label>How many people in your family?</label><input id="pm_family_family_size" placeholder="e.g. 4 — my parents, my sister and me" oninput="pmSave()"></div>
+          <div class="pm-field"><label>What do your parents do?</label><input id="pm_family_parent_jobs" placeholder="e.g. dad is a teacher, mum runs a small business" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Any siblings?</label><input id="pm_family_siblings" placeholder="e.g. older sister who just had a baby / only child" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Family atmosphere</label><input id="pm_family_family_vibe" placeholder="e.g. warm and supportive / a bit chaotic but fun" oninput="pmSave()"></div>
         </div>
       </div>
       <div class="pm-step" id="pms-2">
-        <div class="pm-step-hd"><span class="pm-step-icon">🍎</span><div><div class="pm-step-title">印象深刻的老师</div><div class="pm-step-sub">Memorable teacher</div></div></div>
+        <div class="pm-step-hd"><span class="pm-step-icon">🍎</span><div><div class="pm-step-title">A Teacher Who Made an Impact</div><div class="pm-step-sub">Memorable teacher</div></div></div>
         <div class="pm-fields">
-          <div class="pm-field"><label>老师的名字</label><input id="pm_teacher_t_name" placeholder="e.g. Ms. Liu / Mr. Zhang" oninput="pmSave()"></div>
-          <div class="pm-field"><label>教什么科目</label><input id="pm_teacher_t_subject" placeholder="e.g. English / Maths / Chinese literature" oninput="pmSave()"></div>
-          <div class="pm-field"><label>教学风格</label><input id="pm_teacher_t_style" placeholder="e.g. strict but fair / very encouraging" oninput="pmSave()"></div>
-          <div class="pm-field"><label>为什么印象深刻</label><input id="pm_teacher_t_why" placeholder="e.g. she believed in me / he made it enjoyable" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Teacher's name</label><input id="pm_teacher_t_name" placeholder="e.g. Ms. Liu / Mr. Zhang" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Subject they taught</label><input id="pm_teacher_t_subject" placeholder="e.g. English / Maths / Chinese literature" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Teaching style</label><input id="pm_teacher_t_style" placeholder="e.g. strict but fair / very encouraging" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Why they made an impression</label><input id="pm_teacher_t_why" placeholder="e.g. she believed in me / he made it enjoyable" oninput="pmSave()"></div>
         </div>
       </div>
       <div class="pm-step" id="pms-3">
-        <div class="pm-step-hd"><span class="pm-step-icon">👫</span><div><div class="pm-step-title">好朋友</div><div class="pm-step-sub">Close friend</div></div></div>
+        <div class="pm-step-hd"><span class="pm-step-icon">👫</span><div><div class="pm-step-title">Best Friend</div><div class="pm-step-sub">Close friend</div></div></div>
         <div class="pm-fields">
-          <div class="pm-field"><label>朋友的名字</label><input id="pm_friend_f_name" placeholder="e.g. Lucy / Mike / Sarah" oninput="pmSave()"></div>
-          <div class="pm-field"><label>怎么认识的</label><input id="pm_friend_f_met" placeholder="e.g. classmates in high school" oninput="pmSave()"></div>
-          <div class="pm-field"><label>一起做什么</label><input id="pm_friend_f_activities" placeholder="e.g. go to cafés / watch movies / work out" oninput="pmSave()"></div>
-          <div class="pm-field"><label>朋友的性格</label><input id="pm_friend_f_personality" placeholder="e.g. outgoing and adventurous" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Friend's name</label><input id="pm_friend_f_name" placeholder="e.g. Lucy / Mike / Sarah" oninput="pmSave()"></div>
+          <div class="pm-field"><label>How did you meet?</label><input id="pm_friend_f_met" placeholder="e.g. classmates in high school" oninput="pmSave()"></div>
+          <div class="pm-field"><label>What do you do together?</label><input id="pm_friend_f_activities" placeholder="e.g. go to cafés / watch movies / work out" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Their personality</label><input id="pm_friend_f_personality" placeholder="e.g. outgoing and adventurous" oninput="pmSave()"></div>
         </div>
       </div>
       <div class="pm-step" id="pms-4">
-        <div class="pm-step-hd"><span class="pm-step-icon">🧒</span><div><div class="pm-step-title">童年</div><div class="pm-step-sub">Childhood memories</div></div></div>
+        <div class="pm-step-hd"><span class="pm-step-icon">🧒</span><div><div class="pm-step-title">Childhood</div><div class="pm-step-sub">Childhood memories</div></div></div>
         <div class="pm-fields">
-          <div class="pm-field"><label>小时候住在哪种地方</label><input id="pm_childhood_c_place" placeholder="e.g. quiet residential area / small town" oninput="pmSave()"></div>
-          <div class="pm-field"><label>小时候常做的事</label><input id="pm_childhood_c_activity" placeholder="e.g. riding bikes / drawing / playing outside" oninput="pmSave()"></div>
-          <div class="pm-field"><label>最喜欢的玩具/游戏</label><input id="pm_childhood_c_toy" placeholder="e.g. LEGO / badminton / card games" oninput="pmSave()"></div>
-          <div class="pm-field"><label>最难忘的童年记忆</label><input id="pm_childhood_c_memory" placeholder="e.g. summers at grandparents' / winning a competition" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Where you grew up, and what it was like</label><input id="pm_childhood_c_place" placeholder="e.g. quiet residential area / small town" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Favourite activity as a child</label><input id="pm_childhood_c_activity" placeholder="e.g. riding bikes / drawing / playing outside" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Favourite toy or game</label><input id="pm_childhood_c_toy" placeholder="e.g. LEGO / badminton / card games" oninput="pmSave()"></div>
+          <div class="pm-field"><label>A special childhood memory</label><input id="pm_childhood_c_memory" placeholder="e.g. summers at grandparents' / winning a competition" oninput="pmSave()"></div>
         </div>
       </div>
       <div class="pm-step" id="pms-5">
-        <div class="pm-step-hd"><span class="pm-step-icon">🏫</span><div><div class="pm-step-title">学校经历</div><div class="pm-step-sub">School life</div></div></div>
+        <div class="pm-step-hd"><span class="pm-step-icon">🏫</span><div><div class="pm-step-title">School Experiences</div><div class="pm-step-sub">School life</div></div></div>
         <div class="pm-fields">
-          <div class="pm-field"><label>最喜欢的科目及原因</label><input id="pm_school_s_subject" placeholder="e.g. English — loved reading / Art — a break from exams" oninput="pmSave()"></div>
-          <div class="pm-field"><label>印象深刻的学校经历</label><input id="pm_school_s_memory" placeholder="e.g. school trip / class performance / a proud project" oninput="pmSave()"></div>
-          <div class="pm-field"><label>学习习惯</label><input id="pm_school_s_habit" placeholder="e.g. study at night / make detailed notes" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Favourite subject, and why</label><input id="pm_school_s_subject" placeholder="e.g. English — loved reading / Art — a break from exams" oninput="pmSave()"></div>
+          <div class="pm-field"><label>A memorable school experience</label><input id="pm_school_s_memory" placeholder="e.g. school trip / class performance / a proud project" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Your study habits</label><input id="pm_school_s_habit" placeholder="e.g. study at night / make detailed notes" oninput="pmSave()"></div>
         </div>
       </div>
       <div class="pm-step" id="pms-6">
-        <div class="pm-step-hd"><span class="pm-step-icon">🎯</span><div><div class="pm-step-title">日常爱好</div><div class="pm-step-sub">Hobbies & lifestyle</div></div></div>
+        <div class="pm-step-hd"><span class="pm-step-icon">🎯</span><div><div class="pm-step-title">Hobbies &amp; Free Time</div><div class="pm-step-sub">Hobbies &amp; lifestyle</div></div></div>
         <div class="pm-fields">
-          <div class="pm-field"><label>主要爱好</label><input id="pm_hobbies_h_main" placeholder="e.g. photography / cooking / reading / gym" oninput="pmSave()"></div>
-          <div class="pm-field"><label>运动习惯</label><input id="pm_hobbies_h_sport" placeholder="e.g. run 3x a week / badminton with friends" oninput="pmSave()"></div>
-          <div class="pm-field"><label>饮食偏好</label><input id="pm_hobbies_h_food" placeholder="e.g. love spicy food / big fan of hot pot" oninput="pmSave()"></div>
-          <div class="pm-field"><label>下班/下课后通常做什么</label><input id="pm_hobbies_h_evening" placeholder="e.g. scroll Douyin / read / cook / call family" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Main hobby</label><input id="pm_hobbies_h_main" placeholder="e.g. photography / cooking / reading / gym" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Any sports or exercise habits?</label><input id="pm_hobbies_h_sport" placeholder="e.g. run 3x a week / badminton with friends" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Favourite food or eating habits</label><input id="pm_hobbies_h_food" placeholder="e.g. love spicy food / big fan of hot pot" oninput="pmSave()"></div>
+          <div class="pm-field"><label>How you typically spend your evenings</label><input id="pm_hobbies_h_evening" placeholder="e.g. scroll Douyin / read / cook / call family" oninput="pmSave()"></div>
         </div>
       </div>
       <div class="pm-step" id="pms-7">
-        <div class="pm-step-hd"><span class="pm-step-icon">📱</span><div><div class="pm-step-title">科技使用</div><div class="pm-step-sub">Technology habits</div></div></div>
+        <div class="pm-step-hd"><span class="pm-step-icon">📱</span><div><div class="pm-step-title">Technology</div><div class="pm-step-sub">Technology habits</div></div></div>
         <div class="pm-fields">
-          <div class="pm-field"><label>用手机主要做什么</label><input id="pm_tech_tech_phone" placeholder="e.g. work emails / short videos / stay in touch" oninput="pmSave()"></div>
-          <div class="pm-field"><label>最常用的平台/APP</label><input id="pm_tech_tech_platform" placeholder="e.g. WeChat / Douyin / Xiaohongshu" oninput="pmSave()"></div>
-          <div class="pm-field"><label>你对手机使用的看法</label><input id="pm_tech_tech_view" placeholder="e.g. probably too much / I try to limit it" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Main uses for your phone</label><input id="pm_tech_tech_phone" placeholder="e.g. work emails / short videos / stay in touch" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Most-used app or platform</label><input id="pm_tech_tech_platform" placeholder="e.g. WeChat / Douyin / Xiaohongshu" oninput="pmSave()"></div>
+          <div class="pm-field"><label>How you feel about your screen time</label><input id="pm_tech_tech_view" placeholder="e.g. probably too much / I try to limit it" oninput="pmSave()"></div>
         </div>
       </div>
       <div class="pm-step" id="pms-8">
-        <div class="pm-step-hd"><span class="pm-step-icon">🏠</span><div><div class="pm-step-title">居住环境</div><div class="pm-step-sub">Home & neighbourhood</div></div></div>
+        <div class="pm-step-hd"><span class="pm-step-icon">🏠</span><div><div class="pm-step-title">Your Home</div><div class="pm-step-sub">Home &amp; neighbourhood</div></div></div>
         <div class="pm-fields">
-          <div class="pm-field"><label>住公寓还是房子</label><input id="pm_home_home_type" placeholder="e.g. apartment in the city / house in a quiet area" oninput="pmSave()"></div>
-          <div class="pm-field"><label>你喜欢住这里的原因</label><input id="pm_home_home_fav" placeholder="e.g. there's a park / super convenient" oninput="pmSave()"></div>
-          <div class="pm-field"><label>附近有什么</label><input id="pm_home_home_nearby" placeholder="e.g. local gym / night market / a café I really like" oninput="pmSave()"></div>
-          <div class="pm-field"><label>整体氛围</label><input id="pm_home_home_vibe" placeholder="e.g. lively and modern / quiet and residential" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Type of place you live in</label><input id="pm_home_home_type" placeholder="e.g. apartment in the city / house in a quiet area" oninput="pmSave()"></div>
+          <div class="pm-field"><label>What you like most about your neighbourhood</label><input id="pm_home_home_fav" placeholder="e.g. there's a park / super convenient" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Places you often go nearby</label><input id="pm_home_home_nearby" placeholder="e.g. local gym / night market / a café I really like" oninput="pmSave()"></div>
+          <div class="pm-field"><label>Area vibe (1-2 words)</label><input id="pm_home_home_vibe" placeholder="e.g. lively and modern / quiet and residential" oninput="pmSave()"></div>
         </div>
       </div>
     </div>
     <div class="pm-nav">
-      <div class="pm-nav-info" id="pmNavInfo">第 1 步 / 共 9 步</div>
+      <div class="pm-nav-info" id="pmNavInfo">Step 1 of 9</div>
       <div class="pm-btn-row">
-        <button class="pm-btn pm-btn-back" id="pmBack" onclick="pmNav(-1)" style="display:none">← 上一步</button>
-        <button class="pm-btn pm-btn-next" id="pmNext" onclick="pmNav(1)">下一步 →</button>
-        <button class="pm-btn pm-btn-save" id="pmSaveBtn" style="display:none" onclick="pmFinish()">✅ 保存完成</button>
+        <button class="pm-btn pm-btn-back" id="pmBack" onclick="pmNav(-1)" style="display:none">← Back</button>
+        <button class="pm-btn pm-btn-next" id="pmNext" onclick="pmNav(1)">Next →</button>
+        <button class="pm-btn pm-btn-save" id="pmSaveBtn" style="display:none" onclick="pmFinish()">✅ Save &amp; Done</button>
       </div>
     </div>
   </div>
