@@ -464,6 +464,18 @@
     .hero-title{font-size:22px}
     .egrid,.cardgrid{grid-template-columns:1fr}
   }
+  /* ── Profile integration ── */
+  .prof-banner{display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:10px;margin-bottom:16px;font-size:13px;line-height:1.5}
+  .prof-banner.empty{background:#FFF3E0;border:1px solid #FFB74D40;color:#B45309}
+  .prof-banner.filled{background:#E8F5E9;border:1px solid #66BB6A40;color:#2E7D32}
+  .prof-banner a{font-weight:600;color:inherit;text-decoration:underline;cursor:pointer}
+  .prof-scaffold{display:none;background:var(--beiya-soft);border:1px solid rgba(192,57,43,.2);border-radius:8px;padding:12px 14px;margin-top:8px;font-size:12.5px;line-height:1.7}
+  .prof-scaffold.open{display:block}
+  .prof-scaffold-title{font-weight:700;color:var(--beiya);margin-bottom:6px;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+  .prof-scaffold ul{margin:0;padding-left:16px;color:#333}
+  .prof-scaffold ul li{margin-bottom:3px}
+  .prof-btn{display:inline-flex;align-items:center;gap:5px;margin-top:8px;padding:5px 11px;border-radius:6px;border:1.5px solid var(--beiya);background:#fff;color:var(--beiya);font-size:12px;font-weight:600;cursor:pointer;transition:background .15s}
+  .prof-btn:hover{background:var(--beiya-soft)}
 </style>
 </head>
 <body>
@@ -636,6 +648,7 @@
 
   // ─── 稳定题视图 ───
   function renderStable(search, cyc){
+    const _prof = loadProfile();
     const all = (D.electives||[]);
     // 先算各 cycle 下的总数（供 pills 显示计数）
     const cnt = {all:all.length, retained:0, jan_apr_only:0, may_aug_new:0};
@@ -717,6 +730,7 @@
             <div class="ec-q">${e.q_en||''}</div>
             ${e.tip?`<div class="ec-tip"><b>💡 Tracy 建议：</b>${e.tip}</div>`:''}
             ${chips.length?`<div class="ec-cards">${chips.join('')}</div>`:''}
+            ${profScaffoldHtml(t,_prof)}
             ${expandBtn}
             ${detail}
           </div>`;
@@ -730,7 +744,7 @@
           <div class="egrid">${cards}</div>
         </section>`;
     }).join('');
-    return pills + body;
+    return renderProfileBanner(_prof) + pills + body;
   }
 
   // ─── 动态题视图（4 技巧介绍 + 真实数据渲染）───
@@ -918,6 +932,63 @@
   });
   window.addEventListener('hashchange', render);
   document.getElementById('searchBox').addEventListener('input', render);
+
+  // ── Profile integration ──
+  function loadProfile(){
+    try{return JSON.parse(localStorage.getItem('beiya_profile_v1')||'null');}catch(e){return null;}
+  }
+  function renderProfileBanner(prof){
+    if(!prof||!prof.basic_name){
+      return `<div class="prof-banner empty">👤 <span>还没填 <b>My Profile</b>？<a href="学生Profile_v1.html">点这里 9 步完成</a>，填完后绝大多数稳定题都能用你自己的素材直接作答。</span></div>`;
+    }
+    return `<div class="prof-banner filled">✅ <span><b>${escHtml(prof.basic_name)}</b> 的 Profile 已就位 — 每道题点「👤 用我的素材」即可生成个性化答题骨架。<a href="学生Profile_v1.html">修改 Profile →</a></span></div>`;
+  }
+  const GROUP_FIELDS={
+    'School':p=>[
+      p.school_s_subject&&`最喜欢的科目：${p.school_s_subject}`,
+      p.school_s_memory&&`印象深刻的学校经历：${p.school_s_memory}`,
+      p.school_s_habit&&`学习习惯：${p.school_s_habit}`
+    ].filter(Boolean),
+    'Places':p=>[
+      p.basic_current_city&&`你现在住在：${p.basic_current_city}`,
+      p.basic_hometown&&`家乡：${p.basic_hometown}`,
+      p.home_home_type&&`你的住所：${p.home_home_type}`,
+      p.home_home_nearby&&`附近有：${p.home_home_nearby}`,
+      p.home_home_fav&&`你喜欢这里因为：${p.home_home_fav}`
+    ].filter(Boolean),
+    'Tech':p=>[
+      p.tech_tech_phone&&`你用手机主要做：${p.tech_tech_phone}`,
+      p.tech_tech_platform&&`常用的平台：${p.tech_tech_platform}`,
+      p.tech_tech_view&&`你对此的看法：${p.tech_tech_view}`
+    ].filter(Boolean),
+    'Future':p=>[
+      p.basic_study_work&&`你现在：${p.basic_study_work}`,
+      p.basic_major_job&&`专业/职业：${p.basic_major_job}`
+    ].filter(Boolean),
+    'Children':p=>[
+      p.childhood_c_place&&`你小时候住在：${p.childhood_c_place}`,
+      p.childhood_c_activity&&`小时候常做的事：${p.childhood_c_activity}`,
+      p.childhood_c_toy&&`最喜欢的玩具：${p.childhood_c_toy}`,
+      p.childhood_c_memory&&`印象深刻的记忆：${p.childhood_c_memory}`
+    ].filter(Boolean),
+    'P3-like':p=>[
+      p.hobbies_h_main&&`你的爱好：${p.hobbies_h_main}`,
+      p.hobbies_h_sport&&`运动习惯：${p.hobbies_h_sport}`,
+      p.friend_f_name&&`好朋友叫：${p.friend_f_name}`,
+      p.family_family_vibe&&`家庭氛围：${p.family_family_vibe}`
+    ].filter(Boolean),
+  };
+  function profScaffoldHtml(group, prof){
+    if(!prof) return '';
+    const fn=GROUP_FIELDS[group]||(p=>[
+      p.hobbies_h_main&&`你的爱好：${p.hobbies_h_main}`,
+      p.basic_current_city&&`你住在：${p.basic_current_city}`
+    ].filter(Boolean));
+    const items=fn(prof);
+    if(!items.length) return '';
+    const uid='ps_'+Math.random().toString(36).slice(2,8);
+    return `<button class="prof-btn" onclick="var d=document.getElementById('${uid}');d.classList.toggle('open')">👤 用我的素材</button><div class="prof-scaffold" id="${uid}"><div class="prof-scaffold-title">你的答题素材</div><ul>${items.map(i=>`<li>${escHtml(i)}</li>`).join('')}</ul></div>`;
+  }
 
   render();
 </script>
