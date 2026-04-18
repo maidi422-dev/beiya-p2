@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>北雅国际教育 · 雅思口语 Part 3 · 论述宇宙</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --beiya:#C0392B;--beiya-dark:#9B2C20;--beiya-soft:#FDECEA;
+  --gold:#B8894A;--gold-soft:#FBF4EA;
+  --ink:#1E1E22;--ink-2:#4A4A52;--ink-3:#8A8A92;
+  --line:#E8E8EC;--bg:#FAFAFA;--white:#FFFFFF;
+  --green:#2E7D32;--green-soft:#E8F5E9;--green-bd:#A5D6A7;
+  --purple:#6B4E9C;--purple-soft:#F3EEFB;--purple-bd:#D8CBEA;
+  --blue:#2E3B6B;--blue-soft:#EEF0F8;
+  --p3:#2E3B6B;--p3-soft:#EEF0F8;--p3-dark:#1E2A52;
+  --radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter','PingFang SC',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none;cursor:pointer}
+/* ── Topbar ── */
+.topbar{position:sticky;top:0;z-index:40;background:var(--white);border-bottom:1px solid var(--line);padding:14px 24px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:var(--beiya);white-space:nowrap}
+.brand-mark{width:28px;height:28px;background:var(--beiya);color:#fff;display:flex;align-items:center;justify-content:center;border-radius:4px;font-family:'Noto Serif SC',serif;font-size:14px}
+.part-sw{display:flex;gap:2px;background:#F4F4F6;padding:3px;border-radius:22px;margin-left:4px;flex-shrink:0}
+.part-sw a{padding:6px 14px;border-radius:18px;font-size:12.5px;color:var(--ink-3);font-weight:600;transition:all .15s;white-space:nowrap}
+.part-sw a:hover:not(.disabled):not(.active){color:var(--beiya)}
+.part-sw a.active{background:var(--p3);color:#fff;box-shadow:0 2px 6px rgba(46,59,107,.2)}
+.part-sw a.disabled{color:#C5C5CD;cursor:not-allowed;pointer-events:none}
+.nav{display:flex;gap:4px;margin-left:10px;flex:1}
+.nav a{padding:7px 14px;border-radius:6px;font-size:13px;color:var(--ink-2);font-weight:500;white-space:nowrap}
+.nav a:hover:not(.disabled){background:var(--p3-soft);color:var(--p3)}
+.nav a.active{background:var(--p3);color:#fff}
+/* ── Layout ── */
+.wrap{max-width:1100px;margin:0 auto;padding:32px 24px 80px}
+/* ── Hero ── */
+.hero{background:linear-gradient(135deg,#fff 0%,var(--p3-soft) 100%);border:1px solid var(--line);border-radius:16px;padding:32px 36px;margin-bottom:24px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:220px;height:220px;background:radial-gradient(circle,rgba(46,59,107,.1) 0%,transparent 70%)}
+.hero-eyebrow{font-size:12px;letter-spacing:2px;color:var(--p3);font-weight:600;text-transform:uppercase;margin-bottom:10px}
+.hero-title{font-family:'Noto Serif SC',serif;font-size:28px;font-weight:700;color:var(--ink);margin-bottom:10px;position:relative;z-index:2}
+.hero-title em{color:var(--p3);font-style:normal}
+.hero-sub{font-size:14px;color:var(--ink-2);line-height:1.8;position:relative;z-index:2;max-width:700px}
+.hero-stats{display:flex;gap:28px;margin-top:20px;padding-top:20px;border-top:1px dashed var(--line);flex-wrap:wrap}
+.stat{display:flex;flex-direction:column;gap:2px}
+.stat-num{font-family:'Noto Serif SC',serif;font-size:22px;font-weight:700;color:var(--p3);line-height:1}
+.stat-lbl{font-size:11.5px;color:var(--ink-3);margin-top:3px;letter-spacing:.5px}
+/* ── Sub-tabs ── */
+.sub-tabs{display:flex;gap:4px;background:#F4F4F6;padding:4px;border-radius:14px;margin-bottom:22px;width:fit-content}
+.sub-tabs a{padding:9px 18px;border-radius:10px;font-size:13px;font-weight:600;color:var(--ink-2);display:flex;align-items:center;gap:6px;transition:all .15s;border:1px solid transparent;cursor:pointer}
+.sub-tabs a:hover:not(.active){color:var(--p3)}
+.sub-tabs a.active{background:#fff;color:var(--p3);box-shadow:0 2px 6px rgba(0,0,0,.05);border-color:var(--p3-soft)}
+/* ── Method cards ── */
+.method-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-bottom:28px}
+.method-card{background:var(--white);border:1.5px solid var(--line);border-radius:var(--radius);padding:20px;transition:box-shadow .2s}
+.method-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.07)}
+.mc-icon{font-size:28px;margin-bottom:10px}
+.mc-title{font-size:15px;font-weight:700;margin-bottom:6px;color:var(--ink)}
+.mc-desc{font-size:13px;color:var(--ink-2);line-height:1.7}
+.mc-example{margin-top:10px;padding:10px 12px;background:var(--p3-soft);border-radius:8px;font-size:12.5px;color:var(--p3);line-height:1.8;font-family:monospace}
+/* ── Notation guide ── */
+.notation-box{background:var(--white);border:1.5px solid var(--line);border-radius:var(--radius);padding:20px 24px;margin-bottom:24px}
+.notation-title{font-size:14px;font-weight:700;color:var(--p3);margin-bottom:12px}
+.notation-row{display:flex;gap:12px;align-items:baseline;margin-bottom:8px;font-size:13.5px}
+.notation-sym{font-weight:700;color:var(--p3);min-width:36px;font-family:monospace;font-size:15px}
+.notation-desc{color:var(--ink-2)}
+/* ── Filter buttons ── */
+.filter-bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.flt-btn{border:1.5px solid var(--line);background:#fff;border-radius:20px;padding:6px 14px;font-size:12.5px;font-weight:600;color:var(--ink-3);cursor:pointer;transition:all .15s;font-family:inherit;white-space:nowrap}
+.flt-btn:hover{border-color:var(--tc,var(--p3));color:var(--tc,var(--p3));background:var(--ts,var(--p3-soft))}
+.flt-btn.active{background:var(--tc,var(--p3));color:#fff;border-color:var(--tc,var(--p3))}
+.flt-btn.active .fc{background:rgba(255,255,255,.25);color:#fff}
+.flt-btn .fc{background:#F0F0F4;color:var(--ink-3);border-radius:10px;padding:1px 6px;font-size:11px;font-weight:600;margin-left:4px}
+/* ── Question grid ── */
+.q-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.q-card{background:var(--white);border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;transition:all .2s;display:flex;flex-direction:column;gap:8px}
+.q-card:hover{border-color:#bbb;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.q-card.hidden{display:none}
+.q-num{font-size:10.5px;font-weight:700;color:var(--ink-3);letter-spacing:.5px}
+.q-tag{font-size:11px;font-weight:600;border-radius:20px;padding:2px 9px;border:1px solid;width:fit-content}
+.q-text{font-size:13.5px;color:var(--ink);line-height:1.6;font-weight:500}
+/* ── Keyword reference cards ── */
+.kw-grid{display:flex;flex-direction:column;gap:14px}
+.kw-card{background:var(--white);border:1.5px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:box-shadow .2s}
+.kw-card:hover{box-shadow:0 4px 14px rgba(0,0,0,.07)}
+.kw-card.hidden{display:none}
+.kw-q{padding:12px 18px;font-size:14px;font-weight:600;color:var(--ink);border-bottom:1px solid var(--line);background:var(--p3-soft)}
+.kw-body{padding:14px 18px;font-size:13px;color:var(--ink-2);line-height:2;font-family:'Courier New',monospace;white-space:pre-line}
+/* ── Tab panels ── */
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+/* ── Responsive ── */
+@media(max-width:760px){
+  .hero{padding:20px}
+  .hero-title{font-size:22px}
+  .method-grid{grid-template-columns:1fr}
+  .q-grid{grid-template-columns:1fr}
+  .topbar{flex-wrap:wrap;padding:10px 14px;gap:8px}
+  .nav{order:3;flex:1 1 100%;overflow-x:auto;white-space:nowrap;padding:4px 0;border-top:1px solid var(--line);margin-top:6px;scrollbar-width:none}
+  .nav::-webkit-scrollbar{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><div class="brand-mark">雅</div>北雅 · IELTS Speaking</div>
+  <div class="part-sw">
+    <a href="学生端_P1必考题_v1.html">Part 1</a>
+    <a href="学生端_素材宇宙首页_v1.html">Part 2</a>
+    <a class="active" href="学生端_P3首页_v1.html">Part 3</a>
+  </div>
+  <div class="nav">
+    <a class="active" href="学生端_P3首页_v1.html">🧠 论述宇宙</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="hero-eyebrow">PART 3 · 论述宇宙</div>
+    <h1 class="hero-title">抽象问题不抽象 — <em>找到隐藏层</em>，答出真实感</h1>
+    <p class="hero-sub">Part 3 不需要"大道理"，只需要一个真实的故事 + 一个对比 + 一句展望。<br>这里有 <strong>98 道 Tier 1 题</strong>，每道题都配好了关键词框架，看着说就够了。</p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">214</span><span class="stat-lbl">Part 3 总题量</span></div>
+      <div class="stat"><span class="stat-num">98</span><span class="stat-lbl">Tier 1 重点题</span></div>
+      <div class="stat"><span class="stat-num">37</span><span class="stat-lbl">关键词框架</span></div>
+      <div class="stat"><span class="stat-num">6</span><span class="stat-lbl">话题分类</span></div>
+    </div>
+  </div>
+
+  <div class="sub-tabs">
+    <a class="active" onclick="switchTab('method',this)">🎯 方法论</a>
+    <a onclick="switchTab('qbank',this)">📋 Tier 1 题库</a>
+    <a onclick="switchTab('kwref',this)">🔑 关键词参考</a>
+  </div>
+
+  <!-- ── TAB 1: 方法论 ── -->
+  <div class="tab-panel active" id="tab-method">
+
+    <div class="notation-box">
+      <div class="notation-title">📌 关键词格式说明</div>
+      <div class="notation-row"><span class="notation-sym">→</span><span class="notation-desc">逻辑方向：前因后果、递进、由此得出</span></div>
+      <div class="notation-row"><span class="notation-sym">/</span><span class="notation-desc">并列：同等重要的两个概念</span></div>
+      <div class="notation-row"><span class="notation-sym">(vs)</span><span class="notation-desc">对比对象：括号内是被对比的事物</span></div>
+      <div class="notation-row"><span class="notation-sym">换行</span><span class="notation-desc">新的论点层：每换一行是一个新的角度</span></div>
+      <div class="notation-row"><span class="notation-sym">future:</span><span class="notation-desc">展望未来：结尾一句预测或趋势</span></div>
+    </div>
+
+    <div class="method-grid">
+      <div class="method-card">
+        <div class="mc-icon">🎯</div>
+        <div class="mc-title">① 举例法（Example）</div>
+        <div class="mc-desc">用一个具体故事支撑你的观点。不要说"有些人认为…"，说"我有个朋友/我小时候/我见过…"</div>
+        <div class="mc-example">kid works hard → maths competition<br>→ first place → parents tell everyone</div>
+      </div>
+      <div class="method-card">
+        <div class="mc-icon">🔄</div>
+        <div class="mc-title">② 对比法（Contrast）</div>
+        <div class="mc-desc">用 "(vs ...)" 格式引入对比对象。对比越具体，答案越有说服力。不说"有好有坏"，说"比起……"</div>
+        <div class="mc-example">(vs toy car) → forget after a week<br>(vs spending time) → remember for years</div>
+      </div>
+      <div class="method-card">
+        <div class="mc-icon">👥</div>
+        <div class="mc-title">③ 主客体（Subject/Object）</div>
+        <div class="mc-desc">明确"谁做了什么"。年龄段分层题尤其有用：young people do X vs old people do Y</div>
+        <div class="mc-example">young: everything → phone = whole life<br>old: calling, messaging → basic use</div>
+      </div>
+      <div class="method-card">
+        <div class="mc-icon">🚀</div>
+        <div class="mc-title">④ 展望未来（Future）</div>
+        <div class="mc-desc">用 "future: ..." 结尾。一句话预测趋势，让答案有深度。不需要复杂，说一个方向就够了。</div>
+        <div class="mc-example">future: YouTubers, gamers → internet<br>future: keep habits as adults</div>
+      </div>
+    </div>
+
+    <div class="notation-box" style="background:var(--p3-soft);border-color:var(--p3)40">
+      <div class="notation-title" style="color:var(--p3)">🔍 实战示范 — 一道完整的 Part 3 回答</div>
+      <div style="font-size:13px;color:var(--ink-2);margin-bottom:12px"><strong>Q: Should parents buy more toys or spend more time with kids?</strong></div>
+      <div style="font-size:13px;line-height:2;color:var(--ink)">
+        <strong>关键词</strong>：<em>spending time > toys / toys: play a few days → get bored / time: park on Saturday → fly kite, walk around → remember for years / (vs toy car) → forget after a week</em>
+        <br><br>
+        <strong>展开说</strong>："I think spending time matters more than buying toys. Toys are nice for a few days, but kids get bored quickly. I remember my mum taking me to the park every Saturday — we'd fly kites or just walk around. I still remember those days clearly, but I can't even remember most of the toys I had. A toy car? Gone from my memory in a week. But those Saturday afternoons? Still with me."
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── TAB 2: Tier 1 题库 ── -->
+  <div class="tab-panel" id="tab-qbank">
+    <div class="filter-bar" id="q-filter">
+<button class="flt-btn active" data-topic="all">全部 <span class="fc">98</span></button>
+<button class="flt-btn" data-topic="children" style="--tc:#C0392B;--ts:#FDECEA">👶 Children <span class="fc">24</span></button>
+<button class="flt-btn" data-topic="ages" style="--tc:#2E7D32;--ts:#E8F5E9">👴 Other Age Groups <span class="fc">14</span></button>
+<button class="flt-btn" data-topic="listing" style="--tc:#B8894A;--ts:#FBF4EA">📋 Listing Qs <span class="fc">15</span></button>
+<button class="flt-btn" data-topic="workplace" style="--tc:#2E3B6B;--ts:#EEF0F8">💼 Workplace <span class="fc">3</span></button>
+<button class="flt-btn" data-topic="change" style="--tc:#6B4E9C;--ts:#F3EEFB">🔄 Change &amp; Comparison <span class="fc">20</span></button>
+<button class="flt-btn" data-topic="general" style="--tc:#E8834A;--ts:#FFF3E0">💬 General <span class="fc">19</span></button>
+    </div>
+    <div class="q-grid" id="q-grid">
+<div class="q-card" data-topic="children"><span class="q-num">T1 · 01</span><span class="q-tag" style="background:#FDECEA;color:#C0392B;border-color:#C0392B40">👶 Children</span><p class="q-text">What are the advantages and disadvantages of being a famous child?</p></div>
+<div class="q-card" data-topic="children"><span class="q-num">T1 · 02</span><span class="q-tag" style="background:#FDECEA;color:#C0392B;border-color:#C0392B40">👶 Children</span><p class="q-text">Which outdoor sports are popular with children?</p></div>
+<div class="q-card" data-topic="children"><span class="q-num">T1 · 03</span><span class="q-tag" style="background:#FDECEA;color:#C0392B;border-color:#C0392B40">👶 Children</span><p class="q-text">What sports can children do on rainy days?</p></div>
+<div class="q-card" data-topic="children"><span class="q-num">T1 · 04</span><span class="q-tag" style="background:#FDECEA;color:#C0392B;border-color:#C0392B40">👶 Children</span><p class="q-text">What jobs do children want to do when they grow up?</p></div>
+<div class="q-card" data-topic="children"><span class="q-num">T1 · 05</span><span class="q-tag" style="background:#FDECEA;color:#C0392B;border-color:#C0392B40">👶 Children</span><p class="q-text">Do you know what kind of music children like today?</p></div>
+<div class="q-card" data-topic="children"><span class="q-num">T1 · 06</span><span class="q-tag" style="background:#FDECEA;color:#C0392B;border-color:#C0392B40">👶 Children</span><p class="q-text">What can children learn from stories?</p></div>
+<div class="q-card" data-topic="children"><span class="q-num">T1 · 07</span><span class="q-tag" style="background:#FDECEA;color:#C0392B;border-color:#C0392B40">👶 Children</span><p class="q-text">When would parents feel proud of their children?</p></div>
+<div class="q-card" data-topic="children"><span class="q-num">T1 · 08</span><span class="q-tag" style="background:#FDECEA;color:#C0392B;border-color:#C0392B40">👶 Children</span><p class="q-text">Should parents buy more toys or spend more time with kids?</p></div>
+<div class="q-card" data-topic="children"><span class="q-num">T1 · 09</span><span class="q-tag" style="background:#FDECEA;color:#C0392B;border-color:#C0392B40">👶 Children</span><p class="q-text">What is the right age for a child to learn drawing?</p></div>
+<div class="q-card" data-topic="children"><span class="q-num">T1 · 10</span><span class="q-tag" style="background:#FDECEA;color:#C0392B;border-color:#C0392B40">👶 Children</span><p class="q-text">When should parents encourage children?</p></div>
+<div class="q-card" data-topic="children"><span class="q-num">T1 · 11</span><span class="q-tag" style="background:#FDECEA;color:#C0392B;border-color:#C0392B40">👶 Children</span><p class="q-text">What kind of encouragement should parents give?</p></div>
+<div class="q-card" data-topic="children"><span class="q-num">T1 · 12</span><span class="q-tag" style="background:#FDECEA;color:#C0392B;border-color:#C0392B40">👶 Children</span><p class="q-text">How do children become smart at school?</p></div>
+<div class="q-card" data-topic="children"><span class="q-num">T1 · 13</span><span class="q-tag" style="background:#FDECEA;color:#C0392B;border-color:#C0392B40">👶 Children</span><p class="q-text">What habits should children have?</p></div>
+<div class="q-card" data-topic="children"><span class="q-num">T1 · 14</span><span class="q-tag" style="background:#FDECEA;color:#C0392B;border-color:#C0392B40">👶 Children</span><p class="q-text">What are the benefits of bedtime stories?</p></div>
+<div class="q-card" data-topic="children"><span class="q-num">T1 · 15</span><span class="q-tag" style="background:#FDECEA;color:#C0392B;border-color:#C0392B40">👶 Children</span><p class="q-text">What kind of stories do children like?</p></div>
+<div class="q-card" data-topic="children"><span class="q-num">T1 · 16</span><span class="q-tag" style="background:#FDECEA;color:#C0392B;border-color:#C0392B40">👶 Children</span><p class="q-text">At what age should children start learning a foreign language?</p></div>
+<div class="q-card" data-topic="children"><span class="q-num">T1 · 17</span><span class="q-tag" style="background:#FDECEA;color:#C0392B;border-color:#C0392B40">👶 Children</span><p class="q-text">How do children make friends at school?</p></div>
+<div class="q-card" data-topic="children"><span class="q-num">T1 · 18</span><span class="q-tag" style="background:#FDECEA;color:#C0392B;border-color:#C0392B40">👶 Children</span><p class="q-text">How do children make friends when they are not at school?</p></div>
+<div class="q-card" data-topic="children"><span class="q-num">T1 · 19</span><span class="q-tag" style="background:#FDECEA;color:#C0392B;border-color:#C0392B40">👶 Children</span><p class="q-text">Do you think there are too many subjects for students to learn?</p></div>
+<div class="q-card" data-topic="children"><span class="q-num">T1 · 20</span><span class="q-tag" style="background:#FDECEA;color:#C0392B;border-color:#C0392B40">👶 Children</span><p class="q-text">Should students have physical education and do sports at school?</p></div>
+<div class="q-card" data-topic="children"><span class="q-num">T1 · 21</span><span class="q-tag" style="background:#FDECEA;color:#C0392B;border-color:#C0392B40">👶 Children</span><p class="q-text">Should teachers make learning in their classes fun?</p></div>
+<div class="q-card" data-topic="children"><span class="q-num">T1 · 22</span><span class="q-tag" style="background:#FDECEA;color:#C0392B;border-color:#C0392B40">👶 Children</span><p class="q-text">Why do most children like listening to stories before bedtime?</p></div>
+<div class="q-card" data-topic="children"><span class="q-num">T1 · 23</span><span class="q-tag" style="background:#FDECEA;color:#C0392B;border-color:#C0392B40">👶 Children</span><p class="q-text">Why do most children draw more often than adults do?</p></div>
+<div class="q-card" data-topic="children"><span class="q-num">T1 · 24</span><span class="q-tag" style="background:#FDECEA;color:#C0392B;border-color:#C0392B40">👶 Children</span><p class="q-text">What are the benefits of children learning a musical instrument?</p></div>
+<div class="q-card" data-topic="ages"><span class="q-num">T1 · 25</span><span class="q-tag" style="background:#E8F5E9;color:#2E7D32;border-color:#2E7D3240">👴 Other Age Groups</span><p class="q-text">Is making study plans popular among young people?</p></div>
+<div class="q-card" data-topic="ages"><span class="q-num">T1 · 26</span><span class="q-tag" style="background:#E8F5E9;color:#2E7D32;border-color:#2E7D3240">👴 Other Age Groups</span><p class="q-text">What do young people spend most of their money on?</p></div>
+<div class="q-card" data-topic="ages"><span class="q-num">T1 · 27</span><span class="q-tag" style="background:#E8F5E9;color:#2E7D32;border-color:#2E7D3240">👴 Other Age Groups</span><p class="q-text">What kind of music do young people like?</p></div>
+<div class="q-card" data-topic="ages"><span class="q-num">T1 · 28</span><span class="q-tag" style="background:#E8F5E9;color:#2E7D32;border-color:#2E7D3240">👴 Other Age Groups</span><p class="q-text">What books do young people like to read?</p></div>
+<div class="q-card" data-topic="ages"><span class="q-num">T1 · 29</span><span class="q-tag" style="background:#E8F5E9;color:#2E7D32;border-color:#2E7D3240">👴 Other Age Groups</span><p class="q-text">When do old people ask young people for advice?</p></div>
+<div class="q-card" data-topic="ages"><span class="q-num">T1 · 30</span><span class="q-tag" style="background:#E8F5E9;color:#2E7D32;border-color:#2E7D3240">👴 Other Age Groups</span><p class="q-text">Do you think only old people have time for leisure?</p></div>
+<div class="q-card" data-topic="ages"><span class="q-num">T1 · 31</span><span class="q-tag" style="background:#E8F5E9;color:#2E7D32;border-color:#2E7D3240">👴 Other Age Groups</span><p class="q-text">Which sports are popular among elderly people?</p></div>
+<div class="q-card" data-topic="ages"><span class="q-num">T1 · 32</span><span class="q-tag" style="background:#E8F5E9;color:#2E7D32;border-color:#2E7D3240">👴 Other Age Groups</span><p class="q-text">Why do old people prefer to live in quiet places?</p></div>
+<div class="q-card" data-topic="ages"><span class="q-num">T1 · 33</span><span class="q-tag" style="background:#E8F5E9;color:#2E7D32;border-color:#2E7D3240">👴 Other Age Groups</span><p class="q-text">What are the differences between old and young people when using apps?</p></div>
+<div class="q-card" data-topic="ages"><span class="q-num">T1 · 34</span><span class="q-tag" style="background:#E8F5E9;color:#2E7D32;border-color:#2E7D3240">👴 Other Age Groups</span><p class="q-text">How do young and old people use phones differently?</p></div>
+<div class="q-card" data-topic="ages"><span class="q-num">T1 · 35</span><span class="q-tag" style="background:#E8F5E9;color:#2E7D32;border-color:#2E7D3240">👴 Other Age Groups</span><p class="q-text">Do old people read more than young people?</p></div>
+<div class="q-card" data-topic="ages"><span class="q-num">T1 · 36</span><span class="q-tag" style="background:#E8F5E9;color:#2E7D32;border-color:#2E7D3240">👴 Other Age Groups</span><p class="q-text">What differences are there between young and old people's music tastes?</p></div>
+<div class="q-card" data-topic="ages"><span class="q-num">T1 · 37</span><span class="q-tag" style="background:#E8F5E9;color:#2E7D32;border-color:#2E7D3240">👴 Other Age Groups</span><p class="q-text">Which stage of life is best for learning a language?</p></div>
+<div class="q-card" data-topic="ages"><span class="q-num">T1 · 38</span><span class="q-tag" style="background:#E8F5E9;color:#2E7D32;border-color:#2E7D3240">👴 Other Age Groups</span><p class="q-text">What are the differences in the shopping habits of different age groups?</p></div>
+<div class="q-card" data-topic="listing"><span class="q-num">T1 · 39</span><span class="q-tag" style="background:#FBF4EA;color:#B8894A;border-color:#B8894A40">📋 Listing Qs</span><p class="q-text">What things do families keep for a long time?</p></div>
+<div class="q-card" data-topic="listing"><span class="q-num">T1 · 40</span><span class="q-tag" style="background:#FBF4EA;color:#B8894A;border-color:#B8894A40">📋 Listing Qs</span><p class="q-text">What kinds of things are kept in museums?</p></div>
+<div class="q-card" data-topic="listing"><span class="q-num">T1 · 41</span><span class="q-tag" style="background:#FBF4EA;color:#B8894A;border-color:#B8894A40">📋 Listing Qs</span><p class="q-text">What family businesses do you know in your local area?</p></div>
+<div class="q-card" data-topic="listing"><span class="q-num">T1 · 42</span><span class="q-tag" style="background:#FBF4EA;color:#B8894A;border-color:#B8894A40">📋 Listing Qs</span><p class="q-text">What kind of music is popular in your country?</p></div>
+<div class="q-card" data-topic="listing"><span class="q-num">T1 · 43</span><span class="q-tag" style="background:#FBF4EA;color:#B8894A;border-color:#B8894A40">📋 Listing Qs</span><p class="q-text">What is the most popular sport in your country?</p></div>
+<div class="q-card" data-topic="listing"><span class="q-num">T1 · 44</span><span class="q-tag" style="background:#FBF4EA;color:#B8894A;border-color:#B8894A40">📋 Listing Qs</span><p class="q-text">Where do people like to shop in your country?</p></div>
+<div class="q-card" data-topic="listing"><span class="q-num">T1 · 45</span><span class="q-tag" style="background:#FBF4EA;color:#B8894A;border-color:#B8894A40">📋 Listing Qs</span><p class="q-text">What kinds of movies are successful in your country?</p></div>
+<div class="q-card" data-topic="listing"><span class="q-num">T1 · 46</span><span class="q-tag" style="background:#FBF4EA;color:#B8894A;border-color:#B8894A40">📋 Listing Qs</span><p class="q-text">What jobs are most popular in your country?</p></div>
+<div class="q-card" data-topic="listing"><span class="q-num">T1 · 47</span><span class="q-tag" style="background:#FBF4EA;color:#B8894A;border-color:#B8894A40">📋 Listing Qs</span><p class="q-text">Which outdoor sports are popular in China?</p></div>
+<div class="q-card" data-topic="listing"><span class="q-num">T1 · 48</span><span class="q-tag" style="background:#FBF4EA;color:#B8894A;border-color:#B8894A40">📋 Listing Qs</span><p class="q-text">What apps are popular in your country? Why?</p></div>
+<div class="q-card" data-topic="listing"><span class="q-num">T1 · 49</span><span class="q-tag" style="background:#FBF4EA;color:#B8894A;border-color:#B8894A40">📋 Listing Qs</span><p class="q-text">What films are popular in China right now?</p></div>
+<div class="q-card" data-topic="listing"><span class="q-num">T1 · 50</span><span class="q-tag" style="background:#FBF4EA;color:#B8894A;border-color:#B8894A40">📋 Listing Qs</span><p class="q-text">What food do people eat on special occasions?</p></div>
+<div class="q-card" data-topic="listing"><span class="q-num">T1 · 51</span><span class="q-tag" style="background:#FBF4EA;color:#B8894A;border-color:#B8894A40">📋 Listing Qs</span><p class="q-text">What should people prepare for long trips?</p></div>
+<div class="q-card" data-topic="listing"><span class="q-num">T1 · 52</span><span class="q-tag" style="background:#FBF4EA;color:#B8894A;border-color:#B8894A40">📋 Listing Qs</span><p class="q-text">What things are often broken at home?</p></div>
+<div class="q-card" data-topic="listing"><span class="q-num">T1 · 53</span><span class="q-tag" style="background:#FBF4EA;color:#B8894A;border-color:#B8894A40">📋 Listing Qs</span><p class="q-text">What games help develop imagination?</p></div>
+<div class="q-card" data-topic="workplace"><span class="q-num">T1 · 54</span><span class="q-tag" style="background:#EEF0F8;color:#2E3B6B;border-color:#2E3B6B40">💼 Workplace</span><p class="q-text">What jobs need imagination?</p></div>
+<div class="q-card" data-topic="workplace"><span class="q-num">T1 · 55</span><span class="q-tag" style="background:#EEF0F8;color:#2E3B6B;border-color:#2E3B6B40">💼 Workplace</span><p class="q-text">What kind of people give advice as a job?</p></div>
+<div class="q-card" data-topic="workplace"><span class="q-num">T1 · 56</span><span class="q-tag" style="background:#EEF0F8;color:#2E3B6B;border-color:#2E3B6B40">💼 Workplace</span><p class="q-text">What qualities should an athlete have?</p></div>
+<div class="q-card" data-topic="change"><span class="q-num">T1 · 57</span><span class="q-tag" style="background:#F3EEFB;color:#6B4E9C;border-color:#6B4E9C40">🔄 Change &amp; Comparison</span><p class="q-text">Why are there more noises made at home now than in the past?</p></div>
+<div class="q-card" data-topic="change"><span class="q-num">T1 · 58</span><span class="q-tag" style="background:#F3EEFB;color:#6B4E9C;border-color:#6B4E9C40">🔄 Change &amp; Comparison</span><p class="q-text">How have people's shopping habits changed in recent decades?</p></div>
+<div class="q-card" data-topic="change"><span class="q-num">T1 · 59</span><span class="q-tag" style="background:#F3EEFB;color:#6B4E9C;border-color:#6B4E9C40">🔄 Change &amp; Comparison</span><p class="q-text">Do people use more electricity now than before?</p></div>
+<div class="q-card" data-topic="change"><span class="q-num">T1 · 60</span><span class="q-tag" style="background:#F3EEFB;color:#6B4E9C;border-color:#6B4E9C40">🔄 Change &amp; Comparison</span><p class="q-text">How did people live without electricity in the past?</p></div>
+<div class="q-card" data-topic="change"><span class="q-num">T1 · 61</span><span class="q-tag" style="background:#F3EEFB;color:#6B4E9C;border-color:#6B4E9C40">🔄 Change &amp; Comparison</span><p class="q-text">What are the differences between past and present technology?</p></div>
+<div class="q-card" data-topic="change"><span class="q-num">T1 · 62</span><span class="q-tag" style="background:#F3EEFB;color:#6B4E9C;border-color:#6B4E9C40">🔄 Change &amp; Comparison</span><p class="q-text">What's the difference between toys now and in the past?</p></div>
+<div class="q-card" data-topic="change"><span class="q-num">T1 · 63</span><span class="q-tag" style="background:#F3EEFB;color:#6B4E9C;border-color:#6B4E9C40">🔄 Change &amp; Comparison</span><p class="q-text">What are the pros and cons of modern toys?</p></div>
+<div class="q-card" data-topic="change"><span class="q-num">T1 · 64</span><span class="q-tag" style="background:#F3EEFB;color:#6B4E9C;border-color:#6B4E9C40">🔄 Change &amp; Comparison</span><p class="q-text">What are the differences between group and solo travel?</p></div>
+<div class="q-card" data-topic="change"><span class="q-num">T1 · 65</span><span class="q-tag" style="background:#F3EEFB;color:#6B4E9C;border-color:#6B4E9C40">🔄 Change &amp; Comparison</span><p class="q-text">Are factory-made clothes better than handmade ones?</p></div>
+<div class="q-card" data-topic="change"><span class="q-num">T1 · 66</span><span class="q-tag" style="background:#F3EEFB;color:#6B4E9C;border-color:#6B4E9C40">🔄 Change &amp; Comparison</span><p class="q-text">How is transport different in cities and rural areas?</p></div>
+<div class="q-card" data-topic="change"><span class="q-num">T1 · 67</span><span class="q-tag" style="background:#F3EEFB;color:#6B4E9C;border-color:#6B4E9C40">🔄 Change &amp; Comparison</span><p class="q-text">Which vehicles are more popular: bikes, cars, or motorcycles?</p></div>
+<div class="q-card" data-topic="change"><span class="q-num">T1 · 68</span><span class="q-tag" style="background:#F3EEFB;color:#6B4E9C;border-color:#6B4E9C40">🔄 Change &amp; Comparison</span><p class="q-text">What are the differences between indoor and outdoor sports?</p></div>
+<div class="q-card" data-topic="change"><span class="q-num">T1 · 69</span><span class="q-tag" style="background:#F3EEFB;color:#6B4E9C;border-color:#6B4E9C40">🔄 Change &amp; Comparison</span><p class="q-text">What's the difference between toys for boys and girls?</p></div>
+<div class="q-card" data-topic="change"><span class="q-num">T1 · 70</span><span class="q-tag" style="background:#F3EEFB;color:#6B4E9C;border-color:#6B4E9C40">🔄 Change &amp; Comparison</span><p class="q-text">Do people prefer eating out or at home during festivals?</p></div>
+<div class="q-card" data-topic="change"><span class="q-num">T1 · 71</span><span class="q-tag" style="background:#F3EEFB;color:#6B4E9C;border-color:#6B4E9C40">🔄 Change &amp; Comparison</span><p class="q-text">Are famous people's shows more interesting than ordinary people's?</p></div>
+<div class="q-card" data-topic="change"><span class="q-num">T1 · 72</span><span class="q-tag" style="background:#F3EEFB;color:#6B4E9C;border-color:#6B4E9C40">🔄 Change &amp; Comparison</span><p class="q-text">Why do people prefer to watch movies in the cinema?</p></div>
+<div class="q-card" data-topic="change"><span class="q-num">T1 · 73</span><span class="q-tag" style="background:#F3EEFB;color:#6B4E9C;border-color:#6B4E9C40">🔄 Change &amp; Comparison</span><p class="q-text">What are the differences between street markets and big shopping malls?</p></div>
+<div class="q-card" data-topic="change"><span class="q-num">T1 · 74</span><span class="q-tag" style="background:#F3EEFB;color:#6B4E9C;border-color:#6B4E9C40">🔄 Change &amp; Comparison</span><p class="q-text">What are the differences between a natural place and a city?</p></div>
+<div class="q-card" data-topic="change"><span class="q-num">T1 · 75</span><span class="q-tag" style="background:#F3EEFB;color:#6B4E9C;border-color:#6B4E9C40">🔄 Change &amp; Comparison</span><p class="q-text">Do people prefer domestic or foreign movies?</p></div>
+<div class="q-card" data-topic="change"><span class="q-num">T1 · 76</span><span class="q-tag" style="background:#F3EEFB;color:#6B4E9C;border-color:#6B4E9C40">🔄 Change &amp; Comparison</span><p class="q-text">What are the differences between reading a book and visiting a museum?</p></div>
+<div class="q-card" data-topic="general"><span class="q-num">T1 · 77</span><span class="q-tag" style="background:#FFF3E0;color:#E8834A;border-color:#E8834A40">💬 General</span><p class="q-text">Do you think it's a waste of time to go shopping?</p></div>
+<div class="q-card" data-topic="general"><span class="q-num">T1 · 78</span><span class="q-tag" style="background:#FFF3E0;color:#E8834A;border-color:#E8834A40">💬 General</span><p class="q-text">Do you think going to the park is the only way to get close to nature?</p></div>
+<div class="q-card" data-topic="general"><span class="q-num">T1 · 79</span><span class="q-tag" style="background:#FFF3E0;color:#E8834A;border-color:#E8834A40">💬 General</span><p class="q-text">Is a good storyline important for a movie?</p></div>
+<div class="q-card" data-topic="general"><span class="q-num">T1 · 80</span><span class="q-tag" style="background:#FFF3E0;color:#E8834A;border-color:#E8834A40">💬 General</span><p class="q-text">Is it important to save money? Why?</p></div>
+<div class="q-card" data-topic="general"><span class="q-num">T1 · 81</span><span class="q-tag" style="background:#FFF3E0;color:#E8834A;border-color:#E8834A40">💬 General</span><p class="q-text">What are people happy to pay a high price for?</p></div>
+<div class="q-card" data-topic="general"><span class="q-num">T1 · 82</span><span class="q-tag" style="background:#FFF3E0;color:#E8834A;border-color:#E8834A40">💬 General</span><p class="q-text">Is it a hassle to prepare meals at home?</p></div>
+<div class="q-card" data-topic="general"><span class="q-num">T1 · 83</span><span class="q-tag" style="background:#FFF3E0;color:#E8834A;border-color:#E8834A40">💬 General</span><p class="q-text">Do people buy things they don't need?</p></div>
+<div class="q-card" data-topic="general"><span class="q-num">T1 · 84</span><span class="q-tag" style="background:#FFF3E0;color:#E8834A;border-color:#E8834A40">💬 General</span><p class="q-text">Why do people like talent shows?</p></div>
+<div class="q-card" data-topic="general"><span class="q-num">T1 · 85</span><span class="q-tag" style="background:#FFF3E0;color:#E8834A;border-color:#E8834A40">💬 General</span><p class="q-text">Why do people like long journeys?</p></div>
+<div class="q-card" data-topic="general"><span class="q-num">T1 · 86</span><span class="q-tag" style="background:#FFF3E0;color:#E8834A;border-color:#E8834A40">💬 General</span><p class="q-text">Why do people prefer domestic travel?</p></div>
+<div class="q-card" data-topic="general"><span class="q-num">T1 · 87</span><span class="q-tag" style="background:#FFF3E0;color:#E8834A;border-color:#E8834A40">💬 General</span><p class="q-text">Why do people prefer traveling abroad?</p></div>
+<div class="q-card" data-topic="general"><span class="q-num">T1 · 88</span><span class="q-tag" style="background:#FFF3E0;color:#E8834A;border-color:#E8834A40">💬 General</span><p class="q-text">Why do people smile in photos?</p></div>
+<div class="q-card" data-topic="general"><span class="q-num">T1 · 89</span><span class="q-tag" style="background:#FFF3E0;color:#E8834A;border-color:#E8834A40">💬 General</span><p class="q-text">Is it easy to find quiet places in your country? Why?</p></div>
+<div class="q-card" data-topic="general"><span class="q-num">T1 · 90</span><span class="q-tag" style="background:#FFF3E0;color:#E8834A;border-color:#E8834A40">💬 General</span><p class="q-text">Are there any wild animals in the city?</p></div>
+<div class="q-card" data-topic="general"><span class="q-num">T1 · 91</span><span class="q-tag" style="background:#FFF3E0;color:#E8834A;border-color:#E8834A40">💬 General</span><p class="q-text">Do you think it's important to plan ahead?</p></div>
+<div class="q-card" data-topic="general"><span class="q-num">T1 · 92</span><span class="q-tag" style="background:#FFF3E0;color:#E8834A;border-color:#E8834A40">💬 General</span><p class="q-text">What activities do we need to plan ahead?</p></div>
+<div class="q-card" data-topic="general"><span class="q-num">T1 · 93</span><span class="q-tag" style="background:#FFF3E0;color:#E8834A;border-color:#E8834A40">💬 General</span><p class="q-text">Do you often buy more than you expected?</p></div>
+<div class="q-card" data-topic="general"><span class="q-num">T1 · 94</span><span class="q-tag" style="background:#FFF3E0;color:#E8834A;border-color:#E8834A40">💬 General</span><p class="q-text">What do people talk about during meals?</p></div>
+<div class="q-card" data-topic="general"><span class="q-num">T1 · 95</span><span class="q-tag" style="background:#FFF3E0;color:#E8834A;border-color:#E8834A40">💬 General</span><p class="q-text">How do people learn about scientific news?</p></div>
+    </div>
+  </div>
+
+  <!-- ── TAB 3: 关键词参考 ── -->
+  <div class="tab-panel" id="tab-kwref">
+    <div style="background:var(--p3-soft);border:1px solid var(--p3)30;border-radius:10px;padding:12px 16px;margin-bottom:18px;font-size:13px;color:var(--p3)">
+      💡 <strong>用法</strong>：看题目，先尝试自己说 40 秒。说完再看关键词对照，看漏掉哪些角度。<br>
+      目前收录 <strong>Children</strong>（24题）和 <strong>Other Age Groups</strong>（13题）的完整关键词框架，更多话题持续更新。
+    </div>
+    <div class="filter-bar" id="kw-filter">
+<button class="flt-btn active" data-topic="all">全部 <span class="fc">37</span></button>
+<button class="flt-btn" data-topic="children" style="--tc:#C0392B;--ts:#FDECEA">👶 Children <span class="fc">24</span></button>
+<button class="flt-btn" data-topic="ages" style="--tc:#2E7D32;--ts:#E8F5E9">👴 Other Ages <span class="fc">13</span></button>
+    </div>
+    <div class="kw-grid" id="kw-grid">
+<div class="kw-card" data-topic="children"><div class="kw-q">What are the advantages and disadvantages of being a famous child?</div><div class="kw-body">advantage: make money → child movie actor → earn a lot<br>disadvantage: too young → pressure, attention → no free time → (vs normal kids) hang out, relax</div></div>
+<div class="kw-card" data-topic="children"><div class="kw-q">Which outdoor sports are popular with children?</div><div class="kw-body">basketball → energy, run around → team sport, play with friends<br>(vs jogging) → boring alone<br>near schools → courts → every afternoon, kids playing</div></div>
+<div class="kw-card" data-topic="children"><div class="kw-q">What sports can children do on rainy days?</div><div class="kw-body">swimming, table tennis → indoors, no weather problem<br>indoor pool → rainy weekends → full of kids, fun<br>(vs sunny days) can't play football outside → switch to indoor</div></div>
+<div class="kw-card" data-topic="children"><div class="kw-q">What jobs do children want to do when they grow up?</div><div class="kw-body">astronaut, doctor, football player → cool, exciting<br>boys → Messi on TV → 'want to be like that'<br>(younger kids) superheroes, not real → (older kids) real jobs<br>future: YouTubers, gamers → internet</div></div>
+<div class="kw-card" data-topic="children"><div class="kw-q">Do you know what kind of music children like today?</div><div class="kw-body">pop music → Douyin → catchy, easy to sing<br>one song about animals → every kid singing, two weeks, even teachers<br>(vs parents) slower, traditional → now: fast, fun pop</div></div>
+<div class="kw-card" data-topic="children"><div class="kw-q">What can children learn from stories?</div><div class="kw-body">be kind, right vs wrong → still learning about world<br>story: boy shares food with hungry animal → animal helps later → being nice = good things<br>(vs just telling 'be nice') → kid won't listen → story makes them feel it</div></div>
+<div class="kw-card" data-topic="children"><div class="kw-q">When would parents feel proud of their children?</div><div class="kw-body">do something good → high score, win competition<br>kid works hard → maths competition → first place → parents tell everyone<br>(hard work vs natural talent) → effort matters more</div></div>
+<div class="kw-card" data-topic="children"><div class="kw-q">Should parents buy more toys or spend more time with kids?</div><div class="kw-body">spending time &gt; toys<br>toys: play a few days → get bored<br>time: park on Saturday → fly kite, walk around → remember for years<br>(vs toy car) → forget after a week</div></div>
+<div class="kw-card" data-topic="children"><div class="kw-q">What is the right age for a child to learn drawing?</div><div class="kw-body">three or four → already like holding pen → draw random things<br>drawing: easy, just paper + crayons<br>three-year-olds: big heads, tiny bodies → don't care, love it<br>(vs start at ten) → worry too much about looking good</div></div>
+<div class="kw-card" data-topic="children"><div class="kw-q">When should parents encourage children?</div><div class="kw-body">trying something new/difficult → not confident, scared<br>learning to ride bike → keep falling → 'keep trying, you're getting better'<br>future: grow up more confident → not afraid of new things</div></div>
+<div class="kw-card" data-topic="children"><div class="kw-q">What kind of encouragement should parents give?</div><div class="kw-body">specific, not just 'good job' → tell exactly what they did well<br>child builds blocks all afternoon → 'didn't give up, that's great'<br>(vs 'good boy') → doesn't learn what they did right</div></div>
+<div class="kw-card" data-topic="children"><div class="kw-q">How do children become smart at school?</div><div class="kw-body">pay attention, do homework → brains learn fast<br>front row students → ask questions → best grades at end<br>(active vs passive) → not naturally smarter, just try harder</div></div>
+<div class="kw-card" data-topic="children"><div class="kw-q">What habits should children have?</div><div class="kw-body">sleep early, eat healthy, read books → growing up, need habits<br>reading before bed → 10-15 mins every night → learn many words<br>future: keep habits as adults</div></div>
+<div class="kw-card" data-topic="children"><div class="kw-q">What are the benefits of bedtime stories?</div><div class="kw-body">relax, fall asleep → active all day, need to calm down<br>parent reads → little bear story → 10-15 mins → child asleep<br>(vs watching videos) screen too exciting → story more peaceful</div></div>
+<div class="kw-card" data-topic="children"><div class="kw-q">What kind of stories do children like?</div><div class="kw-body">magic, adventure → big imagination, exciting things<br>Monkey King → fly, fight bad guys, funny → kids love him<br>(younger) simple + pictures → (older) longer, more things happening</div></div>
+<div class="kw-card" data-topic="children"><div class="kw-q">At what age should children start learning a foreign language?</div><div class="kw-body">five or six → good at copying sounds, learn fast<br>start at five → simple conversations by eight or nine<br>(vs start at twelve) → younger kids not shy about mistakes</div></div>
+<div class="kw-card" data-topic="children"><div class="kw-q">How do children make friends at school?</div><div class="kw-body">playing together → naturally social<br>lunch / after class → play tag, share snacks → slowly become friends<br>'do you want to play with us' → that simple</div></div>
+<div class="kw-card" data-topic="children"><div class="kw-q">How do children make friends when they are not at school?</div><div class="kw-body">activities outside school → curious, open to new people<br>weekend basketball/dance class → same kids every week → start talking → friends<br>future: online games → more common</div></div>
+<div class="kw-card" data-topic="children"><div class="kw-q">Do you think there are too many subjects for students to learn?</div><div class="kw-body">yes → maths, Chinese, English, science, PE, music, art... 8-9 subjects<br>homework every subject → stay up until eleven → no time to rest<br>(vs other countries) → choose fewer subjects → less pressure</div></div>
+<div class="kw-card" data-topic="children"><div class="kw-q">Should students have physical education and do sports at school?</div><div class="kw-body">yes → sit all day, need movement<br>after PE → sweating but smiling → next class focus better → brain reset<br>(with PE vs without) → healthier, happier</div></div>
+<div class="kw-card" data-topic="children"><div class="kw-q">Should teachers make learning in their classes fun?</div><div class="kw-body">yes → young students lose interest easily → boring = stop listening<br>vocabulary quiz → turn into game, two teams compete → excited, learn more<br>(vs reading textbook 40 mins) → way better</div></div>
+<div class="kw-card" data-topic="children"><div class="kw-q">Why do most children like listening to stories before bedtime?</div><div class="kw-body">helps relax → tired but mind still running → soft voice → calm, peaceful world<br>favourite story about bear/bunny → hear it every night → already know what happens → still feel safe</div></div>
+<div class="kw-card" data-topic="children"><div class="kw-q">Why do most children draw more often than adults do?</div><div class="kw-body">children: creative, want to express → can't write well → drawing = easiest way<br>adults: too busy, too tired → work all day → no time for drawing<br>future: sad → maybe adults pick it up again to relax</div></div>
+<div class="kw-card" data-topic="children"><div class="kw-q">What are the benefits of children learning a musical instrument?</div><div class="kw-body">brain developing → memory, focus, hand movement all at once<br>piano: read notes + move both hands + listen → a lot of brain training<br>even after 1-2 years → more focused in school<br>future: patience, focus → help no matter what job</div></div>
+<div class="kw-card" data-topic="ages"><div class="kw-q">Is making study plans popular among young people?</div><div class="kw-body">some do, but many don't follow through → lack discipline<br>before exam → 'study 2 hours every day' → 2-3 days later → phone, social media → plan falls apart<br>(vs older adults) more self-control → young people: too many distractions</div></div>
+<div class="kw-card" data-topic="ages"><div class="kw-q">What do young people spend most of their money on?</div><div class="kw-body">food, clothes, entertainment → look good, enjoy life<br>bubble tea every day → concert tickets, games, new clothes → expensive sneakers<br>(vs older people) rent, groceries, children's education → young: happy right now</div></div>
+<div class="kw-card" data-topic="ages"><div class="kw-q">What kind of music do young people like?</div><div class="kw-body">pop, hip-hop → fast, exciting, easy to find online<br>music apps → top songs always pop/rap → listen everywhere: bus, gym, studying<br>some songs → everyone knows lyrics in a few days<br>(vs older people) slower, traditional music</div></div>
+<div class="kw-card" data-topic="ages"><div class="kw-q">What books do young people like to read?</div><div class="kw-body">novels → fantasy, romance, adventure → exciting, emotional<br>online novels → millions of stories → time travel, love, fighting monsters<br>read on phone → lunch breaks, before bed → some stay up late, can't stop</div></div>
+<div class="kw-card" data-topic="ages"><div class="kw-q">When do old people ask young people for advice?</div><div class="kw-body">technology → smartphones, apps, internet → hard for them<br>WeChat: send photos, video calls, pay with phone → ask younger family<br>download app, connect wifi → step by step → sometimes forget, ask again</div></div>
+<div class="kw-card" data-topic="ages"><div class="kw-q">Do you think only old people have time for leisure?</div><div class="kw-body">no → everyone needs leisure<br>young: movies, sports, friends on weekends / children: games, cartoons after school<br>but old people → most free time → retired<br>working adults → busiest → work + family → least leisure</div></div>
+<div class="kw-card" data-topic="ages"><div class="kw-q">Which sports are popular among elderly people?</div><div class="kw-body">walking, tai chi, square dancing → gentle, low intensity, safe<br>morning → parks → tai chi, slowly, peacefully<br>evening → public squares → square dancing + loud music → social activity, meet friends<br>(vs young people) intense sports like basketball → old people need slower, safer</div></div>
+<div class="kw-card" data-topic="ages"><div class="kw-q">Why do old people prefer to live in quiet places?</div><div class="kw-body">need rest, peace → body not as strong → loud noise = tiring<br>after retire → move to small town/countryside → fresh air, less traffic, slower life<br>wake up naturally, morning walks, no car horns<br>(vs young people) don't mind noise → enjoy city excitement</div></div>
+<div class="kw-card" data-topic="ages"><div class="kw-q">What are the differences between old and young people when using apps?</div><div class="kw-body">young: new app → figure out in 5 mins → natural<br>old: find right button → confusing → accidentally close app<br>also: old → only 1-2 apps (WeChat) / young → dozens of apps every day<br>(speed + quantity = biggest differences)</div></div>
+<div class="kw-card" data-topic="ages"><div class="kw-q">How do young and old people use phones differently?</div><div class="kw-body">young: everything → social media, videos, shopping, games → phone = whole life<br>old: calling, messaging, maybe news → basic use<br>elderly → WeChat → voice message (typing too slow)<br>young → type fast, stickers, group chats, video calls → completely different</div></div>
+<div class="kw-card" data-topic="ages"><div class="kw-q">Do old people read more than young people?</div><div class="kw-body">depends on what kind → old: newspapers, paper books / young: phone, apps, online<br>elderly → buy newspaper every morning → read with tea → one hour<br>young → news on app, social media, online novels → shorter pieces, much faster<br>both read → style and format completely different</div></div>
+<div class="kw-card" data-topic="ages"><div class="kw-q">What differences are there between young and old people's music tastes?</div><div class="kw-body">young: modern pop, hip-hop → fast, strong beat<br>old: slower, traditional → old love songs, 80s/90s<br>family gathering → young plays hip-hop → grandparents think it's noise<br>grandparents play old songs → young find boring → shaped by generation</div></div>
+<div class="kw-card" data-topic="ages"><div class="kw-q">Which stage of life is best for learning a language?</div><div class="kw-body">childhood → 4-7 years old → brain developing → pick up sounds naturally<br>kids hear two languages at home → speak both by school age → no studying grammar<br>(vs adults) → study rules, memorize vocabulary → much more effort</div></div>
+    </div><!-- /kw-grid -->
+  </div><!-- /tab-kwref -->
+</div><!-- /wrap -->
+
+<script>
+function switchTab(name, el) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.sub-tabs a').forEach(a => a.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  if (el) el.classList.add('active');
+}
+function setupFilter(filterId, gridId, cardClass) {
+  document.getElementById(filterId).addEventListener('click', function(e) {
+    const btn = e.target.closest('.flt-btn');
+    if (!btn) return;
+    document.querySelectorAll('#' + filterId + ' .flt-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const topic = btn.dataset.topic;
+    document.querySelectorAll('#' + gridId + ' .' + cardClass).forEach(card => {
+      if (topic === 'all' || card.dataset.topic === topic) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  });
+}
+setupFilter('q-filter', 'q-grid', 'q-card');
+setupFilter('kw-filter', 'kw-grid', 'kw-card');
+</script>
+</body>
+</html>
