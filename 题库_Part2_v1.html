@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Part 2 题库 | Tracy's IELTS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --beiya:#C0392B;--beiya-dark:#96281B;--beiya-light:#FDECEA;
+  --cambridge:#4f46e5;--cambridge-bg:#eef2ff;
+  --real:#16a34a;--real-bg:#dcfce7;
+  --gray-50:#f9fafb;--gray-100:#f3f4f6;--gray-200:#e5e7eb;
+  --gray-400:#9ca3af;--gray-600:#4b5563;--gray-800:#1f2937;
+  --radius:10px;--shadow:0 1px 4px rgba(0,0,0,.08);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--gray-50);color:var(--gray-800);min-height:100vh}
+
+/* TOPBAR */
+.topbar{background:var(--beiya);padding:0 24px;height:56px;display:flex;align-items:center;gap:16px;box-shadow:0 2px 8px rgba(192,57,43,.3)}
+.topbar-logo{font-family:'Noto Serif SC',serif;font-weight:600;font-size:1.1rem;color:#fff;text-decoration:none;letter-spacing:.5px}
+.topbar-nav{display:flex;gap:4px;margin-left:auto}
+.topbar-nav a{color:rgba(255,255,255,.85);text-decoration:none;font-size:.85rem;padding:6px 12px;border-radius:6px;transition:background .15s}
+.topbar-nav a:hover,.topbar-nav a.active{background:rgba(255,255,255,.15);color:#fff}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--beiya) 0%,var(--beiya-dark) 100%);color:#fff;padding:40px 24px 32px;text-align:center}
+.hero h1{font-family:'Noto Serif SC',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:600;margin-bottom:8px}
+.hero p{font-size:.9rem;opacity:.85;margin-bottom:28px}
+.stats{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-bottom:20px}
+.stat-card{background:rgba(255,255,255,.15);backdrop-filter:blur(4px);border-radius:10px;padding:12px 20px;min-width:100px;text-align:center}
+.stat-num{font-size:1.6rem;font-weight:700;line-height:1}
+.stat-label{font-size:.72rem;opacity:.8;margin-top:4px}
+.legend{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:.82rem;opacity:.9}
+.legend-dot{width:10px;height:10px;border-radius:50%}
+.legend-dot.cam{background:#818cf8}
+.legend-dot.real{background:#4ade80}
+
+/* TABS */
+.tabs-wrap{max-width:900px;margin:28px auto 0;padding:0 16px}
+.tab-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.tab-btn{background:#fff;border:2px solid var(--gray-200);border-radius:999px;padding:8px 20px;font-size:.88rem;font-weight:500;cursor:pointer;color:var(--gray-600);transition:all .2s;display:flex;align-items:center;gap:6px}
+.tab-btn:hover{border-color:var(--beiya);color:var(--beiya)}
+.tab-btn.active{background:var(--beiya);border-color:var(--beiya);color:#fff}
+.tab-count{background:rgba(255,255,255,.25);border-radius:999px;padding:1px 7px;font-size:.78rem;font-weight:600}
+.tab-btn:not(.active) .tab-count{background:var(--gray-100);color:var(--gray-600)}
+
+/* PANEL */
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.panel-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding:14px 18px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow)}
+.panel-icon{font-size:1.4rem}
+.panel-title{font-family:'Noto Serif SC',serif;font-size:1rem;font-weight:600;color:var(--gray-800)}
+.panel-total{margin-left:auto;font-size:.82rem;color:var(--gray-400);background:var(--gray-100);padding:3px 10px;border-radius:999px}
+
+/* QUESTION LIST */
+.q-list{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:40px}
+.q-item{background:#fff;border-radius:var(--radius);padding:12px 16px;display:flex;align-items:flex-start;gap:12px;box-shadow:var(--shadow);border-left:3px solid transparent;transition:border-color .15s,box-shadow .15s}
+.q-item:hover{border-left-color:var(--beiya);box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.q-num{min-width:28px;height:28px;background:var(--beiya-light);color:var(--beiya);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;margin-top:1px}
+.q-text{flex:1;font-size:.9rem;line-height:1.5;color:var(--gray-800)}
+.badge{flex-shrink:0;font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:999px;align-self:center}
+.badge-cam{background:var(--cambridge-bg);color:var(--cambridge)}
+.badge-real{background:var(--real-bg);color:var(--real)}
+.q-season{flex-shrink:0;font-size:.72rem;color:var(--gray-400);align-self:center;white-space:nowrap}
+
+/* FOOTER */
+.footer{text-align:center;padding:24px;font-size:.8rem;color:var(--gray-400);border-top:1px solid var(--gray-200)}
+
+@media(max-width:600px){
+  .topbar-nav{display:none}
+  .hero{padding:28px 16px 24px}
+  .stats{gap:8px}
+  .stat-card{padding:10px 14px}
+  .q-item{padding:10px 12px;gap:8px}
+}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a class="topbar-logo" href="index.html">Tracy's IELTS</a>
+  <div class="topbar-nav">
+    <a href="index.html">首页</a>
+    <a href="part1.html">Part 1</a>
+    <a href="part2.html" class="active">Part 2 题库</a>
+    <a href="scenery.html">口语素材</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>Part 2 题库</h1>
+  <p>剑桥真题 + 历年考场真实题目，全面覆盖 2022–2025</p>
+  <div class="stats">
+    <div class="stat-card"><div class="stat-num">558</div><div class="stat-label">题目总数</div></div>
+    <div class="stat-card"><div class="stat-num">72</div><div class="stat-label">剑桥真题</div></div>
+    <div class="stat-card"><div class="stat-num">486</div><div class="stat-label">历年真题</div></div>
+    <div class="stat-card"><div class="stat-num">165</div><div class="stat-label">👤 人物</div></div>
+    <div class="stat-card"><div class="stat-num">115</div><div class="stat-label">📍 地点</div></div>
+    <div class="stat-card"><div class="stat-num">160</div><div class="stat-label">📦 物品</div></div>
+    <div class="stat-card"><div class="stat-num">118</div><div class="stat-label">⭐ 事件</div></div>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot cam"></div>剑桥真题</div>
+    <div class="legend-item"><div class="legend-dot real"></div>历年考场</div>
+  </div>
+</section>
+
+<div class="tabs-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('person', this)">👤 人物 <span class="tab-count">165</span></button><button class="tab-btn" onclick="switchTab('place', this)">📍 地点 <span class="tab-count">115</span></button><button class="tab-btn" onclick="switchTab('thing', this)">📦 物品 <span class="tab-count">160</span></button><button class="tab-btn" onclick="switchTab('event', this)">⭐ 事件 <span class="tab-count">118</span></button>
+  </div>
+  <div class="tab-panel active" id="panel-person">
+<div class="panel-header"><span class="panel-icon">👤</span><span class="panel-title">人物类题目</span><span class="panel-total">共 165 题</span></div>
+<ul class="q-list">
+<li class="q-item"><span class="q-num">1</span><span class="q-text">Describe a teacher who has influenced you in your education</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">2</span><span class="q-text">Describe a well-known person you like or admire</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">3</span><span class="q-text">Describe someone in your family who you like</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">4</span><span class="q-text">Describe a friend of your family you remember from your childhood</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">5</span><span class="q-text">Describe a person who has done a lot of work to help people say</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">6</span><span class="q-text">Describe someone you know who does something well</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">7</span><span class="q-text">Describe a child that you know</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">8</span><span class="q-text">Describe a house/apartment that someone you know lives in</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">9</span><span class="q-text">Describe a writer you would like to meet</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">10</span><span class="q-text">Describe an occasion when you had to wait a long time for someone or something to arrive</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">11</span><span class="q-text">Describe a film/movie actor from your country</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">12</span><span class="q-text">Describe a time when you visited a friend or family member at their workplace</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">13</span><span class="q-text">Describe someone you know who has started a business</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">14</span><span class="q-text">Describe a famous business person that you know</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">15</span><span class="q-text">Describe the neighbourhood you lived in when you were a child</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">16</span><span class="q-text">Describe a time when you met someone who you became good friends with</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">17</span><span class="q-text">Describe a person from your country who has won a prize, award or medal</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">18</span><span class="q-text">Describe a person who solved a problem in a smart way 机智解决问题的人</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">19</span><span class="q-text">Describe a famous athlete you know 有名的运动员/著名运动员</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">20</span><span class="q-text">Describe a creative person whose work you admire 有创造力的人</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">21</span><span class="q-text">Describe a foreign person who you have heard or known that you think is interesting 有趣的外国人</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">22</span><span class="q-text">Describe a person who impressed you most when you were in primary school 小学印象最深的人</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">23</span><span class="q-text">Describe a famous person you are interested in 感兴趣的名人</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">24</span><span class="q-text">Describe a person who you follow on social media 社交媒体上关注的人</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">25</span><span class="q-text">Describe a person who contributes to the society 对社会有贡献的人</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">26</span><span class="q-text">Describe someone you really like to spend time with 想共度时光的人</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">27</span><span class="q-text">Describe a person you only met once and what to know more about 一见且想再见的人</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">28</span><span class="q-text">Describe a time you were friendly to someone you didn't like 善待不喜欢的人</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">29</span><span class="q-text">Describe a time when you felt proud of a family member 为家人骄傲</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">30</span><span class="q-text">Describe an interesting conversation you had with your friend 有趣的谈话</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">31</span><span class="q-text">Describe a habit your friend has and you want to develop 希望养成的习惯</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">32</span><span class="q-text">Describe a gift you would like to buy for your friend 送朋友的礼物</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">33</span><span class="q-text">Describe a story someone told you and you remember 别人讲述的故事/难忘的故事</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">34</span><span class="q-text">Describe a skill that you learned from older people 向长者学习技能</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">35</span><span class="q-text">Describe an item of clothing that someone gave you 别人给你的衣服</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">36</span><span class="q-text">Describe a person who you follow on social media 社交媒体上常刷的人</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">37</span><span class="q-text">Describe an interesting neighbor 有趣的邻居</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">38</span><span class="q-text">Describe a family member who you want to work with in the future 想共事的家人</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">39</span><span class="q-text">Describe a popular/well-known person in your country 你的国家的名人</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">40</span><span class="q-text">Describe a friend you like to talk with 喜欢一起聊天的朋友</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">41</span><span class="q-text">Describe a time you helped a child 帮助小孩</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">42</span><span class="q-text">Describe an occasion when someone gave you positive advice or suggestions about your work/study 工作学习中的积极建议</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">43</span><span class="q-text">Describe a story someone told you and you remember 别人讲述的故事</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">44</span><span class="q-text">Describe a person who likes to dress fashionably 时尚人士</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">45</span><span class="q-text">Describe a person you know who is from a different culture 不同文化的人</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">46</span><span class="q-text">Describe a person you know who loves to grow plants 喜欢种植物的人</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">47</span><span class="q-text">Describe a friend from your childhood 童年朋友</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">48</span><span class="q-text">Describe a person who inspired you to do something interesting 激励你的人</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">49</span><span class="q-text">Describe the home of someone you know well and that you often visit 常去的熟人之家</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">50</span><span class="q-text">Describe a time when someone asked for your opinion 征求意见</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">51</span><span class="q-text">Describe a disagreement you had with someone 与某人的争论</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">52</span><span class="q-text">Describe a person you met at a party who you enjoyed talking with 聚会上相谈甚欢的人</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">53</span><span class="q-text">Describe an interesting old person you met 有趣的老人</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">54</span><span class="q-text">Describe a person you have met who you want to work or study with 想一起学习/工作的人</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">55</span><span class="q-text">Describe a film character played by an actor or actress whom you admire 仰慕的演员所扮演的电影角色</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">56</span><span class="q-text">Describe a time when you taught a friend or relative something 教朋友或亲戚的经历</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">57</span><span class="q-text">Describe something that you did with someone or a group of people 和团队一起做的事情</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">58</span><span class="q-text">Describe a piece of good news that you heard about someone you know well 熟人的好消息</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">59</span><span class="q-text">Describe a time when someone gave you something that you really want 别人送给你特想要的东西</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">60</span><span class="q-text">Describe someone you know who often helps others 乐于助人的人</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">61</span><span class="q-text">Describe someone you know who has recently moved to a new place 认识的人搬新家</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">62</span><span class="q-text">Describe a place you have been to where there were lots of people 人多的地方</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">63</span><span class="q-text">Describe an expensive gift that you would like to give someone when you save a lot of money 存钱买贵重礼物</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">64</span><span class="q-text">Describe an occasion when you spent time with a young child 和小孩共度时光</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">65</span><span class="q-text">Describe a time when someone gave you something that you really want 别人送给你想要的东西</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">66</span><span class="q-text">Describe a foreigner who speaks Chinese well</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">67</span><span class="q-text">Describe an interesting person that you haven't met in person but would like to</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">68</span><span class="q-text">Describe a person who likes to cook for others</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">69</span><span class="q-text">Describe a person who always has interesting ideas of opinions</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">70</span><span class="q-text">Describe a piece of good advice that you gave to someone</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">71</span><span class="q-text">Describe a popular/well-known person in your country</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">72</span><span class="q-text">Describe a helpful person</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">73</span><span class="q-text">Describe someone you know who recently moved to new accommodation</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">74</span><span class="q-text">Describe an occasion when you spent time with a child</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">75</span><span class="q-text">Describe a person you know who likes to talk a lot</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">76</span><span class="q-text">Describe a person who is good at making people feel welcome in his/her home</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">77</span><span class="q-text">Describe a time when some people near you made</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">78</span><span class="q-text">Describe an occasion when you heard someone complaining about something in a restaurant/store or other</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">79</span><span class="q-text">Describe an interesting conversation you had with a very old person</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">80</span><span class="q-text">Describe a time when you helped someone</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">81</span><span class="q-text">Describe an interesting person that you haven't met in person but would like to know more</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">82</span><span class="q-text">Describe a place (city/town) that is good for people to live in</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">83</span><span class="q-text">Describe a person who likes to buy goods with low prices</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">84</span><span class="q-text">Describe a time when you taught a friend/relative something</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">85</span><span class="q-text">Describe a person who thinks music is important and enjoys music</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">86</span><span class="q-text">Describe a person you met at a party who you enjoyed talking with</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">87</span><span class="q-text">Describe a special meal that someone made for</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">88</span><span class="q-text">Describe a film character played by an actor or actress whom you admire</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">89</span><span class="q-text">Describe a piece of good news that you heard about someone you know well</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">90</span><span class="q-text">Describe a time when someone gave you something that you really wanted</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">91</span><span class="q-text">Describe a person who you are happy to know</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">92</span><span class="q-text">Describe an interesting place you have been to with a friend</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">93</span><span class="q-text">Describe an interesting old person you have met</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">94</span><span class="q-text">Describe a person who encouraged you to achieve your goal</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">95</span><span class="q-text">Describe a tourist attraction that very few people visit but you think is interesting</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">96</span><span class="q-text">Describe a person you really enjoy studying/working with</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">97</span><span class="q-text">Describe a time you taught something new to a younger person</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">98</span><span class="q-text">Describe someone you know who made a good decision recently</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">99</span><span class="q-text">Describe someone (a famous person) that is a role model for young people</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">100</span><span class="q-text">Describe something that you did with someone/a group of people</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">101</span><span class="q-text">Describe a person who has strong opinions</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">102</span><span class="q-text">Describe a time when you answered a phone call from someone</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">103</span><span class="q-text">Describe an old friend you had lost touch with and got in contact with again</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">104</span><span class="q-text">Describe a person from whom others like to ask for advice</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">105</span><span class="q-text">Describe an occasion when you helped a family member/relative</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">106</span><span class="q-text">Describe a person you know who has chosen a career in the medical field</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">107</span><span class="q-text">Describe a person who likes to read a lot</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">108</span><span class="q-text">Describe a person who likes to make things by hand (e.g. toys, furniture)</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">109</span><span class="q-text">Describe someone else's room you enjoy spending time in</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">110</span><span class="q-text">Describe a place you know where people can see a lot of wildlife (e.g. animals,</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">111</span><span class="q-text">Describe an old person you know who has had an interesting life</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">112</span><span class="q-text">Describe a time that you showed something which was new to a person who</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">113</span><span class="q-text">Describe an interesting neighbor</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">114</span><span class="q-text">Describe a family member who you want to work with in the future</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">115</span><span class="q-text">Describe an interesting discussion you had with your friend</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">116</span><span class="q-text">Describe a person who you follow on social media</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">117</span><span class="q-text">Describe a friend you like to talk with</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">118</span><span class="q-text">Describe an item of clothing that someone gave</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">119</span><span class="q-text">Describe a person who contributes to the society</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">120</span><span class="q-text">Describe a time when someone asked for your opinion</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">121</span><span class="q-text">Describe a story someone told you and you remember</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">122</span><span class="q-text">Describe an occasion when someone gave you positive advice or suggestions</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">123</span><span class="q-text">Describe a person you only met once recently and want to know more</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">124</span><span class="q-text">Describe a gift you would like to buy for your friend</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">125</span><span class="q-text">Describe someone you really like to spend time with</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">126</span><span class="q-text">Describe a skill that you learned from older people</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">127</span><span class="q-text">Describe a time when you helped a child</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">128</span><span class="q-text">Describe an energetic person that you know</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">129</span><span class="q-text">Describe a person who you regularly follow on social media</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">130</span><span class="q-text">Describe someone you like to spend time with</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">131</span><span class="q-text">Describe a time you made a promise to someone</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">132</span><span class="q-text">Describe someone who is willing to openly share things with</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">133</span><span class="q-text">Describe a person who helps to protect the environment</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">134</span><span class="q-text">Describe an athlete/sports team you admire</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">135</span><span class="q-text">Describe a person you know who enjoys working for a family business (e.g. a shop, etc.) (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">136</span><span class="q-text">Describe a good friend who is important to you(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">137</span><span class="q-text">Describe a friend of yours who is good at music/singing(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">138</span><span class="q-text">Describe a creative person (e.g. an artist, a musician, an architect, etc.) you admire(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">139</span><span class="q-text">Describe an old person who has an interesting life and you enjoy talking to him/her</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">140</span><span class="q-text">Describe a person you disliked at first but ended up being friends with</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">141</span><span class="q-text">Describe a person who you think wears unusual clothes</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">142</span><span class="q-text">Describe an intelligent person you know</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">143</span><span class="q-text">Describe a person you know who loves to grow plants (e.g. vegetables/fruits/flowers etc.)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">144</span><span class="q-text">Describe a singer whose music/songs you like</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">145</span><span class="q-text">Describe an important decision made with the help of other people(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">146</span><span class="q-text">Describe a good habit your friend has and you want to develop(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">147</span><span class="q-text">Describe a skill that you think you can teach other people</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">148</span><span class="q-text">Describe a time when someone apologized to you(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">149</span><span class="q-text">Describe a time when a person persuaded you to do something and you were happy about that</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">150</span><span class="q-text">Describe a time when you saw children behave badly in public</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">151</span><span class="q-text">Describe an intelligent person you know</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">152</span><span class="q-text">Describe a singer whose music/songs you like</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">153</span><span class="q-text">Describe a person you disliked at first but ended up being friends with (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">154</span><span class="q-text">Describe a friend of yours who is well dressed and is good at dressing up (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">155</span><span class="q-text">Describe a person you know who loves to grow plants</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">156</span><span class="q-text">Describe a friend from your childhood (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">157</span><span class="q-text">Describe a person who inspired you to do something interesting (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">158</span><span class="q-text">Describe a person who you think wears unusual clothes (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">159</span><span class="q-text">Describe a person from a different cultural background with whom you enjoy</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">160</span><span class="q-text">Describe a singer you like (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">161</span><span class="q-text">Describe the home of someone you know well and that you often visit (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">162</span><span class="q-text">Describe a skill that you think you can teach other people (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">163</span><span class="q-text">Describe a disagreement you had with someone (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">164</span><span class="q-text">Describe a time when a person persuaded you to do something and you were happy</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">165</span><span class="q-text">Describe a time when you saw children behave badly in public (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+</ul>
+</div><div class="tab-panel" id="panel-place">
+<div class="panel-header"><span class="panel-icon">📍</span><span class="panel-title">地点类题目</span><span class="panel-total">共 115 题</span></div>
+<ul class="q-list">
+<li class="q-item"><span class="q-num">1</span><span class="q-text">Describe an interesting historic place</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">2</span><span class="q-text">Describe a river, lake or sea which you like</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">3</span><span class="q-text">Describe a festival that is important in your country</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">4</span><span class="q-text">Describe a restaurant that you enjoyed going to</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">5</span><span class="q-text">Describe a meeting you remember going to at work, college or school</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">6</span><span class="q-text">Describe an open-air or street market which you enjoyed visiting</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">7</span><span class="q-text">Describe a shop near where you live that you sometimes use</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">8</span><span class="q-text">Describe something you liked very much which you bought for your home</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">9</span><span class="q-text">Describe a hotel that you know</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">10</span><span class="q-text">Describe a tourist attraction you enjoyed visiting</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">11</span><span class="q-text">Describe a big city you would like to visit</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">12</span><span class="q-text">Describe a tourist attraction in your country that you would recommend</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">13</span><span class="q-text">Describe a time when you enjoyed visiting a member of your family in their home</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">14</span><span class="q-text">Describe a law that was introduced in your country and that you thought was a very good idea</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">15</span><span class="q-text">Describe a place you visited that has beautiful views</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">16</span><span class="q-text">Describe a place you visited on vacation 假期旅行</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">17</span><span class="q-text">Describe a cafe you like to visit 咖啡馆</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">18</span><span class="q-text">Describe a city that you think is very interesting 有趣的城市</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">19</span><span class="q-text">Describe a time you visited a new place 去过的新地方</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">20</span><span class="q-text">Describe a place in a village that you visited 乡村一隅</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">21</span><span class="q-text">Describe a house or an apartment you would like to live in 想要的公寓或房子</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">22</span><span class="q-text">Describe a time when you moved to a new home/school 搬到新家/新学校的经历</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">23</span><span class="q-text">Describe something that was broken in your home and then repaired 坏掉又修好的东西</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">24</span><span class="q-text">Describe a quiet place you like to go 安静的地方</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">25</span><span class="q-text">Describe an important river/lake in your country 重要的河流或湖泊</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">26</span><span class="q-text">Describe a traditional product in your country 传统产品</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">27</span><span class="q-text">Describe a city you would recommend as a nice place to live (not your hometown) 宜居之地</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">28</span><span class="q-text">Describe a popular place for sports (e.g. a stadium) that you've been to 运动场所</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">29</span><span class="q-text">Describe a place in your country that you would like to recommend to visitors/travelers 想推荐给游客的地方</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">30</span><span class="q-text">Describe an outdoor activity you did in a new place recently 户外活动</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">31</span><span class="q-text">Describe a problem you had while shopping online or in a store 购物遇到的问题</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">32</span><span class="q-text">Describe an important thing you learned (not at school or college) 学到的重要的事情</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">33</span><span class="q-text">Describe a popular place for sports that you've been to 运动场所</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">34</span><span class="q-text">Describe a place in your country that you would like to recommend to visitors 推荐给游客的地方</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">35</span><span class="q-text">Describe another city you would like to stay for a short time 其他城市短暂停留</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">36</span><span class="q-text">Describe a new development in the area where you live 居住地的发展</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">37</span><span class="q-text">Describe a place you visited where the air was polluted 空气被污染的地方</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">38</span><span class="q-text">Describe a noisy place you have been to 吵闹的地方</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">39</span><span class="q-text">Describe your favorite place in your house where you can relax 家里放松的地方</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">40</span><span class="q-text">Describe a problem you had while shopping online or in a store 购物问题</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">41</span><span class="q-text">Describe the first day you went to school that you remember 第一天上学</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">42</span><span class="q-text">Describe an ideal house or apartment where you want to live 理想中的房子</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">43</span><span class="q-text">Describe a place you plan to travel to that is far away from your home 未来想去的遥远地方</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">44</span><span class="q-text">Describe a new shop that has recently opened in your city/town 新开的店</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">45</span><span class="q-text">Describe a traditional celebration in your country that you enjoy 喜欢的传统庆典</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">46</span><span class="q-text">Describe a bad service you received in a restaurant/shop</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">47</span><span class="q-text">Describe a park or garden in your city</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">48</span><span class="q-text">Describe a place in your country that you think is interesting</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">49</span><span class="q-text">Describe a beautiful city</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">50</span><span class="q-text">Describe an area of science (biology, robotics, etc.) that you are interested in and</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">51</span><span class="q-text">Describe a rule that is important in your school or at work</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">52</span><span class="q-text">Describe a traditional festival in your country</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">53</span><span class="q-text">Describe a new shop that opened in your city / area</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">54</span><span class="q-text">Describe a place you would like to visit in the future</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">55</span><span class="q-text">Describe a crowded place you went to</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">56</span><span class="q-text">Describe an ideal house or apartment</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">57</span><span class="q-text">Describe a time you bought somehthing from a street market</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">58</span><span class="q-text">Describe an outdoor activity you did</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">59</span><span class="q-text">Describe a newly built public facility (such as parks, cinemas etc.) that influences your city</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">60</span><span class="q-text">Describe a useful object in your home that you cannot live without</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">61</span><span class="q-text">Describe a uniform you wear (e.g. at school, at work)</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">62</span><span class="q-text">Describe a place you would like to go to relax</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">63</span><span class="q-text">Describe a park or a garden in your city</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">64</span><span class="q-text">Describe an area of science (biology, robotics, etc.) that you are interested in and would like to learn more</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">65</span><span class="q-text">Describe another city you would like to stay for a short time</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">66</span><span class="q-text">Describe an important plant in your country</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">67</span><span class="q-text">Describe a place you visited where the air was polluted</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">68</span><span class="q-text">Describe a historical building you have been to</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">69</span><span class="q-text">Describe your first day at school that you remember</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">70</span><span class="q-text">Describe your favorite place in your house where you can relax</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">71</span><span class="q-text">Describe an indoor or outdoor place where it is easy for you to study</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">72</span><span class="q-text">Describe a place you have been to where things are expensive</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">73</span><span class="q-text">Describe a new law you would like to introduce in your country</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">74</span><span class="q-text">Describe a place where you have taken photos more than once</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">75</span><span class="q-text">Describe a noisy place you have been to</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">76</span><span class="q-text">Describe a natural place (e.g. parks, mountains)</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">77</span><span class="q-text">Describe a new development in the area where you live (e.g. shopping mall,</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">78</span><span class="q-text">Describe a cultural place that you would like to learn the culture there</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">79</span><span class="q-text">Describe an ideal and perfect place where you would like to stay</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">80</span><span class="q-text">Describe a place in your hometown/city that is different from other places</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">81</span><span class="q-text">Describe a public park or garden</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">82</span><span class="q-text">Describe a time when you received good service in a shop/store</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">83</span><span class="q-text">Describe an important river/lake in your country</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">84</span><span class="q-text">Describe a traditional product in your country</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">85</span><span class="q-text">Describe a time you visited a new place</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">86</span><span class="q-text">Describe a city that you think is very interesting</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">87</span><span class="q-text">Describe a quiet place you like to go</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">88</span><span class="q-text">Describe something that was broken in your home and then repaired</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">89</span><span class="q-text">Describe a place you have been to and would like to recommend others to live</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">90</span><span class="q-text">Describe an area/subject of science (biology, robotics, etc.) that you are</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">91</span><span class="q-text">Describe a foreign country you would like to visit in the future</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">92</span><span class="q-text">Describe a city that you think is very interesting/famous</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">93</span><span class="q-text">Describe an interesting building</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">94</span><span class="q-text">Describe a piece of equipment that is important in your home</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">95</span><span class="q-text">Describe a time you enjoyed a free day off work or school</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">96</span><span class="q-text">Describe a place with a lot of trees that you would like to visit</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">97</span><span class="q-text">Describe a quiet place you like to go(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">98</span><span class="q-text">Describe an unusual but interesting building you would like to visit(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">99</span><span class="q-text">Describe a natural place (e.g. parks, mountains, etc.) (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">100</span><span class="q-text">Describe a shop/store you enjoy visiting</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">101</span><span class="q-text">Describe a city that you have been to and would like to visit again</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">102</span><span class="q-text">Describe a place where you saw animals</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">103</span><span class="q-text">Describe a place you went to and an outdoor activity you did there</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">104</span><span class="q-text">Describe an area/subject of science (biology, robotics, etc.) that you are interested in and would like to learn more about (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">105</span><span class="q-text">Describe an outdoor sport you would like to try for the first time</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">106</span><span class="q-text">Describe a time when you received good service in a shop/store(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">107</span><span class="q-text">Describe a shop/store you enjoy visiting</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">108</span><span class="q-text">Describe a place where you saw animals</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">109</span><span class="q-text">Describe a shop store you enjoy visiting (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">110</span><span class="q-text">Describe a city that you have been to and would like to visit again (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">111</span><span class="q-text">Describe a popular place for sports that you ve been to (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">112</span><span class="q-text">Describe a place in your country or part of your country that you would like to</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">113</span><span class="q-text">Describe a place you went to and an outdoor activity you did there (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">114</span><span class="q-text">Describe an outdoor sport you would like to try for the first time (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">115</span><span class="q-text">Describe a problem you had while shopping online or in a store (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+</ul>
+</div><div class="tab-panel" id="panel-thing">
+<div class="panel-header"><span class="panel-icon">📦</span><span class="panel-title">物品类题目</span><span class="panel-total">共 160 题</span></div>
+<ul class="q-list">
+<li class="q-item"><span class="q-num">1</span><span class="q-text">Describe a film or a TV programme which has made a strong impression on</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">2</span><span class="q-text">Describe something you own which is very important to</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">3</span><span class="q-text">Describe an interest or hobby that you enjoy</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">4</span><span class="q-text">Describe a useful website you have visited</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">5</span><span class="q-text">Describe a song or a piece of music you like</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">6</span><span class="q-text">Describe one of your friends bare (favourite)</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">7</span><span class="q-text">Describe something healthy you enjoy doing</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">8</span><span class="q-text">Describe an important choice you had to make in your life</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">9</span><span class="q-text">Describe an idea you had for improving something at work or college</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">10</span><span class="q-text">Describe a competition (e.g. TV, college/work or sports competition) that you took part in</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">11</span><span class="q-text">Describe a piece of electronic equipment that you find useful</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">12</span><span class="q-text">Describe something you don't have now but would really like to own in the future</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">13</span><span class="q-text">Describe a day when you thought the weather was perfect</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">14</span><span class="q-text">Describe a TV documentary you watched that was particularly interesting</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">15</span><span class="q-text">Describe an interesting discussion you had about how you spend your money</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">16</span><span class="q-text">Describe a time when you started using a new technological device (e.g. a new computer or phone)</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">17</span><span class="q-text">Describe an interesting discussion you had as part of your work or studies</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">18</span><span class="q-text">Describe a website you use that helps you a lot in your work or studies</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">19</span><span class="q-text">Describe a book that you enjoyed reading because you had to think a lot</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">20</span><span class="q-text">Describe a very difficult task that you succeeded in doing as part of your work or studies</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">21</span><span class="q-text">Describe a website you have bought something from</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">22</span><span class="q-text">Describe a website that you bought something from</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">23</span><span class="q-text">Describe an interesting TV programme you watched about a science topic</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">24</span><span class="q-text">Describe a review you read about a product or service</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">25</span><span class="q-text">Describe a luxury item you would like to own in the future</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">26</span><span class="q-text">Describe some technology (e.g. an app, phone software program) that you decided to stop using</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">27</span><span class="q-text">Describe a monument (e.g., a statue or sculpture) that you like</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">28</span><span class="q-text">Describe some food or drink that you learned to prepare</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">29</span><span class="q-text">Describe a play or a film you have seen that you would like to see again with friends</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">30</span><span class="q-text">Describe a piece of work you did for your job or your studies that you felt very satisfied with</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">31</span><span class="q-text">Describe a time when you had a long discussion about a news story</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">32</span><span class="q-text">Describe a businessman you admire 敬佩的商人</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">33</span><span class="q-text">Describe a long walk you ever had 远距离步行</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">34</span><span class="q-text">Describe an exciting book that you enjoy reading 令人激动的书</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">35</span><span class="q-text">Describe a good service you received 优质服务</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">36</span><span class="q-text">Describe an item on which you spent more than expected 花费超过预期的物品</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">37</span><span class="q-text">Describe a skill that was difficult for you to learn 难学的技能</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">38</span><span class="q-text">Describe something that you are interested to learn or improve 想学的感兴趣的东西</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">39</span><span class="q-text">Describe a special cake you received from others 收到的特殊蛋糕</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">40</span><span class="q-text">Describe an interesting song 有趣的歌曲</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">41</span><span class="q-text">Describe something you received for free 免费物品</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">42</span><span class="q-text">Describe something that you can't live without (not a computer/phone) 生活中离不开的东西（不含电脑/手机）</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">43</span><span class="q-text">Describe a toy you liked in your childhood 童年喜欢的玩具</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">44</span><span class="q-text">Describe a special day out that cost you little money 花费很少的外出</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">45</span><span class="q-text">Describe something that you can't live without (not a computer/phone) 离不开的东西</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">46</span><span class="q-text">Describe something that surprised you 让你惊讶的事情</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">47</span><span class="q-text">Describe something you do to keep fit and healthy 保持健康的方式</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">48</span><span class="q-text">Describe something you do that can help you concentrate on work/study 集中注意力的事</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">49</span><span class="q-text">Describe something you had to share with others 不得不与他人分享</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">50</span><span class="q-text">Describe a time when you received money as a gift 收钱作为礼物</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">51</span><span class="q-text">Describe something you do that can help you concentrate 集中注意力的事</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">52</span><span class="q-text">Describe a program you like to watch 喜欢的节目</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">53</span><span class="q-text">Describe a photo you took that you are proud of 让你自豪的照片</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">54</span><span class="q-text">Describe an object that you think is beautiful 漂亮物品</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">55</span><span class="q-text">Describe a movie you watched recently and would like to watch again 想再看的电影</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">56</span><span class="q-text">Describe a story or novel you have read that you found interesting 有趣的小说或故事</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">57</span><span class="q-text">Describe a daily routine that you enjoy 喜欢的日常事务</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">58</span><span class="q-text">Describe a historical period you would like to know more 想更多了解的历史时期</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">59</span><span class="q-text">Describe an unusual meal you had 不同寻常的一餐</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">60</span><span class="q-text">Describe a website you often visit 常用网站</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">61</span><span class="q-text">Describe a piece of technology you own that you feel is difficult to use 难用的科技产品</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">62</span><span class="q-text">Describe an advertisement you do not like 不喜欢的广告</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">63</span><span class="q-text">Describe something you would like to learn in the future 未来想学的技能</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">64</span><span class="q-text">Describe a speech that you gave in the public 公开场合的演讲</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">65</span><span class="q-text">Describe an exciting adventure you would like to take in the future 未来想要进行的冒险</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">66</span><span class="q-text">Describe a game that you enjoyed playing when you were younger 小时候喜欢的游戏</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">67</span><span class="q-text">Describe a water sport you would like to try in the future 未来想尝试的水上运动</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">68</span><span class="q-text">Describe an interesting job that you want to have in the future 未来想做的有趣工作</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">69</span><span class="q-text">Describe a book that you have read many times 多次阅读的书</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">70</span><span class="q-text">Describe a movie you watched recently that you felt disappointed about 让你失望的电影</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">71</span><span class="q-text">Describe a happy experience in your childhood 童年的快乐经历</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">72</span><span class="q-text">Describe a piece of clothing you enjoy wearing 喜欢穿的衣服</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">73</span><span class="q-text">Describe a successful businessperson you know (e.g. running a family business)</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">74</span><span class="q-text">Describe a sportsperson you admire</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">75</span><span class="q-text">Describe a time that something changed your life in good ways</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">76</span><span class="q-text">Describe a difficult task that you completed at work/study that you felt proud of</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">77</span><span class="q-text">Describe a painting that you like</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">78</span><span class="q-text">Describe a photo that makes you happy</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">79</span><span class="q-text">Describe a good advertisement that you think is useful</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">80</span><span class="q-text">Describe a water sport you would like to try</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">81</span><span class="q-text">Describe an adventure you would like to go on</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">82</span><span class="q-text">Describe a book you have read many times</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">83</span><span class="q-text">Describe a game you enjoyed playing when you were younger</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">84</span><span class="q-text">Describe a piece of clothing you wear often</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">85</span><span class="q-text">Describe an interesting job</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">86</span><span class="q-text">Describe an expensive gift you would like to buy</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">87</span><span class="q-text">Describe a movie you watched recently and would like to watch again</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">88</span><span class="q-text">Describe a speech you gave</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">89</span><span class="q-text">Describe a great team member you worked with</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">90</span><span class="q-text">Describe an interesting activity that you remember</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">91</span><span class="q-text">Describe a useful skill that you learned as a teenager</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">92</span><span class="q-text">Describe a movie which is extremely impressive</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">93</span><span class="q-text">Describe something you do regularly to help you work or study</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">94</span><span class="q-text">Describe an occassion when you had to do something in a hurry</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">95</span><span class="q-text">Describe a occasion when you used a map</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">96</span><span class="q-text">Describe a public facility that has been renovated and improved</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">97</span><span class="q-text">Describe a job that you would not like to do in the future</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">98</span><span class="q-text">Describe a time that something changed your life in a good way</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">99</span><span class="q-text">Describe a website you often visit</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">100</span><span class="q-text">Describe an advertisement you have seen but you did not like</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">101</span><span class="q-text">Describe a piece of technology you own that you feel is difficult to use</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">102</span><span class="q-text">Describe a daily routine that you enjoy</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">103</span><span class="q-text">Describe an occasion you wore the best clothes</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">104</span><span class="q-text">Describe something you own that you want to replace</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">105</span><span class="q-text">Describe a sport that you only have watched before but have not played yourself</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">106</span><span class="q-text">Describe something you would like to learn in the future</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">107</span><span class="q-text">Describe a risk you took that you thought would lead to a terrible result but</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">108</span><span class="q-text">Describe a subject that you would like to learn in the future</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">109</span><span class="q-text">Describe an unusual meal you had</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">110</span><span class="q-text">Describe a picture/photograph of you that you like</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">111</span><span class="q-text">Describe a sport you watched and would like to try</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">112</span><span class="q-text">Describe a new skill that you learned</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">113</span><span class="q-text">Describe an online video in which you learned something new</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">114</span><span class="q-text">Describe something you did in your study/work that has</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">115</span><span class="q-text">Describe a movie you watched and enjoyed recently</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">116</span><span class="q-text">Describe a time when you lost an important and valuable item</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">117</span><span class="q-text">Describe a prize you have received recently (e.g. money, something valuable,</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">118</span><span class="q-text">Describe your favourite food at a traditional festival or a special event</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">119</span><span class="q-text">Describe something you do that can help you concentrate on work/study</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">120</span><span class="q-text">Describe a special day out that cost you little money/didn't cost you much</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">121</span><span class="q-text">Describe an interesting song</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">122</span><span class="q-text">Describe something that you can't live without (not a computer/phone)</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">123</span><span class="q-text">Describe something that surprised you and made you happy</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">124</span><span class="q-text">Describe a long walk you ever had</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">125</span><span class="q-text">Describe a special cake you received from others</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">126</span><span class="q-text">Describe a toy you liked in your childhood</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">127</span><span class="q-text">Describe something you do to keep fit and healthy</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">128</span><span class="q-text">Describe a countryside that you have been to</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">129</span><span class="q-text">Describe something you received for free</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">130</span><span class="q-text">Describe a job that is useful to the society</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">131</span><span class="q-text">Describe a sport that you really like</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">132</span><span class="q-text">Describe one of your grandparents' job</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">133</span><span class="q-text">Describe a line (or a few words) that you remember from a poem or song</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">134</span><span class="q-text">Describe a TV series you like</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">135</span><span class="q-text">Describe a（jigsaw, crossword, etc）puzzle you have played</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">136</span><span class="q-text">Describe a successful sportsperson you admire(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">137</span><span class="q-text">Describe a natural talent (sports, music, etc.) you want to improve(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">138</span><span class="q-text">Describe a wild animal that you want to learn more about(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">139</span><span class="q-text">Describe a great dinner you and your friends or family members enjoyed (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">140</span><span class="q-text">Describe a toy you liked in your childhood(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">141</span><span class="q-text">Describe an interesting traditional story(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">142</span><span class="q-text">Describe an important old thing that your family has kept for a long time(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">143</span><span class="q-text">Describe a book you read that you found useful(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">144</span><span class="q-text">Describe an object that you think is beautiful</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">145</span><span class="q-text">Describe a film that made you laugh</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">146</span><span class="q-text">Describe an article on health you read in a magazine or on the internet</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">147</span><span class="q-text">Describe an advertisement you have seen that introduced a well-known product</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">148</span><span class="q-text">Describe a website that sells second-hand items</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">149</span><span class="q-text">Describe an exciting activity you have tried for the first time(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">150</span><span class="q-text">Describe the time when you first talked in a foreign language(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">151</span><span class="q-text">Describe an object that you think is beautiful</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">152</span><span class="q-text">Describe a film that made you laugh</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">153</span><span class="q-text">Describe a photo you took that you are proud of (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">154</span><span class="q-text">Describe a story or novel you have read that you found interesting (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">155</span><span class="q-text">Describe an article on health you read in a magazine or on the internet (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">156</span><span class="q-text">Describe an advertisement you have seen that introduced a well known product (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">157</span><span class="q-text">Describe a website that sells secondhand items (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">158</span><span class="q-text">Describe a program you like to watch (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">159</span><span class="q-text">Describe an argument two of your friends had (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">160</span><span class="q-text">Describe a time when you received money as a gift (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+</ul>
+</div><div class="tab-panel" id="panel-event">
+<div class="panel-header"><span class="panel-icon">⭐</span><span class="panel-title">事件类题目</span><span class="panel-total">共 118 题</span></div>
+<ul class="q-list">
+<li class="q-item"><span class="q-num">1</span><span class="q-text">Describe a memorable event in your life.</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">2</span><span class="q-text">Describe a yame or sport you enjoy playing</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">3</span><span class="q-text">Describe a party that you enjoyed</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">4</span><span class="q-text">Describe a time when you were asked to give your opinion in a questionnaire or survey</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">5</span><span class="q-text">Describe something you did that was new or exciting</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">6</span><span class="q-text">Describe a journey [e.g. by car plane, boat] that you remember well</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">7</span><span class="q-text">Describe an occasion when you had to do something in a hurry</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">8</span><span class="q-text">Describe a car journey you made that took longer than expected</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">9</span><span class="q-text">Describe a time when you changed a plan you had made</span><span class="badge badge-cam">剑桥</span><span class="q-season">剑桥</span></li>
+<li class="q-item"><span class="q-num">10</span><span class="q-text">Describe a time when you got up early 早起的经历</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">11</span><span class="q-text">Describe a time when you waited for something special that would happen 等待特殊的事情</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">12</span><span class="q-text">Describe a time when you give advice to others 给别人建议的一次经历</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">13</span><span class="q-text">Describe an ambition that you haven't achieved 壮志未酬</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">14</span><span class="q-text">Describe a time when you organized a happy event successfully 成功组织的快乐活动</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">15</span><span class="q-text">Describe a bicycle/motorcycle/car trip you would like to go 自行车/摩托车/汽车旅行</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">16</span><span class="q-text">Describe a difficult decision that you once made 困难的决定</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">17</span><span class="q-text">Describe an activity you usually do that wastes your time 经常做的浪费时间的活动</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">18</span><span class="q-text">Describe a difficult thing you did 一件困难的事情</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">19</span><span class="q-text">Describe a course that impressed you a lot 印象深刻的课程</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">20</span><span class="q-text">Describe a rule that you do not like 不喜欢的规则</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">21</span><span class="q-text">Describe a thing you did to learn another language 语言学习</span><span class="badge badge-real">历年</span><span class="q-season">2022年1-4月</span></li>
+<li class="q-item"><span class="q-num">22</span><span class="q-text">Describe a contest/competition you would like to participate in 想参加的比赛</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">23</span><span class="q-text">Describe an occasion when you lost something 丢东西的经历</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">24</span><span class="q-text">Describe a positive change that you made in your life 积极的改变</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">25</span><span class="q-text">Describe a time you were very busy 一次非常忙碌的经历</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">26</span><span class="q-text">Describe a time when you were stuck in a traffic jam 交通拥堵</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">27</span><span class="q-text">Describe a time you used your cellphone to do something important 用手机做重要事情</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">28</span><span class="q-text">Describe an important event you celebrated 庆祝过的活动</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">29</span><span class="q-text">Describe an invention that has changed the world in a positive way 改变世界的发明</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">30</span><span class="q-text">Describe a way/change that helps you save a lot of time 节约时间的方法/改变</span><span class="badge badge-real">历年</span><span class="q-season">2022年5-8月</span></li>
+<li class="q-item"><span class="q-num">31</span><span class="q-text">Describe a time you were very busy 忙碌的经历</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">32</span><span class="q-text">Describe a time when you needed to search for information 信息搜索</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">33</span><span class="q-text">Describe a time when you forgot/missed an appointment 失约/忘记约定</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">34</span><span class="q-text">Describe a time you made a decision to wait for something 决意等待</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">35</span><span class="q-text">Describe a time when you saw a lot of plastic waste 塑料废品</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">36</span><span class="q-text">Describe a time when you overcame difficulties in doing something and succeeded 克服困难最终成功</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">37</span><span class="q-text">Describe a way/change that helps you save a lot of time 节约时间的方法</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">38</span><span class="q-text">Describe an impressive English lesson you had and enjoyed 印象深刻的英语课</span><span class="badge badge-real">历年</span><span class="q-season">2022年9-12月</span></li>
+<li class="q-item"><span class="q-num">39</span><span class="q-text">Describe a time when you overcame difficulties in doing something and succeeded 克服困难成功</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">40</span><span class="q-text">Describe something you did that made you feel proud 让你骄傲的事</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">41</span><span class="q-text">Describe a time when you missed or were late for an important meeting/event 见面迟到</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">42</span><span class="q-text">Describe a complaint that you made and you were satisfied with the result 满意的投诉</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">43</span><span class="q-text">Describe an activity you enjoyed in your free time when you were young 小时候喜欢的活动</span><span class="badge badge-real">历年</span><span class="q-season">2023年1-4月</span></li>
+<li class="q-item"><span class="q-num">44</span><span class="q-text">Describe an occasion when you got incorrect information 获得错误信息</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">45</span><span class="q-text">Describe an occasion when you lost your way 迷路的经历</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">46</span><span class="q-text">Describe a car journey that you remember well 记忆犹新的汽车旅行</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">47</span><span class="q-text">Describe an important decision that you made 重要决定</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">48</span><span class="q-text">Describe a sport you enjoy watching 喜欢看的运动</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">49</span><span class="q-text">Describe an invention that is useful in your daily life 日常生活中有用的发明</span><span class="badge badge-real">历年</span><span class="q-season">2023年5-8月</span></li>
+<li class="q-item"><span class="q-num">50</span><span class="q-text">Describe an activity that made you feel tired</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">51</span><span class="q-text">Describe an occasion when you waited a long time for a nice thing</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">52</span><span class="q-text">Describe a time when you had a problem with using the computer</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">53</span><span class="q-text">Describe a party you enjoyed</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">54</span><span class="q-text">Describe an occasion when you received some incorrect information</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">55</span><span class="q-text">Describe a car journey that you went on</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">56</span><span class="q-text">Describe a childhood experience that you enjoyed</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">57</span><span class="q-text">Describe an occasion when you got lost and needed help</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">58</span><span class="q-text">Describe an invention</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">59</span><span class="q-text">Describe an important decision you made</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">60</span><span class="q-text">Describe a sport you like to watch</span><span class="badge badge-real">历年</span><span class="q-season">2023年9-12月</span></li>
+<li class="q-item"><span class="q-num">61</span><span class="q-text">Describe an unusual holiday you had</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">62</span><span class="q-text">Describe a a long-term goal you would like to achieve</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">63</span><span class="q-text">Describe a time you were very busy</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">64</span><span class="q-text">Describe a travel you were looking forward to but</span><span class="badge badge-real">历年</span><span class="q-season">2024年1-4月</span></li>
+<li class="q-item"><span class="q-num">65</span><span class="q-text">Describe a time when you missed or were late for an important meeting/event</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">66</span><span class="q-text">Describe a complaint that you made and you were satisfied with the result</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">67</span><span class="q-text">Describe an enjoyable journey by public transport</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">68</span><span class="q-text">Describe an activity you enjoyed in your free time when you were young</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">69</span><span class="q-text">Describe something you did that made you feel proud</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">70</span><span class="q-text">Describe a historical period/moment you would like to learn more</span><span class="badge badge-real">历年</span><span class="q-season">2024年5-8月</span></li>
+<li class="q-item"><span class="q-num">71</span><span class="q-text">Describe a challenge you faced that you thought was rather difficult</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">72</span><span class="q-text">Describe an invention that is useful in your daily life</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">73</span><span class="q-text">Describe a course that impressed you a lot</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">74</span><span class="q-text">Describe a time when you organized a happy event successfully</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">75</span><span class="q-text">Describe a thing you did to learn another language</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">76</span><span class="q-text">Describe a difficult decision that you made and had a good result</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">77</span><span class="q-text">Describe an important event you celebrated</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">78</span><span class="q-text">Describe a contest/competition you would like to participate in</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">79</span><span class="q-text">Describe a time when you were stuck in a traffic jam</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">80</span><span class="q-text">Describe an occasion that you lost something</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">81</span><span class="q-text">Describe a rule you dislike and would like to change in the future</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">82</span><span class="q-text">Describe a way/change that helps you save a lot of time</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">83</span><span class="q-text">Describe an ambition that you haven't achieved</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">84</span><span class="q-text">Describe a time you used your cellphone/smartphone to do</span><span class="badge badge-real">历年</span><span class="q-season">2024年9-12月</span></li>
+<li class="q-item"><span class="q-num">85</span><span class="q-text">Describe a positive change that you have made recently in your daily routine</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">86</span><span class="q-text">Describe an important decision that you made</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">87</span><span class="q-text">Describe a plan that you had to change recently</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">88</span><span class="q-text">Describe a time when you were stuck in a traffic jam for a very long time</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">89</span><span class="q-text">Describe an occasion that you lost something in public</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">90</span><span class="q-text">Describe an invention that has changed the world in a positive way</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">91</span><span class="q-text">Describe a newly enacted law that you like but you want to change part of it</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">92</span><span class="q-text">Describe a live performance you enjoyed watching</span><span class="badge badge-real">历年</span><span class="q-season">2025年1-4月</span></li>
+<li class="q-item"><span class="q-num">93</span><span class="q-text">Describe a goal you set that you tried your best to achieve</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">94</span><span class="q-text">Describe a sports event that you would like to attend as part of the audience</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">95</span><span class="q-text">Describe an occasion when you lost your way(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">96</span><span class="q-text">Describe a time when the electricity suddenly went off(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">97</span><span class="q-text">Describe a time when you broke something(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">98</span><span class="q-text">Describe a long journey you had and would like to take again(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">99</span><span class="q-text">Describe a time you saw something interesting on social media(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">100</span><span class="q-text">Describe a time when you waited for something special that would happen(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">101</span><span class="q-text">Describe a time when you saw something in the sky (e.g. flying kites, birds, sunset, etc.)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">102</span><span class="q-text">Describe a time you made a decision to wait for something</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">103</span><span class="q-text">Describe an impressive conversation you had that you remember well</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">104</span><span class="q-text">Describe a time when you and some other people made a plan to do an activity</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">105</span><span class="q-text">Describe a time when you broke something(new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年9-12月</span></li>
+<li class="q-item"><span class="q-num">106</span><span class="q-text">Describe an important thing you learned (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">107</span><span class="q-text">Describe an impressive english lesson you had and enjoyed (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">108</span><span class="q-text">Describe a goal you set that you tried your best to achieve (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">109</span><span class="q-text">Describe a beautiful sky you enjoyed seeing (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">110</span><span class="q-text">Describe a sports event that you would like to attend as part of the audience 22 (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">111</span><span class="q-text">Describe a time when you and some other people made a plan to do an activity 25 (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">112</span><span class="q-text">Describe an impressive conversation you had that you remember well (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">113</span><span class="q-text">Describe a time when you forgot missed an appointment (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">114</span><span class="q-text">Describe a time you made a decision to wait for something (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">115</span><span class="q-text">Describe a difficult thing you did and succeeded (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">116</span><span class="q-text">Describe a time when you saw a lot of plastic waste</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">117</span><span class="q-text">Describe a time when you had to share something with others (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+<li class="q-item"><span class="q-num">118</span><span class="q-text">Describe a time when you needed to search for information (new)</span><span class="badge badge-real">历年</span><span class="q-season">2025年5-8月</span></li>
+</ul>
+</div>
+</div>
+
+<footer class="footer">Tracy's IELTS · Part 2 题库 · 持续更新中</footer>
+
+<script>
+function switchTab(cat, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + cat).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
