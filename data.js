@@ -248,7 +248,7 @@ window.P2_DATA = [
     ],
     "q_num_in_group": 5,
     "title": "Describe a perfect job you would like to have in the future",
-    "drift_warning": "⚠️ 这道题要说“想做但还没做”的工作，不要变成回忆已有的实习/冈职！全程用 I'd love to... / It would be... / I imagine...",
+    "drift_warning": "⚠️ 这道题要说“想做但还没做”的工作，不要变成回忆已有的实习/兼职！全程用 I'd love to... / It would be... / I imagine...",
     "prep_words": [
       "artist",
       "talent"
@@ -1444,7 +1444,7 @@ window.P2_DATA = [
     ],
     "q_num_in_group": 4,
     "title": "Describe a short-term job you want to have in a foreign country",
-    "drift_warning": "⚠️ 双重限定——①短期冈职 ②国外。两个条件都不能丢！不要说成国内经历。",
+    "drift_warning": "⚠️ 双重限定——①短期兼职 ②国外。两个条件都不能丢！不要说成国内经历。",
     "prep_words": [
       "photographer",
       "history"
