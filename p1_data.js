@@ -1865,6 +1865,66 @@ window.P1_DATA = {
       "t3a_basic": "Yes, I really like it. I always have my phone ready when I travel. My favourite things to capture are sunsets, old streets, and small details that most people don't notice. I keep these photos as memories — when I look at them later, I can remember exactly how I felt that day. Sometimes I share them with friends on social media.",
       "t3b_advanced": "Yeah, it's actually one of my favourite things to do. My phone is basically always out when I travel — sunsets, old back streets, weird textures on a wall, anything that catches my eye. I'm not after a perfect Instagram shot; it's more like a personal photo journal. Months later when I scroll back, I can remember not just what the place looked like, but exactly how I felt that day. That's the part I love.",
       "t4_kw": "phone is always out · sunsets and old streets · personal photo journal · how I felt that day"
+    },
+    {
+      "seq": 3,
+      "topic": "Gifts",
+      "topic_zh": "礼物",
+      "cycle": "may_aug_new",
+      "q_en": "Have you ever sent handmade gifts to others?",
+      "technique": "举例",
+      "t2_chunks": "yes, for my best friend's birthday last year · I made her a scrapbook · collected our photos from the past five years · spent three weekends on it · she actually cried when she opened it",
+      "t3a_basic": "Yes, I have. Last year for my best friend's birthday, I made her a scrapbook. I collected all our photos from the past five years and wrote captions for each one. It took me three weekends. When she opened it, she actually cried. It was one of the most meaningful gifts I've ever given.",
+      "t3b_advanced": "Yeah, I have — and the one I always remember is a scrapbook I made for my best friend's birthday last year. I spent a whole afternoon in a stationery shop picking out paper, stickers, and tape, then three weekends sorting through old photos and writing little captions for each one. When she opened it, she actually started crying. Honestly, the feeling you get handing over something you made yourself hits very differently from passing over a shopping bag.",
+      "t4_kw": "scrapbook · five years of photos · three weekends · she actually cried · hits differently"
+    },
+    {
+      "seq": 4,
+      "topic": "Gifts",
+      "topic_zh": "礼物",
+      "cycle": "may_aug_new",
+      "q_en": "What do you consider when choosing a gift?",
+      "technique": "对比",
+      "t2_chunks": "two things mainly · first, what they actually need or like · second, thoughtfulness over price · expensive isn't the same as meaningful · I'd rather spend time than money",
+      "t3a_basic": "I mainly think about two things. First, what the person actually needs or likes — not what I think is cool. Second, I care more about thoughtfulness than price. An expensive gift they don't use is worse than a small personal one. So I always try to listen to what they mention in daily conversations.",
+      "t3b_advanced": "There are really two things I balance. On one hand, the practical side — what they actually need or would use, based on stuff they've casually mentioned in passing. On the other hand, the emotional side — whether the gift feels like it was chosen for them specifically, or whether it could've gone to anyone. For me, thoughtfulness always beats price. An expensive gift sitting in a drawer is way worse than a small personal one they actually keep on their desk.",
+      "t4_kw": "two things I balance · what they actually need · thoughtfulness beats price · stuff they've casually mentioned"
+    },
+    {
+      "seq": 5,
+      "topic": "Gifts",
+      "topic_zh": "礼物",
+      "cycle": "may_aug_new",
+      "q_en": "What gift have you received recently?",
+      "technique": "展望未来",
+      "t2_chunks": "last winter, my mum gave me a knitted scarf · she spent almost two months on it · made me realize how much love goes into handmade gifts · from now on, I want to give more handmade gifts too · less shopping, more time and effort",
+      "t3a_basic": "Last winter, my mum gave me a knitted scarf. She spent almost two months on it after work every night. I was really touched. In the future, I want to give more handmade gifts like she does, because I think they show care in a way that store-bought gifts can't.",
+      "t3b_advanced": "Last winter my mum handed me a knitted scarf — she'd been working on it for almost two months, sneaking in rows after dinner whenever she had free time. Honestly, getting it shifted something for me. Going forward, I'd like to put more of that energy into the gifts I give — not necessarily knitting, but anything where the time and thought are visible. Shopping bags feel a bit hollow after you've held something like that.",
+      "t4_kw": "knitted scarf · two months · shifted something for me · time and thought are visible"
+    },
+    {
+      "seq": 3,
+      "topic": "Views",
+      "topic_zh": "风景",
+      "cycle": "may_aug_new",
+      "q_en": "Do you prefer views in your own country or in other countries?",
+      "technique": "对比",
+      "t2_chunks": "actually my own country · China is huge with all kinds of landscapes · mountains, deserts, coastlines, grasslands · I don't need to go far to see something completely different · foreign trips are nice, but home views feel more personal",
+      "t3a_basic": "I prefer views in my own country. China is so big — we have mountains, deserts, coastlines, and grasslands all in one country. I can see completely different scenery in just a few hours by train. Views abroad can be beautiful too, but the ones in my own country always feel more personal and meaningful to me.",
+      "t3b_advanced": "Honestly, my own country, and this sometimes surprises people. China is just massive — you've got snow-capped mountains, endless deserts, coastlines, grasslands, even tropical forests, all within the same passport. I can hop on a high-speed train in the morning and be in a completely different landscape by dinner. Don't get me wrong, overseas views are stunning too, but there's something about standing in a place and knowing it's part of your own country — it feels more personal, harder to put into words.",
+      "t4_kw": "China is huge · completely different landscape · high-speed train · feels more personal"
+    },
+    {
+      "seq": 4,
+      "topic": "Views",
+      "topic_zh": "风景",
+      "cycle": "may_aug_new",
+      "q_en": "Have you seen an unforgettable and beautiful view or scenery?",
+      "technique": "举例",
+      "t2_chunks": "yes, in Yunnan three years ago · sunrise at Yulong Snow Mountain · woke up at 4 a.m. and hiked up in the dark · the sky went pink, then orange, light hitting the snow · my phone took twenty photos, none of them do it justice",
+      "t3a_basic": "Yes, definitely. Three years ago I visited Yunnan and watched the sunrise at Yulong Snow Mountain. The sky turned pink and orange, and the light reflected off the snow. It was freezing cold, but I didn't care. My phone couldn't capture even half of what I saw. I still remember it clearly — it was the most beautiful scene of my life.",
+      "t3b_advanced": "Yeah — the sunrise at Yulong Snow Mountain in Yunnan, about three years ago. We woke up at 4 a.m., hiked up in the dark, and waited in freezing cold for maybe forty minutes. When the sun finally came over the ridge, the sky went pink, then orange, and the light hit the snow in a way I genuinely cannot describe. My phone took about twenty photos and none of them do it justice. Three years on, I can still close my eyes and see it.",
+      "t4_kw": "Yulong Snow Mountain · 4 a.m. hike · sky went pink then orange · I can still close my eyes and see it"
     }
   ]
 };
