@@ -1817,6 +1817,54 @@ window.P1_DATA = {
       "t3a_basic": "Yes, I do enjoy it. [主体] I am in my late 20s now. I have a stable job and I know what I like and don't like. [客体] This age is a sweet spot. I am old enough to be independent, but still young enough to try new things. So I'm happy with this age.",
       "t3b_advanced": "Yeah, honestly I do. [主体] I'm in my late 20s now, and for the first time I've got a stable job and a clearer idea of who I am. [客体] This age feels like a real sweet spot — I'm old enough to be financially independent, but still young enough to try new things or change direction if I want. So yeah, I'm pretty happy where I am.",
       "t4_kw": "late 20s · stable job · know myself · sweet spot · independent but young"
+    },
+    {
+      "seq": 1,
+      "topic": "Gifts",
+      "topic_zh": "礼物",
+      "cycle": "may_aug_new",
+      "q_en": "Do you think you are good at choosing gifts?",
+      "technique": "主客体",
+      "t2_chunks": "actually pretty good at it · always think about the receiver · pay attention to small details · prefer thoughtful over expensive · they always smile when they open it",
+      "t3a_basic": "Yes, I think I'm pretty good at it. The most important thing is to think about the person, not just the gift itself. I always pay attention to what they like — their hobbies, their style, small things they mention. So when I give a gift, they usually feel surprised, because it shows I really care.",
+      "t3b_advanced": "Honestly, yeah — I'd say I'm decent at it. The trick for me is paying attention before the occasion ever comes up. If a friend casually mentions she's been wanting a certain book, or she's been into a new hobby, I'll just file it away. Then when birthdays roll around, the gift feels personal rather than something pulled from a 'safe gifts' list. People always notice that — and honestly, it costs less mental effort than panic-buying the night before.",
+      "t4_kw": "good at it · think about the person · pay attention to details · feels personal"
+    },
+    {
+      "seq": 2,
+      "topic": "Gifts",
+      "topic_zh": "礼物",
+      "cycle": "may_aug_new",
+      "q_en": "Have you ever received a great gift?",
+      "technique": "举例",
+      "t2_chunks": "yes, from my best friend · for my birthday last year · a hand-drawn portrait of us · she spent two weekends on it · I almost cried when I opened it",
+      "t3a_basic": "Yes, definitely. Last year for my birthday, my best friend gave me a hand-drawn portrait of the two of us. She's not a professional artist, but she spent two whole weekends on it. She also wrote a small note about our memories together. I was so touched that I almost cried — it was the best gift I've ever received.",
+      "t3b_advanced": "Actually, yes — and the one that comes to mind wasn't expensive at all. For my birthday last year, my best friend gave me a hand-drawn portrait of the two of us, with little doodles around the edges of all the inside jokes we have. She spent two weekends on it, even though she'd be the first to tell you she can't really draw. What got me wasn't the artwork itself — it was the time and attention behind it. Honestly, it sits on my desk now, and I see it every single day.",
+      "t4_kw": "best friend · hand-drawn portrait · two weekends · time and attention behind it"
+    },
+    {
+      "seq": 1,
+      "topic": "Views",
+      "topic_zh": "风景",
+      "cycle": "may_aug_new",
+      "q_en": "Do you prefer views in urban areas or rural areas?",
+      "technique": "对比",
+      "t2_chunks": "definitely rural · cities are crowded and noisy · the countryside is peaceful · open fields and a clear sky · helps me reset after a busy week",
+      "t3a_basic": "I prefer rural areas. Cities are exciting, but they can feel very crowded and noisy. In the countryside, everything is more peaceful. You can see open fields, a clear sky, and a lot of green. When I visit my grandparents in the village, I always feel calm and relaxed. It's a great way to escape from busy city life.",
+      "t3b_advanced": "I'd lean towards rural views, honestly. Don't get me wrong — city skylines at night can be stunning, all those lights and the energy. But when I think about views I actually want to sit and look at, it's the open countryside every time. Endless fields, a sky that isn't cut up by skyscrapers, the kind of quiet you only really notice once it's there. After a stressful week in the city, half a day out in the countryside resets me in a way nothing else does.",
+      "t4_kw": "lean towards rural · cities are crowded · open fields · resets me"
+    },
+    {
+      "seq": 2,
+      "topic": "Views",
+      "topic_zh": "风景",
+      "cycle": "may_aug_new",
+      "q_en": "Do you like taking pictures of different views?",
+      "technique": "主客体",
+      "t2_chunks": "yeah, I really enjoy it · phone is always out when I travel · sunsets and old back streets · keep them as a personal photo journal · helps me remember how I felt that day",
+      "t3a_basic": "Yes, I really like it. I always have my phone ready when I travel. My favourite things to capture are sunsets, old streets, and small details that most people don't notice. I keep these photos as memories — when I look at them later, I can remember exactly how I felt that day. Sometimes I share them with friends on social media.",
+      "t3b_advanced": "Yeah, it's actually one of my favourite things to do. My phone is basically always out when I travel — sunsets, old back streets, weird textures on a wall, anything that catches my eye. I'm not after a perfect Instagram shot; it's more like a personal photo journal. Months later when I scroll back, I can remember not just what the place looked like, but exactly how I felt that day. That's the part I love.",
+      "t4_kw": "phone is always out · sunsets and old streets · personal photo journal · how I felt that day"
     }
   ]
 };
