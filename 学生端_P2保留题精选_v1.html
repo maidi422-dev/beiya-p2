@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>北雅国际教育 · 雅思口语 Part 2 · 5-8月保留题精选</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --beiya:#C0392B;--beiya-dark:#9B2C20;--beiya-soft:#FDECEA;
+  --gold:#B8894A;--gold-dark:#8C6632;--gold-soft:#FBF4EA;--gold-bd:#EAD9B8;
+  --ink:#1E1E22;--ink-2:#4A4A52;--ink-3:#8A8A92;
+  --line:#E8E8EC;--bg:#FAFAFA;--white:#FFFFFF;
+  --green:#2E7D32;--green-soft:#E8F5E9;--green-bd:#A5D6A7;
+  --orange:#E8834A;--orange-soft:#FFF3E0;--orange-bd:#FFCC80;
+  --blue:#2E3B6B;--blue-soft:#EDF4FF;--blue-bd:#C9D4EA;
+  --purple:#6B4E9C;--purple-soft:#F3EEFB;--purple-bd:#D8CBEA;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none;cursor:pointer}
+
+/* ─── TOP BAR ─── */
+.topbar{
+  position:sticky;top:0;z-index:40;background:var(--white);
+  border-bottom:1px solid var(--line);
+  padding:14px 24px;display:flex;align-items:center;gap:14px;
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:var(--beiya);white-space:nowrap}
+.brand-mark{width:28px;height:28px;background:var(--beiya);color:#fff;
+  display:flex;align-items:center;justify-content:center;border-radius:4px;
+  font-family:'Noto Serif SC',serif;font-size:14px}
+.part-sw{
+  display:flex;gap:2px;background:#F4F4F6;padding:3px;border-radius:22px;
+  margin-left:4px;flex-shrink:0
+}
+.part-sw a{
+  padding:6px 14px;border-radius:18px;font-size:12.5px;color:var(--ink-3);
+  font-weight:600;transition:all .15s;white-space:nowrap
+}
+.part-sw a:hover:not(.disabled):not(.active){color:var(--beiya)}
+.part-sw a.active{background:var(--beiya);color:#fff;box-shadow:0 2px 6px rgba(192,57,43,.2)}
+.part-sw a.disabled{color:#C5C5CD;cursor:not-allowed;pointer-events:none}
+.nav{display:flex;gap:4px;margin-left:10px;flex:1;flex-wrap:wrap}
+.nav a{padding:7px 14px;border-radius:6px;font-size:13px;color:var(--ink-2);font-weight:500;white-space:nowrap}
+.nav a:hover{background:var(--gold-soft);color:var(--gold-dark)}
+.nav a.active{background:var(--gold);color:#fff}
+
+/* ─── LAYOUT ─── */
+.wrap{max-width:1120px;margin:0 auto;padding:32px 24px 80px}
+
+/* ─── HERO ─── */
+.hero{
+  background:linear-gradient(135deg,#fff 0%,var(--gold-soft) 100%);
+  border:1px solid var(--gold-bd);border-radius:16px;
+  padding:32px 36px;margin-bottom:22px;position:relative;overflow:hidden
+}
+.hero::before{
+  content:'★';position:absolute;top:-20px;right:-10px;font-size:220px;
+  color:var(--gold);opacity:.06;font-family:'Noto Serif SC',serif;line-height:1
+}
+.hero-eyebrow{
+  font-size:12px;letter-spacing:2px;color:var(--gold-dark);font-weight:700;
+  text-transform:uppercase;margin-bottom:10px
+}
+.hero-title{
+  font-family:'Noto Serif SC',serif;font-size:28px;font-weight:700;
+  line-height:1.35;color:var(--ink);margin-bottom:12px;position:relative;z-index:2
+}
+.hero-title em{color:var(--gold-dark);font-style:normal}
+.hero-sub{font-size:14px;color:var(--ink-2);max-width:760px;line-height:1.8;position:relative;z-index:2}
+.hero-sub strong{color:var(--gold-dark)}
+.hero-stats{
+  display:flex;gap:28px;margin-top:20px;padding-top:20px;
+  border-top:1px dashed var(--gold-bd);position:relative;z-index:2;flex-wrap:wrap
+}
+.stat{display:flex;flex-direction:column;gap:2px}
+.stat-num{font-family:'Noto Serif SC',serif;font-size:22px;font-weight:700;color:var(--gold-dark);line-height:1}
+.stat-lbl{font-size:11.5px;color:var(--ink-3);margin-top:3px;letter-spacing:.5px}
+
+/* ─── 倒计时条 ─── */
+.countdown-bar{
+  background:var(--gold);color:#fff;border-radius:10px;padding:12px 18px;
+  margin-bottom:22px;display:flex;align-items:center;gap:14px;
+  box-shadow:0 2px 10px rgba(184,137,74,.22);flex-wrap:wrap
+}
+.cd-icon{font-size:22px}
+.cd-text{font-size:13.5px;line-height:1.6;font-weight:500;flex:1;min-width:220px}
+.cd-text strong{font-weight:700;font-size:15px;margin:0 2px}
+.cd-hint{font-size:12px;opacity:.92;border-left:1px solid rgba(255,255,255,.4);padding-left:14px;margin-left:4px}
+
+/* ─── 故事筛选 ─── */
+.filter-bar{
+  display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;align-items:center
+}
+.filter-lbl{font-size:12.5px;color:var(--ink-3);font-weight:500;margin-right:4px}
+.fpill{
+  padding:7px 14px;border-radius:16px;font-size:12.5px;font-weight:600;
+  color:var(--ink-2);background:#fff;border:1px solid var(--line);cursor:pointer;
+  transition:all .15s;display:inline-flex;align-items:center;gap:5px
+}
+.fpill:hover{border-color:var(--gold);color:var(--gold-dark)}
+.fpill.active{background:var(--gold);color:#fff;border-color:var(--gold);box-shadow:0 2px 6px rgba(184,137,74,.25)}
+.fpill .c{font-size:11px;background:rgba(0,0,0,.08);padding:1px 7px;border-radius:10px;font-weight:700}
+.fpill.active .c{background:rgba(255,255,255,.22)}
+
+/* ─── 导航锚点条 ─── */
+.toc{
+  background:var(--white);border:1px solid var(--line);border-radius:12px;
+  padding:14px 18px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap;align-items:center
+}
+.toc-lbl{font-size:12.5px;color:var(--ink-3);font-weight:500;margin-right:4px}
+.toc a{
+  padding:5px 11px;border-radius:14px;font-size:12px;font-weight:600;
+  color:var(--ink-2);background:#F4F4F6;transition:all .15s
+}
+.toc a:hover{background:var(--gold-soft);color:var(--gold-dark)}
+
+/* ─── 故事分组卡 ─── */
+.story-group{
+  background:var(--white);border:1px solid var(--line);border-radius:14px;
+  padding:22px 26px;margin-bottom:18px;scroll-margin-top:80px
+}
+.story-group.hidden{display:none}
+.sg-head{
+  display:flex;align-items:center;gap:10px;padding-bottom:14px;margin-bottom:16px;
+  border-bottom:2px solid var(--ink);flex-wrap:wrap
+}
+.sg-emoji{font-size:28px}
+.sg-name{font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--ink)}
+.sg-name-en{font-size:13px;color:var(--ink-3);font-weight:500;margin-left:6px}
+.sg-count{margin-left:auto;font-size:12px;color:var(--ink-3)}
+.sg-link{font-size:12px;color:var(--gold);font-weight:600;margin-left:8px}
+.sg-link:hover{text-decoration:underline}
+
+/* ─── 题卡 ─── */
+.q-card{
+  background:#FAFAFA;border:1px solid var(--line);border-radius:12px;
+  padding:18px 22px;margin-bottom:14px;transition:all .2s
+}
+.q-card:last-child{margin-bottom:0}
+.q-card:hover{border-color:var(--gold-bd);box-shadow:0 2px 8px rgba(184,137,74,.08)}
+.qc-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.qc-gid{
+  font-family:'Noto Serif SC',serif;font-size:11px;font-weight:700;
+  color:var(--ink-3);letter-spacing:1px;background:#F4F4F6;padding:2px 8px;border-radius:6px
+}
+.cycle-badge{
+  display:inline-flex;align-items:center;gap:3px;
+  font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;letter-spacing:.3px
+}
+.cyc-retained{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold-bd)}
+.cyc-new{background:var(--green-soft);color:var(--green);border:1px solid var(--green-bd)}
+.qc-cat{font-size:11px;color:var(--ink-3);margin-left:auto}
+.qc-title{
+  font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;
+  color:var(--ink);margin-bottom:12px;line-height:1.5
+}
+.qc-title-cn{font-size:13px;color:var(--ink-3);font-weight:400;margin-left:8px}
+
+/* prep words */
+.prep-words{
+  display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px
+}
+.pw{
+  font-size:12px;font-weight:600;padding:3px 10px;border-radius:8px;
+  background:linear-gradient(135deg,#FFF8E7,#FDF0D5);color:#8B6914;border:1px solid #EAD9B8
+}
+
+/* S1-S4 tiers */
+.tier-tabs{display:flex;gap:4px;margin-bottom:10px;flex-wrap:wrap}
+.tier-tab{
+  padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;
+  cursor:pointer;transition:all .15s;border:1px solid var(--line);background:#fff;color:var(--ink-2)
+}
+.tier-tab:hover{border-color:var(--gold);color:var(--gold-dark)}
+.tier-tab.active{background:var(--gold);color:#fff;border-color:var(--gold)}
+.tier-content{display:none;padding:12px 16px;border-radius:10px;font-size:13.5px;line-height:1.8;color:var(--ink)}
+.tier-content.active{display:block}
+.tier-content.s1{background:#FDF8F0;border:1px solid #EEDEBE}
+.tier-content.s2{background:#F0F7FF;border:1px solid var(--blue-bd)}
+.tier-content.s3{background:var(--purple-soft);border:1px solid var(--purple-bd)}
+.tier-content.s4{background:var(--green-soft);border:1px solid var(--green-bd)}
+
+/* ─── Legend ─── */
+.legend{
+  background:var(--white);border:1px solid var(--line);border-radius:12px;
+  padding:14px 18px;margin-bottom:22px;font-size:13px;color:var(--ink-2);line-height:1.8
+}
+.legend strong{color:var(--gold-dark)}
+
+/* ─── 底部 ─── */
+.footnav{
+  margin-top:36px;padding-top:20px;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;justify-content:center
+}
+.footnav a{
+  padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;
+  background:#fff;border:1px solid var(--line);color:var(--ink-2);transition:all .15s
+}
+.footnav a:hover{border-color:var(--beiya);color:var(--beiya);background:var(--beiya-soft)}
+.footnav a.gold{border-color:var(--gold-bd);color:var(--gold-dark)}
+.footnav a.gold:hover{background:var(--gold-soft)}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:760px){
+  .topbar{padding:10px 12px;gap:8px;flex-wrap:wrap}
+  .brand{font-size:13px}
+  .brand-mark{width:24px;height:24px;font-size:12px}
+  .nav{flex:1 1 100%;order:3;overflow-x:auto;scrollbar-width:none;gap:0;padding:4px 0;border-top:1px solid var(--line);margin:8px 0 0}
+  .nav::-webkit-scrollbar{display:none}
+  .nav a{padding:6px 10px;font-size:12px;flex-shrink:0}
+  .part-sw{order:2}
+  .part-sw a{padding:5px 10px;font-size:11.5px}
+  .wrap{padding:20px 14px 60px}
+  .hero{padding:22px 20px}
+  .hero-title{font-size:22px}
+  .story-group{padding:18px 18px}
+  .q-card{padding:14px 16px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><div class="brand-mark">雅</div>北雅 · IELTS Speaking</div>
+  <div class="part-sw">
+    <a href="学生端_P1必考题_v1.html">Part 1</a>
+    <a class="active" href="学生端_素材宇宙首页_v1.html">Part 2</a>
+    <a href="学生端_P3首页_v1.html">Part 3</a>
+  </div>
+  <div class="nav">
+    <a href="学生端_素材宇宙首页_v1.html">🌌 素材宇宙</a>
+    <a class="active" href="学生端_P2保留题精选_v1.html">💎 保留题精选</a>
+    <a href="学生端_P1保留题精选_v1.html">💎 P1 保留题</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="hero-eyebrow">PART 2 · 5-8月保留题精选 · 跨季不换</div>
+    <h1 class="hero-title">距换题还有 <em id="cd-days">—</em> 天 · <em id="h-retained">23</em> 道保留 + <em id="h-new">2</em> 道新题</h1>
+    <p class="hero-sub">
+      <strong>"保留题"</strong>是跨越 Jan-Apr → May-Aug 换季、<strong>题目原样保留</strong>的 P2 话题。
+      这批题的复习性价比<strong>最高</strong>——5 月能用，8 月也能用。每道题都配有 Tracy 的 <strong>S1-S4 四档提纲</strong>（从关键词到完整叙述），
+      按你水平挑一档练。故事素材来自<strong>素材宇宙</strong>的 7 个故事世界。
+    </p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num" id="s-retained">23</div><div class="stat-lbl">保留题</div></div>
+      <div class="stat"><div class="stat-num" id="s-new">2</div><div class="stat-lbl">5-8月新题</div></div>
+      <div class="stat"><div class="stat-num" id="s-groups">7</div><div class="stat-lbl">故事世界</div></div>
+      <div class="stat"><div class="stat-num">4</div><div class="stat-lbl">S1-S4 档位</div></div>
+      <div class="stat"><div class="stat-num">★</div><div class="stat-lbl">跨季保留</div></div>
+    </div>
+  </section>
+
+  <div class="countdown-bar" id="cdbar">
+    <span class="cd-icon">⏳</span>
+    <div class="cd-text">
+      <strong id="cd-days-2">—</strong>天后雅思口语进入 <strong>5–8 月新题季</strong>，本季 <strong>30 道限定题</strong>将被替换 —— 这 25 道<strong>不会换</strong>。
+    </div>
+    <div class="cd-hint">目标日：2026-05-01</div>
+  </div>
+
+  <div class="legend">
+    <strong>S1-S4 四档提纲说明：</strong>
+    <strong>S1</strong> = 最精简关键词提纲（考前 30 秒扫一眼）·
+    <strong>S2</strong> = 关键短语 + 衔接（band 5-6 学生首选）·
+    <strong>S3</strong> = 完整句子框架（band 6-7 目标）·
+    <strong>S4</strong> = 详细叙述版（高分样本参考）
+  </div>
+
+  <!-- 故事筛选 -->
+  <div class="filter-bar" id="filterBar">
+    <span class="filter-lbl">按故事筛选：</span>
+  </div>
+
+  <!-- 导航锚点 -->
+  <nav class="toc" id="toc">
+    <span class="toc-lbl">跳到故事：</span>
+  </nav>
+
+  <div id="groups"></div>
+
+  <div class="footnav">
+    <a href="学生端_素材宇宙首页_v1.html">← 返回素材宇宙</a>
+    <a class="gold" href="学生端_P1保留题精选_v1.html">💎 P1 保留题精选 →</a>
+  </div>
+
+</div>
+
+<script src="data.js"></script>
+<script src="tiers.js"></script>
+<script>
+(function(){
+  /* ─── Auth ─── */
+  try{if(localStorage.getItem('beiya_authed')!=='1')location.href='学生端_登录_v1.html';}catch(e){}
+
+  /* ─── NPC ─── */
+  var gender = localStorage.getItem('beiya_gender') || 'female';
+  var NPC = {female:{name:'Lucy',emoji:'👩'},male:{name:'Mark',emoji:'👨'}};
+
+  /* ─── Data ─── */
+  var data = (window.P2_DATA||[]).filter(function(t){
+    return t.cycle==='retained' || t.cycle==='may_aug_new';
+  });
+  data.sort(function(a,b){
+    var order = ['Creative Cooking','Scenery','Technology','Arts','Sports','Movies','Weight Loss'];
+    var ai = order.indexOf(a.group), bi = order.indexOf(b.group);
+    if(ai!==bi) return ai-bi;
+    return a.global_id - b.global_id;
+  });
+
+  var TIERS = window.P2_TIERS || {};
+
+  /* ─── Story metadata ─── */
+  var STORY_META = {
+    'Creative Cooking':{emoji:'🍳',cn:'创意料理',file:'学生端_故事页_CreativeCooking_v2.html'},
+    'Scenery':{emoji:'🏞',cn:'风景',file:'学生端_故事页_Scenery_v1.html'},
+    'Technology':{emoji:'💻',cn:'科技数码',file:'学生端_故事页_Technology_v1.html'},
+    'Arts':{emoji:'🎨',cn:'艺术音乐',file:'学生端_故事页_Arts_v1.html'},
+    'Sports':{emoji:'🏐',cn:'运动',file:'学生端_故事页_Sports_v1.html'},
+    'Movies':{emoji:'🎬',cn:'电影',file:'学生端_故事页_Movies_v1.html'},
+    'Weight Loss':{emoji:'🥗',cn:'减脂营养',file:'学生端_故事页_WeightLoss_v1.html'}
+  };
+
+  var CATEGORY_MAP = {
+    '人物':'👤 人物','物品':'📦 物品','事件':'🎬 事件','地点':'📍 地点'
+  };
+
+  /* ─── Countdown ─── */
+  var target = new Date('2026-05-01T00:00:00+08:00');
+  var now = new Date();
+  var days = Math.ceil((target-now)/86400000);
+  ['cd-days','cd-days-2'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.textContent = days>0 ? days : '0';
+  });
+  if(days<=0){
+    var bar = document.getElementById('cdbar');
+    if(bar){
+      bar.style.background = 'var(--green)';
+      bar.querySelector('.cd-text').innerHTML = '<strong>5-8 月新题季已开始！</strong>这 25 道保留题继续有效，放心练。';
+    }
+  }
+
+  /* ─── Group data ─── */
+  var grouped = {};
+  var groupOrder = [];
+  data.forEach(function(t){
+    if(!grouped[t.group]){
+      grouped[t.group] = [];
+      groupOrder.push(t.group);
+    }
+    grouped[t.group].push(t);
+  });
+
+  /* ─── Update hero stats ─── */
+  var retainedCount = data.filter(function(t){return t.cycle==='retained';}).length;
+  var newCount = data.filter(function(t){return t.cycle==='may_aug_new';}).length;
+  document.getElementById('h-retained').textContent = retainedCount;
+  document.getElementById('h-new').textContent = newCount;
+  document.getElementById('s-retained').textContent = retainedCount;
+  document.getElementById('s-new').textContent = newCount;
+  document.getElementById('s-groups').textContent = groupOrder.length;
+
+  /* ─── Build filter pills ─── */
+  var filterBar = document.getElementById('filterBar');
+  var allPill = document.createElement('a');
+  allPill.className = 'fpill active';
+  allPill.dataset.group = 'all';
+  allPill.innerHTML = '全部 <span class="c">' + data.length + '</span>';
+  filterBar.appendChild(allPill);
+
+  groupOrder.forEach(function(g){
+    var meta = STORY_META[g]||{emoji:'📁',cn:g};
+    var pill = document.createElement('a');
+    pill.className = 'fpill';
+    pill.dataset.group = g;
+    pill.innerHTML = meta.emoji + ' ' + meta.cn + ' <span class="c">' + grouped[g].length + '</span>';
+    filterBar.appendChild(pill);
+  });
+
+  /* ─── Build TOC ─── */
+  var toc = document.getElementById('toc');
+  groupOrder.forEach(function(g){
+    var meta = STORY_META[g]||{emoji:'📁',cn:g};
+    var a = document.createElement('a');
+    a.href = '#sg-' + g.replace(/\s/g,'_');
+    a.innerHTML = meta.emoji + ' ' + meta.cn;
+    toc.appendChild(a);
+  });
+
+  /* ─── Render groups ─── */
+  var container = document.getElementById('groups');
+
+  groupOrder.forEach(function(g){
+    var meta = STORY_META[g]||{emoji:'📁',cn:g,file:'#'};
+    var topics = grouped[g];
+    var retInGroup = topics.filter(function(t){return t.cycle==='retained';}).length;
+    var newInGroup = topics.filter(function(t){return t.cycle==='may_aug_new';}).length;
+
+    var section = document.createElement('section');
+    section.className = 'story-group';
+    section.id = 'sg-' + g.replace(/\s/g,'_');
+    section.dataset.group = g;
+
+    var headHTML = '<div class="sg-head">';
+    headHTML += '<span class="sg-emoji">' + meta.emoji + '</span>';
+    headHTML += '<span class="sg-name">' + g + '<span class="sg-name-en">· ' + meta.cn + '</span></span>';
+    headHTML += '<span class="sg-count">★ ' + retInGroup + ' 保留';
+    if(newInGroup>0) headHTML += ' + ' + newInGroup + ' 新题';
+    headHTML += '</span>';
+    headHTML += '<a class="sg-link" href="' + meta.file + '">进入完整故事 →</a>';
+    headHTML += '</div>';
+
+    var cardsHTML = '';
+    topics.forEach(function(t, idx){
+      var gid = t.global_id;
+      var cycleClass = t.cycle==='retained' ? 'cyc-retained' : 'cyc-new';
+      var cycleText = t.cycle==='retained' ? '★ 保留' : '🆕 新题';
+      var cat = CATEGORY_MAP[t.category]||t.category||'';
+
+      cardsHTML += '<div class="q-card">';
+      cardsHTML += '<div class="qc-head">';
+      cardsHTML += '<span class="qc-gid">GID #' + gid + '</span>';
+      cardsHTML += '<span class="cycle-badge ' + cycleClass + '">' + cycleText + '</span>';
+      if(cat) cardsHTML += '<span class="qc-cat">' + cat + '</span>';
+      cardsHTML += '</div>';
+
+      cardsHTML += '<div class="qc-title">' + t.title + '</div>';
+
+      // Prep words
+      var pw = t.prep_words || [];
+      if(pw.length > 0){
+        cardsHTML += '<div class="prep-words">';
+        pw.forEach(function(w){
+          cardsHTML += '<span class="pw">' + w + '</span>';
+        });
+        cardsHTML += '</div>';
+      }
+
+      // S1-S4 tiers
+      var s1 = t.S1||[], s2 = t.S2||[], s3 = t.S3||[], s4 = t.S4||[];
+      var hasTiers = s1.length>0 || s2.length>0 || s3.length>0 || s4.length>0;
+
+      if(hasTiers){
+        var uid = 'tier-' + gid;
+        cardsHTML += '<div class="tier-tabs">';
+        if(s1.length) cardsHTML += '<span class="tier-tab active" onclick="switchTier(this,\'' + uid + '\',\'s1\')">S1 关键词</span>';
+        if(s2.length) cardsHTML += '<span class="tier-tab" onclick="switchTier(this,\'' + uid + '\',\'s2\')">S2 短语</span>';
+        if(s3.length) cardsHTML += '<span class="tier-tab" onclick="switchTier(this,\'' + uid + '\',\'s3\')">S3 句子</span>';
+        if(s4.length) cardsHTML += '<span class="tier-tab" onclick="switchTier(this,\'' + uid + '\',\'s4\')">S4 详述</span>';
+        cardsHTML += '</div>';
+
+        var formatTier = function(arr){
+          return arr.map(function(line,i){
+            return '<div style="margin-bottom:4px">' + (i>0?'':'') + line + '</div>';
+          }).join('');
+        };
+
+        if(s1.length) cardsHTML += '<div class="tier-content s1 active" data-tier-group="' + uid + '" data-tier="s1">' + formatTier(s1) + '</div>';
+        if(s2.length) cardsHTML += '<div class="tier-content s2" data-tier-group="' + uid + '" data-tier="s2">' + formatTier(s2) + '</div>';
+        if(s3.length) cardsHTML += '<div class="tier-content s3" data-tier-group="' + uid + '" data-tier="s3">' + formatTier(s3) + '</div>';
+        if(s4.length) cardsHTML += '<div class="tier-content s4" data-tier-group="' + uid + '" data-tier="s4">' + formatTier(s4) + '</div>';
+      }
+
+      cardsHTML += '</div>';
+    });
+
+    section.innerHTML = headHTML + cardsHTML;
+    container.appendChild(section);
+  });
+
+  /* ─── NPC swap ─── */
+  var n = NPC[gender] || NPC.female;
+  container.innerHTML = container.innerHTML
+    .replace(/\bLucy\b/g, n.name)
+    .replace(/\bMark\b/g, gender==='male'?n.name:'Mark');
+
+  /* ─── Tier switching ─── */
+  window.switchTier = function(tab, group, tier){
+    // Deactivate all tabs in same card
+    var card = tab.closest('.q-card');
+    card.querySelectorAll('.tier-tab').forEach(function(t){t.classList.remove('active');});
+    tab.classList.add('active');
+    card.querySelectorAll('.tier-content[data-tier-group="'+group+'"]').forEach(function(c){
+      c.classList.toggle('active', c.dataset.tier===tier);
+    });
+  };
+
+  /* ─── Filter by story ─── */
+  filterBar.querySelectorAll('.fpill').forEach(function(pill){
+    pill.addEventListener('click', function(){
+      filterBar.querySelectorAll('.fpill').forEach(function(p){p.classList.remove('active');});
+      pill.classList.add('active');
+      var g = pill.dataset.group;
+      document.querySelectorAll('.story-group').forEach(function(sg){
+        if(g==='all'){
+          sg.classList.remove('hidden');
+        } else {
+          sg.classList.toggle('hidden', sg.dataset.group !== g);
+        }
+      });
+    });
+  });
+
+})();
+</script>
+</body>
+</html>

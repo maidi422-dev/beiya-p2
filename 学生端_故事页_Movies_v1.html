@@ -360,6 +360,12 @@
 
   /* drift_warning banner */
   .drift-banner{background:#FFF3E0;border:1.5px solid #FF9800;border-radius:8px;padding:7px 12px;font-size:12px;color:#BF360C;font-weight:500;line-height:1.55;margin-bottom:8px;display:flex;gap:6px;align-items:flex-start}
+
+/* ─── Cycle 保留/限定 徽章 ─── */
+.cycle-badge{display:inline-flex;align-items:center;gap:3px;font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap;line-height:1.4}
+.cycle-badge.cyc-retained{background:linear-gradient(135deg,#FFF8E7,#FDF0D5);color:#8B6914;border:1px solid #EAD9B8}
+.cycle-badge.cyc-expiring{background:linear-gradient(135deg,#FFF3E0,#FFE0B2);color:#E65100;border:1px solid #FFCC80}
+.cycle-badge.cyc-new{background:linear-gradient(135deg,#E8F5E9,#C8E6C9);color:#2E7D32;border:1px solid #A5D6A7}
 </style>
 </head>
 <body>
@@ -545,6 +551,37 @@
     ).join('');
     document.getElementById('jumpMini').innerHTML = html;
   }
+</script>
+
+<script>
+/* ─── Cycle 徽章注入（5-8月保留题 / 本季限定 / 新题）─── */
+(function(){
+  var CYCLE_MAP = {
+    'retained':    {cls:'cyc-retained', text:'★ 保留'},
+    'jan_apr_only':{cls:'cyc-expiring', text:'⏳ 限定'},
+    'may_aug_new': {cls:'cyc-new',      text:'🆕 新题'}
+  };
+  var storyName = 'Movies';
+  document.querySelectorAll('.q-card[data-q]').forEach(function(card){
+    var qNum = parseInt(card.dataset.q);
+    var topic = (window.P2_DATA||[]).find(function(t){
+      return t.group === storyName && t.q_num_in_group === qNum;
+    });
+    if(topic && topic.cycle && CYCLE_MAP[topic.cycle]){
+      var info = CYCLE_MAP[topic.cycle];
+      var badge = document.createElement('span');
+      badge.className = 'cycle-badge ' + info.cls;
+      badge.textContent = info.text;
+      var head = card.querySelector('.qc-head');
+      if(head){
+        // Insert before status icons
+        var status = head.querySelector('.qc-status');
+        if(status) head.insertBefore(badge, status);
+        else head.appendChild(badge);
+      }
+    }
+  });
+})();
 </script>
 </body>
 </html>
